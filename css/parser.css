@@ -1,0 +1,97 @@
+.container {
+  margin: 10px;
+  width: auto;
+  height: auto;
+}
+
+.tabs {
+  display:inline-block;
+  width:70%;
+  height:auto;
+  vertical-align:top;
+  margin: 0 0 0 20;
+}
+
+.dataForm {
+  display:inline-block;
+  width:100%;
+  height:800px;
+  overflow:scroll;
+  border:1px solid #cccccc;
+  vertical-align:top;
+  margin:0;
+  border-radius:5px;
+}
+
+.lineDiv {
+  width:100%;
+  white-space: nowrap;
+}
+
+.lineNumber {
+  width:auto;
+  height:14px;
+  border-bottom:1px solid black;
+  border-left:1px solid black;
+  padding:5px;
+  background-color:#fdbe40
+}
+
+.description {
+  width:250px;
+  height:27px;
+  display:inline-block;
+  margin:0 0 0 -4;
+  padding:3 5 5 5;
+  border-bottom:1px solid black;
+  background-color:#dadada
+}
+
+.lineData {
+  width:auto;
+  height:14px;
+  margin:5 0 0 -4;
+  padding:5px;
+}
+
+.transCode {
+  width:auto;
+  height:14px;
+  margin:5 0 0 -4;
+  padding:5px;
+  background-color:#8eca62
+}
+
+.transCodeRule {
+  width:auto;
+  height:14px;
+  margin:5 0 0 -4;
+  padding:5px;
+  background-color:#2ed1fa
+}
+
+.transCodeEditor {
+  width:100%;
+  height:800px;
+  padding: 10px;
+  border:1px solid #cccccc;
+  border-radius:5px;
+  overflow: scroll;
+}
+
+.td {
+  padding: 1px;
+  font-size: 14px;
+  /*max-width: 150px;*/
+  word-wrap: break-word;
+}
+
+.td > input {
+  width:100%;
+  font-size: 14px;
+}
+
+.RuleID:hover {
+  background-color: #f6a229;
+  cursor: pointer;
+}
