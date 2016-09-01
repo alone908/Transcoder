@@ -24,7 +24,7 @@ $('.start').click(function(){
 
  $.ajax({
    type: 'POST',
-   url: "record.php",
+   url: "insertRecord.php",
    data: datapost,
    dataType: "json",
    success: function (data) {
@@ -40,6 +40,71 @@ $('.clear').click(function(){
   $('.datalog').val('');
   $('.dataText').val('');
 })
+
+$('.record').click(function(){
+
+ $.ajax({
+   type: 'POST',
+   url: "getRecord.php",
+   dataType: "json",
+   success: function (data) {
+
+     data.Records.forEach(function(record,index){
+       var num = index+1;
+
+       $('.recordTable').append('<tr>\
+                                   <td>'+num+'</td>\
+                                   <td>'+record.SourceData+'</td>\
+                                   <td>'+record.TimeStamp+'</td>\
+                                   <td><button type="button" class="btn btn-primary record'+num+'" data-recordid="'+record.id+'">LOAD</button></td>\
+                                 <tr>')
+
+     })
+
+     for(var i=1;i<=50;i++){
+       $('.record'+i).click(function(){
+         getSingleRecord($(this).data('recordid'));
+         $('#myModal').modal('hide');
+         $('.recordTable').html('<tr>\
+                                   <th>#</th>\
+                                   <th>SourceData</th>\
+                                   <th>TimeStamp</th>\
+                                   <th>LOAD</th>\
+                                 <tr>')
+       })
+     }
+
+   }
+ });
+
+})
+
+function getSingleRecord(recordid){
+
+ $.ajax({
+   type: 'POST',
+   url: "getSingleRecord.php",
+   data: {recordid:recordid},
+   dataType: "json",
+   success: function (data) {
+
+     $('.originalDATA').val('');
+     $('.originalDATA').val(data.Record.SourceData);
+     $('.dataForm').html('');
+     $('.datalog').val('');
+     $('.dataText').val('');
+
+     var sortData = newTextData(data.Record.SourceData);
+     var data = newFormData(sortData);
+
+     $('.dataForm').append(data.lineHtml);
+     $('.dataText').val(data.lineText);
+     $('.datalog').val(data.lineLog);
+
+   }
+ });
+
+}
 
 function newTextData(originalDATA){
 

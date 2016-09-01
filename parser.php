@@ -22,6 +22,8 @@
 
   <div class="container">
 
+		<?php	require_once 'parserModal.php';	?>
+
 		<h1 style="display:inline-block">陳嘟嘟作弊神器</h1>
 
 		<button type="button" class="btn btn-info start" style="vertical-align:6px;">Start</button>
@@ -39,6 +41,10 @@
     </div>
 
     <button type="button" class="btn btn-info clear" style="vertical-align:6px;">Clear</button>
+
+		<button type="button" class="btn btn-info record" style="vertical-align:6px;" data-toggle="modal" data-target="#myModal">
+		  Load Record
+		</button>
 
 		<br>
 

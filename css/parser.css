@@ -83,7 +83,7 @@
   padding: 1px;
   font-size: 14px;
   /*max-width: 150px;*/
-  
+
 }
 
 .td > input {
@@ -94,4 +94,12 @@
 .RuleID:hover {
   background-color: #f6a229;
   cursor: pointer;
+}
+
+.transcodeRecord {
+  margin-top: 10px;
+  height: 500px;
+  border:1px solid #cccccc;
+  border-radius:5px;
+  overflow: auto;
 }
