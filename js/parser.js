@@ -247,10 +247,11 @@ $('.RuleID').editable({
   emptytext:null,
   placement:'top',
   container:'body',
-  tpl:''
 })
 
 $('.RuleID').on('shown',function(e, params){
+
+  $('.editable-input > input').css('display','none');
 
   $('.editable-buttons').prepend('\
   <button class="btn btn-default btn-sm btn-minus">\
@@ -263,7 +264,7 @@ $('.RuleID').on('shown',function(e, params){
   </button>');
 
   $('.btn-minus').on('click',function(){
-    updateRule('delete',e.target.dataset.ruleid,getRuleData(e.target.dataset.ruleid))
+    updateRule('minus',e.target.dataset.ruleid,getRuleData(e.target.dataset.ruleid))
   })
 
   $('.btn-plus').on('click',function(){
@@ -279,111 +280,24 @@ $('.RuleID').on('shown',function(e, params){
 function getRuleData(ruleid){
   var data = {};
   $('.rule'+ruleid).each(function(){
-    data[$(this).data('type')] = $(this).val();
+    if($(this).data('type') !== 'Section') data[$(this).data('type')] = $(this).val();
+    if($(this).data('type') === 'Section') data.Section = $(this).html();
   })
   return data;
 }
 
 function updateRule(op,ruleid,data){
-  console.log(op);
-  console.log(ruleid);
-  console.log(data);
+
+ $.ajax({
+   type: 'POST',
+   url: "updateRule.php",
+   data: {op:op,ruleid:ruleid,data:data},
+   dataType: "json",
+   success: function (data) {
+     window.location = 'parser.php?tab=rule';
+   }
+ });
+
 }
 
 })
-
-/*
-var string = '\
-var TranscodeRule = {\n\
-  DataHead:{\n';
-
-for(var index in EnContent){
-
-  if(EnContent[index] === 'GAP'){
-    string += '},\nDataBody{\n' ;
-  }
-
-  if( EnContent[index] !== 'GAP' && EnContent[index] !== '=====' ){
-
-  string += '    '+EnContent[index]+':{\n\
-      Content:\''+EnContent[index]+'\',\n\
-      Exp:\''+Content[index]+'\',\n\
-      length:'+lengthRule[index]+',\n\
-      dataCoding:\''+datacoding[index]+'\',\n\
-      LSB:\''+lsb[index]+'\',\n\
-      UnixTime:false\n\
-    },\n';
-  }
-}
-string += '  }"\n"}';
-
-
-//transcode span
-if($('.check10').prop('checked')){
-  if(lsb){
-    if(dataCoding === 'bin'){
-      if(lineNumber !== 23 && lineNumber !== 44){
-
-        lineHtml +='<span class="decimalDATA">'+parseInt(twoNumArray.reverse().join(''),16)+'</span>';
-        lineText += parseInt(twoNumArray.reverse().join(''),16)+' ';
-
-      }else if (lineNumber === 23 || lineNumber === 44) {
-
-        var d = new Date( parseInt(twoNumArray.reverse().join(''),16)*1000 );
-        var time = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
-                   d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-
-        lineHtml +='<span class="decimalDATA">'+time+'</span>';
-        lineText += time+' ';
-
-      }
-
-    }else if (dataCoding === 'an') {
-
-      sourceData = sourceData.split('').reverse().join('');
-      var newline = '';
-      sourceData.split('').forEach(function(value,index){
-        if(index%2 === 1){
-          newline += value;
-        }
-      })
-
-      lineHtml +='<span class="decimalDATA">'+newline+'</span>';
-      lineText += newline+' ';
-
-    }
-  }else if (!lsb) {
-    if(dataCoding === 'bin'){
-
-      if(lineNumber !== 61 && lineNumber !== 73 &&
-         lineNumber !== 74 && lineNumber !== 75){
-
-        lineHtml +='<span class="decimalDATA">'+parseInt(sourceData,16)+'</span>';
-        lineText += parseInt(sourceData,16)+' ';
-
-      }else if (lineNumber === 61 || lineNumber === 73 ||
-                lineNumber === 74 || lineNumber === 75) {
-
-        var d = new Date( parseInt(twoNumArray.reverse().join(''),16)*1000 );
-        var time = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
-                   d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-
-        lineHtml +='<span class="decimalDATA">'+time+'</span>';
-        lineText += time+' ';
-
-      }
-    }else if (dataCoding === 'an') {
-
-      var newline = '';
-      sourceData.split('').forEach(function(value,index){
-        if(index%2 === 1){
-          newline += value;
-        }
-      })
-      lineHtml +='<span class="decimalDATA">'+newline+'</span>';
-      lineText += newline+' ';
-    }
-  }
-}
-
-*/

@@ -16,6 +16,7 @@
 <body>
 
 	<?php	require_once 'TranscodeRule.php';	?>
+	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
 
 	<script>var TranscodeRule = <?php echo $transcodeRuleJSON; ?></script>
 
@@ -58,36 +59,38 @@
       <!-- Tab panes -->
       <div class="tab-content">
 
-				<div role="tabpanel" id="form" class="tab-pane active" style="margin:10 0 0 0;">
+				<div role="tabpanel" id="form" class="tab-pane <?php if($_GET['tab'] === 'form') echo 'active'; ?>" style="margin:10 0 0 0;">
 					<div class = "dataForm">
 					</div>
 				</div>
 
-        <div role="tabpanel" class="tab-pane" id="text" style="margin:10 0 0 0;">
+        <div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'text') echo 'active'; ?>" id="text" style="margin:10 0 0 0;">
 					<textarea type="text" class="form-control dataText" style="width:100%;height:800px;">
 					</textarea>
 				</div>
 
-				<div role="tabpanel" class="tab-pane" id="ruleEditor" style="margin:10 0 0 0;">
+				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'rule') echo 'active'; ?>" id="ruleEditor" style="margin:10 0 0 0;">
 					<div class = "transCodeEditor">
 						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>
-						<h5 style="color:red;">(i)編輯規則將影響轉碼結果，請小心使用.</h5>
+						<h5 style="color:red;">(i)修改規則將影響轉碼結果，請小心使用.</h5>
 						<h5 style="color:red;">(ii)順序會有影響，(LSB,Decimal) 和 (Decimal,LSB) 會產生不同結果.</h5>
 						<h5 style="color:red;">(iii)不同規則請以逗點隔開，ex (LSB,Decimal) 或 (AN,Decimal,UnixTime).</h5>
 						<h5 style="color:red;">(iv)支援規則有 : AN,LSB,Decimal,UnixTime.</h5>
+						<h5 style="color:red;">(v)點選規則號碼，選新增,刪除,或修改.</h5>
 						<div class="rules">
 
 							<table class="table table-hover">
 								<tr>
 									<th>#</th>
 									<th>Section</th>
-									<th>Content</th>
-									<th>Exp</th>
-									<th>Length</th>
-									<th>DataCoding</th>
-									<th>LSB</th>
-									<th>UnixTime</th>
-									<th>Rule</th>
+									<th style="width:200px;">Content</th>
+									<th style="width:200px;">Exp</th>
+									<th style="width:60px;">Length</th>
+									<th style="width:100px;">DataCoding</th>
+									<th style="width:80px;">LSB</th>
+									<th style="width:80px;">UnixTime</th>
+									<th style="width:180px;">Rule</th>
+									<th style="width:135px;">CreateTime</th>
 								</tr>
 								<?php
 								$sql = "select * from TransCodeRule order by RuleID";
@@ -102,14 +105,15 @@
 
 												 echo '<tr>
 												 <td class="td RuleID" data-ruleid="'.$row['RuleID'].'">'.(integer) $row['RuleID'].'</td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Section'].'" style="width:75px;" data-type="Section"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Content'].'" data-type="Content"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Exp'].'" data-type="Exp"></input></td>
+												 <td class="td rule'.$row['RuleID'].'" data-type="Section">'.$row['Section'].'</td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Content'].'" style="width:200px;" data-type="Content"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Exp'].'" style="width:200px;" data-type="Exp"></input></td>
 												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Length'].'" style="width:60px;" data-type="Length"></input></td>
 												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['DataCoding'].'" style="width:100px;" data-type="DataCoding"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['LSB'].'" style="width:45px;" data-type="LSB"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['LSB'].'" style="width:80px;" data-type="LSB"></input></td>
 												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['UnixTime'].'" style="width:80px;" data-type="UnixTime"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Rule'].'" data-type="Rule"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Rule'].'" style="width:180px;" data-type="Rule"></input></td>
+												 <td class="td rule'.$row['RuleID'].'" style="width:135px; font-size:12px; padding:2px;" data-type="CreateTime">'.$row['CreateTime'].'</td>
 												 </tr>';
 										}
 									}
@@ -123,7 +127,7 @@
 					</div>
 				</div>
 
-				<div role="tabpanel" class="tab-pane" id="log" style="margin:10 0 0 0;">
+				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'log') echo 'active'; ?>" id="log" style="margin:10 0 0 0;">
 					<textarea type="text" class="form-control datalog" style="width:100%;height:800px;">
 					</textarea>
 				</div>
