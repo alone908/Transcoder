@@ -24,7 +24,7 @@
 
 		<?php	require_once 'parserModal.php';	?>
 
-		<h1 style="display:inline-block">陳嘟嘟作弊神器</h1>
+		<h1 style="display:inline-block; font-weight:700;">陳嘟嘟作弊神器</h1>
 
 		<button type="button" class="btn btn-info start" style="vertical-align:6px;">Start</button>
 
@@ -76,7 +76,7 @@
 				</div>
 
 				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'rule') echo 'active'; ?>" id="ruleEditor" style="margin:10 0 0 0;">
-					<div class = "transCodeEditor">
+					<div class = "transCodeEditor" style="font-family:font-family: ‘Noto Sans TC’, sans-serif;font-weight:400;">
 						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>
 						<h5 style="color:red;">(i)修改規則將影響轉碼結果，請小心使用.</h5>
 						<h5 style="color:red;">(ii)順序會有影響，(LSB,Decimal) 和 (Decimal,LSB) 會產生不同結果.</h5>
@@ -89,13 +89,13 @@
 								<tr>
 									<th>#</th>
 									<th>Section</th>
-									<th style="width:200px;">Content</th>
-									<th style="width:200px;">Exp</th>
-									<th style="width:60px;">Length</th>
-									<th style="width:100px;">DataCoding</th>
-									<th style="width:80px;">LSB</th>
-									<th style="width:80px;">UnixTime</th>
-									<th style="width:180px;">Rule</th>
+									<th>Content</th>
+									<th>Exp</th>
+									<th style="width:6%;">Length</th>
+									<th style="width:8.5%;">DataCoding</th>
+									<th style="width:6%;">LSB</th>
+									<th style="width:6%;">UnixTime</th>
+									<th>Rule</th>
 									<th style="width:135px;">CreateTime</th>
 								</tr>
 								<?php
@@ -112,13 +112,13 @@
 												 echo '<tr>
 												 <td class="td RuleID" data-ruleid="'.$row['RuleID'].'">'.(integer) $row['RuleID'].'</td>
 												 <td class="td rule'.$row['RuleID'].'" data-type="Section">'.$row['Section'].'</td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Content'].'" style="width:200px;" data-type="Content"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Exp'].'" style="width:200px;" data-type="Exp"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Length'].'" style="width:60px;" data-type="Length"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['DataCoding'].'" style="width:100px;" data-type="DataCoding"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['LSB'].'" style="width:80px;" data-type="LSB"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['UnixTime'].'" style="width:80px;" data-type="UnixTime"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Rule'].'" style="width:180px;" data-type="Rule"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Content'].'" data-type="Content"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Exp'].'" data-type="Exp"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Length'].'" data-type="Length"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['DataCoding'].'" data-type="DataCoding"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['LSB'].'" data-type="LSB"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['UnixTime'].'" data-type="UnixTime"></input></td>
+												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Rule'].'" data-type="Rule"></input></td>
 												 <td class="td rule'.$row['RuleID'].'" style="width:135px; font-size:12px; padding:2px;" data-type="CreateTime">'.$row['CreateTime'].'</td>
 												 </tr>';
 										}

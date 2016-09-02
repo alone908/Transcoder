@@ -65,18 +65,21 @@ $('.record').click(function(){
        $('.record'+i).click(function(){
          getSingleRecord($(this).data('recordid'));
          $('#myModal').modal('hide');
-         $('.recordTable').html('<tr>\
-                                   <th>#</th>\
-                                   <th>SourceData</th>\
-                                   <th>TimeStamp</th>\
-                                   <th>LOAD</th>\
-                                 <tr>')
        })
      }
 
    }
  });
 
+})
+
+$('#myModal').on('hidden.bs.modal', function (e) {
+  $('.recordTable').html('<tr>\
+                            <th>#</th>\
+                            <th>SourceData</th>\
+                            <th>TimeStamp</th>\
+                            <th>LOAD</th>\
+                          <tr>')
 })
 
 function getSingleRecord(recordid){
