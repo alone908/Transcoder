@@ -57,10 +57,10 @@
 		<div class="tabs">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">FORM</a></li>
-				<li role="presentation"><a href="#text" aria-controls="text" role="tab" data-toggle="tab">TEXT</a></li>
-				<li role="presentation"><a href="#ruleEditor" aria-controls="ruleEditor" role="tab" data-toggle="tab">Rule Editor</a></li>
-				<li role="presentation"><a href="#log" aria-controls="log" role="tab" data-toggle="tab">LOG</a></li>
+        <li role="presentation" class="<?php if($_GET['tab'] === 'form') echo 'active'; ?>"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">FORM</a></li>
+				<li role="presentation" class="<?php if($_GET['tab'] === 'text') echo 'active'; ?>"><a href="#text" aria-controls="text" role="tab" data-toggle="tab">TEXT</a></li>
+				<li role="presentation" class="<?php if($_GET['tab'] === 'rule') echo 'active'; ?>"><a href="#ruleEditor" aria-controls="ruleEditor" role="tab" data-toggle="tab">Rule Editor</a></li>
+				<li role="presentation" class="<?php if($_GET['tab'] === 'log') echo 'active'; ?>"><a href="#log" aria-controls="log" role="tab" data-toggle="tab">LOG</a></li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
