@@ -17,14 +17,14 @@ if($result->num_rows > 0) {
     $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
     $rules = explode(',',$row['Rule']);
 
-    $transcodeRule[$row['Section']][$row['Subject']] = array();
-    $transcodeRule[$row['Section']][$row['Subject']]['Content'] = $row['Content'];
-    $transcodeRule[$row['Section']][$row['Subject']]['Exp'] = $row['Exp'];
-    $transcodeRule[$row['Section']][$row['Subject']]['length'] = (integer) $row['Length'];
-    $transcodeRule[$row['Section']][$row['Subject']]['dataCoding'] = $row['DataCoding'];
-    $transcodeRule[$row['Section']][$row['Subject']]['LSB'] = $LSB;
-    $transcodeRule[$row['Section']][$row['Subject']]['UnixTime'] = $UnixTime;
-    $transcodeRule[$row['Section']][$row['Subject']]['Rule'] = $rules;
+    $transcodeRule[$row['Section']][$row['RuleID']] = array();
+    $transcodeRule[$row['Section']][$row['RuleID']]['Content'] = $row['Content'];
+    $transcodeRule[$row['Section']][$row['RuleID']]['Exp'] = $row['Exp'];
+    $transcodeRule[$row['Section']][$row['RuleID']]['length'] = (integer) $row['Length'];
+    $transcodeRule[$row['Section']][$row['RuleID']]['dataCoding'] = $row['DataCoding'];
+    $transcodeRule[$row['Section']][$row['RuleID']]['LSB'] = $LSB;
+    $transcodeRule[$row['Section']][$row['RuleID']]['UnixTime'] = $UnixTime;
+    $transcodeRule[$row['Section']][$row['RuleID']]['Rule'] = $rules;
   }
 }else {
 

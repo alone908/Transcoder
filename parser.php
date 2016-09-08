@@ -77,12 +77,10 @@
 
 				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'rule') echo 'active'; ?>" id="ruleEditor" style="margin:10 0 0 0;">
 					<div class = "transCodeEditor" style="font-family:font-family: ‘Noto Sans TC’, sans-serif;font-weight:400;">
-						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>
-						<h5 style="color:red;">(i)修改規則將影響轉碼結果，請小心使用.</h5>
+						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>						
+						<h5 style="color:red;">(i)支援規則有 : AN,LSB,Decimal,UnixTime. 不同規則請以逗點隔開，ex (LSB,Decimal) 或 (AN,Decimal,UnixTime).</h5>
 						<h5 style="color:red;">(ii)順序會有影響，(LSB,Decimal) 和 (Decimal,LSB) 會產生不同結果.</h5>
-						<h5 style="color:red;">(iii)不同規則請以逗點隔開，ex (LSB,Decimal) 或 (AN,Decimal,UnixTime).</h5>
-						<h5 style="color:red;">(iv)支援規則有 : AN,LSB,Decimal,UnixTime.</h5>
-						<h5 style="color:red;">(v)點選規則號碼，選新增,刪除,或修改.</h5>
+						<h5 style="color:red;">(iii)點選規則號碼，選新增,刪除,或修改.</h5>
 						<div class="rules">
 
 							<table class="table table-hover">

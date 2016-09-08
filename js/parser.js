@@ -113,28 +113,29 @@ function newTextData(originalDATA){
 
   var dataLength = originalDATA.length;
   var startPOS = 0;
+  var headCount = Object.keys(TranscodeRule.DataHead).length;
 
   var dataLines = [
-    ['Blank1',''],
-    ['Blank2',''],
-    ['Blank3',''],
-    ['HeadTitle','=====表頭=====']
+    ['1',''],
+    ['2',''],
+    ['3',''],
+    ['4','=====表頭=====']
   ];
 
   for(var index in TranscodeRule.DataHead){
-    if(index !== 'Blank1' && index !== 'Blank2' && index !== 'Blank3' && index !== 'HeadTitle'){
+    if(index !== '1' && index !== '2' && index !== '3' && index !== '4'){
       dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataHead[index].length)] );
       startPOS += TranscodeRule.DataHead[index].length;
     }
   }
 
-  dataLines.push(['BodyTitle','=====第1表身=====']);
+  dataLines.push([(headCount+1).toString(),'=====第1表身=====']);
 
   var bodyCount = 1
   while(startPOS < dataLength){
 
     for(var index in TranscodeRule.DataBody){
-      if(index !== 'BodyTitle'){
+      if(index !== (headCount+1).toString()){
         dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataBody[index].length)] );
         startPOS += TranscodeRule.DataBody[index].length;
       }
@@ -142,7 +143,7 @@ function newTextData(originalDATA){
 
     bodyCount ++;
 
-    dataLines.push(['BodyTitle','=====第'+bodyCount+'表身=====']);
+    dataLines.push([(headCount+1).toString(),'=====第'+bodyCount+'表身=====']);
   }
 
   return dataLines;
