@@ -217,15 +217,19 @@ function newFormData(sortData){
       TranscodeRule[section][index].Rule.forEach(function(rule,index){
 
         if(rule === 'AN'){
-            //create array with each second number in line
-            var secondNumArray = [];
-            sourceData.split('').forEach(function(value,index){
-              if(index%2 === 1){
-                secondNumArray.push(value);
+
+            //create array with each two number in line
+            var twoNumArray = eachTwoNum(sourceData);
+            var antext = '';
+            twoNumArray.forEach(function(value,index){
+              if(typeof an[parseInt(value,16)] !== 'undefined'){
+                antext += an[parseInt(value,16)];
+              }else if (typeof an[parseInt(value,16)] === 'undefined') {
+                antext += '['+value+'?]';
               }
             })
 
-           transCode = secondNumArray.join('');
+           transCode = antext;
 
            if(index !== rulesCount -1) lineLog += transCode+'-->';
            if(index === rulesCount -1) lineLog += transCode+' ';
@@ -235,16 +239,7 @@ function newFormData(sortData){
         if(rule === 'LSB'){
 
             //create array with each two number in line
-            var twoNumArray = [];
-            var twoNumber = '';
-            sourceData.split('').forEach(function(value,index){
-              twoNumber += value;
-              if(index%2 === 1){
-                twoNumArray.push(twoNumber);
-                twoNumber = '';
-              }
-            })
-
+            var twoNumArray = eachTwoNum(sourceData);
             transCode = twoNumArray.reverse().join('');
 
             if(index !== rulesCount -1) lineLog += transCode+'-->';
@@ -307,6 +302,31 @@ function newFormData(sortData){
   })
 
   return {lineHtml:lineHtml,lineText:lineText,lineLog:lineLog};
+}
+
+function eachTwoNum(sourceData){
+
+  var twoNumArray = [];
+  var twoNumber = '';
+  sourceData.split('').forEach(function(value,index){
+    twoNumber += value;
+    if(index%2 === 1){
+      twoNumArray.push(twoNumber);
+      twoNumber = '';
+    }
+  })
+  return twoNumArray;
+}
+
+function everySecondNum(sourceData){
+  //create array with every second number in line
+  var secondNumArray = [];
+  sourceData.split('').forEach(function(value,index){
+    if(index%2 === 1){
+      secondNumArray.push(value);
+    }
+  })
+  return secondNumArray;
 }
 
 $('.RuleID').editable({
