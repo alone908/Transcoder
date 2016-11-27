@@ -1,37 +1,9 @@
 $(document).ready(function(){
 
+TranscodeRule = JSON.parse(TranscodeRule);
+
 $('.start').click(function(){
-
-  $('.newDATA').val('');
-  $('.dataForm').html('');
-
-  var originalDATA = $('.originalDATA').val();
-  originalDATA = originalDATA.replace(/\r?\n|\r/g,'');
-  originalDATA = originalDATA.replace(/\s/g,'');
-
-  var sortData = newTextData(originalDATA);
-
-  var data = newFormData(sortData);
-
-  $('.dataForm').append(data.lineHtml);
-  $('.dataText').val(data.lineText);
-  $('.datalog').val(data.lineLog);
-
-  var datapost = {
-    sourceData:originalDATA,
-    transCodeLog:data.lineLog,
-  }
-
- $.ajax({
-   type: 'POST',
-   url: "insertRecord.php",
-   data: datapost,
-   dataType: "json",
-   success: function (data) {
-
-   }
- });
-
+  parse_new_data( $('.originalDATA').val(), false, true );
 })
 
 $('.clear').click(function(){
@@ -45,7 +17,7 @@ $('.record').click(function(){
 
  $.ajax({
    type: 'POST',
-   url: "getRecord.php",
+   url: "appphp/getRecord.php",
    dataType: "json",
    success: function (data) {
 
@@ -64,7 +36,7 @@ $('.record').click(function(){
      for(var i=1;i<=50;i++){
        $('.record'+i).click(function(){
          getSingleRecord($(this).data('recordid'));
-         $('#myModal').modal('hide');
+         $('#recordModal').modal('hide');
        })
      }
 
@@ -73,7 +45,7 @@ $('.record').click(function(){
 
 })
 
-$('#myModal').on('hidden.bs.modal', function (e) {
+$('#recordModal').on('hidden.bs.modal', function (e) {
   $('.recordTable').html('<tr>\
                             <th>#</th>\
                             <th>SourceData</th>\
@@ -82,27 +54,139 @@ $('#myModal').on('hidden.bs.modal', function (e) {
                           <tr>')
 })
 
+$('.import').click(function(){
+  serverfilelist('../uploadfiles');
+})
+
+$('#importModal').on('hidden.bs.modal', function (e) {
+  $('.progress').css('display','none');
+  $('#progress .progress-bar').css('width','0%');
+  $('#files').html('');
+  $('#serverfilelist').html('');
+})
+
+function serverfilelist(path){
+
+  $.ajax({
+    type: 'POST',
+    url: "appphp/upload_filelist.php",
+    data:{path:path},
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+
+      if(path !== '../uploadfiles'){
+        $('#serverfilelist').append('<span class="fileline" data-type="folder" data-url="'+path.substring(0,path.lastIndexOf('/'))+'"><i class="glyphicon glyphicon-folder-open"></i><span class="serverfile">&nbsp;&nbsp;...</span></span>')
+      }
+
+      for(var index in data){
+        if(data[index].fileType === 'folder'){
+          $('#serverfilelist').append('<span class="fileline" data-type="'+data[index].fileType+'" data-url="'+data[index].path+'"><i class="glyphicon glyphicon-folder-close"></i><span class="serverfile">&nbsp;&nbsp;'+index+'</span></span>')
+        }else if (data[index].fileType === 'file') {
+          $('#serverfilelist').append('<span class="fileline" data-type="'+data[index].fileType+'" data-url="'+data[index].path+'"><i class="glyphicon glyphicon-file"></i><span class="serverfile">&nbsp;&nbsp;'+index+'</span></span>')
+        }
+      }
+
+      $('.fileline').on('click',function(e){
+        console.log(e);
+        if(e.currentTarget.dataset.type === 'folder'){
+          $('#serverfilelist').html('');
+          serverfilelist(e.currentTarget.dataset.url);
+        }else if (e.currentTarget.dataset.type === 'file') {
+          $('#importModal').modal('hide');
+          parse_file_onServer(e.currentTarget.dataset.url);
+        }
+      })
+
+    }
+  });
+
+}
+
+function parse_file_onServer(path){
+
+  $.ajax({
+    type: 'POST',
+    url: "appphp/parse_file_onServer.php",
+    data:{path:path},
+    dataType: "json",
+    success: function (data) {
+      parse_new_data(data.sourceData, true, true);
+    }
+  });
+
+}
+
+$('.checkContent').click(function(e){
+  if($('.checkContent').prop('checked')){
+    $('.description').css('display','inline-block');
+  }else {
+    $('.description').css('display','none');
+  }
+})
+
+$('.checktransCode').click(function(e){
+  if($('.checktransCode').prop('checked')){
+    $('.transCode').css('display','inline');
+  }else {
+    $('.transCode').css('display','none');
+  }
+})
+
+$('.checktranscodeRule').click(function(e){
+  if($('.checktranscodeRule').prop('checked')){
+    $('.transCodeRule').css('display','inline');
+  }else {
+    $('.transCodeRule').css('display','none');
+  }
+})
+
+function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
+
+  originalDATA = originalDATA.replace(/\r?\n|\r/g,'');
+  originalDATA = originalDATA.replace(/\s/g,'');
+
+  var sortData = newTextData(originalDATA);
+  var data = newFormData(sortData);
+
+  if(replaceOriginalDATA){
+    $('.originalDATA').val(originalDATA);
+  }
+  $('.dataForm').html('');
+
+  $('.dataForm').append(data.lineHtml);
+  $('.dataText').val(data.lineText);
+  $('.datalog').val(data.lineLog);
+
+  if(insertRecord){
+    var datapost = {
+      sourceData:originalDATA,
+      transCodeLog:data.lineLog,
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: "appphp/insertRecord.php",
+      data: datapost,
+      dataType: "json",
+      success: function (data) {
+
+      }
+    });
+  }
+
+}
+
 function getSingleRecord(recordid){
 
  $.ajax({
    type: 'POST',
-   url: "getSingleRecord.php",
+   url: "appphp/getSingleRecord.php",
    data: {recordid:recordid},
    dataType: "json",
    success: function (data) {
 
-     $('.originalDATA').val('');
-     $('.originalDATA').val(data.Record.SourceData);
-     $('.dataForm').html('');
-     $('.datalog').val('');
-     $('.dataText').val('');
-
-     var sortData = newTextData(data.Record.SourceData);
-     var data = newFormData(sortData);
-
-     $('.dataForm').append(data.lineHtml);
-     $('.dataText').val(data.lineText);
-     $('.datalog').val(data.lineLog);
+     parse_new_data(data.Record.SourceData,true,false);
 
    }
  });
@@ -198,18 +282,23 @@ function newFormData(sortData){
     lineHtml +='<div class="lineDiv" >';
     //line number span
     lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
-    //line number span
+    //**************************************************************************
+
+    //line content span
     if($('.checkContent').prop('checked')){
-      lineHtml +='<span class="description">'+exp+'</span>';
-      lineLog += exp+' ';
+      lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
+    }else {
+      lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
     }
+    lineLog += exp+' ';
+    //**************************************************************************
+
     //sourceData span
     lineHtml +='<span class="lineData">'+sourceData+'</span>';
     lineText += sourceData+' ';
     lineLog += sourceData+' ';
 
-    if($('.transCode').prop('checked')){
-
+    //line transCode span
       var transCode = sourceData;
       var rulesCount = TranscodeRule[section][index].Rule.length;
       lineLog += '-->';
@@ -265,11 +354,16 @@ function newFormData(sortData){
 
         }
       })
-      lineHtml +='<span class="transCode">'+transCode+'</span>';
 
-    }
+      if($('.checktransCode').prop('checked')){
+        lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+      }else {
+        lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+      }
 
-    if($('.transCodeRule').prop('checked')){
+    //**************************************************************************
+
+    //line transCodeRule span
 
       var rules = '';
       var rulesCount = TranscodeRule[section][index].Rule.length;
@@ -290,11 +384,16 @@ function newFormData(sortData){
         }
       })
 
-      lineHtml +='<span class="transCodeRule">'+rules+'</span>';
+      if($('.checktranscodeRule').prop('checked')){
+        lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+      }else {
+        lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+      }
+
       lineText += rules;
       lineLog += rules+' ';
 
-    }
+    //**************************************************************************
 
     lineHtml +='</div>';
     lineText += "\n";
@@ -379,7 +478,7 @@ function updateRule(op,ruleid,data){
 
  $.ajax({
    type: 'POST',
-   url: "updateRule.php",
+   url: "appphp/updateRule.php",
    data: {op:op,ruleid:ruleid,data:data},
    dataType: "json",
    success: function (data) {
@@ -388,5 +487,57 @@ function updateRule(op,ruleid,data){
  });
 
 }
+
+//***** Upload Course ZIP file **********************
+$('#fileupload').fileupload({
+  url: 'appphp/parse_upload_file.php',
+  dataType: 'json',
+  autoUpload: true,
+  acceptFileTypes: /(\.|\/)(dat)$/i,
+  disableImageResize: false,
+  previewMaxWidth: 100,
+  previewMaxHeight: 100,
+  previewCrop: true
+}).on('fileuploadadd', function (e, data) {
+
+  $('.progress').css('display','block');
+  data.context = $('<div id="filelist"/>').appendTo('#files');
+  $.each(data.files, function (index, file) {
+    var node = $('<p/>').append($('<span/>').text('uploading... ' + file.name));
+    if (!index) { node.append('<br>');}
+    node.appendTo(data.context);
+  });
+
+}).on('fileuploadprocessalways', function (e, data) {
+
+  var index = data.index,
+      file = data.files[index],
+      node = $(data.context.children()[index]);
+
+  if (file.error) {
+    node.append('<br>')
+        .append($('<span class="text-danger"/>').text(file.error));
+  }
+
+}).on('fileuploadprogressall', function (e, data) {
+
+  var progress = parseInt(data.loaded / data.total * 100, 10);
+  $('#progress .progress-bar').css('width',progress + '%');
+
+}).on('fileuploaddone', function (e, data) {
+
+   setTimeout(function(){
+     $('#importModal').modal('hide');
+     $('.progress').css('display','none');
+     $('#progress .progress-bar').css('width','0%');
+     $('#files').html('');
+     parse_new_data(data.result.files[0].content,true,true);
+   },500);
+
+}).on('fileuploadfail', function (e, data) {
+
+}).prop('disabled', !$.support.fileInput)
+    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
 
 })

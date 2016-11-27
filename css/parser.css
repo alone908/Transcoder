@@ -17,7 +17,7 @@
 .dataForm {
   display:inline-block;
   width:100%;
-  height:800px;
+  height:650px;
   overflow:scroll;
   border:1px solid #cccccc;
   vertical-align:top;
@@ -42,7 +42,7 @@
 .description {
   width:250px;
   height:27px;
-  display:inline-block;
+  /*display:inline-block;*/
   margin:0 0 0 -4;
   padding:3 5 5 5;
   border-bottom:1px solid black;
@@ -74,7 +74,7 @@
 
 .transCodeEditor {
   width:100%;
-  height:800px;
+  height:650px;
   padding: 10px;
   border:1px solid #cccccc;
   border-radius:5px;
@@ -100,8 +100,24 @@
 
 .transcodeRecord {
   margin-top: 10px;
-  height: 500px;
+  height: 350px;
   border:1px solid #cccccc;
   border-radius:5px;
   overflow: auto;
+}
+
+#serverfilelist {
+  height:auto;
+  min-height:150px;
+  max-height:300px;
+  overflow-y:scroll;
+}
+
+.fileline {
+  display: block;
+}
+
+.fileline:hover {
+  background-color: #5bc0de;
+  cursor: pointer;
 }

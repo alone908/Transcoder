@@ -1,57 +1,27 @@
-<html>
-<head>
-	<meta charset=utf-8>
-	<title>陳嘟嘟作弊神器</title>
-
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/parser.css" rel="stylesheet">
-
-	<script src="js/jquery-1.11.3.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-editable.js"></script>
-	<script src="js/parser.js"></script>
-		<script src="js/TranscodeRule.js"></script>
-
-</head>
-
-<body>
-
-	<?php	require_once 'TranscodeRule.php';	?>
+	<?php	require_once 'header.php';	?>
+	<?php	require_once 'appphp/TranscodeRule.php';	?>
 	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
 
-	<script>var TranscodeRule = <?php echo $transcodeRuleJSON; ?></script>
+	<script src="js/parser.js"></script>
+	<script src="js/TranscodeRule.js"></script>
+	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
 
-  <div class="container">
+  <div class="container" style="margin:0px;">
 
-		<?php	require_once 'parserModal.php';	?>
+		<?php	require_once 'recordModal.php';	?>
+		<?php	require_once 'importModal.php';	?>
 
-		<h1 style="display:inline-block; font-weight:700;">陳嘟嘟作弊神器</h1>
-
-		<button type="button" class="btn btn-info start" style="vertical-align:6px;">Start</button>
-
-		<div class="checkbox" style="display:inline-block; vertical-align:6px;">
-      <label>
-        <input class="checkContent" type="checkbox" value="" checked>內容
-      </label>
-			<label>
-				<input class="transCode" type="checkbox" value="" checked>轉碼
-			</label>
-			<label>
-				<input class="transcodeRule" type="checkbox" value="" >轉碼規則
-			</label>
-    </div>
-
-    <button type="button" class="btn btn-info clear" style="vertical-align:6px;">Clear</button>
-
-		<button type="button" class="btn btn-info record" style="vertical-align:6px;" data-toggle="modal" data-target="#myModal">
-		  Load Record
-		</button>
-
-		<br>
+		<nav class="navbar navbar-inverse" style="margin:5px 0px;padding:10px 5px;min-height:0px;">
+			<button type="button" class="btn btn-info start" style="background-color:#0e61a7;">Start</button>
+			<button type="button" class="btn btn-info clear" style="background-color:#0e61a7;">Clear</button>
+			<button type="button" class="btn btn-info record" style="background-color:#0e61a7;" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;Records</button>
+			<button type="button" class="btn btn-info import" style="background-color:#0e61a7;" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;Import</button>
+			<a href="file_manager.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-folder-open'></i>&nbsp;&nbsp;File Manager</a>
+		</nav>
 
     <div style="display:inline-block; width:25%; margin:-3 0 0 0;">
-			<h3>Data Source</h3>
-      <textarea type="text" class="form-control originalDATA" style="width:100%; height:800px;">
+			<h3>Source Data</h3>
+      <textarea type="text" class="form-control originalDATA" style="width:100%; height:500px;">
       </textarea>
     </div>
 
@@ -67,12 +37,17 @@
       <div class="tab-content">
 
 				<div role="tabpanel" id="form" class="tab-pane <?php if($_GET['tab'] === 'form') echo 'active'; ?>" style="margin:10 0 0 0;">
+					<div class="checkbox" style="">
+						<label><input class="checkContent" type="checkbox" value="" checked>內容</label>
+						<label><input class="checktransCode" type="checkbox" value="" checked>轉碼</label>
+						<label><input class="checktranscodeRule" type="checkbox" value="" >轉碼規則</label>
+					</div>
 					<div class = "dataForm">
 					</div>
 				</div>
 
         <div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'text') echo 'active'; ?>" id="text" style="margin:10 0 0 0;">
-					<textarea type="text" class="form-control dataText" style="width:100%;height:800px;">
+					<textarea type="text" class="form-control dataText" style="width:100%;height:650px;">
 					</textarea>
 				</div>
 
@@ -133,7 +108,7 @@
 				</div>
 
 				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'log') echo 'active'; ?>" id="log" style="margin:10 0 0 0;">
-					<textarea type="text" class="form-control datalog" style="width:100%;height:800px;">
+					<textarea type="text" class="form-control datalog" style="width:100%;height:650px;">
 					</textarea>
 				</div>
       </div>
