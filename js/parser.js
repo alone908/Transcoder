@@ -493,7 +493,7 @@ $('#fileupload').fileupload({
   url: 'appphp/parse_upload_file.php',
   dataType: 'json',
   autoUpload: true,
-  acceptFileTypes: /(\.|\/)(dat)$/i,
+  acceptFileTypes: /(\.|\/)(txt|dat)$/i,
   disableImageResize: false,
   previewMaxWidth: 100,
   previewMaxHeight: 100,

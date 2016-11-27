@@ -21,8 +21,8 @@
 
 <body>
 
-  <div id="header" style="background-color:grey;padding:0px 18px;">
-    <i class='glyphicon glyphicon-qrcode' style="font-size:48px;color:black;"></i>
-	  <font style="font-size:48px;font-family:'Gloria Hallelujah', cursive;color:black;">&nbsp;Card TransCoder</font>
-    <font style="font-size:16px;font-family:'Gloria Hallelujah', cursive;color:black;">&nbsp;2.0</font>
+  <div id="header" style="background-color:black;padding:0px 18px;">
+    <i class='glyphicon glyphicon-qrcode' style="font-size:48px;color:white;"></i>
+	  <font style="font-size:48px;font-family:'Gloria Hallelujah', cursive;color:white;">&nbsp;Card TransCoder</font>
+    <font style="font-size:16px;font-family:'Gloria Hallelujah', cursive;color:white;">&nbsp;2.0</font>
   </div>

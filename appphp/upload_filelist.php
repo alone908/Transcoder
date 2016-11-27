@@ -10,9 +10,7 @@ if (file_exists($path)) {
 		if ($file !== '.' && $file !== '..') {
       $ext = (is_file($path.'/'.$file)) ? pathinfo($file,PATHINFO_EXTENSION) : '';
       if(is_dir($path.'/'.$file)) $folderArray[$file] = array("fileName" => $file,"fileType" => "folder","path" => $path.'/'.$file);
-      if($ext == "dat"){
 				$fileArray[$file] = array("fileName" => $file,"fileType" => "file","path" => $path.'/'.$file);
-			}
 		}
 	}
 }
