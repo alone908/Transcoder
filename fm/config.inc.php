@@ -284,7 +284,7 @@ downloadHook = ""
 [permissions]
 
 ; enable file upload
-enableUpload = no
+enableUpload = yes
 
 ; enable download of single files
 enableDownload = yes

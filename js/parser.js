@@ -2,6 +2,10 @@ $(document).ready(function(){
 
 TranscodeRule = JSON.parse(TranscodeRule);
 
+$('#postOK').click(function(){
+  $('#postCover').css('display','none');
+})
+
 $('.start').click(function(){
   parse_new_data( $('.originalDATA').val(), false, true );
 })
@@ -487,6 +491,29 @@ function updateRule(op,ruleid,data){
  });
 
 }
+
+//***** Import from local file **********************
+
+String.prototype.convertToHex = function (delim) {
+    return this.split("").map(function(c) {
+        return ("0" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(delim || "");
+};
+
+
+$('#localfile').on('change',function(e){
+
+  var file = $('#localfile')[0].files[0];
+  var reader = new FileReader();
+
+  reader.onload = function(e) {
+    parse_new_data( reader.result.convertToHex(), true, true );
+  }
+
+  reader.readAsBinaryString( file );
+  $('#importModal').modal('hide');
+
+})
 
 //***** Upload Course ZIP file **********************
 $('#fileupload').fileupload({

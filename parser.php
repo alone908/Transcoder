@@ -1,13 +1,15 @@
 	<?php	require_once 'header.php';	?>
 	<?php	require_once 'appphp/TranscodeRule.php';	?>
 	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
+	<?php	$noCover = (isset($_GET['noCover'])) ? $_GET['noCover'] : 'false' ;?>
 
 	<script src="js/parser.js"></script>
 	<script src="js/TranscodeRule.js"></script>
 	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
 
-  <div class="container" style="margin:0px;">
+  <div class="container" style="">
 
+    <?php //if($noCover === 'false') require_once 'cover.php' ?>
 		<?php	require_once 'recordModal.php';	?>
 		<?php	require_once 'importModal.php';	?>
 

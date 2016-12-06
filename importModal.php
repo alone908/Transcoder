@@ -9,6 +9,16 @@
       </div>
       <div class="modal-body">
 
+        <font style="font-size:14px;font-weight:bold;">Import from Local:&nbsp;&nbsp;</font>
+        <span class='btn btn-info fileinput-button' style="padding:3px 6px;vertical-align:-2px;corsur:pointer;background-color:#0e61a7;">
+          <i class='glyphicon glyphicon-save'></i>
+          <span>Import</span>
+          <input id='localfile' type='file' name='files[]' style='display:block;width:100%;height:100%;corsur:pointer;'>
+        </span>
+        <br>
+
+        <hr style="margin:5px 0px;">
+
         <font style="font-size:14px;font-weight:bold;">Upload New File:&nbsp;&nbsp;</font>
         <span class='btn btn-info fileinput-button' style="padding:3px 6px;vertical-align:-2px;corsur:pointer;background-color:#0e61a7;">
           <i class='glyphicon glyphicon-floppy-open'></i>
