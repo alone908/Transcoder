@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+if(versionModal === 'true'){
+  $('#version').modal('show')
+}
+
 TranscodeRule = JSON.parse(TranscodeRule);
 
 $('#postOK').click(function(){

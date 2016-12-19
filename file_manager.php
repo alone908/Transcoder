@@ -25,7 +25,7 @@ include_once('fm/class/FileManager.php');
 <div class="container" style="margin:0px;">
 <!-- Nav tabs -->
   <nav class="navbar navbar-inverse" style="margin:5px 0px;padding:10px 5px;min-height:0px;">
-	  <a href="parser.php?noCover=true" class="btn btn-info" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-arrow-left'></i>&nbsp;&nbsp;Go Back</a>
+	  <a href="parser.php?noCover=true&vM=1" class="btn btn-info" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-arrow-left'></i>&nbsp;&nbsp;Go Back</a>
   </nav>
 
   <div class='header' style="padding: 5px;">

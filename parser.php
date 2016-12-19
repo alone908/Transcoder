@@ -2,10 +2,12 @@
 	<?php	require_once 'appphp/TranscodeRule.php';	?>
 	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
 	<?php	$noCover = (isset($_GET['noCover'])) ? $_GET['noCover'] : 'false' ;?>
+	<?php	$versionModal = (isset($_GET['vM'])) ? 'false' : 'true' ;?>
 
 	<script src="js/parser.js"></script>
 	<script src="js/TranscodeRule.js"></script>
 	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
+	<script>var versionModal = '<?php echo $versionModal; ?>'</script>
 
   <div class="container" style="">
 
@@ -15,6 +17,7 @@
 
 		<?php	require_once 'recordModal.php';	?>
 		<?php	require_once 'importModal.php';	?>
+		<?php	require_once 'versionModal.php';	?>
 
 		<nav class="navbar navbar-inverse" style="margin:5px 0px;padding:10px 5px;min-height:0px;">
 			<button type="button" class="btn btn-info start" style="background-color:#0e61a7;">Start</button>
