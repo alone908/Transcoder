@@ -9,7 +9,10 @@
 
   <div class="container" style="">
 
+    <!-- Add welcome cover in the beggining -->
     <?php //if($noCover === 'false') require_once 'cover.php' ?>
+		<!-- Add welcome cover in the beggining -->
+
 		<?php	require_once 'recordModal.php';	?>
 		<?php	require_once 'importModal.php';	?>
 
