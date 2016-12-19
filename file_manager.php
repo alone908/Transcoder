@@ -44,7 +44,3 @@ include_once('fm/class/FileManager.php');
 </div>
 
 </html>
-
-<?php
-//print_r( bin2hex(file_get_contents(__DIR__.'/uploadfiles/TXN_03_9080155E_20160815160337_01.dat')) );
-?>
