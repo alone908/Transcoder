@@ -7,7 +7,6 @@
 	<script src="js/parser.js"></script>
 	<script src="js/TranscodeRule.js"></script>
 	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
-	<script>var versionModal = '<?php echo $versionModal; ?>'</script>
 
   <div class="container" style="">
 
@@ -27,8 +26,8 @@
 			<a href="file_manager.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-folder-open'></i>&nbsp;&nbsp;File Manager</a>
 		</nav>
 
-    <div style="display:inline-block; width:25%; margin:-3 0 0 0;">
-			<h3>Source Data</h3>
+    <div style="display:inline-block; width:10%; margin:-3 0 0 0;">
+			<h4>Source Data</h4>
       <textarea type="text" class="form-control originalDATA" style="width:100%; height:500px;">
       </textarea>
     </div>
@@ -50,7 +49,12 @@
 						<label><input class="checktransCode" type="checkbox" value="" checked>轉碼</label>
 						<label><input class="checktranscodeRule" type="checkbox" value="" >轉碼規則</label>
 					</div>
+					<div class="mefTitle">
+						<font style="font-weight:bold;">MEF01/MEF03</font>
+					</div>
 					<div class = "dataForm">
+					</div>
+					<div class = "mefForm">
 					</div>
 				</div>
 

@@ -11,16 +11,38 @@
 
 .tabs {
   display:inline-block;
-  width:70%;
+  width:86%;
   height:auto;
   vertical-align:top;
   margin: 0 0 0 20;
 }
 
+.checkbox {
+  display:inline-block;
+  width:60%;
+}
+
+.mefTitle {
+  display:inline-block;
+  width:36%;
+}
+
 .dataForm {
   background-color: white;
   display:inline-block;
-  width:100%;
+  width:60%;
+  height:650px;
+  overflow:scroll;
+  border:1px solid #cccccc;
+  vertical-align:top;
+  margin:0;
+  border-radius:5px;
+}
+
+.mefForm {
+  background-color: white;
+  display:inline-block;
+  width:36%;
   height:650px;
   overflow:scroll;
   border:1px solid #cccccc;
@@ -51,6 +73,20 @@
   padding:3 5 5 5;
   border-bottom:1px solid black;
   background-color:#dadada;
+}
+
+.mef_description {
+  width:200px;
+  height:27px;
+  /*display:inline-block;*/
+  margin:0 0 0 -4;
+  padding:3 5 5 5;
+  border-bottom:1px solid black;
+  background-color:#dadada;
+}
+
+.mefdata {
+  cursor: pointer;
 }
 
 .lineData {

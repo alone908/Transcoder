@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-if(versionModal === 'true'){
+$('.version').click(function(e){
   $('#version').modal('show')
-}
+})
 
 TranscodeRule = JSON.parse(TranscodeRule);
 
@@ -81,7 +81,6 @@ function serverfilelist(path){
     data:{path:path},
     dataType: "json",
     success: function (data) {
-      console.log(data);
 
       if(path !== '../uploadfiles'){
         $('#serverfilelist').append('<span class="fileline" data-type="folder" data-url="'+path.substring(0,path.lastIndexOf('/'))+'"><i class="glyphicon glyphicon-folder-open"></i><span class="serverfile">&nbsp;&nbsp;...</span></span>')
@@ -96,7 +95,6 @@ function serverfilelist(path){
       }
 
       $('.fileline').on('click',function(e){
-        console.log(e);
         if(e.currentTarget.dataset.type === 'folder'){
           $('#serverfilelist').html('');
           serverfilelist(e.currentTarget.dataset.url);
@@ -154,8 +152,8 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
   originalDATA = originalDATA.replace(/\r?\n|\r/g,'');
   originalDATA = originalDATA.replace(/\s/g,'');
 
-  var sortData = newTextData(originalDATA);
-  var data = newFormData(sortData);
+  var sortData = organize_data(originalDATA);
+  var data = produce_data(sortData);
 
   if(replaceOriginalDATA){
     $('.originalDATA').val(originalDATA);
@@ -165,6 +163,10 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
   $('.dataForm').append(data.lineHtml);
   $('.dataText').val(data.lineText);
   $('.datalog').val(data.lineLog);
+
+  $('.mefdata').on('click',function(){
+      parse_mef( $(this).data('meftype') , $(this).data('mefdata') );
+  })
 
   if(insertRecord){
     var datapost = {
@@ -201,7 +203,7 @@ function getSingleRecord(recordid){
 
 }
 
-function newTextData(originalDATA){
+function organize_data(originalDATA){
 
   var dataLength = originalDATA.length;
   var startPOS = 0;
@@ -241,7 +243,7 @@ function newTextData(originalDATA){
   return dataLines;
 }
 
-function newFormData(sortData){
+function produce_data(sortData){
 
   var lineHtml = '';
   var lineText = '';
@@ -255,9 +257,10 @@ function newFormData(sortData){
     var headCount = Object.keys(TranscodeRule.DataHead).length;
     var bodyCount = Object.keys(TranscodeRule.DataBody).length;
 
-    //re-calculate line number
+    //re-calculate line number *************************************************
     lineNumber ++;
 
+    //decide section
     var section = (lineNumber <= headCount) ? 'DataHead' : 'DataBody';
 
     if(lineNumber > headCount){
@@ -271,135 +274,109 @@ function newFormData(sortData){
     //add zero afront of number
     if(lineNumber < 10){
       lineNumText = '00'+lineNumber.toString();
-      lineLog += lineNumText+' ';
     }else if (lineNumber < 99) {
       lineNumText = '0'+lineNumber.toString();
-      lineLog += lineNumText+' ';
     }else if (lineNumber >= 100) {
       lineNumText = lineNumber.toString();
-      lineLog += lineNumText+' ';
     }
+    //**************************************************************************
 
+    lineLog += lineNumText+' '+exp+' '+sourceData+' -->';
+
+    //Loop and transcode *******************************************************
     var exp = TranscodeRule[section][index].Exp;
     var lsb = TranscodeRule[section][index].LSB;
     var dataCoding = TranscodeRule[section][index].dataCoding;
     var unixTime = TranscodeRule[section][index].UnixTime;
+    var rulesCount = TranscodeRule[section][index].Rule.length;
+    var transCode = sourceData;
+    var rules = '';
 
-    //start writing line html
-    //line DIV
-    lineHtml +='<div class="lineDiv" >';
-    //line number span
-    lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
-    //**************************************************************************
+    TranscodeRule[section][index].Rule.forEach(function(rule,index){
 
-    //line content span
-    if($('.checkContent').prop('checked')){
-      lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
-    }else {
-      lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
-    }
-    lineLog += exp+' ';
-    //**************************************************************************
+        transCode = transcode_basedon_rule(rule,transCode);
+        if(index !== rulesCount -1) lineLog += transCode+'-->';
+        if(index === rulesCount -1) lineLog += transCode+' ';
 
-    //sourceData span
-    lineHtml +='<span class="lineData">'+sourceData+'</span>';
-    lineText += sourceData+' ';
-    lineLog += sourceData+' ';
-
-    //line transCode span
-      var transCode = sourceData;
-      var rulesCount = TranscodeRule[section][index].Rule.length;
-      lineLog += '-->';
-
-      TranscodeRule[section][index].Rule.forEach(function(rule,index){
-
-        if(rule === 'AN'){
-
-            //create array with each two number in line
-            var twoNumArray = eachTwoNum(sourceData);
-            var antext = '';
-            twoNumArray.forEach(function(value,index){
-              if(typeof an[parseInt(value,16)] !== 'undefined'){
-                antext += an[parseInt(value,16)];
-              }else if (typeof an[parseInt(value,16)] === 'undefined') {
-                antext += '['+value+'?]';
-              }
-            })
-
-           transCode = antext;
-
-           if(index !== rulesCount -1) lineLog += transCode+'-->';
-           if(index === rulesCount -1) lineLog += transCode+' ';
-
-        }
-
-        if(rule === 'LSB'){
-
-            //create array with each two number in line
-            var twoNumArray = eachTwoNum(sourceData);
-            transCode = twoNumArray.reverse().join('');
-
-            if(index !== rulesCount -1) lineLog += transCode+'-->';
-            if(index === rulesCount -1) lineLog += transCode+' ';
-
-        }
-
-        if(rule === 'Decimal'){
-            transCode = parseInt(transCode,16);
-
-            if(index !== rulesCount -1) lineLog += transCode+'-->';
-            if(index === rulesCount -1) lineLog += transCode+' ';
-
-        }
-
-        if(rule === 'UnixTime'){
-            var d = new Date( (Number(transCode)*1000)-28800000 );
-            transCode = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
-                        d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-
-            if(index !== rulesCount -1) lineLog += transCode+'-->';
-            if(index === rulesCount -1) lineLog += transCode+' ';
-
-        }
-      })
-
-      if($('.checktransCode').prop('checked')){
-        lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
-      }else {
-        lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
-      }
-
-    //**************************************************************************
-
-    //line transCodeRule span
-
-      var rules = '';
-      var rulesCount = TranscodeRule[section][index].Rule.length;
-
-      TranscodeRule[section][index].Rule.forEach(function(rule,key){
-
-        if(key === 0){
+        if(index === 0){
           if(rulesCount === 1)  rules += rule;
-          if(rulesCount > 1)  rules += rule+'-->'
+          if(rulesCount > 1)  rules += rule+'-->';
         }
 
-        if(key !== 0 && key !== rulesCount-1){
-          rules += rule+'-->';
-        }
+        if(index !== 0 && index !== rulesCount-1){ rules += rule+'-->';}
+        if(index === rulesCount-1 && index !== 0){ rules += rule; }
 
-        if(key === rulesCount-1 && key !== 0){
-          rules += rule;
-        }
-      })
+    })
 
-      if($('.checktranscodeRule').prop('checked')){
-        lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+    lineLog += rules+' ';
+    //**************************************************************************
+
+    //Write lineText ***********************************************************
+    lineText += sourceData+' ';
+    lineText += rules;
+    //**************************************************************************
+
+    //Write lineHtml ***********************************************************
+    lineHtml +='<div class="lineDiv" >';
+
+    //************************line number span *********************************
+    lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
+
+    //************************line content span ********************************
+    if( $('.checkContent').prop('checked') ){
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022') {
+        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
+      }else if (lineNumText === '046') {
+        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
       }else {
-        lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
       }
 
-      lineText += rules;
-      lineLog += rules+' ';
+    }else {
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022') {
+        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }else if (lineNumText === '046') {
+        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }else {
+        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }
+
+    }
+
+    //************************line sourceDat span ******************************
+    lineHtml +='<span class="lineData">'+sourceData+'</span>';
+
+    //************************line transCode span ******************************
+    if($('.checktransCode').prop('checked')){
+      lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    }else {
+      lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+    }
+
+    //************************line rules span **********************************
+    if($('.checktranscodeRule').prop('checked')){
+      lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+    }else {
+      lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+    }
 
     //**************************************************************************
 
@@ -569,6 +546,109 @@ $('#fileupload').fileupload({
 
 }).prop('disabled', !$.support.fileInput)
     .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+//******************************************************************************
+
+function parse_mef(type,data){
+
+  $('.mefForm').html('');
+  var html = '';
+  var splitStart = 0;
+  if(type === 'mef01'){ var mef = mef01;}
+  if(type === 'mef03'){ var mef = mef03;}
+  if(type === 'mef08'){ var mef = mef08;}
+  if(type === 'mef0b'){ var mef = mef0b;}
+
+  for(var index in mef){
+    var length = mef[index]['length'];
+    var exp = mef[index]['Exp'];
+    var rule = mef[index]['Rule'];
+    var splitEnd = splitStart + length;
+    var splitdata = data.substring(splitStart,splitEnd);
+
+    var transCode = splitdata;
+    rule.forEach(function(rule,key){
+      transCode = transcode_basedon_rule(rule,transCode);
+    })
+
+    html +='<div class="lineDiv" >';
+    html +='<span class="mef_description" style="display:inline-block;">'+exp+'</span>';
+    html +='<span class="lineData">'+splitdata+'</span>';
+    html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    html +='</div>';
+
+    $('.mefForm').html(html);
+    splitStart = splitEnd;
+
+  }
+
+}
+
+function transcode_basedon_rule(rule,data){
+
+  var transCode;
+
+  switch (rule) {
+    case 'AN':
+
+    //create array with each two number in line
+    var twoNumArray = eachTwoNum(data);
+    var antext = '';
+    twoNumArray.forEach(function(value,index){
+      if(typeof an[parseInt(value,16)] !== 'undefined'){
+        antext += an[parseInt(value,16)];
+      }else if (typeof an[parseInt(value,16)] === 'undefined') {
+        antext += '['+value+'?]';
+      }
+    })
+
+   transCode = antext;
+
+      break;
+
+    case 'LSB':
+
+    //create array with each two number in line
+    var twoNumArray = eachTwoNum(data);
+    transCode = twoNumArray.reverse().join('');
+
+      break;
+
+    case 'Decimal':
+
+      transCode = parseInt(data,16);
+
+      break;
+
+    case 'UnixTime':
+
+    var d = new Date( (Number(data)*1000)-28800000 );
+    transCode = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
+                d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+
+      break;
+
+    default:
+
+  }
+
+  return transCode;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 })

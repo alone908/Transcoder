@@ -25,7 +25,7 @@
     <!-- <i class='glyphicon glyphicon-qrcode' style="font-size:48px;color:white;"></i> -->
 		<img src="images/qr_code.jpg" style="width:60px;height:60px;margin-top:5px;vertical-align:0px;" />
 	  <font style="font-size:48px;font-family:'Gloria Hallelujah', cursive;color:white;vertical-align:10px;">Card TransCoder</font>
-    <font style="font-size:16px;font-family:'Gloria Hallelujah', cursive;color:white;vertical-align:10px;">&nbsp;2.0</font>
+    <font class="version" style="font-size:16px;font-family:'Gloria Hallelujah', cursive;color:white;vertical-align:10px;text-decoration:underline;cursor:pointer;">&nbsp;version 2.0.1</font>
 		&nbsp;&nbsp;
 		<img src="images/robot.gif" style="height:60px;vertical-align:top;">
 		<font style="font-size:16px;font-family:'Gloria Hallelujah', cursive;color:white;position:absolute;right:50;top:40;">created by Alex C.J. Wang</font>
