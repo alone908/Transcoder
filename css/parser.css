@@ -6,6 +6,7 @@
   margin:0px;
   width: auto;
   height: 100%;
+  min-height: 850px;
   font-family: ‘Noto Sans TC’, sans-serif;
 }
 
