@@ -17,6 +17,7 @@ $('.start').click(function(){
 $('.clear').click(function(){
   $('.originalDATA').val('');
   $('.dataForm').html('');
+  $('.mefForm').html('');
   $('.datalog').val('');
   $('.dataText').val('');
 })
@@ -249,6 +250,7 @@ function produce_data(sortData){
   var lineText = '';
   var lineLog = '';
   var linesText = [];
+  var bustype;
 
   sortData.forEach(function(value,lineNumber){
 
@@ -260,9 +262,6 @@ function produce_data(sortData){
     //re-calculate line number *************************************************
     lineNumber ++;
 
-    //decide section
-    var section = (lineNumber <= headCount) ? 'DataHead' : 'DataBody';
-
     if(lineNumber > headCount){
       if( (lineNumber-headCount)%bodyCount !== 0 ){
         lineNumber = (lineNumber-headCount)%bodyCount+headCount;
@@ -271,7 +270,7 @@ function produce_data(sortData){
       }
     }
 
-    //add zero afront of number
+    //add zero afront of number text
     if(lineNumber < 10){
       lineNumText = '00'+lineNumber.toString();
     }else if (lineNumber < 99) {
@@ -279,6 +278,10 @@ function produce_data(sortData){
     }else if (lineNumber >= 100) {
       lineNumText = lineNumber.toString();
     }
+    //**************************************************************************
+
+    //Decide section ***********************************************************
+    var section = (lineNumber <= headCount) ? 'DataHead' : 'DataBody';
     //**************************************************************************
 
     lineLog += lineNumText+' '+exp+' '+sourceData+' -->';
@@ -311,6 +314,13 @@ function produce_data(sortData){
     lineLog += rules+' ';
     //**************************************************************************
 
+    //Decide bus type **********************************************************
+    if(lineNumText === '018'){
+      if(transCode === '10'){ bustype = 'mef08' }
+      if(transCode === '11'){ bustype = 'mef0b' }
+    }
+    //**************************************************************************
+
     //Write lineText ***********************************************************
     lineText += sourceData+' ';
     lineText += rules;
@@ -333,10 +343,18 @@ function produce_data(sortData){
         lineHtml +='<span class="description" style="display:inline-block;">\
                       <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
-      }else if (lineNumText === '022') {
-        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
-      }else if (lineNumText === '046') {
-        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
+
       }else {
         lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
       }
@@ -351,10 +369,16 @@ function produce_data(sortData){
         lineHtml +='<span class="description" style="display:inline-block;">\
                       <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
-      }else if (lineNumText === '022') {
-        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
-      }else if (lineNumText === '046') {
-        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
       }else {
         lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
       }
@@ -554,6 +578,7 @@ function parse_mef(type,data){
   $('.mefForm').html('');
   var html = '';
   var splitStart = 0;
+  var bitaddup = 0;
   if(type === 'mef01'){ var mef = mef01;}
   if(type === 'mef03'){ var mef = mef03;}
   if(type === 'mef08'){ var mef = mef08;}
@@ -563,7 +588,16 @@ function parse_mef(type,data){
     var length = mef[index]['length'];
     var exp = mef[index]['Exp'];
     var rule = mef[index]['Rule'];
-    var splitEnd = splitStart + length;
+    if( length >= 1 || length === 0){
+      var splitEnd = splitStart + length;
+    }else if (length < 1 && length > 0) {
+      bitaddup += length;
+      if(bitaddup <= 0.4){
+        var splitEnd = splitStart+1;
+      }else if (bitaddup > 0.4) {
+        var splitEnd = splitStart+2;
+      }
+    }
     var splitdata = data.substring(splitStart,splitEnd);
 
     var transCode = splitdata;
@@ -574,11 +608,37 @@ function parse_mef(type,data){
     html +='<div class="lineDiv" >';
     html +='<span class="mef_description" style="display:inline-block;">'+exp+'</span>';
     html +='<span class="lineData">'+splitdata+'</span>';
-    html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    if(transCode !== 'Blank'){
+      html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    }else if (transCode === 'Blank') {
+      html +='<span class="blankspan" style="display:inline;">.........................................</span>';
+    }
     html +='</div>';
 
     $('.mefForm').html(html);
-    splitStart = splitEnd;
+    var lastBitaddup = bitaddup;
+
+    if( length >= 1 || length === 0){
+      splitStart = splitEnd;
+    }else if (length < 1 && length > 0) {
+      if(bitaddup < 0.4){
+        splitStart = splitEnd-1;
+      }else if (bitaddup === 0.4) {
+        splitStart = splitEnd;
+        bitaddup = 0
+      }else if (bitaddup > 0.4 && bitaddup < 0.8) {
+        if(lastBitaddup < 0.4){
+          splitStart = splitEnd-2;
+        }else if (lastBitaddup > 0.4) {
+          splitStart = splitEnd-1;
+        }
+      }else if (bitaddup === 0.8) {
+        splitStart = splitEnd;
+        bitaddup = 0
+      }
+    }
+
+
 
   }
 
@@ -587,6 +647,11 @@ function parse_mef(type,data){
 function transcode_basedon_rule(rule,data){
 
   var transCode;
+  if(rule.indexOf('Binary') === 0){
+    var bitStart = rule.split('-')[1];
+    var bitEnd = rule.split('-')[2];
+    rule = 'Binary';
+  }
 
   switch (rule) {
     case 'AN':
@@ -625,6 +690,27 @@ function transcode_basedon_rule(rule,data){
     var d = new Date( (Number(data)*1000)-28800000 );
     transCode = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
                 d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+
+      break;
+
+    case 'Binary':
+
+    if( parseInt(data,16).toString(2).length === 4 || parseInt(data,16).toString(2).length === 8){
+      var binaryString = parseInt(data,16).toString(2);
+    }else if ( parseInt(data,16).toString(2).length === 3 || parseInt(data,16).toString(2).length === 7 ) {
+      var binaryString = '0'+parseInt(data,16).toString(2);
+    }else if ( parseInt(data,16).toString(2).length === 2 || parseInt(data,16).toString(2).length === 6) {
+      var binaryString = '00'+parseInt(data,16).toString(2);
+    }else if ( parseInt(data,16).toString(2).length === 1 || parseInt(data,16).toString(2).length === 5) {
+      var binaryString = '000'+parseInt(data,16).toString(2);
+    }
+    transCode = binaryString.substring(bitStart,bitEnd);
+
+      break;
+
+    case 'Blank':
+
+    transCode = 'Blank'
 
       break;
 

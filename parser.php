@@ -50,7 +50,7 @@
 						<label><input class="checktranscodeRule" type="checkbox" value="" >轉碼規則</label>
 					</div>
 					<div class="mefTitle">
-						<font style="font-weight:bold;">MEF01/MEF03</font>
+						<font style="font-weight:bold;">MEF01/MEF03/MEF08/MEF0B</font>
 					</div>
 					<div class = "dataForm">
 					</div>
