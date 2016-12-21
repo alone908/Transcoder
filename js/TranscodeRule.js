@@ -558,27 +558,27 @@ var mef08 = {
     Exp:'里程特種票原始可用次數/額度',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_6:{
     Content:'mef08_6',
     Exp:'里程特種票剩餘可用次數/額度',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_7:{
     Content:'mef08_7',
     Exp:'里程特種票有效日期',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_8:{
     Content:'mef08_8',
@@ -613,8 +613,8 @@ var mef08 = {
     length:4,
     dataCoding:'BIN',
     LSB:true,
-    UnixTime:true,
-    Rule:['LSB','Decimal','UnixTime']
+    UnixTime:false,
+    Rule:['LSB','Decimal']
   },
   mef08_12:{
     Content:'mef08_12',
@@ -630,9 +630,9 @@ var mef08 = {
     Exp:'最後一次搭乘路線編號',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_14:{
     Content:'mef08_14',
@@ -657,18 +657,18 @@ var mef08 = {
     Exp:'交易票值',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_17:{
     Content:'mef08_17',
     Exp:'交易後票值',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_18:{
     Content:'mef08_18',
@@ -702,9 +702,9 @@ var mef08 = {
     Exp:'交易地點/運輸業者(DEV_ID)',
     length:8,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_22:{
     Content:'mef08_22',
@@ -747,18 +747,18 @@ var mef08 = {
     Exp:'交易票值',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_27:{
     Content:'mef08_27',
     Exp:'交易後票值',
     length:4,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_28:{
     Content:'mef08_28',
@@ -792,9 +792,9 @@ var mef08 = {
     Exp:'交易地點/運輸業者(DEV_ID)',
     length:8,
     dataCoding:'BIN',
-    LSB:false,
+    LSB:true,
     UnixTime:false,
-    Rule:['Decimal']
+    Rule:['LSB','Decimal']
   },
   mef08_32:{
     Content:'mef08_32',
