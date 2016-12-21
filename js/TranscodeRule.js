@@ -102,6 +102,15 @@ an[130] = '';
 
 var mef01 = {
 
+    mef01_0:{
+      Content:'mef01_0',
+      Exp:'發行管理資料',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
+    },
     mef01_1:{
       Content:'mef01_1',
       Exp:'發卡單位編號',
@@ -175,7 +184,16 @@ var mef01 = {
       Rule:['Decimal']
     },
     mef01_9:{
-      Content:'mef01_9',
+      Content:'mef01_09',
+      Exp:'票值管理資料',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
+    },
+    mef01_10:{
+      Content:'mef01_10',
       Exp:'自動加值設定',
       length:2,
       dataCoding:'BIN',
@@ -183,18 +201,9 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_10:{
-      Content:'mef01_10',
-      Exp:'自動加值票值數額',
-      length:4,
-      dataCoding:'BIN',
-      LSB:false,
-      UnixTime:false,
-      Rule:['Decimal']
-    },
     mef01_11:{
       Content:'mef01_11',
-      Exp:'儲存最大票值數額',
+      Exp:'自動加值票值數額',
       length:4,
       dataCoding:'BIN',
       LSB:false,
@@ -203,7 +212,7 @@ var mef01 = {
     },
     mef01_12:{
       Content:'mef01_12',
-      Exp:'每筆可加減最大票值數額',
+      Exp:'儲存最大票值數額',
       length:4,
       dataCoding:'BIN',
       LSB:false,
@@ -212,8 +221,8 @@ var mef01 = {
     },
     mef01_13:{
       Content:'mef01_13',
-      Exp:'指定加值設定',
-      length:2,
+      Exp:'每筆可加減最大票值數額',
+      length:4,
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
@@ -221,8 +230,8 @@ var mef01 = {
     },
     mef01_14:{
       Content:'mef01_14',
-      Exp:'指定加值票值數額',
-      length:4,
+      Exp:'指定加值設定',
+      length:2,
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
@@ -230,6 +239,15 @@ var mef01 = {
     },
     mef01_15:{
       Content:'mef01_15',
+      Exp:'指定加值票值數額',
+      length:4,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
+    mef01_16:{
+      Content:'mef01_16',
       Exp:'自動加值日期',
       length:4,
       dataCoding:'BIN',
@@ -237,18 +255,9 @@ var mef01 = {
       UnixTime:true,
       Rule:['Decimal','UnixTime']
     },
-    mef01_16:{
-      Content:'mef01_16',
-      Exp:'連續離線自動加值次數',
-      length:2,
-      dataCoding:'BIN',
-      LSB:false,
-      UnixTime:false,
-      Rule:['Decimal']
-    },
     mef01_17:{
       Content:'mef01_17',
-      Exp:'連續自動加值次數',
+      Exp:'連續離線自動加值次數',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -257,7 +266,7 @@ var mef01 = {
     },
     mef01_18:{
       Content:'mef01_18',
-      Exp:'連續指定加值次數',
+      Exp:'連續自動加值次數',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -266,7 +275,7 @@ var mef01 = {
     },
     mef01_19:{
       Content:'mef01_19',
-      Exp:'檢查碼',
+      Exp:'連續指定加值次數',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -275,6 +284,24 @@ var mef01 = {
     },
     mef01_20:{
       Content:'mef01_20',
+      Exp:'檢查碼',
+      length:2,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
+    mef01_21:{
+      Content:'mef01_21',
+      Exp:'卡片防偽驗證資料',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
+    },
+    mef01_22:{
+      Content:'mef01_22',
       Exp:'防偽驗證資料',
       length:32,
       dataCoding:'BIN',
@@ -286,7 +313,15 @@ var mef01 = {
 }
 
 var mef03 = {
-
+    mef03_0:{
+      Content:'mef03_0',
+      Exp:'卡片交易狀態資料',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
+    },
     mef03_1:{
       Content:'mef03_1',
       Exp:'卡片交易序號',
@@ -370,6 +405,15 @@ var mef03 = {
     },
     mef03_10:{
       Content:'mef03_10',
+      Exp:'最近兩筆閘門交易紀錄(1)',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
+    },
+    mef03_11:{
+      Content:'mef03_11',
       Exp:'交易序號',
       length:2,
       dataCoding:'BIN',
@@ -377,8 +421,8 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_11:{
-      Content:'mef03_11',
+    mef03_12:{
+      Content:'mef03_12',
       Exp:'交易時間',
       length:8,
       dataCoding:'BIN',
@@ -386,8 +430,8 @@ var mef03 = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
-    mef03_12:{
-      Content:'mef03_12',
+    mef03_13:{
+      Content:'mef03_13',
       Exp:'交易類別',
       length:2,
       dataCoding:'BIN',
@@ -395,18 +439,9 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_13:{
-      Content:'mef03_13',
-      Exp:'交易票值',
-      length:4,
-      dataCoding:'BIN',
-      LSB:true,
-      UnixTime:false,
-      Rule:['LSB','Decimal']
-    },
     mef03_14:{
       Content:'mef03_14',
-      Exp:'交易後票值',
+      Exp:'交易票值',
       length:4,
       dataCoding:'BIN',
       LSB:true,
@@ -415,16 +450,16 @@ var mef03 = {
     },
     mef03_15:{
       Content:'mef03_15',
-      Exp:'交易系統編號',
-      length:2,
+      Exp:'交易後票值',
+      length:4,
       dataCoding:'BIN',
-      LSB:false,
+      LSB:true,
       UnixTime:false,
-      Rule:['Decimal']
+      Rule:['LSB','Decimal']
     },
     mef03_16:{
       Content:'mef03_16',
-      Exp:'交易地點/運輸業者',
+      Exp:'交易系統編號',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -433,6 +468,15 @@ var mef03 = {
     },
     mef03_17:{
       Content:'mef03_17',
+      Exp:'交易地點/運輸業者',
+      length:2,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
+    mef03_18:{
+      Content:'mef03_18',
       Exp:'交易機器',
       length:8,
       dataCoding:'BIN',
@@ -440,27 +484,18 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_18:{
-      Content:'mef03_18',
-      Exp:'交易序號',
-      length:2,
-      dataCoding:'BIN',
-      LSB:false,
-      UnixTime:false,
-      Rule:['Decimal']
-    },
     mef03_19:{
       Content:'mef03_19',
-      Exp:'交易時間',
-      length:8,
-      dataCoding:'BIN',
-      LSB:true,
-      UnixTime:true,
-      Rule:['LSB','Decimal','UnixTime']
+      Exp:'最近兩筆閘門交易紀錄(2)',
+      length:0,
+      dataCoding:'undefined',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Blank']
     },
     mef03_20:{
       Content:'mef03_20',
-      Exp:'交易類別',
+      Exp:'交易序號',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -469,6 +504,24 @@ var mef03 = {
     },
     mef03_21:{
       Content:'mef03_21',
+      Exp:'交易時間',
+      length:8,
+      dataCoding:'BIN',
+      LSB:true,
+      UnixTime:true,
+      Rule:['LSB','Decimal','UnixTime']
+    },
+    mef03_22:{
+      Content:'mef03_22',
+      Exp:'交易類別',
+      length:2,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
+    mef03_23:{
+      Content:'mef03_23',
       Exp:'交易票值',
       length:4,
       dataCoding:'BIN',
@@ -476,8 +529,8 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_22:{
-      Content:'mef03_22',
+    mef03_24:{
+      Content:'mef03_24',
       Exp:'交易後票值',
       length:4,
       dataCoding:'BIN',
@@ -485,8 +538,8 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_23:{
-      Content:'mef03_23',
+    mef03_25:{
+      Content:'mef03_25',
       Exp:'交易系統編號',
       length:2,
       dataCoding:'BIN',
@@ -494,8 +547,8 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_24:{
-      Content:'mef03_24',
+    mef03_26:{
+      Content:'mef03_26',
       Exp:'交易地點/運輸業者',
       length:2,
       dataCoding:'BIN',
@@ -503,8 +556,8 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_25:{
-      Content:'mef03_25',
+    mef03_27:{
+      Content:'mef03_27',
       Exp:'交易機器',
       length:8,
       dataCoding:'BIN',
@@ -516,7 +569,15 @@ var mef03 = {
 }
 
 var mef08 = {
-
+  mef08_0:{
+    Content:'mef08_0',
+    Exp:'里程客運進出站交易管理資料',
+    length:0,
+    dataCoding:'undefined',
+    LSB:false,
+    UnixTime:false,
+    Rule:['Blank']
+  },
   mef08_1:{
     Content:'mef08_1',
     Exp:'客運公司編號',
@@ -529,7 +590,7 @@ var mef08 = {
   mef08_2:{
     Content:'mef08_2',
     Exp:'最後一次上/下車碼',
-    length:0.1,
+    length:'2-4',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
@@ -538,7 +599,7 @@ var mef08 = {
   mef08_3:{
     Content:'mef08_3',
     Exp:'里程特種票類別代碼',
-    length:0.3,
+    length:'2-4',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
@@ -547,11 +608,11 @@ var mef08 = {
   mef08_4:{
     Content:'mef08_4',
     Exp:'保留',
-    length:0.4,
+    length:'2-4',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4']
+    Rule:['Binary-4-8']
   },
   mef08_5:{
     Content:'mef08_5',
@@ -709,7 +770,7 @@ var mef08 = {
   mef08_22:{
     Content:'mef08_22',
     Exp:'行駛方向(往程:1返程:2循環:3)',
-    length:0.4,
+    length:'62-64',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
@@ -718,11 +779,11 @@ var mef08 = {
   mef08_23:{
     Content:'mef08_23',
     Exp:'保留',
-    length:0.4,
+    length:'62-64',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4']
+    Rule:['Binary-4-8']
   },
   mef08_24:{
     Content:'mef08_24',
@@ -731,7 +792,7 @@ var mef08 = {
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:[]
+    Rule:['Blank']
   },
   mef08_25:{
     Content:'mef08_25',
@@ -799,7 +860,7 @@ var mef08 = {
   mef08_32:{
     Content:'mef08_32',
     Exp:'行駛方向(往程:1返程:2循環:3)',
-    length:0.4,
+    length:'94-96',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
@@ -808,18 +869,18 @@ var mef08 = {
   mef08_33:{
     Content:'mef08_33',
     Exp:'保留',
-    length:0.4,
+    length:'94-96',
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4']
+    Rule:['Binary-4-8']
   }
 
 }
 
 var mef0b = {
-    mef0b_1:{
-      Content:'mef0b_1',
+    mef0b_0:{
+      Content:'mef0b_0',
       Exp:'段次公車/客運特種票資料區',
       length:0,
       dataCoding:'BIN',
@@ -827,8 +888,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Blank']
     },
-    mef0b_2:{
-      Content:'mef0b_2',
+    mef0b_1:{
+      Content:'mef0b_1',
       Exp:'段次特種票識別單位',
       length:2,
       dataCoding:'BIN',
@@ -836,27 +897,36 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_3:{
-      Content:'mef0b_3',
+    mef0b_2:{
+      Content:'mef0b_2',
       Exp:'段次特種票類別代碼',
-      length:0.3,
+      length:'2-4',
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
       Rule:['Binary-0-3']
     },
-    mef0b_4:{
-      Content:'mef0b_4',
+    mef0b_3:{
+      Content:'mef0b_3',
       Exp:'保留',
-      length:0.5,
+      length:'2-4',
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
       Rule:['Binary-3-8']
     },
+    mef0b_4:{
+      Content:'mef0b_4',
+      Exp:'段次特種票原始可用次數/額度',
+      length:4,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
     mef0b_5:{
       Content:'mef0b_5',
-      Exp:'段次特種票原始可用次數/額度',
+      Exp:'段次特種票剩餘可用次數/額度',
       length:4,
       dataCoding:'BIN',
       LSB:false,
@@ -865,7 +935,7 @@ var mef0b = {
     },
     mef0b_6:{
       Content:'mef0b_6',
-      Exp:'段次特種票剩餘可用次數/額度',
+      Exp:'段次特種票有效日期',
       length:4,
       dataCoding:'BIN',
       LSB:false,
@@ -874,8 +944,8 @@ var mef0b = {
     },
     mef0b_7:{
       Content:'mef0b_7',
-      Exp:'段次特種票有效日期',
-      length:4,
+      Exp:'段次特種票有效天數',
+      length:2,
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
@@ -883,7 +953,7 @@ var mef0b = {
     },
     mef0b_8:{
       Content:'mef0b_8',
-      Exp:'段次特種票有效天數',
+      Exp:'段次特種票有效起站',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -892,7 +962,7 @@ var mef0b = {
     },
     mef0b_9:{
       Content:'mef0b_9',
-      Exp:'段次特種票有效起站',
+      Exp:'段次特種票有效迄站',
       length:2,
       dataCoding:'BIN',
       LSB:false,
@@ -901,15 +971,6 @@ var mef0b = {
     },
     mef0b_10:{
       Content:'mef0b_10',
-      Exp:'段次特種票有效迄站',
-      length:2,
-      dataCoding:'BIN',
-      LSB:false,
-      UnixTime:false,
-      Rule:['Decimal']
-    },
-    mef0b_11:{
-      Content:'mef0b_11',
       Exp:'段次特種票保留',
       length:10,
       dataCoding:'BIN',
@@ -917,8 +978,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_12:{
-      Content:'mef0b_12',
+    mef0b_11:{
+      Content:'mef0b_11',
       Exp:'段次公車/客運交易資料',
       length:0,
       dataCoding:'BIN',
@@ -926,8 +987,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Blank']
     },
-    mef0b_13:{
-      Content:'mef0b_13',
+    mef0b_12:{
+      Content:'mef0b_12',
       Exp:'路線編號',
       length:4,
       dataCoding:'BIN',
@@ -935,8 +996,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_14:{
-      Content:'mef0b_14',
+    mef0b_13:{
+      Content:'mef0b_13',
       Exp:'交易時間',
       length:8,
       dataCoding:'BIN',
@@ -944,9 +1005,18 @@ var mef0b = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
+    mef0b_14:{
+      Content:'mef0b_14',
+      Exp:'交易票值',
+      length:4,
+      dataCoding:'BIN',
+      LSB:false,
+      UnixTime:false,
+      Rule:['Decimal']
+    },
     mef0b_15:{
       Content:'mef0b_15',
-      Exp:'交易票值',
+      Exp:'交易後票值',
       length:4,
       dataCoding:'BIN',
       LSB:false,
@@ -955,15 +1025,6 @@ var mef0b = {
     },
     mef0b_16:{
       Content:'mef0b_16',
-      Exp:'交易後票值',
-      length:4,
-      dataCoding:'BIN',
-      LSB:false,
-      UnixTime:false,
-      Rule:['Decimal']
-    },
-    mef0b_17:{
-      Content:'mef0b_17',
       Exp:'交易類別',
       length:2,
       dataCoding:'BIN',
@@ -971,8 +1032,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_18:{
-      Content:'mef0b_18',
+    mef0b_17:{
+      Content:'mef0b_17',
       Exp:'交易地點/運輸業者(DEV_ID)',
       length:8,
       dataCoding:'BIN',
@@ -980,8 +1041,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_19:{
-      Content:'mef0b_19',
+    mef0b_18:{
+      Content:'mef0b_18',
       Exp:'段號',
       length:2,
       dataCoding:'BIN',
@@ -989,8 +1050,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_20:{
-      Content:'mef0b_20',
+    mef0b_19:{
+      Content:'mef0b_19',
       Exp:'保留',
       length:0,
       dataCoding:'BIN',
@@ -998,8 +1059,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Blank']
     },
-    mef0b_21:{
-      Content:'mef0b_21',
+    mef0b_20:{
+      Content:'mef0b_20',
       Exp:'當日累積段次交易日期',
       length:4,
       dataCoding:'BIN',
@@ -1016,8 +1077,8 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_21:{
-      Content:'mef0b_21',
+    mef0b_22:{
+      Content:'mef0b_22',
       Exp:'保留',
       length:26,
       dataCoding:'BIN',

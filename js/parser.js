@@ -160,6 +160,7 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
     $('.originalDATA').val(originalDATA);
   }
   $('.dataForm').html('');
+  $('.mefForm').html('');
 
   $('.dataForm').append(data.lineHtml);
   $('.dataText').val(data.lineText);
@@ -585,19 +586,19 @@ function parse_mef(type,data){
   if(type === 'mef0b'){ var mef = mef0b;}
 
   for(var index in mef){
-    var length = mef[index]['length'];
+
     var exp = mef[index]['Exp'];
     var rule = mef[index]['Rule'];
-    if( length >= 1 || length === 0){
+
+    if(typeof mef[index]['length'] === 'number'){
+      var length = mef[index]['length'];
       var splitEnd = splitStart + length;
-    }else if (length < 1 && length > 0) {
-      bitaddup += length;
-      if(bitaddup <= 0.4){
-        var splitEnd = splitStart+1;
-      }else if (bitaddup > 0.4) {
-        var splitEnd = splitStart+2;
-      }
+    }else if ( typeof mef[index]['length'] === 'string' ) {
+      splitStart = mef[index]['length'].split('-')[0];
+      var splitEnd = mef[index]['length'].split('-')[1];
+
     }
+
     var splitdata = data.substring(splitStart,splitEnd);
 
     var transCode = splitdata;
@@ -611,34 +612,12 @@ function parse_mef(type,data){
     if(transCode !== 'Blank'){
       html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
     }else if (transCode === 'Blank') {
-      html +='<span class="blankspan" style="display:inline;">.........................................</span>';
+      html +='<span class="blankspan" style="display:inline;">----------'+exp+'----------</span>';
     }
     html +='</div>';
 
     $('.mefForm').html(html);
-    var lastBitaddup = bitaddup;
-
-    if( length >= 1 || length === 0){
-      splitStart = splitEnd;
-    }else if (length < 1 && length > 0) {
-      if(bitaddup < 0.4){
-        splitStart = splitEnd-1;
-      }else if (bitaddup === 0.4) {
-        splitStart = splitEnd;
-        bitaddup = 0
-      }else if (bitaddup > 0.4 && bitaddup < 0.8) {
-        if(lastBitaddup < 0.4){
-          splitStart = splitEnd-2;
-        }else if (lastBitaddup > 0.4) {
-          splitStart = splitEnd-1;
-        }
-      }else if (bitaddup === 0.8) {
-        splitStart = splitEnd;
-        bitaddup = 0
-      }
-    }
-
-
+    splitStart = Number(splitEnd);
 
   }
 
@@ -695,6 +674,8 @@ function transcode_basedon_rule(rule,data){
 
     case 'Binary':
 
+    data = data.split('').reverse().join('');
+
     if( parseInt(data,16).toString(2).length === 4 || parseInt(data,16).toString(2).length === 8){
       var binaryString = parseInt(data,16).toString(2);
     }else if ( parseInt(data,16).toString(2).length === 3 || parseInt(data,16).toString(2).length === 7 ) {
@@ -704,13 +685,14 @@ function transcode_basedon_rule(rule,data){
     }else if ( parseInt(data,16).toString(2).length === 1 || parseInt(data,16).toString(2).length === 5) {
       var binaryString = '000'+parseInt(data,16).toString(2);
     }
+
     transCode = binaryString.substring(bitStart,bitEnd);
 
       break;
 
     case 'Blank':
 
-    transCode = 'Blank'
+    transCode = 'Blank';
 
       break;
 
