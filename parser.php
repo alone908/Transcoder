@@ -24,7 +24,7 @@
 			<button type="button" class="btn btn-info record" style="background-color:#0e61a7;" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;Records</button>
 			<button type="button" class="btn btn-info import" style="background-color:#0e61a7;" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;Import</button>
 			<a href="file_manager.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-folder-open'></i>&nbsp;&nbsp;File Manager</a>
-			<!-- <a href="sourceCode.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-barcode'></i>&nbsp;&nbsp;Source Code</a> -->
+			<a href="sourceCode.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-barcode'></i>&nbsp;&nbsp;Source Code</a>
 		</nav>
 
     <div style="display:inline-block; width:10%; margin:-3 0 0 0;">
@@ -65,7 +65,7 @@
 				</div>
 
 				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'rule') echo 'active'; ?>" id="ruleEditor" style="margin:10 0 0 0;">
-					<div class = "transCodeEditor" style="font-family:font-family: ‘Noto Sans TC’, sans-serif;font-weight:400;">
+					<div class = "transCodeEditor">
 						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>
 						<h5 style="color:red;">(i)支援規則有 : AN,LSB,Decimal,UnixTime. 不同規則請以逗點隔開，ex (LSB,Decimal) 或 (AN,Decimal,UnixTime).</h5>
 						<h5 style="color:red;">(ii)順序會有影響，(LSB,Decimal) 和 (Decimal,LSB) 會產生不同結果.</h5>
