@@ -1,0 +1,14 @@
+.previewfile {
+  border: 1px solid #888;
+  display:inline-block;
+  width:1000px;
+  height:500px;
+  vertical-align:top;
+  margin:10px;
+}
+
+#codeMirror {
+  font-size:10px;
+  width:850px;
+  height:500px;
+}

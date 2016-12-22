@@ -1224,14 +1224,21 @@
 			return false;
 		},
 		makeDOMNodeIcon: function(html, setting, node) {
-			console.log(node);
 			var nameStr = data.getNodeName(setting, node),
 			name = setting.view.nameIsHTML ? nameStr : nameStr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-			html.push("<span id='", node.tId, consts.id.ICON,
+			if(node.filetype === 'dir'){
+				html.push("<span id='", node.tId, consts.id.ICON,
 				"' title='' treeNode", consts.id.ICON," class='", view.makeNodeIcoClass(setting, node),
 				"' style='", view.makeNodeIcoStyle(setting, node), "'></span><span id='", node.tId, consts.id.SPAN,
 				"' class='", consts.className.NAME,
 				"'>",name,"</span>");
+			}else if (node.filetype === 'file') {
+				html.push("<span id='", node.tId, consts.id.ICON,
+					"' title='' treeNode", consts.id.ICON," class='", view.makeNodeIcoClass(setting, node),
+					"' style='", view.makeNodeIcoStyle(setting, node), "'></span><span id='", node.tId, consts.id.SPAN,
+					"' class='", consts.className.NAME,
+					" fileItem' data-url='", node.path,"'>",name,"</span>");
+			}
 		},
 		makeDOMNodeLine: function(html, setting, node) {
 			html.push("<span id='", node.tId, consts.id.SWITCH,	"' title='' class='", view.makeNodeLineClass(setting, node), "' treeNode", consts.id.SWITCH,"></span>");
