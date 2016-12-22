@@ -24,6 +24,7 @@
 			<button type="button" class="btn btn-info record" style="background-color:#0e61a7;" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;Records</button>
 			<button type="button" class="btn btn-info import" style="background-color:#0e61a7;" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;Import</button>
 			<a href="file_manager.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-folder-open'></i>&nbsp;&nbsp;File Manager</a>
+			<!-- <a href="sourceCode.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-barcode'></i>&nbsp;&nbsp;Source Code</a> -->
 		</nav>
 
     <div style="display:inline-block; width:10%; margin:-3 0 0 0;">

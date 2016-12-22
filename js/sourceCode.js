@@ -3,8 +3,17 @@ var zTreeObj;
 var setting = {
   callback:{
     onClick:function(e){
-      var file_ext = e.target.dataset.url.split('.').pop();
-      build_codeMirror(e.target.dataset.url,file_ext);
+      if(e.target.dataset.url){
+        var file_ext = e.target.dataset.url.split('.').pop();
+        if( $.inArray( file_ext,['txt','html','css','js','php','sql'] ) !== -1 ){
+          build_codeMirror(e.target.dataset.url,file_ext);
+        }else if ( $.inArray( file_ext,['bmp','png','jpg','jpeg','gif','tif'] ) !== -1 ) {
+          show_img(e.target.dataset.url);
+        }else {
+          file_not_viewable();
+        }
+
+      }
     }
   }
 };
@@ -25,7 +34,6 @@ $.ajax({
 
 function build_codeMirror(url,file_ext){
 
-  $('.previewfile').html('');
   var mode = 'text/html';
   if(file_ext === 'css') { mode = 'text/css'; }
   if(file_ext === 'js' ) { mode = 'text/javascript'; }
@@ -38,7 +46,7 @@ function build_codeMirror(url,file_ext){
     data:{url:url},
     dataType: "json",
     success: function (lines) {
-        console.log(lines);
+
         var file_content = lines.join("");
 
         $('.previewfile').html('<textarea id="codeMirror" type="text"></textarea>');
@@ -62,4 +70,14 @@ function build_codeMirror(url,file_ext){
     }
   });
 
+}
+
+function show_img(url){
+  var dirname = window.location.pathname.substring( 1,window.location.pathname.lastIndexOf('/') );
+  var src = url.substring( url.indexOf(dirname)+dirname.length+1 );
+  $('.previewfile').html('<div style="height:500px;text-align:center;overflow:auto"><img src="'+src+'"></div>');
+}
+
+function file_not_viewable(){  
+  $('.previewfile').html('<h2>Sorry, can not show this file.</h2>');
 }

@@ -34,8 +34,12 @@ require_once 'header.php';
 <div class="container" style="margin:0px;">
 
   <nav class="navbar navbar-inverse" style="margin:5px 0px;padding:10px 5px;min-height:0px;">
-	  <a href="parser.php?noCover=true" class="btn btn-info" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-arrow-left'></i>&nbsp;&nbsp;Go Back</a>
+	  <a href="parser.php?noCover=true" class="btn btn-info" style="background-color:#0e61a7;">
+      <i class='glyphicon glyphicon-arrow-left'></i>&nbsp;&nbsp;Go Back
+    </a>
   </nav>
+
+  <font style="font-size:18px;font-weight:bold;display:block;">You can see all the source code of this project here.</font>
 
   <div style="display:inline-block;">
      <ul id="treeDemo" class="ztree"></ul>
