@@ -492,7 +492,7 @@ function updateRule(op,ruleid,data){
    data: {op:op,ruleid:ruleid,data:data},
    dataType: "json",
    success: function (data) {
-     window.location = 'parser.php?tab=rule';
+     window.location = 'index.php?tab=rule';
    }
  });
 

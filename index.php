@@ -4,7 +4,7 @@
 	<?php	$noCover = (isset($_GET['noCover'])) ? $_GET['noCover'] : 'false' ;?>
 	<?php	$versionModal = (isset($_GET['vM'])) ? 'false' : 'true' ;?>
 
-	<script src="js/parser.js"></script>
+	<script src="js/index.js"></script>
 	<script src="js/TranscodeRule.js"></script>
 	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
 

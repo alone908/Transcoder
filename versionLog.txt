@@ -27,3 +27,5 @@ version 2.0.0
 version 2.0.1
 1.新增MEF01,MEF03轉碼規則
 2.新增MEF08,MEF0B轉碼規則
+3.新增Source Code功能
+4.新增Google中文字型

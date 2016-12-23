@@ -4,7 +4,7 @@
 	<title>Card TransCoder 2.0</title>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/parser.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
   <link href="css/jquery.fileupload.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 
