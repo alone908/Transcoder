@@ -594,7 +594,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-1']
+    Rule:['Binary-0-1-LSB']
   },
   mef08_3:{
     Content:'mef08_3',
@@ -603,7 +603,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-1-4']
+    Rule:['Binary-1-4-LSB']
   },
   mef08_4:{
     Content:'mef08_4',
@@ -612,7 +612,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8']
+    Rule:['Binary-4-8-LSB']
   },
   mef08_5:{
     Content:'mef08_5',
@@ -774,7 +774,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4']
+    Rule:['Binary-0-4-LSB']
   },
   mef08_23:{
     Content:'mef08_23',
@@ -783,7 +783,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8']
+    Rule:['Binary-4-8-LSB']
   },
   mef08_24:{
     Content:'mef08_24',
@@ -864,7 +864,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4']
+    Rule:['Binary-0-4-LSB']
   },
   mef08_33:{
     Content:'mef08_33',
@@ -873,7 +873,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8']
+    Rule:['Binary-4-8-LSB']
   }
 
 }
@@ -904,7 +904,7 @@ var mef0b = {
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Binary-0-3']
+      Rule:['Binary-0-3-LSB']
     },
     mef0b_3:{
       Content:'mef0b_3',
@@ -913,7 +913,7 @@ var mef0b = {
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Binary-3-8']
+      Rule:['Binary-3-8-LSB']
     },
     mef0b_4:{
       Content:'mef0b_4',
