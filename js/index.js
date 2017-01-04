@@ -629,6 +629,7 @@ function transcode_basedon_rule(rule,data){
   if(rule.indexOf('Binary') === 0){
     var bitStart = rule.split('-')[1];
     var bitEnd = rule.split('-')[2];
+    var lsb = rule.split('-')[3];
     rule = 'Binary';
   }
 
@@ -674,16 +675,33 @@ function transcode_basedon_rule(rule,data){
 
     case 'Binary':
 
-    data = data.split('').reverse().join('');
+    var firstInt = data.split('')[0];
+    var secondInt = data.split('')[1];
 
-    if( parseInt(data,16).toString(2).length === 4 || parseInt(data,16).toString(2).length === 8){
-      var binaryString = parseInt(data,16).toString(2);
-    }else if ( parseInt(data,16).toString(2).length === 3 || parseInt(data,16).toString(2).length === 7 ) {
-      var binaryString = '0'+parseInt(data,16).toString(2);
-    }else if ( parseInt(data,16).toString(2).length === 2 || parseInt(data,16).toString(2).length === 6) {
-      var binaryString = '00'+parseInt(data,16).toString(2);
-    }else if ( parseInt(data,16).toString(2).length === 1 || parseInt(data,16).toString(2).length === 5) {
-      var binaryString = '000'+parseInt(data,16).toString(2);
+    if( parseInt(firstInt,16).toString(2).length === 4){
+      var firstBinaryString = parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 3) {
+      var firstBinaryString = '0'+parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 2) {
+      var firstBinaryString = '00'+parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 1) {
+      var firstBinaryString = '000'+parseInt(firstInt,16).toString(2);
+    }
+
+    if( parseInt(secondInt,16).toString(2).length === 4){
+      var secondBinaryString = parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 3) {
+      var secondBinaryString = '0'+parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 2) {
+      var secondBinaryString = '00'+parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 1) {
+      var secondBinaryString = '000'+parseInt(secondInt,16).toString(2);
+    }
+
+    if(lsb === 'LSB'){
+      var binaryString = secondBinaryString+firstBinaryString;  //Reverse binary string
+    }else {
+      var binaryString = firstBinaryString+secondBinaryString
     }
 
     transCode = binaryString.substring(bitStart,bitEnd);
