@@ -1,3 +1,24 @@
+$(document).ready(function(){
+
+  $('.saveFile').click(function(e){
+
+    if(codeMirrorValue){
+
+      $.ajax({
+        type: 'POST',
+        url: "appphp/save_source_code.php",
+        data:{url:editCodeFileURL,content:codeMirrorValue },
+        dataType: "json",
+        success: function (data) {
+          location.reload();
+        }
+      });
+    }
+
+  })
+
+})
+
 var zTreeObj;
 
 var setting = {
@@ -32,13 +53,20 @@ $.ajax({
   }
 });
 
+var codeMirrorValue;
+var editCodeFileURL;
 function build_codeMirror(url,file_ext){
 
+  editCodeFileURL = url;
   var mode = 'text/html';
   if(file_ext === 'css') { mode = 'text/css'; }
   if(file_ext === 'js' ) { mode = 'text/javascript'; }
   if(file_ext === 'php') { mode = 'application/x-httpd-php'; }
   if(file_ext === 'sql') { mode = 'text/x-sql'; }
+  var file_name = url.substring(url.lastIndexOf('/')+1,url.length);
+  var editableFile = ['TranscodeRule.js'];
+  var readOnly = ( editableFile.indexOf(file_name) === -1 ) ? true : false ;
+  var editable = ( editableFile.indexOf(file_name) === -1 ) ? false : true ;
 
   $.ajax({
     type: 'POST',
@@ -60,12 +88,16 @@ function build_codeMirror(url,file_ext){
           extraKeys: {"Ctrl-J": "toMatchingTag"},
           lineWrapping: true,
           styleActiveLine: true,
-          readOnly:true
+          readOnly:readOnly
 
         });
+
         editor.on('update', function (instance) {
-          $("#codeMirror").val(instance.getValue());
+          codeMirrorValue = $("#codeMirror").val(instance.getValue())[0].value;
         });
+
+        if(editable){ $('.saveFile').css('display','inline-block') }
+        if(!editable){ $('.saveFile').css('display','none') }
 
     }
   });
@@ -78,6 +110,6 @@ function show_img(url){
   $('.previewfile').html('<div style="height:500px;text-align:center;overflow:auto"><img src="'+src+'"></div>');
 }
 
-function file_not_viewable(){  
+function file_not_viewable(){
   $('.previewfile').html('<h2>Sorry, can not show this file.</h2>');
 }

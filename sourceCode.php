@@ -39,7 +39,12 @@ require_once 'header.php';
     </a>
   </nav>
 
-  <font style="font-size:18px;font-weight:bold;display:block;">You can see all the source code of this project here.</font>
+  <font style="font-size:18px;font-weight:bold;display:inline-block;">You can see all the source code of this project here.</font>
+	<button class="btn btn-info saveFile" style="background-color:#0e61a7;padding:0px 6px;vertical-align:bottom;display:none;">
+		<i class='glyphicon glyphicon-floppy-disk'></i>&nbsp;&nbsp;Save
+	</button>
+
+  <br>
 
   <div style="display:inline-block;">
      <ul id="treeDemo" class="ztree"></ul>

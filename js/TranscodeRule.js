@@ -765,7 +765,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    Rule:['LSB']
   },
   mef08_22:{
     Content:'mef08_22',
@@ -855,7 +855,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    Rule:['LSB']
   },
   mef08_32:{
     Content:'mef08_32',

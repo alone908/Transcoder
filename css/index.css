@@ -4,7 +4,8 @@
   background-size:cover;
   background-repeat: no-repeat;
   margin:0px;
-  width: auto;
+  padding: 0px 10px;
+  width: 100%;
   height: 100%;
   min-height: 850px;
   font-family: 'Noto Sans TC', sans-serif;
@@ -12,10 +13,10 @@
 
 .tabs {
   display:inline-block;
-  width:86%;
+  width:88%;
   height:auto;
   vertical-align:top;
-  margin: 0 0 0 20;
+  margin: 0 0 0 10;
 }
 
 .checkbox {
@@ -45,7 +46,7 @@
 .mefForm {
   background-color: white;
   display:inline-block;
-  width:36%;
+  width:38%;
   height:650px;
   overflow:scroll;
   border:1px solid #cccccc;
@@ -68,8 +69,16 @@
   background-color:#fdbe40
 }
 
-.description, .mef_description{
+.description {
   width:250px;
+  padding:3 5 3.5 5;
+  border-bottom:1px solid black;
+  background-color:#dadada;
+  font-weight: 500;
+}
+
+.mef_description {
+  width:200px;
   padding:3 5 3.5 5;
   border-bottom:1px solid black;
   background-color:#dadada;
