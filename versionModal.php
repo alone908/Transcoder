@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body" style="height:450px;overflow-y:scroll;">
         <?php
-          $file = fopen("versionLog.txt","r");
+          $file = fopen("text/versionLog.txt","r");
 
           while(! feof($file)){
              $line = fgets($file);
