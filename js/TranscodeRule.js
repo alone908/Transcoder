@@ -765,7 +765,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB']
+    Rule:['LSB','Decimal']
   },
   mef08_22:{
     Content:'mef08_22',
@@ -855,7 +855,7 @@ var mef08 = {
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB']
+    Rule:['LSB','Decimal']
   },
   mef08_32:{
     Content:'mef08_32',
@@ -992,9 +992,9 @@ var mef0b = {
       Exp:'路線編號',
       length:4,
       dataCoding:'BIN',
-      LSB:false,
+      LSB:true,
       UnixTime:false,
-      Rule:['Decimal']
+      Rule:['LSB','Decimal']
     },
     mef0b_13:{
       Content:'mef0b_13',
@@ -1010,18 +1010,18 @@ var mef0b = {
       Exp:'交易票值',
       length:4,
       dataCoding:'BIN',
-      LSB:false,
+      LSB:true,
       UnixTime:false,
-      Rule:['Decimal']
+      Rule:['LSB','Decimal']
     },
     mef0b_15:{
       Content:'mef0b_15',
       Exp:'交易後票值',
       length:4,
       dataCoding:'BIN',
-      LSB:false,
+      LSB:true,
       UnixTime:false,
-      Rule:['Decimal']
+      Rule:['LSB','Decimal']
     },
     mef0b_16:{
       Content:'mef0b_16',
