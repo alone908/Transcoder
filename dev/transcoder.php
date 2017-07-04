@@ -1,5 +1,6 @@
 <!-- Header -->
 <?php include_once 'header.php';?>
+<?php include_once 'modals.php';?>
 
 <!-- Page Content -->
 <div class="" style="padding:0px 10px;">
@@ -8,7 +9,12 @@
       <ol class="breadcrumb">
         <li><a href="index.php">Home</a></li>
         <li class="active">Transcoder</li>
+        &nbsp;&nbsp;&nbsp;
+        <span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;IMPORT</span>
+        <span id="record-btn" class="btn btn-black record" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;RECORDS</button>
+        &nbsp;
       </ol>
+
     </div>
 
     <div id="wrapper">
