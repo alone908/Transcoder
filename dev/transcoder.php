@@ -11,7 +11,7 @@
       </ol>
     </div>
 
-    <div id="wrapper" style="position:relative;display:inline-block;width:100%;border:1px solid black;">
+    <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -25,10 +25,10 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div style="display:inline-block;font-size:18px;padding:5px;background-color:black;position:absolute;height:100%;">
-                <a href="#menu-toggle" id="menu-toggle" class=""  style="color:white;"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+            <div id="menu-toggle-div">
+                <a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
             </div>
-            <div class="" style="display:inline-block;width:95%;vertical-align:top;padding-left:28px;">
+            <div id="page-content">
 
                     <h1>Simple Sidebar</h1>
                     <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
@@ -50,6 +50,7 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+        $("#menu-toggle-div").toggleClass("toggled");
     });
 
     $(document).ready(function(){
