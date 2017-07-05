@@ -11,7 +11,7 @@
         <li class="active">Transcoder</li>
         &nbsp;&nbsp;&nbsp;
         <span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;IMPORT</span>
-        <span id="record-btn" class="btn btn-black record" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;RECORDS</button>
+        <span id="record-btn" class="btn btn-black" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;RECORDS</button>
         &nbsp;
       </ol>
 
@@ -21,10 +21,10 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li><a href="#">SOURCE</a></li>
-                <li><a href="#">FORM</a></li>
-                <li><a href="#">TEXT</a></li>
-                <li><a href="#">LOG</a></li>
+                <li id="source-tab"><a href="#">SOURCE</a></li>
+                <li id="form-tab"><a href="#" class="a-active">FORM</a></li>
+                <li id="text-tab"><a href="#">TEXT</a></li>
+                <li id="log-tab"><a href="#">LOG</a></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -36,12 +36,37 @@
             </div>
             <div id="page-content">
 
-                    <h1>Simple Sidebar</h1>
-                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                    <h1>Simple Sidebar</h1>
-                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                    <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>                    
+              <div id="form-data-container">
+
+                <div id="form-title-div">
+                  <div class="checkbox">
+      					     <label><input class="checkContent" type="checkbox" value="" checked>Content</label>
+      						   <label><input class="checktransCode" type="checkbox" value="" checked>Transcode</label>
+      						   <label><input class="checktranscodeRule" type="checkbox" value="" >Rule</label>
+      					   </div>
+                   <div class="mefTitle">
+                     <font style="font-weight:bold;">MEF01/MEF03/MEF08/MEF0B</font>
+                   </div>
+                </div>
+                <div id="form-data" class = "dataForm" style="border:1px solid black;"></div>
+                <div id="mef-form" class = "mefForm" style="border:1px solid black;"></div>
+
+              </div>
+
+              <div id="text-data-container">
+                <span>Text Data</span><br>
+                <textarea type="text" class="form-control dataText" style="width:100%;height:96%;"></textarea>
+              </div>
+
+              <div id="log-data-container">
+                <span>Log Data</span><br>
+                <textarea type="text" class="form-control datalog" style="width:100%;height:96%;"></textarea>
+              </div>
+
+              <div id="source-data-container">
+                <span>Source Data</span><br>
+                <textarea type="text" class="form-control originalDATA" style="width:100%; height:96%;"></textarea>
+              </div>
 
             </div>
         </div>
@@ -53,15 +78,8 @@
 </div>
 
 <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        $("#menu-toggle-div").toggleClass("toggled");
-    });
 
     $(document).ready(function(){
-      var wrapperHeight = $(document).innerHeight()-225;
-      $('#wrapper').css('height',wrapperHeight.toString()+'px');
     })
 </script>
 
