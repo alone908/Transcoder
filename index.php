@@ -11,7 +11,7 @@
   <div class="container" style="">
 
     <!-- Add welcome cover in the beggining -->
-    <?php //if($noCover === 'false') require_once 'cover.php' ?>
+    <?php if($noCover === 'false') require_once 'cover.php' ?>
 		<!-- Add welcome cover in the beggining -->
 
 		<?php	require_once 'recordModal.php';	?>
