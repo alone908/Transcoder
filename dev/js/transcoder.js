@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   TranscodeRule = JSON.parse(TranscodeRule);
 
-  var wrapperHeight = $(document).innerHeight()-225;
+  var wrapperHeight = $(document).innerHeight()-160;
   $('#wrapper').css('height',wrapperHeight.toString()+'px');
 
   $('.start').on('click',function(e){
