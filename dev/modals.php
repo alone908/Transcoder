@@ -55,12 +55,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">TransCode Record</h4>
+        <span class="modal-title" id="myModalLabel">TransCode Record</span>
+        <span class="modal-title" style="color:red">Maxmum 50 Records</span>
       </div>
       <div class="modal-body">
-        <h5 class="modal-title" style="color:red">最多保留50筆紀錄(Maxmum 50 records)</h5>
-        <div class="transcodeRecord">
-          <table class="table table-condensed table-hover recordTable">
+        <div class="records-container">
+          <table class="table table-condensed table-hover record-table">
             <tr>
               <th>#</th>
               <th>SourceData</th>

@@ -30,3 +30,11 @@
   background-color: #5bc0de;
   cursor: pointer;
 }
+
+.records-container {
+  margin-top: 10px;
+  height: 350px;
+  border:1px solid #cccccc;
+  border-radius:5px;
+  overflow: auto;
+}
