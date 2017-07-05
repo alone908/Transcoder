@@ -55,8 +55,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span class="modal-title" id="myModalLabel">TransCode Record</span>
-        <span class="modal-title" style="color:red">Maxmum 50 Records</span>
+        <span class="modal-title" id="myModalLabel" style="font-size:18px;">Records</span>
+        <span class="modal-title" style="color:red;font-size:12px;">&nbsp;(maxmum 50 records)</span>
       </div>
       <div class="modal-body">
         <div class="records-container">

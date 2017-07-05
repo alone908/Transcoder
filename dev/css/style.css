@@ -1,4 +1,4 @@
-
+@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
 .btn-black{
   color:#9d9d9d;
   background-color:#000;
@@ -14,7 +14,8 @@
 /***** transcoder.php style *****/
 
 #form-title-div {
-  padding: 5px 0px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
 }
 
 .checkbox {
@@ -36,14 +37,16 @@
 
 #form-data {
   display: inline-block;
-  height: 95%;
+  height: 94.5%;
   width: 60%;
+  overflow: auto;
 }
 
 #mef-form {
   display: inline-block;
-  height: 95%;
+  height: 94.5%;
   width: 38.5%;
+  overflow: auto;
 }
 
 #source-data-container {
@@ -67,6 +70,55 @@
   overflow-y: auto;
 }
 
+.lineDiv {
+  width:100%;
+  white-space: nowrap;
+}
+
+.lineNumber {
+  width:auto;
+  border-bottom:1px solid black;
+  border-left:1px solid black;
+  padding:3.5px;
+  background-color:#fdbe40
+}
+
+.description {
+  width:250px;
+  padding:3 5 3.5 5;
+  border-bottom:1px solid black;
+  background-color:#dadada;
+  font-weight: 500;
+}
+
+.mef_description {
+  width:200px;
+  padding:3 5 3.5 5;
+  border-bottom:1px solid black;
+  background-color:#dadada;
+  font-weight: 500;
+}
+
+.mefdata {
+  cursor: pointer;
+}
+
+.lineData {
+  width:auto;
+  padding:3.5px;
+}
+
+.transCode {
+  width:auto;
+  padding:3.5px;
+  background-color:#8eca62
+}
+
+.blankspan {
+  width:auto;
+  padding:3.5px;
+  background-color:#fdbe40
+}
 
 /***** modals.php style *****/
 
@@ -82,7 +134,8 @@
 }
 
 .fileline:hover {
-  background-color: #5bc0de;
+  color: #fff;
+  background-color: #000000;
   cursor: pointer;
 }
 

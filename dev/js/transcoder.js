@@ -1,20 +1,617 @@
 $(document).ready(function(){
 
+  TranscodeRule = JSON.parse(TranscodeRule);
+
   var wrapperHeight = $(document).innerHeight()-225;
   $('#wrapper').css('height',wrapperHeight.toString()+'px');
 
-  $('#record-btn').on('click',function(e) { listRecords(); } );
+  $('.start').on('click',function(e){
+    parse_new_data( $('.originalDATA').val(), false, true );
+    if($("#wrapper").hasClass('toggled')){ showFormDataContainer(e);}
+    else { showFormDataContainer(e,false) }
+  })
+
+  $('.clear').on('click',function(e){
+    $('.originalDATA').val('');
+    $('.dataForm').html('');
+    $('.mefForm').html('');
+    $('.datalog').val('');
+    $('.dataText').val('');
+    if($("#wrapper").hasClass('toggled')){ showFormDataContainer(e);}
+    else { showFormDataContainer(e,false) }
+  })
+
+  $('#import-btn').on('click',function(e){
+    serverfilelist('../uploadfiles');
+    if($("#wrapper").hasClass('toggled')){ showFormDataContainer(e);}
+    else { showFormDataContainer(e,false) }
+  })
+
+  $('#importModal').on('hidden.bs.modal', function (e) {
+    $('.progress').css('display','none');
+    $('#progress .progress-bar').css('width','0%');
+    $('#files').html('');
+    $('#serverfilelist').html('');
+  })
+
+  $('#localfile').on('change',function(e){ parse_local_file() });
+
+  $('#record-btn').on('click',function(e) {
+    listRecords();
+    if($("#wrapper").hasClass('toggled')){ showFormDataContainer(e);}
+    else { showFormDataContainer(e,false) }
+  });
+
   $('#recordModal').on('hidden.bs.modal', function (e) {  clearRecordsTable(); })
 
-  $("#menu-toggle").click(function(e) { toggleMenu(e) });
+  $('.checkContent').on('click',function(e){
+    if($('.checkContent').prop('checked')){ $('.description').css('display','inline-block');}
+    else { $('.description').css('display','none'); }
+  })
+
+  $('.checktransCode').on('click',function(e){
+    if($('.checktransCode').prop('checked')){ $('.transCode').css('display','inline');
+    }else { $('.transCode').css('display','none');}
+  })
+
+  $('.checktranscodeRule').on('click',function(e){
+    if($('.checktranscodeRule').prop('checked')){ $('.transCodeRule').css('display','inline');
+    }else { $('.transCodeRule').css('display','none'); }
+  })
+
+  $("#menu-toggle").on('click',function(e) { toggleMenu(e) });
   $('#form-tab').on('click',function(e){ showFormDataContainer(e) });
   $('#source-tab').on('click',function(e){ showSourceDataContainer(e) });
   $('#text-tab').on('click',function(e){ showTextDataContainer(e) });
   $('#log-tab').on('click',function(e){ showLogDataContainer(e) });
 
+  //***** Upload Course ZIP file **********************
+  $('#fileupload').fileupload({
+    url: 'appphp/parse_upload_file.php',
+    dataType: 'json',
+    autoUpload: true,
+    acceptFileTypes: /(\.|\/)(txt|dat)$/i,
+    disableImageResize: false,
+    previewMaxWidth: 100,
+    previewMaxHeight: 100,
+    previewCrop: true
+  }).on('fileuploadadd', function (e, data) {
+
+    $('.progress').css('display','block');
+    data.context = $('<div id="filelist"/>').appendTo('#files');
+    $.each(data.files, function (index, file) {
+      var node = $('<p/>').append($('<span/>').text('uploading... ' + file.name));
+      if (!index) { node.append('<br>');}
+      node.appendTo(data.context);
+    });
+
+  }).on('fileuploadprocessalways', function (e, data) {
+
+    var index = data.index,
+        file = data.files[index],
+        node = $(data.context.children()[index]);
+
+    if (file.error) {
+      node.append('<br>')
+          .append($('<span class="text-danger"/>').text(file.error));
+    }
+
+  }).on('fileuploadprogressall', function (e, data) {
+
+    var progress = parseInt(data.loaded / data.total * 100, 10);
+    $('#progress .progress-bar').css('width',progress + '%');
+
+  }).on('fileuploaddone', function (e, data) {
+
+     setTimeout(function(){
+       $('#importModal').modal('hide');
+       $('.progress').css('display','none');
+       $('#progress .progress-bar').css('width','0%');
+       $('#files').html('');
+       parse_new_data(data.result.files[0].content,true,true);
+     },500);
+
+  }).on('fileuploadfail', function (e, data) {
+
+  }).prop('disabled', !$.support.fileInput)
+      .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+  //******************************************************************************
+
 })
 
 
+////////////////////////////////////////////////////////////////////////////////
+
+function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
+
+  originalDATA = originalDATA.replace(/\r?\n|\r/g,'');
+  originalDATA = originalDATA.replace(/\s/g,'');
+
+  var sortData = organize_data(originalDATA);
+  var data = produce_data(sortData);
+
+  if(replaceOriginalDATA){
+    $('.originalDATA').val(originalDATA);
+  }
+  $('.dataForm').html('');
+  $('.mefForm').html('');
+
+  $('.dataForm').append(data.lineHtml);
+  $('.dataText').val(data.lineText);
+  $('.datalog').val(data.lineLog);
+
+  $('.mefdata').on('click',function(){
+      parse_mef( $(this).data('meftype') , $(this).data('mefdata') );
+  })
+
+  if(insertRecord){
+    var datapost = {
+      sourceData:originalDATA,
+      transCodeLog:data.lineLog,
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: "appphp/insertRecord.php",
+      data: datapost,
+      dataType: "json",
+      success: function (data) {
+
+      }
+    });
+  }
+
+}
+
+function organize_data(originalDATA){
+
+  var dataLength = originalDATA.length;
+  var startPOS = 0;
+  var headCount = Object.keys(TranscodeRule.DataHead).length;
+
+  var dataLines = [
+    ['1',''],
+    ['2',''],
+    ['3',''],
+    ['4','=====表頭=====']
+  ];
+
+  for(var index in TranscodeRule.DataHead){
+    if(index !== '1' && index !== '2' && index !== '3' && index !== '4'){
+      dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataHead[index].length)] );
+      startPOS += TranscodeRule.DataHead[index].length;
+    }
+  }
+
+  dataLines.push([(headCount+1).toString(),'=====第1表身=====']);
+
+  var bodyCount = 1
+  while(startPOS < dataLength){
+
+    for(var index in TranscodeRule.DataBody){
+      if(index !== (headCount+1).toString()){
+        dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataBody[index].length)] );
+        startPOS += TranscodeRule.DataBody[index].length;
+      }
+    }
+
+    bodyCount ++;
+
+    dataLines.push([(headCount+1).toString(),'=====第'+bodyCount+'表身=====']);
+  }
+
+  return dataLines;
+}
+
+function produce_data(sortData){
+
+  var lineHtml = '';
+  var lineText = '';
+  var lineLog = '';
+  var linesText = [];
+  var bustype;
+
+  sortData.forEach(function(value,lineNumber){
+
+    var index = value[0];
+    var sourceData = value[1];
+    var headCount = Object.keys(TranscodeRule.DataHead).length;
+    var bodyCount = Object.keys(TranscodeRule.DataBody).length;
+
+    //re-calculate line number *************************************************
+    lineNumber ++;
+
+    if(lineNumber > headCount){
+      if( (lineNumber-headCount)%bodyCount !== 0 ){
+        lineNumber = (lineNumber-headCount)%bodyCount+headCount;
+      }else if ( (lineNumber-headCount)%bodyCount === 0 ) {
+        lineNumber = bodyCount+headCount;
+      }
+    }
+
+    //add zero afront of number text
+    if(lineNumber < 10){
+      lineNumText = '00'+lineNumber.toString();
+    }else if (lineNumber < 99) {
+      lineNumText = '0'+lineNumber.toString();
+    }else if (lineNumber >= 100) {
+      lineNumText = lineNumber.toString();
+    }
+    //**************************************************************************
+
+    //Decide section ***********************************************************
+    var section = (lineNumber <= headCount) ? 'DataHead' : 'DataBody';
+    //**************************************************************************
+
+    lineLog += lineNumText+' '+exp+' '+sourceData+' -->';
+
+    //Loop and transcode *******************************************************
+    var exp = TranscodeRule[section][index].Exp;
+    var lsb = TranscodeRule[section][index].LSB;
+    var dataCoding = TranscodeRule[section][index].dataCoding;
+    var unixTime = TranscodeRule[section][index].UnixTime;
+    var rulesCount = TranscodeRule[section][index].Rule.length;
+    var transCode = sourceData;
+    var rules = '';
+
+    TranscodeRule[section][index].Rule.forEach(function(rule,index){
+
+        transCode = transcode_basedon_rule(rule,transCode);
+        if(index !== rulesCount -1) lineLog += transCode+'-->';
+        if(index === rulesCount -1) lineLog += transCode+' ';
+
+        if(index === 0){
+          if(rulesCount === 1)  rules += rule;
+          if(rulesCount > 1)  rules += rule+'-->';
+        }
+
+        if(index !== 0 && index !== rulesCount-1){ rules += rule+'-->';}
+        if(index === rulesCount-1 && index !== 0){ rules += rule; }
+
+    })
+
+    lineLog += rules+' ';
+    //**************************************************************************
+
+    //Decide bus type **********************************************************
+    if(lineNumText === '018'){
+      if(transCode === '10'){ bustype = 'mef08' }
+      if(transCode === '11'){ bustype = 'mef0b' }
+    }
+    //**************************************************************************
+
+    //Write lineText ***********************************************************
+    lineText += sourceData+' ';
+    lineText += rules;
+    //**************************************************************************
+
+    //Write lineHtml ***********************************************************
+    lineHtml +='<div class="lineDiv" >';
+
+    //************************line number span *********************************
+    lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
+
+    //************************line content span ********************************
+    if( $('.checkContent').prop('checked') ){
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
+
+      }else {
+        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
+      }
+
+    }else {
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
+      }else {
+        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }
+
+    }
+
+    //************************line sourceDat span ******************************
+    lineHtml +='<span class="lineData">'+sourceData+'</span>';
+
+    //************************line transCode span ******************************
+    if($('.checktransCode').prop('checked')){
+      lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    }else {
+      lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+    }
+
+    //************************line rules span **********************************
+    if($('.checktranscodeRule').prop('checked')){
+      lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+    }else {
+      lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+    }
+
+    //**************************************************************************
+
+    lineHtml +='</div>';
+    lineText += "\n";
+    lineLog += "\n";
+  })
+
+  return {lineHtml:lineHtml,lineText:lineText,lineLog:lineLog};
+}
+
+function transcode_basedon_rule(rule,data){
+
+  var transCode;
+  if(rule.indexOf('Binary') === 0){
+    var bitStart = rule.split('-')[1];
+    var bitEnd = rule.split('-')[2];
+    var lsb = rule.split('-')[3];
+    rule = 'Binary';
+  }
+
+  switch (rule) {
+    case 'AN':
+
+    //create array with each two number in line
+    var twoNumArray = eachTwoNum(data);
+    var antext = '';
+    twoNumArray.forEach(function(value,index){
+      if(typeof an[parseInt(value,16)] !== 'undefined'){
+        antext += an[parseInt(value,16)];
+      }else if (typeof an[parseInt(value,16)] === 'undefined') {
+        antext += '['+value+'?]';
+      }
+    })
+
+   transCode = antext;
+
+      break;
+
+    case 'LSB':
+
+    //create array with each two number in line
+    var twoNumArray = eachTwoNum(data);
+    transCode = twoNumArray.reverse().join('');
+
+      break;
+
+    case 'Decimal':
+
+      transCode = parseInt(data,16);
+
+      break;
+
+    case 'UnixTime':
+
+    var d = new Date( (Number(data)*1000)-28800000 );
+    transCode = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+
+                d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+
+      break;
+
+    case 'Binary':
+
+    var firstInt = data.split('')[0];
+    var secondInt = data.split('')[1];
+
+    if( parseInt(firstInt,16).toString(2).length === 4){
+      var firstBinaryString = parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 3) {
+      var firstBinaryString = '0'+parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 2) {
+      var firstBinaryString = '00'+parseInt(firstInt,16).toString(2);
+    }else if ( parseInt(firstInt,16).toString(2).length === 1) {
+      var firstBinaryString = '000'+parseInt(firstInt,16).toString(2);
+    }
+
+    if( parseInt(secondInt,16).toString(2).length === 4){
+      var secondBinaryString = parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 3) {
+      var secondBinaryString = '0'+parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 2) {
+      var secondBinaryString = '00'+parseInt(secondInt,16).toString(2);
+    }else if ( parseInt(secondInt,16).toString(2).length === 1) {
+      var secondBinaryString = '000'+parseInt(secondInt,16).toString(2);
+    }
+
+    if(lsb === 'LSB'){
+      var binaryString = secondBinaryString+firstBinaryString;  //Reverse binary string
+    }else {
+      var binaryString = firstBinaryString+secondBinaryString
+    }
+
+    transCode = binaryString.substring(bitStart,bitEnd);
+
+      break;
+
+    case 'Blank':
+
+    transCode = 'Blank';
+
+      break;
+
+    default:
+
+  }
+
+  return transCode;
+}
+
+function eachTwoNum(sourceData){
+
+  var twoNumArray = [];
+  var twoNumber = '';
+  sourceData.split('').forEach(function(value,index){
+    twoNumber += value;
+    if(index%2 === 1){
+      twoNumArray.push(twoNumber);
+      twoNumber = '';
+    }
+  })
+  return twoNumArray;
+}
+
+function parse_mef(type,data){
+
+  $('.mefForm').html('');
+  var html = '';
+  var splitStart = 0;
+  var bitaddup = 0;
+  if(type === 'mef01'){ var mef = mef01;}
+  if(type === 'mef03'){ var mef = mef03;}
+  if(type === 'mef08'){ var mef = mef08;}
+  if(type === 'mef0b'){ var mef = mef0b;}
+
+  for(var index in mef){
+
+    var exp = mef[index]['Exp'];
+    var rule = mef[index]['Rule'];
+
+    if(typeof mef[index]['length'] === 'number'){
+      var length = mef[index]['length'];
+      var splitEnd = splitStart + length;
+    }else if ( typeof mef[index]['length'] === 'string' ) {
+      splitStart = mef[index]['length'].split('-')[0];
+      var splitEnd = mef[index]['length'].split('-')[1];
+
+    }
+
+    var splitdata = data.substring(splitStart,splitEnd);
+
+    var transCode = splitdata;
+    rule.forEach(function(rule,key){
+      transCode = transcode_basedon_rule(rule,transCode);
+    })
+
+    html +='<div class="lineDiv" >';
+    html +='<span class="mef_description" style="display:inline-block;">'+exp+'</span>';
+    html +='<span class="lineData">'+splitdata+'</span>';
+    if(transCode !== 'Blank'){
+      html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    }else if (transCode === 'Blank') {
+      html +='<span class="blankspan" style="display:inline;">----------'+exp+'----------</span>';
+    }
+    html +='</div>';
+
+    $('.mefForm').html(html);
+    splitStart = Number(splitEnd);
+
+  }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+
+//***** Import from local file **********************
+
+function serverfilelist(path){
+
+  $.ajax({
+    type: 'POST',
+    url: "appphp/upload_filelist.php",
+    data:{path:path},
+    dataType: "json",
+    success: function (data) {
+
+      if(path !== '../uploadfiles'){
+        $('#serverfilelist').append('<span class="fileline" data-type="folder" data-url="'+path.substring(0,path.lastIndexOf('/'))+'"><i class="glyphicon glyphicon-folder-open"></i><span class="serverfile">&nbsp;&nbsp;...</span></span>')
+      }
+
+      for(var index in data){
+        if(data[index].fileType === 'folder'){
+          $('#serverfilelist').append('<span class="fileline" data-type="'+data[index].fileType+'" data-url="'+data[index].path+'"><i class="glyphicon glyphicon-folder-close"></i><span class="serverfile">&nbsp;&nbsp;'+index+'</span></span>')
+        }else if (data[index].fileType === 'file') {
+          $('#serverfilelist').append('<span class="fileline" data-type="'+data[index].fileType+'" data-url="'+data[index].path+'"><i class="glyphicon glyphicon-file"></i><span class="serverfile">&nbsp;&nbsp;'+index+'</span></span>')
+        }
+      }
+
+      $('.fileline').on('click',function(e){
+        if(e.currentTarget.dataset.type === 'folder'){
+          $('#serverfilelist').html('');
+          serverfilelist(e.currentTarget.dataset.url);
+        }else if (e.currentTarget.dataset.type === 'file') {
+          $('#importModal').modal('hide');
+          parse_file_onServer(e.currentTarget.dataset.url);
+        }
+      })
+
+    }
+  });
+
+}
+
+function parse_file_onServer(path){
+
+  $.ajax({
+    type: 'POST',
+    url: "appphp/parse_file_onServer.php",
+    data:{path:path},
+    dataType: "json",
+    success: function (data) {
+      parse_new_data(data.sourceData, true, true);
+    }
+  });
+
+}
+
+String.prototype.convertToHex = function (delim) {
+    return this.split("").map(function(c) {
+        return ("0" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(delim || "");
+};
+
+function parse_local_file(e){
+
+  var file = $('#localfile')[0].files[0];
+  var reader = new FileReader();
+
+  reader.onload = function(e) {
+    parse_new_data( reader.result.convertToHex(), true, true );
+  }
+
+  reader.readAsBinaryString( file );
+  $('#importModal').modal('hide');
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
 function listRecords(){
   $.ajax({
     type: 'POST',
@@ -58,14 +655,16 @@ function getSingleRecord(recordid){
    }
  });
 }
+////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
 function toggleMenu(e){
   e.preventDefault();
   $("#wrapper").toggleClass("toggled");
   $("#menu-toggle-div").toggleClass("toggled");
 }
 
-function showFormDataContainer(e){
+function showFormDataContainer(e,toggle=true){
     $('#form-data-container').css('display','block');
     $('#source-data-container').css('display','none');
     $('#text-data-container').css('display','none');
@@ -76,10 +675,10 @@ function showFormDataContainer(e){
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').removeClass('a-active');
 
-    toggleMenu(e);
+    if(toggle) toggleMenu(e);
 }
 
-function showSourceDataContainer(e){
+function showSourceDataContainer(e,toggle=true){
   $('#form-data-container').css('display','none');
   $('#source-data-container').css('display','block');
   $('#text-data-container').css('display','none');
@@ -90,10 +689,10 @@ function showSourceDataContainer(e){
   $('#text-tab > a').removeClass('a-active');
   $('#log-tab > a').removeClass('a-active');
 
-  toggleMenu(e);
+  if(toggle) toggleMenu(e);
 }
 
-function showTextDataContainer(e){
+function showTextDataContainer(e,toggle=true){
   $('#form-data-container').css('display','none');
   $('#source-data-container').css('display','none');
   $('#text-data-container').css('display','block');
@@ -104,10 +703,10 @@ function showTextDataContainer(e){
   $('#text-tab > a').addClass('a-active');
   $('#log-tab > a').removeClass('a-active');
 
-  toggleMenu(e);
+  if(toggle) toggleMenu(e);
 }
 
-function showLogDataContainer(e){
+function showLogDataContainer(e,toggle=true){
   $('#form-data-container').css('display','none');
   $('#source-data-container').css('display','none');
   $('#text-data-container').css('display','none');
@@ -118,5 +717,6 @@ function showLogDataContainer(e){
   $('#text-tab > a').removeClass('a-active');
   $('#log-tab > a').addClass('a-active');
 
-  toggleMenu(e);
+  if(toggle) toggleMenu(e);
 }
+////////////////////////////////////////////////////////////////////////////////

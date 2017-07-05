@@ -12,12 +12,17 @@
     <title>Transcoder</title>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.ui.widget.js"></script>
+    <script src="js/jquery.fileupload.js"></script>
+    <script src="js/jquery.fileupload-process.js"></script>
+    <script src="js/jquery.fileupload-validate.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
+    <script src="js/TranscodeRule.js"></script>
     <script src="js/transcoder.js"></script>
 
     <!-- Bootstrap Core CSS -->

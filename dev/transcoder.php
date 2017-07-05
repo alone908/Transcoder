@@ -1,6 +1,9 @@
-<!-- Header -->
+
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
+<?php	require_once 'appphp/TranscodeRule.php';	?>
+
+<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
 
 <!-- Page Content -->
 <div class="" style="padding:0px 10px;">
@@ -10,6 +13,8 @@
         <li><a href="index.php">Home</a></li>
         <li class="active">Transcoder</li>
         &nbsp;&nbsp;&nbsp;
+        <span id="start-btn" class="btn btn-black start"><i class='glyphicon glyphicon-play'></i>&nbsp;&nbsp;START</span>
+        <span id="clear-btn" class="btn btn-black clear"><i class='glyphicon glyphicon-warning-sign'></i>&nbsp;&nbsp;CLEAR</span>
         <span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;IMPORT</span>
         <span id="record-btn" class="btn btn-black" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;RECORDS</button>
         &nbsp;
@@ -48,8 +53,8 @@
                      <font style="font-weight:bold;">MEF01/MEF03/MEF08/MEF0B</font>
                    </div>
                 </div>
-                <div id="form-data" class = "dataForm" style="border:1px solid black;"></div>
-                <div id="mef-form" class = "mefForm" style="border:1px solid black;"></div>
+                <div id="form-data" class = "dataForm"></div>
+                <div id="mef-form" class = "mefForm"></div>
 
               </div>
 
