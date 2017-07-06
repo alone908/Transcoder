@@ -40,6 +40,7 @@
   height: 94.5%;
   width: 60%;
   overflow: auto;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 #mef-form {
@@ -47,6 +48,7 @@
   height: 94.5%;
   width: 38.5%;
   overflow: auto;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 #source-data-container {

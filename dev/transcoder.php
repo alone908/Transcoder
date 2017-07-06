@@ -3,6 +3,8 @@
 <?php include_once 'modals.php';?>
 <?php	require_once 'appphp/TranscodeRule.php';	?>
 
+<script src="js/TranscodeRule.js"></script>
+<script src="js/transcoder.js"></script>
 <script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
 
 <!-- Page Content -->

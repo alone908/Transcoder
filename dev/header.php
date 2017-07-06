@@ -22,8 +22,6 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="js/TranscodeRule.js"></script>
-    <script src="js/transcoder.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

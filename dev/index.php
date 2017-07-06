@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Transcoder</h1>
-                        <h3>A simple transcoder makes your life easier.</h3>
+                        <h1 style="font-family:'Gloria Hallelujah'">Transcoder</h1>
+                        <h3 style="font-family:'Gloria Hallelujah'">A simple transcoder makes your life easier.</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <!-- <li>
