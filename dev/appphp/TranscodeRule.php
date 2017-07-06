@@ -10,6 +10,8 @@ $transcodeRule = array();
 $transcodeRule['DataHead'] = array();
 $transcodeRule['DataBody'] = array();
 
+$new_rule = array();
+
 if($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
 
@@ -25,9 +27,21 @@ if($result->num_rows > 0) {
     $transcodeRule[$row['Section']][$row['RuleID']]['LSB'] = $LSB;
     $transcodeRule[$row['Section']][$row['RuleID']]['UnixTime'] = $UnixTime;
     $transcodeRule[$row['Section']][$row['RuleID']]['Rule'] = $rules;
+
+    $new_rule[] = ['Subject'=>$row['Subject'],
+                   'LineNumber'=>$row['RuleID'],
+                   'Content'=>$row['Content'],
+                   'Exp'=>$row['Exp'],
+                   'Length'=> (integer) $row['Length'],
+                   'DataCoding'=> $row['DataCoding'],
+                   'LSB'=> $LSB,
+                   'UnixTime'=>$UnixTime,
+                   'Rule'=>$rules];
   }
 }else {
 
 }
 
 $transcodeRuleJSON = json_encode($transcodeRule);
+
+$new_rule = json_encode($new_rule);

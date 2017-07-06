@@ -6,6 +6,7 @@
 <script src="js/TranscodeRule.js"></script>
 <script src="js/transcoder.js"></script>
 <script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
+<script>var new_rule = '<?php echo $new_rule; ?>'</script>
 
 <!-- Page Content -->
 <div class="" style="padding:0px 10px;">

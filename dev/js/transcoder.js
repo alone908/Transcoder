@@ -2,6 +2,10 @@ $(document).ready(function(){
 
   TranscodeRule = JSON.parse(TranscodeRule);
 
+  new_rule = JSON.parse(new_rule);
+
+  console.log(new_rule);
+
   var wrapperHeight = $(document).innerHeight()-160;
   $('#wrapper').css('height',wrapperHeight.toString()+'px');
 
@@ -128,8 +132,11 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
   originalDATA = originalDATA.replace(/\r?\n|\r/g,'');
   originalDATA = originalDATA.replace(/\s/g,'');
 
-  var sortData = organize_data(originalDATA);
-  var data = produce_data(sortData);
+  var linesArray = split_origin_data(originalDATA);
+  var data = build_tpl(linesArray);
+
+  // var sortData = organize_data(originalDATA);
+  // var data = produce_data(sortData);
 
   if(replaceOriginalDATA){
     $('.originalDATA').val(originalDATA);
@@ -161,6 +168,222 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
       }
     });
   }
+
+}
+
+function split_origin_data(originalDATA){
+
+  var linesArray = [];
+  var startPOS = 0;
+  var dataLength = originalDATA.length;
+
+  var headStartIndex = 0;
+  for(var index in new_rule){
+    var subject = new_rule[index]['Subject'];
+    if(subject === 'BodyTitle'){
+      var headEndIndex = index-1;
+      var bodyStartIndex = index;
+    }
+  }
+  var bodyEndIndex = new_rule.length-1;
+
+  for(var i=0; i <= headEndIndex; i++){
+
+    var subject = new_rule[i]['Subject'];
+    var length = new_rule[i]['Length'];
+    var exp = new_rule[i]['Exp'];
+    var obj = new_rule[i];
+
+    if(subject === 'Blank' || subject === 'HeadTitle'){
+        obj.Data = exp;
+        linesArray.push(obj);
+    }else {
+        obj.Data = originalDATA.substring(startPOS,startPOS+length);
+        linesArray.push(obj);
+        startPOS += length;
+    }
+
+  }
+
+  var bodyCount = 5;
+  while(startPOS < dataLength){
+
+    for(var i=bodyStartIndex; i <= bodyEndIndex; i++){
+
+      var subject = new_rule[i]['Subject'];
+      var length = new_rule[i]['Length'];
+      var obj = new_rule[i];
+
+      if(subject === 'Blank' || subject === 'BodyTitle'){
+        if(subject === 'Blank'){ obj.Data = exp; }
+        if(subject === 'BodyTitle'){ obj.Data = '===== Body Number '+bodyCount+' ====='; }
+        linesArray.push(obj);
+      }else {
+        obj.Data = originalDATA.substring(startPOS,startPOS+length);
+        linesArray.push(obj);
+        startPOS += length;
+      }
+
+    }
+
+    bodyCount ++ ;
+  }
+
+  return linesArray;
+
+}
+
+function build_tpl(linesArray){
+
+  var lineHtml = '';
+  var lineText = '';
+  var lineLog = '';
+  var bustype;
+
+  linesArray.forEach(function(line,key){
+
+    var subject = line['Subject'];
+    var sourceData = line['Data'];
+    var lineNumber = line['LineNumber'];
+    var exp = line['Exp'];
+    var lsb = line['LSB'];
+    var dataCoding = line['DataCoding'];
+    var unixTime = line['UnixTime'];
+    var rulesCount = line['Rule'].length;
+    var transCode = sourceData;
+    var rules = '';
+
+    //add zero afront of line number text
+    if(parseInt(lineNumber) < 10){
+      lineNumText = '00'+lineNumber.toString();
+    }else if (parseInt(lineNumber) < 99) {
+      lineNumText = '0'+lineNumber.toString();
+    }else if (parseInt(lineNumber) >= 100) {
+      lineNumText = lineNumber.toString();
+    }
+    //**************************************************************************
+
+    lineLog += lineNumText+' '+exp+' '+sourceData+' -->';
+
+    //Loop and transcode *******************************************************
+
+    line['Rule'].forEach(function(rule,index){
+
+        transCode = transcode_basedon_rule(rule,transCode);
+        if(index !== rulesCount -1) lineLog += transCode+'-->';
+        if(index === rulesCount -1) lineLog += transCode+' ';
+
+        if(index === 0){
+          if(rulesCount === 1)  rules += rule;
+          if(rulesCount > 1)  rules += rule+'-->';
+        }
+
+        if(index !== 0 && index !== rulesCount-1){ rules += rule+'-->';}
+        if(index === rulesCount-1 && index !== 0){ rules += rule; }
+
+    })
+
+    lineLog += rules+' ';
+    //**************************************************************************
+
+    //Decide bus type **********************************************************
+    if(lineNumText === '018'){
+      if(transCode === '10'){ bustype = 'mef08' }
+      if(transCode === '11'){ bustype = 'mef0b' }
+    }
+    //**************************************************************************
+
+    //Write lineText ***********************************************************
+    lineText += sourceData+' ';
+    lineText += rules;
+    //**************************************************************************
+
+    //Write lineHtml ***********************************************************
+    lineHtml +='<div class="lineDiv" >';
+
+    //************************line number span *********************************
+    lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
+
+    //************************line content span ********************************
+    if( $('.checkContent').prop('checked') ){
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:inline-block;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
+
+      }else {
+        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
+      }
+
+    }else {
+
+      if(lineNumText === '020'){
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '021') {
+        lineHtml +='<span class="description" style="display:inline-block;">\
+                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                    </span>';
+      }else if (lineNumText === '022' || lineNumText === '046') {
+        if(bustype === 'mef08'){
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }else if (bustype === 'mef0b') {
+          lineHtml +='<span class="description" style="display:none;">\
+                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      </span>';
+        }
+      }else {
+        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
+      }
+
+    }
+
+    //************************line sourceDat span ******************************
+    lineHtml +='<span class="lineData">'+sourceData+'</span>';
+    // if(subject === 'Blank' || subject === 'HeadTitle' || subject === 'BodyTitle'){ lineHtml +='<span class="blankspan">'+sourceData+'</span>'; }
+    // if(subject !== 'Blank' && subject === 'HeadTitle' && subject === 'BodyTitle'){ lineHtml +='<span class="lineData">'+sourceData+'</span>'; }
+
+    //************************line transCode span ******************************
+    if($('.checktransCode').prop('checked')){
+      lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+    }else {
+      lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+    }
+
+    //************************line rules span **********************************
+    if($('.checktranscodeRule').prop('checked')){
+      lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+    }else {
+      lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+    }
+
+    //**************************************************************************
+
+    lineHtml +='</div>';
+    lineText += "\n";
+    lineLog += "\n";
+  })
+
+  return {lineHtml:lineHtml,lineText:lineText,lineLog:lineLog};
 
 }
 
@@ -209,7 +432,6 @@ function produce_data(sortData){
   var lineHtml = '';
   var lineText = '';
   var lineLog = '';
-  var linesText = [];
   var bustype;
 
   sortData.forEach(function(value,lineNumber){
