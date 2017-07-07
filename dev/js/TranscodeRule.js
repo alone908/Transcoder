@@ -100,9 +100,9 @@ an[128] = '',
 an[129] = '',
 an[130] = '';
 
-var mef01 = {
+var mef01 = [
 
-    mef01_0:{
+    {
       Content:'mef01_0',
       Exp:'發行管理資料',
       length:0,
@@ -111,7 +111,7 @@ var mef01 = {
       UnixTime:false,
       Rule:null
     },
-    mef01_1:{
+    {
       Content:'mef01_1',
       Exp:'發卡單位編號',
       length:2,
@@ -120,7 +120,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_2:{
+    {
       Content:'mef01_2',
       Exp:'發卡設備編號',
       length:4,
@@ -129,7 +129,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_3:{
+    {
       Content:'mef01_3',
       Exp:'發行批號',
       length:4,
@@ -138,7 +138,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_4:{
+    {
       Content:'mef01_4',
       Exp:'發出日期',
       length:8,
@@ -147,7 +147,7 @@ var mef01 = {
       UnixTime:true,
       Rule:['Decimal','UnixTime']
     },
-    mef01_5:{
+    {
       Content:'mef01_5',
       Exp:'有效日期',
       length:8,
@@ -156,7 +156,7 @@ var mef01 = {
       UnixTime:true,
       Rule:['Decimal','UnixTime']
     },
-    mef01_6:{
+    {
       Content:'mef01_6',
       Exp:'卡片格式版本',
       length:2,
@@ -165,7 +165,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_7:{
+    {
       Content:'mef01_7',
       Exp:'卡片狀態',
       length:2,
@@ -174,7 +174,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_8:{
+    {
       Content:'mef01_8',
       Exp:'檢查碼',
       length:2,
@@ -183,7 +183,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_9:{
+    {
       Content:'mef01_09',
       Exp:'票值管理資料',
       length:0,
@@ -192,7 +192,7 @@ var mef01 = {
       UnixTime:false,
       Rule:null
     },
-    mef01_10:{
+    {
       Content:'mef01_10',
       Exp:'自動加值設定',
       length:2,
@@ -201,7 +201,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_11:{
+    {
       Content:'mef01_11',
       Exp:'自動加值票值數額',
       length:4,
@@ -210,7 +210,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_12:{
+    {
       Content:'mef01_12',
       Exp:'儲存最大票值數額',
       length:4,
@@ -219,7 +219,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_13:{
+    {
       Content:'mef01_13',
       Exp:'每筆可加減最大票值數額',
       length:4,
@@ -228,7 +228,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_14:{
+    {
       Content:'mef01_14',
       Exp:'指定加值設定',
       length:2,
@@ -237,7 +237,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_15:{
+    {
       Content:'mef01_15',
       Exp:'指定加值票值數額',
       length:4,
@@ -246,7 +246,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_16:{
+    {
       Content:'mef01_16',
       Exp:'自動加值日期',
       length:4,
@@ -255,7 +255,7 @@ var mef01 = {
       UnixTime:true,
       Rule:['Decimal','UnixTime']
     },
-    mef01_17:{
+    {
       Content:'mef01_17',
       Exp:'連續離線自動加值次數',
       length:2,
@@ -264,7 +264,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_18:{
+    {
       Content:'mef01_18',
       Exp:'連續自動加值次數',
       length:2,
@@ -273,7 +273,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_19:{
+    {
       Content:'mef01_19',
       Exp:'連續指定加值次數',
       length:2,
@@ -282,7 +282,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_20:{
+    {
       Content:'mef01_20',
       Exp:'檢查碼',
       length:2,
@@ -291,7 +291,7 @@ var mef01 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef01_21:{
+    {
       Content:'mef01_21',
       Exp:'卡片防偽驗證資料',
       length:0,
@@ -300,7 +300,8 @@ var mef01 = {
       UnixTime:false,
       Rule:null
     },
-    mef01_22:{
+    {
+
       Content:'mef01_22',
       Exp:'防偽驗證資料',
       length:32,
@@ -308,12 +309,11 @@ var mef01 = {
       LSB:false,
       UnixTime:false,
       Rule:['Decimal']
-    },
-
-}
+    }
+]
 console.log(mef01);
-var mef03 = {
-    mef03_0:{
+var mef03 = [
+    {
       Content:'mef03_0',
       Exp:'卡片交易狀態資料',
       length:0,
@@ -322,7 +322,7 @@ var mef03 = {
       UnixTime:false,
       Rule:null
     },
-    mef03_1:{
+    {
       Content:'mef03_1',
       Exp:'卡片交易序號',
       length:4,
@@ -331,7 +331,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_2:{
+    {
       Content:'mef03_2',
       Exp:'交易紀錄指標',
       length:2,
@@ -340,7 +340,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_3:{
+    {
       Content:'mef03_3',
       Exp:'優惠積點數',
       length:4,
@@ -349,7 +349,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_4:{
+    {
       Content:'mef03_4',
       Exp:'優惠積點交易序號',
       length:4,
@@ -358,7 +358,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_5:{
+    {
       Content:'mef03_5',
       Exp:'鎖卡旗標',
       length:2,
@@ -367,7 +367,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_6:{
+    {
       Content:'mef03_6',
       Exp:'進出閘門口編號',
       length:4,
@@ -376,7 +376,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_7:{
+    {
       Content:'mef03_7',
       Exp:'進出閘門口時間',
       length:8,
@@ -385,7 +385,7 @@ var mef03 = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
-    mef03_8:{
+    {
       Content:'mef03_8',
       Exp:'轉乘Flag(交易類別)',
       length:2,
@@ -394,7 +394,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_9:{
+    {
       Content:'mef03_9',
       Exp:'轉乘Flag(交易群組)',
       length:2,
@@ -403,7 +403,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_10:{
+    {
       Content:'mef03_10',
       Exp:'最近兩筆閘門交易紀錄(1)',
       length:0,
@@ -412,7 +412,7 @@ var mef03 = {
       UnixTime:false,
       Rule:null
     },
-    mef03_11:{
+    {
       Content:'mef03_11',
       Exp:'交易序號',
       length:2,
@@ -421,7 +421,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_12:{
+    {
       Content:'mef03_12',
       Exp:'交易時間',
       length:8,
@@ -430,7 +430,7 @@ var mef03 = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
-    mef03_13:{
+    {
       Content:'mef03_13',
       Exp:'交易類別',
       length:2,
@@ -439,7 +439,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_14:{
+    {
       Content:'mef03_14',
       Exp:'交易票值',
       length:4,
@@ -448,7 +448,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_15:{
+    {
       Content:'mef03_15',
       Exp:'交易後票值',
       length:4,
@@ -457,7 +457,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_16:{
+    {
       Content:'mef03_16',
       Exp:'交易系統編號',
       length:2,
@@ -466,7 +466,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_17:{
+    {
       Content:'mef03_17',
       Exp:'交易地點/運輸業者',
       length:2,
@@ -475,7 +475,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_18:{
+    {
       Content:'mef03_18',
       Exp:'交易機器',
       length:8,
@@ -484,7 +484,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_19:{
+    {
       Content:'mef03_19',
       Exp:'最近兩筆閘門交易紀錄(2)',
       length:0,
@@ -493,7 +493,7 @@ var mef03 = {
       UnixTime:false,
       Rule:null
     },
-    mef03_20:{
+    {
       Content:'mef03_20',
       Exp:'交易序號',
       length:2,
@@ -502,7 +502,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_21:{
+    {
       Content:'mef03_21',
       Exp:'交易時間',
       length:8,
@@ -511,7 +511,7 @@ var mef03 = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
-    mef03_22:{
+    {
       Content:'mef03_22',
       Exp:'交易類別',
       length:2,
@@ -520,7 +520,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_23:{
+    {
       Content:'mef03_23',
       Exp:'交易票值',
       length:4,
@@ -529,7 +529,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_24:{
+    {
       Content:'mef03_24',
       Exp:'交易後票值',
       length:4,
@@ -538,7 +538,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef03_25:{
+    {
       Content:'mef03_25',
       Exp:'交易系統編號',
       length:2,
@@ -547,7 +547,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_26:{
+    {
       Content:'mef03_26',
       Exp:'交易地點/運輸業者',
       length:2,
@@ -556,7 +556,7 @@ var mef03 = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef03_27:{
+    {
       Content:'mef03_27',
       Exp:'交易機器',
       length:8,
@@ -564,9 +564,8 @@ var mef03 = {
       LSB:true,
       UnixTime:false,
       Rule:['LSB','Decimal']
-    },
-
-}
+    }
+]
 
 var mef08 = {
   mef08_0:{

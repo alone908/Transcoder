@@ -2,7 +2,7 @@
 
 require_once 'sqldb.php';
 
-$sql = "select * from TransCodeRule order by RuleID";
+$sql = "select * from TransCodeRule where RuleSetID='".$_POST['RuleSetID']."' order by LineNumber";
 $conn->query('SET NAMES UTF8');
 $result = $conn->query($sql);
 
@@ -17,26 +17,17 @@ if($result->num_rows > 0) {
 
     $LSB = ($row['LSB'] === 'true') ? true : false;
     $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
-    $rules = explode(',',$row['Rule']);
-
-    $transcodeRule[$row['Section']][$row['RuleID']] = array();
-    $transcodeRule[$row['Section']][$row['RuleID']]['Content'] = $row['Content'];
-    $transcodeRule[$row['Section']][$row['RuleID']]['Exp'] = $row['Exp'];
-    $transcodeRule[$row['Section']][$row['RuleID']]['length'] = (integer) $row['Length'];
-    $transcodeRule[$row['Section']][$row['RuleID']]['dataCoding'] = $row['DataCoding'];
-    $transcodeRule[$row['Section']][$row['RuleID']]['LSB'] = $LSB;
-    $transcodeRule[$row['Section']][$row['RuleID']]['UnixTime'] = $UnixTime;
-    $transcodeRule[$row['Section']][$row['RuleID']]['Rule'] = $rules;
+    $TranscodeRule = explode(',',$row['TranscodeRule']);
 
     $new_rule[] = ['Subject'=>$row['Subject'],
-                   'LineNumber'=>$row['RuleID'],
+                   'LineNumber'=>$row['LineNumber'],
                    'Content'=>$row['Content'],
                    'Exp'=>$row['Exp'],
                    'Length'=> (integer) $row['Length'],
                    'DataCoding'=> $row['DataCoding'],
                    'LSB'=> $LSB,
                    'UnixTime'=>$UnixTime,
-                   'Rule'=>$rules,
+                   'TranscodeRule'=>$TranscodeRule,
                    'Marked'=>$row['Marked'],
                    'PreConditionLine'=>$row['PreConditionLine'],
                    'ChildRule'=>$row['ChildRule'],
@@ -47,7 +38,3 @@ if($result->num_rows > 0) {
 }
 
 echo json_encode(array('TranscodeRule'=>$transcodeRule,'new_rule'=>$new_rule));
-
-// $transcodeRuleJSON = json_encode($transcodeRule);
-//
-// $new_rule = json_encode($new_rule);

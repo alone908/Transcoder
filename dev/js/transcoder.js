@@ -1,24 +1,8 @@
-var TranscodeRule,new_rule;
+var new_rule;
 
-$.ajax({
-  type: 'POST',
-  url: "appphp/TranscodeRule.php",
-  data: {},
-  dataType: "json",
-  success: function (data) {
-      TranscodeRule = data.TransCodeRule;
-      new_rule = data.new_rule;
-      console.log(new_rule);
-  }
-});
-
-
+get_rule_obj(1);
 
 $(document).ready(function(){
-
-  // TranscodeRule = JSON.parse(TranscodeRule);
-  //
-  // new_rule = JSON.parse(new_rule);
 
   var wrapperHeight = $(document).innerHeight()-160;
   $('#wrapper').css('height',wrapperHeight.toString()+'px');
@@ -134,10 +118,23 @@ $(document).ready(function(){
   }).prop('disabled', !$.support.fileInput)
       .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
-  //******************************************************************************
+  //****************************************************************************
 
 })
-
+////////////////////////////////////////////////////////////////////////////////
+function get_rule_obj(RuleSetID){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/TranscodeRule.php",
+    data: {RuleSetID:RuleSetID},
+    dataType: "json",
+    success: function (data) {
+        new_rule = data.new_rule;
+        console.log(new_rule);
+    }
+  });
+}
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -249,7 +246,7 @@ function build_tpl(linesArray){
     var lsb = line['LSB'];
     var dataCoding = line['DataCoding'];
     var unixTime = line['UnixTime'];
-    var rulesCount = line['Rule'].length;
+    var rulesCount = line['TranscodeRule'].length;
     var transCode = sourceData;
     var ruleText = '';
     var marked = line['Marked'];
@@ -276,7 +273,7 @@ function build_tpl(linesArray){
 
     //Loop and transcode *******************************************************
 
-    line['Rule'].forEach(function(rule,index){
+    line['TranscodeRule'].forEach(function(rule,index){
         transCode = transcode_basedon_rule(rule,transCode);
         if(index !== rulesCount -1) lineLog += transCode+'-->';
         if(index === rulesCount -1) lineLog += transCode+' ';
@@ -495,20 +492,19 @@ function parse_child_rule(childRuleSet,data){
   var splitStart = 0;
   var bitaddup = 0;
 
-  console.log('var ruleObj = '+childRuleSet+';')
   eval('var ruleObj = '+childRuleSet+';');
 
-  for(var index in ruleObj){
+  ruleObj.forEach(function(ruleObj,index){
 
-    var exp = ruleObj[index]['Exp'];
-    var rule = ruleObj[index]['Rule'];
+    var exp = ruleObj['Exp'];
+    var rule = ruleObj['Rule'];
 
-    if(typeof ruleObj[index]['length'] === 'number'){
-      var length = ruleObj[index]['length'];
+    if(typeof ruleObj['length'] === 'number'){
+      var length = ruleObj['length'];
       var splitEnd = splitStart + length;
-    }else if ( typeof ruleObj[index]['length'] === 'string' ) {
-      splitStart = ruleObj[index]['length'].split('-')[0];
-      var splitEnd = ruleObj[index]['length'].split('-')[1];
+    }else if ( typeof ruleObj['length'] === 'string' ) {
+      splitStart = ruleObj['length'].split('-')[0];
+      var splitEnd = ruleObj['length'].split('-')[1];
 
     }
 
@@ -536,7 +532,7 @@ function parse_child_rule(childRuleSet,data){
     $('.mefForm').html(html);
     splitStart = Number(splitEnd);
 
-  }
+  })
 
 }
 ////////////////////////////////////////////////////////////////////////////////
