@@ -311,7 +311,7 @@ var mef01 = [
       Rule:['Decimal']
     }
 ]
-console.log(mef01);
+
 var mef03 = [
     {
       Content:'mef03_0',
@@ -567,8 +567,8 @@ var mef03 = [
     }
 ]
 
-var mef08 = {
-  mef08_0:{
+var mef08 = [
+  {
     Content:'mef08_0',
     Exp:'里程客運進出站交易管理資料',
     length:0,
@@ -577,7 +577,7 @@ var mef08 = {
     UnixTime:false,
     Rule:null
   },
-  mef08_1:{
+  {
     Content:'mef08_1',
     Exp:'客運公司編號',
     length:2,
@@ -586,7 +586,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_2:{
+  {
     Content:'mef08_2',
     Exp:'最後一次上/下車碼',
     length:'2-4',
@@ -595,7 +595,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-0-1-LSB']
   },
-  mef08_3:{
+  {
     Content:'mef08_3',
     Exp:'里程特種票類別代碼',
     length:'2-4',
@@ -604,7 +604,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-1-4-LSB']
   },
-  mef08_4:{
+  {
     Content:'mef08_4',
     Exp:'保留',
     length:'2-4',
@@ -613,7 +613,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-4-8-LSB']
   },
-  mef08_5:{
+  {
     Content:'mef08_5',
     Exp:'里程特種票原始可用次數/額度',
     length:4,
@@ -622,7 +622,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_6:{
+  {
     Content:'mef08_6',
     Exp:'里程特種票剩餘可用次數/額度',
     length:4,
@@ -631,7 +631,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_7:{
+  {
     Content:'mef08_7',
     Exp:'里程特種票有效日期',
     length:4,
@@ -640,7 +640,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_8:{
+  {
     Content:'mef08_8',
     Exp:'里程特種票有效天數',
     length:2,
@@ -649,7 +649,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_9:{
+  {
     Content:'mef08_9',
     Exp:'里程特種票有效起站',
     length:2,
@@ -658,7 +658,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_10:{
+  {
     Content:'mef08_10',
     Exp:'里程特種票有效迄站',
     length:2,
@@ -667,7 +667,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_11:{
+  {
     Content:'mef08_11',
     Exp:'當日累積里程交易日期',
     length:4,
@@ -676,7 +676,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_12:{
+  {
     Content:'mef08_12',
     Exp:'當日累積里程搭乘金額',
     length:2,
@@ -685,7 +685,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_13:{
+  {
     Content:'mef08_13',
     Exp:'最後一次搭乘路線編號',
     length:4,
@@ -694,7 +694,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_14:{
+  {
     Content:'mef08_14',
     Exp:'里程計費上車交易紀錄',
     length:0,
@@ -703,7 +703,7 @@ var mef08 = {
     UnixTime:false,
     Rule:null
   },
-  mef08_15:{
+  {
     Content:'mef08_15',
     Exp:'交易時間',
     length:8,
@@ -712,7 +712,7 @@ var mef08 = {
     UnixTime:true,
     Rule:['LSB','Decimal','UnixTime']
   },
-  mef08_16:{
+  {
     Content:'mef08_16',
     Exp:'交易票值',
     length:4,
@@ -721,7 +721,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_17:{
+  {
     Content:'mef08_17',
     Exp:'交易後票值',
     length:4,
@@ -730,7 +730,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_18:{
+  {
     Content:'mef08_18',
     Exp:'交易類別',
     length:2,
@@ -739,7 +739,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_19:{
+  {
     Content:'mef08_19',
     Exp:'上車站別ID',
     length:2,
@@ -748,7 +748,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_20:{
+  {
     Content:'mef08_20',
     Exp:'交易序號',
     length:2,
@@ -757,7 +757,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_21:{
+  {
     Content:'mef08_21',
     Exp:'交易地點/運輸業者(DEV_ID)',
     length:8,
@@ -766,7 +766,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_22:{
+  {
     Content:'mef08_22',
     Exp:'行駛方向(往程:1返程:2循環:3)',
     length:'62-64',
@@ -775,7 +775,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-0-4-LSB']
   },
-  mef08_23:{
+  {
     Content:'mef08_23',
     Exp:'保留',
     length:'62-64',
@@ -784,7 +784,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-4-8-LSB']
   },
-  mef08_24:{
+  {
     Content:'mef08_24',
     Exp:'里程計費下車交易紀錄',
     length:0,
@@ -793,7 +793,7 @@ var mef08 = {
     UnixTime:false,
     Rule:null
   },
-  mef08_25:{
+  {
     Content:'mef08_25',
     Exp:'交易時間',
     length:8,
@@ -802,7 +802,7 @@ var mef08 = {
     UnixTime:true,
     Rule:['LSB','Decimal','UnixTime']
   },
-  mef08_26:{
+  {
     Content:'mef08_26',
     Exp:'交易票值',
     length:4,
@@ -811,7 +811,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_27:{
+  {
     Content:'mef08_27',
     Exp:'交易後票值',
     length:4,
@@ -820,7 +820,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_28:{
+  {
     Content:'mef08_28',
     Exp:'交易類別',
     length:2,
@@ -829,7 +829,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_29:{
+  {
     Content:'mef08_29',
     Exp:'上車站別ID',
     length:2,
@@ -838,7 +838,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_30:{
+  {
     Content:'mef08_30',
     Exp:'交易序號',
     length:2,
@@ -847,7 +847,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Decimal']
   },
-  mef08_31:{
+  {
     Content:'mef08_31',
     Exp:'交易地點/運輸業者(DEV_ID)',
     length:8,
@@ -856,7 +856,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['LSB','Decimal']
   },
-  mef08_32:{
+  {
     Content:'mef08_32',
     Exp:'行駛方向(往程:1返程:2循環:3)',
     length:'94-96',
@@ -865,7 +865,7 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-0-4-LSB']
   },
-  mef08_33:{
+  {
     Content:'mef08_33',
     Exp:'保留',
     length:'94-96',
@@ -874,11 +874,10 @@ var mef08 = {
     UnixTime:false,
     Rule:['Binary-4-8-LSB']
   }
+]
 
-}
-
-var mef0b = {
-    mef0b_0:{
+var mef0b = [
+    {
       Content:'mef0b_0',
       Exp:'段次公車/客運特種票資料區',
       length:0,
@@ -887,7 +886,7 @@ var mef0b = {
       UnixTime:false,
       Rule:null
     },
-    mef0b_1:{
+    {
       Content:'mef0b_1',
       Exp:'段次特種票識別單位',
       length:2,
@@ -896,7 +895,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_2:{
+    {
       Content:'mef0b_2',
       Exp:'段次特種票類別代碼',
       length:'2-4',
@@ -905,7 +904,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Binary-0-3-LSB']
     },
-    mef0b_3:{
+    {
       Content:'mef0b_3',
       Exp:'保留',
       length:'2-4',
@@ -914,7 +913,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Binary-3-8-LSB']
     },
-    mef0b_4:{
+    {
       Content:'mef0b_4',
       Exp:'段次特種票原始可用次數/額度',
       length:4,
@@ -923,7 +922,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_5:{
+    {
       Content:'mef0b_5',
       Exp:'段次特種票剩餘可用次數/額度',
       length:4,
@@ -932,7 +931,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_6:{
+    {
       Content:'mef0b_6',
       Exp:'段次特種票有效日期',
       length:4,
@@ -941,7 +940,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_7:{
+    {
       Content:'mef0b_7',
       Exp:'段次特種票有效天數',
       length:2,
@@ -950,7 +949,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_8:{
+    {
       Content:'mef0b_8',
       Exp:'段次特種票有效起站',
       length:2,
@@ -959,7 +958,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_9:{
+    {
       Content:'mef0b_9',
       Exp:'段次特種票有效迄站',
       length:2,
@@ -968,7 +967,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_10:{
+    {
       Content:'mef0b_10',
       Exp:'段次特種票保留',
       length:10,
@@ -977,7 +976,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_11:{
+    {
       Content:'mef0b_11',
       Exp:'段次公車/客運交易資料',
       length:0,
@@ -986,7 +985,7 @@ var mef0b = {
       UnixTime:false,
       Rule:null
     },
-    mef0b_12:{
+    {
       Content:'mef0b_12',
       Exp:'路線編號',
       length:4,
@@ -995,7 +994,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef0b_13:{
+    {
       Content:'mef0b_13',
       Exp:'交易時間',
       length:8,
@@ -1004,7 +1003,7 @@ var mef0b = {
       UnixTime:true,
       Rule:['LSB','Decimal','UnixTime']
     },
-    mef0b_14:{
+    {
       Content:'mef0b_14',
       Exp:'交易票值',
       length:4,
@@ -1013,7 +1012,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef0b_15:{
+    {
       Content:'mef0b_15',
       Exp:'交易後票值',
       length:4,
@@ -1022,7 +1021,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['LSB','Decimal']
     },
-    mef0b_16:{
+    {
       Content:'mef0b_16',
       Exp:'交易類別',
       length:2,
@@ -1031,7 +1030,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_17:{
+    {
       Content:'mef0b_17',
       Exp:'交易地點/運輸業者(DEV_ID)',
       length:8,
@@ -1040,7 +1039,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_18:{
+    {
       Content:'mef0b_18',
       Exp:'段號',
       length:2,
@@ -1049,7 +1048,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_19:{
+    {
       Content:'mef0b_19',
       Exp:'保留',
       length:0,
@@ -1058,7 +1057,7 @@ var mef0b = {
       UnixTime:false,
       Rule:null
     },
-    mef0b_20:{
+    {
       Content:'mef0b_20',
       Exp:'當日累積段次交易日期',
       length:4,
@@ -1067,7 +1066,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_21:{
+    {
       Content:'mef0b_21',
       Exp:'當日累積段次搭乘次數',
       length:2,
@@ -1076,7 +1075,7 @@ var mef0b = {
       UnixTime:false,
       Rule:['Decimal']
     },
-    mef0b_22:{
+    {
       Content:'mef0b_22',
       Exp:'保留',
       length:26,
@@ -1086,4 +1085,4 @@ var mef0b = {
       Rule:['Decimal']
     }
 
-}
+]
