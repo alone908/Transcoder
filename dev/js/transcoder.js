@@ -194,18 +194,12 @@ function split_origin_data(originalDATA){
     var exp = new_rule[i]['Exp'];
     var obj = new_rule[i];
 
-    if(subject === 'Blank' || subject === 'HeadTitle'){
-        obj.Data = exp;
-        linesArray.push(obj);
-    }else {
-        obj.Data = originalDATA.substring(startPOS,startPOS+length);
-        linesArray.push(obj);
-        startPOS += length;
-    }
+    obj.Data = originalDATA.substring(startPOS,startPOS+length);
+    linesArray.push(obj);
+    startPOS += length;
 
   }
 
-  var bodyCount = 5;
   while(startPOS < dataLength){
 
     for(var i=bodyStartIndex; i <= bodyEndIndex; i++){
@@ -214,19 +208,12 @@ function split_origin_data(originalDATA){
       var length = new_rule[i]['Length'];
       var obj = new_rule[i];
 
-      if(subject === 'Blank' || subject === 'BodyTitle'){
-        if(subject === 'Blank'){ obj.Data = exp; }
-        if(subject === 'BodyTitle'){ obj.Data = '===== Body Number '+bodyCount+' ====='; }
-        linesArray.push(obj);
-      }else {
-        obj.Data = originalDATA.substring(startPOS,startPOS+length);
-        linesArray.push(obj);
-        startPOS += length;
-      }
+      obj.Data = originalDATA.substring(startPOS,startPOS+length);
+      linesArray.push(obj);
+      startPOS += length;
 
     }
 
-    bodyCount ++ ;
   }
 
   return linesArray;
@@ -268,7 +255,6 @@ function build_tpl(linesArray){
     //Loop and transcode *******************************************************
 
     line['Rule'].forEach(function(rule,index){
-
         transCode = transcode_basedon_rule(rule,transCode);
         if(index !== rulesCount -1) lineLog += transCode+'-->';
         if(index === rulesCount -1) lineLog += transCode+' ';
@@ -359,14 +345,22 @@ function build_tpl(linesArray){
 
     //************************line sourceDat span ******************************
     lineHtml +='<span class="lineData">'+sourceData+'</span>';
-    // if(subject === 'Blank' || subject === 'HeadTitle' || subject === 'BodyTitle'){ lineHtml +='<span class="blankspan">'+sourceData+'</span>'; }
-    // if(subject !== 'Blank' && subject === 'HeadTitle' && subject === 'BodyTitle'){ lineHtml +='<span class="lineData">'+sourceData+'</span>'; }
+
 
     //************************line transCode span ******************************
     if($('.checktransCode').prop('checked')){
-      lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+      if(transCode === null){
+        lineHtml +='<span class="blankspan" style="display:inline;">'+exp+'</span>';
+      }else {
+        console.log(transCode);
+        lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
+      }
     }else {
-      lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+      if(transCode === null){
+        lineHtml +='<span class="blankspan" style="display:none;">'+exp+'</span>';
+      }else {
+        lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
+      }
     }
 
     //************************line rules span **********************************
@@ -679,9 +673,10 @@ function transcode_basedon_rule(rule,data){
 
       break;
 
-    case 'Blank':
+    case null:
+    case '':
 
-    transCode = 'Blank';
+    transCode = null;
 
       break;
 
@@ -734,16 +729,20 @@ function parse_mef(type,data){
     var splitdata = data.substring(splitStart,splitEnd);
 
     var transCode = splitdata;
-    rule.forEach(function(rule,key){
-      transCode = transcode_basedon_rule(rule,transCode);
-    })
+    if(rule !== null){
+      rule.forEach(function(rule,key){
+        transCode = transcode_basedon_rule(rule,transCode);
+      })
+    }else {
+      transCode = null;
+    }
 
     html +='<div class="lineDiv" >';
     html +='<span class="mef_description" style="display:inline-block;">'+exp+'</span>';
     html +='<span class="lineData">'+splitdata+'</span>';
-    if(transCode !== 'Blank'){
+    if(transCode !== null){
       html +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
-    }else if (transCode === 'Blank') {
+    }else if (transCode === null) {
       html +='<span class="blankspan" style="display:inline;">----------'+exp+'----------</span>';
     }
     html +='</div>';

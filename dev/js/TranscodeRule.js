@@ -109,7 +109,7 @@ var mef01 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef01_1:{
       Content:'mef01_1',
@@ -190,7 +190,7 @@ var mef01 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef01_10:{
       Content:'mef01_10',
@@ -298,7 +298,7 @@ var mef01 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef01_22:{
       Content:'mef01_22',
@@ -320,7 +320,7 @@ var mef03 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef03_1:{
       Content:'mef03_1',
@@ -410,7 +410,7 @@ var mef03 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef03_11:{
       Content:'mef03_11',
@@ -491,7 +491,7 @@ var mef03 = {
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef03_20:{
       Content:'mef03_20',
@@ -576,7 +576,7 @@ var mef08 = {
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:['Blank']
+    Rule:null
   },
   mef08_1:{
     Content:'mef08_1',
@@ -702,7 +702,7 @@ var mef08 = {
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:['Blank']
+    Rule:null
   },
   mef08_15:{
     Content:'mef08_15',
@@ -792,7 +792,7 @@ var mef08 = {
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:['Blank']
+    Rule:null
   },
   mef08_25:{
     Content:'mef08_25',
@@ -886,7 +886,7 @@ var mef0b = {
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef0b_1:{
       Content:'mef0b_1',
@@ -985,7 +985,7 @@ var mef0b = {
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef0b_12:{
       Content:'mef0b_12',
@@ -1057,7 +1057,7 @@ var mef0b = {
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Blank']
+      Rule:null
     },
     mef0b_20:{
       Content:'mef0b_20',
