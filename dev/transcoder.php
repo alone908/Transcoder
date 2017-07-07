@@ -1,12 +1,12 @@
 
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
-<?php	require_once 'appphp/TranscodeRule.php';	?>
+
 
 <script src="js/TranscodeRule.js"></script>
 <script src="js/transcoder.js"></script>
-<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
-<script>var new_rule = '<?php echo $new_rule; ?>'</script>
+<!-- <script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
+<script>var new_rule = '<?php echo $new_rule; ?>'</script> -->
 
 <!-- Page Content -->
 <div class="" style="padding:0px 10px;">

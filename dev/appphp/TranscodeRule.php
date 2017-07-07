@@ -36,12 +36,18 @@ if($result->num_rows > 0) {
                    'DataCoding'=> $row['DataCoding'],
                    'LSB'=> $LSB,
                    'UnixTime'=>$UnixTime,
-                   'Rule'=>$rules];
+                   'Rule'=>$rules,
+                   'Marked'=>$row['Marked'],
+                   'PreConditionLine'=>$row['PreConditionLine'],
+                   'ChildRule'=>$row['ChildRule'],
+                   'Condition'=>$row['Condition']];
   }
 }else {
 
 }
 
-$transcodeRuleJSON = json_encode($transcodeRule);
+echo json_encode(array('TranscodeRule'=>$transcodeRule,'new_rule'=>$new_rule));
 
-$new_rule = json_encode($new_rule);
+// $transcodeRuleJSON = json_encode($transcodeRule);
+//
+// $new_rule = json_encode($new_rule);

@@ -1,10 +1,24 @@
+var TranscodeRule,new_rule;
+
+$.ajax({
+  type: 'POST',
+  url: "appphp/TranscodeRule.php",
+  data: {},
+  dataType: "json",
+  success: function (data) {
+      TranscodeRule = data.TransCodeRule;
+      new_rule = data.new_rule;
+      console.log(new_rule);
+  }
+});
+
+
+
 $(document).ready(function(){
 
-  TranscodeRule = JSON.parse(TranscodeRule);
-
-  new_rule = JSON.parse(new_rule);
-
-  console.log(new_rule);
+  // TranscodeRule = JSON.parse(TranscodeRule);
+  //
+  // new_rule = JSON.parse(new_rule);
 
   var wrapperHeight = $(document).innerHeight()-160;
   $('#wrapper').css('height',wrapperHeight.toString()+'px');
@@ -135,9 +149,6 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
   var linesArray = split_origin_data(originalDATA);
   var data = build_tpl(linesArray);
 
-  // var sortData = organize_data(originalDATA);
-  // var data = produce_data(sortData);
-
   if(replaceOriginalDATA){
     $('.originalDATA').val(originalDATA);
   }
@@ -148,8 +159,8 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
   $('.dataText').val(data.lineText);
   $('.datalog').val(data.lineLog);
 
-  $('.mefdata').on('click',function(){
-      parse_mef( $(this).data('meftype') , $(this).data('mefdata') );
+  $('.childdata').on('click',function(){
+      parse_child_rule( $(this).data('childruleset') , $(this).data('childdata') );
   })
 
   if(insertRecord){
@@ -226,6 +237,8 @@ function build_tpl(linesArray){
   var lineText = '';
   var lineLog = '';
   var bustype;
+  var markedValue = {};
+  var bodyCount = 0;
 
   linesArray.forEach(function(line,key){
 
@@ -238,7 +251,16 @@ function build_tpl(linesArray){
     var unixTime = line['UnixTime'];
     var rulesCount = line['Rule'].length;
     var transCode = sourceData;
-    var rules = '';
+    var ruleText = '';
+    var marked = line['Marked'];
+    var childRule = line['ChildRule'];
+    var preConditionLine = line['PreConditionLine'];
+    var condition = line['Condition'];
+    var childRuleSet = '';
+
+    //count body number
+    if(subject === 'BodyTitle') bodyCount ++ ;
+    //**************************************************************************
 
     //add zero afront of line number text
     if(parseInt(lineNumber) < 10){
@@ -260,28 +282,32 @@ function build_tpl(linesArray){
         if(index === rulesCount -1) lineLog += transCode+' ';
 
         if(index === 0){
-          if(rulesCount === 1)  rules += rule;
-          if(rulesCount > 1)  rules += rule+'-->';
+          if(rulesCount === 1)  ruleText += rule;
+          if(rulesCount > 1)  ruleText += rule+'-->';
         }
 
-        if(index !== 0 && index !== rulesCount-1){ rules += rule+'-->';}
-        if(index === rulesCount-1 && index !== 0){ rules += rule; }
+        if(index !== 0 && index !== rulesCount-1){ ruleText += rule+'-->';}
+        if(index === rulesCount-1 && index !== 0){ ruleText += rule; }
 
     })
 
-    lineLog += rules+' ';
+    lineLog += ruleText+' ';
     //**************************************************************************
 
-    //Decide bus type **********************************************************
-    if(lineNumText === '018'){
-      if(transCode === '10'){ bustype = 'mef08' }
-      if(transCode === '11'){ bustype = 'mef0b' }
+    //Mark precondition line value *********************************************
+    if(marked === 'true'){
+      markedValue[lineNumber] = transCode;
     }
+
+    if(condition !== null){
+      eval(condition);
+    }
+
     //**************************************************************************
 
     //Write lineText ***********************************************************
     lineText += sourceData+' ';
-    lineText += rules;
+    lineText += ruleText;
     //**************************************************************************
 
     //Write lineHtml ***********************************************************
@@ -293,50 +319,20 @@ function build_tpl(linesArray){
     //************************line content span ********************************
     if( $('.checkContent').prop('checked') ){
 
-      if(lineNumText === '020'){
+      if(childRule !== null){
         lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+                      <a class="childdata" data-childruleset="'+childRuleSet+'" data-childdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
-      }else if (lineNumText === '021') {
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '022' || lineNumText === '046') {
-
-        if(bustype === 'mef08'){
-          lineHtml +='<span class="description" style="display:inline-block;">\
-                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }else if (bustype === 'mef0b') {
-          lineHtml +='<span class="description" style="display:inline-block;">\
-                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }
-
       }else {
         lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
       }
 
     }else {
 
-      if(lineNumText === '020'){
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
+      if(childRule !== null){
+        lineHtml +='<span class="description" style="display:none;">\
+                      <a class="childdata" data-childruleset="'+childRuleSet+'" data-childdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
-      }else if (lineNumText === '021') {
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '022' || lineNumText === '046') {
-        if(bustype === 'mef08'){
-          lineHtml +='<span class="description" style="display:none;">\
-                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }else if (bustype === 'mef0b') {
-          lineHtml +='<span class="description" style="display:none;">\
-                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }
       }else {
         lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
       }
@@ -346,13 +342,11 @@ function build_tpl(linesArray){
     //************************line sourceDat span ******************************
     lineHtml +='<span class="lineData">'+sourceData+'</span>';
 
-
     //************************line transCode span ******************************
     if($('.checktransCode').prop('checked')){
       if(transCode === null){
         lineHtml +='<span class="blankspan" style="display:inline;">'+exp+'</span>';
       }else {
-        console.log(transCode);
         lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
       }
     }else {
@@ -363,11 +357,11 @@ function build_tpl(linesArray){
       }
     }
 
-    //************************line rules span **********************************
+    //************************line ruleText span **********************************
     if($('.checktranscodeRule').prop('checked')){
-      lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
+      lineHtml +='<span class="transCodeRule" style="display:inline;">'+ruleText+'</span>';
     }else {
-      lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
+      lineHtml +='<span class="transCodeRule" style="display:none;">'+ruleText+'</span>';
     }
 
     //**************************************************************************
@@ -379,213 +373,6 @@ function build_tpl(linesArray){
 
   return {lineHtml:lineHtml,lineText:lineText,lineLog:lineLog};
 
-}
-
-function organize_data(originalDATA){
-
-  var dataLength = originalDATA.length;
-  var startPOS = 0;
-  var headCount = Object.keys(TranscodeRule.DataHead).length;
-
-  var dataLines = [
-    ['1',''],
-    ['2',''],
-    ['3',''],
-    ['4','=====表頭=====']
-  ];
-
-  for(var index in TranscodeRule.DataHead){
-    if(index !== '1' && index !== '2' && index !== '3' && index !== '4'){
-      dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataHead[index].length)] );
-      startPOS += TranscodeRule.DataHead[index].length;
-    }
-  }
-
-  dataLines.push([(headCount+1).toString(),'=====第1表身=====']);
-
-  var bodyCount = 1
-  while(startPOS < dataLength){
-
-    for(var index in TranscodeRule.DataBody){
-      if(index !== (headCount+1).toString()){
-        dataLines.push( [index,originalDATA.substring(startPOS,startPOS+TranscodeRule.DataBody[index].length)] );
-        startPOS += TranscodeRule.DataBody[index].length;
-      }
-    }
-
-    bodyCount ++;
-
-    dataLines.push([(headCount+1).toString(),'=====第'+bodyCount+'表身=====']);
-  }
-
-  return dataLines;
-}
-
-function produce_data(sortData){
-
-  var lineHtml = '';
-  var lineText = '';
-  var lineLog = '';
-  var bustype;
-
-  sortData.forEach(function(value,lineNumber){
-
-    var index = value[0];
-    var sourceData = value[1];
-    var headCount = Object.keys(TranscodeRule.DataHead).length;
-    var bodyCount = Object.keys(TranscodeRule.DataBody).length;
-
-    //re-calculate line number *************************************************
-    lineNumber ++;
-
-    if(lineNumber > headCount){
-      if( (lineNumber-headCount)%bodyCount !== 0 ){
-        lineNumber = (lineNumber-headCount)%bodyCount+headCount;
-      }else if ( (lineNumber-headCount)%bodyCount === 0 ) {
-        lineNumber = bodyCount+headCount;
-      }
-    }
-
-    //add zero afront of number text
-    if(lineNumber < 10){
-      lineNumText = '00'+lineNumber.toString();
-    }else if (lineNumber < 99) {
-      lineNumText = '0'+lineNumber.toString();
-    }else if (lineNumber >= 100) {
-      lineNumText = lineNumber.toString();
-    }
-    //**************************************************************************
-
-    //Decide section ***********************************************************
-    var section = (lineNumber <= headCount) ? 'DataHead' : 'DataBody';
-    //**************************************************************************
-
-    lineLog += lineNumText+' '+exp+' '+sourceData+' -->';
-
-    //Loop and transcode *******************************************************
-    var exp = TranscodeRule[section][index].Exp;
-    var lsb = TranscodeRule[section][index].LSB;
-    var dataCoding = TranscodeRule[section][index].dataCoding;
-    var unixTime = TranscodeRule[section][index].UnixTime;
-    var rulesCount = TranscodeRule[section][index].Rule.length;
-    var transCode = sourceData;
-    var rules = '';
-
-    TranscodeRule[section][index].Rule.forEach(function(rule,index){
-
-        transCode = transcode_basedon_rule(rule,transCode);
-        if(index !== rulesCount -1) lineLog += transCode+'-->';
-        if(index === rulesCount -1) lineLog += transCode+' ';
-
-        if(index === 0){
-          if(rulesCount === 1)  rules += rule;
-          if(rulesCount > 1)  rules += rule+'-->';
-        }
-
-        if(index !== 0 && index !== rulesCount-1){ rules += rule+'-->';}
-        if(index === rulesCount-1 && index !== 0){ rules += rule; }
-
-    })
-
-    lineLog += rules+' ';
-    //**************************************************************************
-
-    //Decide bus type **********************************************************
-    if(lineNumText === '018'){
-      if(transCode === '10'){ bustype = 'mef08' }
-      if(transCode === '11'){ bustype = 'mef0b' }
-    }
-    //**************************************************************************
-
-    //Write lineText ***********************************************************
-    lineText += sourceData+' ';
-    lineText += rules;
-    //**************************************************************************
-
-    //Write lineHtml ***********************************************************
-    lineHtml +='<div class="lineDiv" >';
-
-    //************************line number span *********************************
-    lineHtml +='<span class="lineNumber">'+lineNumText+'</span>';
-
-    //************************line content span ********************************
-    if( $('.checkContent').prop('checked') ){
-
-      if(lineNumText === '020'){
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '021') {
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '022' || lineNumText === '046') {
-
-        if(bustype === 'mef08'){
-          lineHtml +='<span class="description" style="display:inline-block;">\
-                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }else if (bustype === 'mef0b') {
-          lineHtml +='<span class="description" style="display:inline-block;">\
-                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }
-
-      }else {
-        lineHtml +='<span class="description" style="display:inline-block;">'+exp+'</span>';
-      }
-
-    }else {
-
-      if(lineNumText === '020'){
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef01" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '021') {
-        lineHtml +='<span class="description" style="display:inline-block;">\
-                      <a class="mefdata" data-meftype="mef03" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                    </span>';
-      }else if (lineNumText === '022' || lineNumText === '046') {
-        if(bustype === 'mef08'){
-          lineHtml +='<span class="description" style="display:none;">\
-                        <a class="mefdata" data-meftype="mef08" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }else if (bustype === 'mef0b') {
-          lineHtml +='<span class="description" style="display:none;">\
-                        <a class="mefdata" data-meftype="mef0b" data-mefdata="'+sourceData+'">'+exp+'</a>\
-                      </span>';
-        }
-      }else {
-        lineHtml +='<span class="description" style="display:none;">'+exp+'</span>';
-      }
-
-    }
-
-    //************************line sourceDat span ******************************
-    lineHtml +='<span class="lineData">'+sourceData+'</span>';
-
-    //************************line transCode span ******************************
-    if($('.checktransCode').prop('checked')){
-      lineHtml +='<span class="transCode" style="display:inline;">'+transCode+'</span>';
-    }else {
-      lineHtml +='<span class="transCode" style="display:none;">'+transCode+'</span>';
-    }
-
-    //************************line rules span **********************************
-    if($('.checktranscodeRule').prop('checked')){
-      lineHtml +='<span class="transCodeRule" style="display:inline;">'+rules+'</span>';
-    }else {
-      lineHtml +='<span class="transCodeRule" style="display:none;">'+rules+'</span>';
-    }
-
-    //**************************************************************************
-
-    lineHtml +='</div>';
-    lineText += "\n";
-    lineLog += "\n";
-  })
-
-  return {lineHtml:lineHtml,lineText:lineText,lineLog:lineLog};
 }
 
 function transcode_basedon_rule(rule,data){
@@ -701,28 +488,27 @@ function eachTwoNum(sourceData){
   return twoNumArray;
 }
 
-function parse_mef(type,data){
+function parse_child_rule(childRuleSet,data){
 
   $('.mefForm').html('');
   var html = '';
   var splitStart = 0;
   var bitaddup = 0;
-  if(type === 'mef01'){ var mef = mef01;}
-  if(type === 'mef03'){ var mef = mef03;}
-  if(type === 'mef08'){ var mef = mef08;}
-  if(type === 'mef0b'){ var mef = mef0b;}
 
-  for(var index in mef){
+  console.log('var ruleObj = '+childRuleSet+';')
+  eval('var ruleObj = '+childRuleSet+';');
 
-    var exp = mef[index]['Exp'];
-    var rule = mef[index]['Rule'];
+  for(var index in ruleObj){
 
-    if(typeof mef[index]['length'] === 'number'){
-      var length = mef[index]['length'];
+    var exp = ruleObj[index]['Exp'];
+    var rule = ruleObj[index]['Rule'];
+
+    if(typeof ruleObj[index]['length'] === 'number'){
+      var length = ruleObj[index]['length'];
       var splitEnd = splitStart + length;
-    }else if ( typeof mef[index]['length'] === 'string' ) {
-      splitStart = mef[index]['length'].split('-')[0];
-      var splitEnd = mef[index]['length'].split('-')[1];
+    }else if ( typeof ruleObj[index]['length'] === 'string' ) {
+      splitStart = ruleObj[index]['length'].split('-')[0];
+      var splitEnd = ruleObj[index]['length'].split('-')[1];
 
     }
 
@@ -753,7 +539,6 @@ function parse_mef(type,data){
   }
 
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
