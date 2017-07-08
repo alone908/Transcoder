@@ -1,0 +1,31 @@
+version 1.0.0
+1.完成基本轉碼器.
+2.按Start鍵轉碼，產出FORM和TEXT格式.
+version 1.0.5
+1.新增產出LOG格式
+version 1.1.5
+1.修正轉碼規則
+2.修正UnixTime時間錯誤
+3.FORM格式中新增內容欄位
+4.建立資料庫，新增DataRecord Table
+5.新增從資料庫Load Records功能
+version 1.2.5
+1.建立TranscodeRule Table
+2.改由資料庫產生TranscodeRule Object
+3.修正轉碼規則
+4.完成轉碼編輯器
+version 1.5.5
+1.修正切換Tab問題
+2.更新UI
+3.新增AN轉碼規則
+version 2.0.0
+1.新增File Manager功能
+2.新增Upload New File功能
+3.新增Select File from Server功能
+4.新增Import from Local功能
+5.UI大改版
+version 2.0.1
+1.新增MEF01,MEF03轉碼規則
+2.新增MEF08,MEF0B轉碼規則
+3.新增Source Code功能
+4.新增Google中文字型

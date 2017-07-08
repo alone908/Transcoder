@@ -1,6 +1,7 @@
-var new_rule;
+var new_rule,ruleList;
+var defaultRuleSetID = 1;
 
-get_rule_obj(1);
+get_rule_list();
 
 $(document).ready(function(){
 
@@ -61,11 +62,17 @@ $(document).ready(function(){
     }else { $('.transCodeRule').css('display','none'); }
   })
 
+  $('#rule-selector').on('change',function(e){
+    var script = 'new_rule = RuleSet_'+$(this).val();
+    eval(script);
+  })
+
   $("#menu-toggle").on('click',function(e) { toggleMenu(e) });
   $('#form-tab').on('click',function(e){ showFormDataContainer(e) });
   $('#source-tab').on('click',function(e){ showSourceDataContainer(e) });
   $('#text-tab').on('click',function(e){ showTextDataContainer(e) });
   $('#log-tab').on('click',function(e){ showLogDataContainer(e) });
+  $('#rule-tab').on('click',function(e){ showRuleTabContainer(e) });
 
   //***** Upload Course ZIP file **********************
   $('#fileupload').fileupload({
@@ -121,19 +128,42 @@ $(document).ready(function(){
   //****************************************************************************
 
 })
+
 ////////////////////////////////////////////////////////////////////////////////
-function get_rule_obj(RuleSetID){
+
+function get_rule_list(){
   $.ajax({
     type: 'POST',
     url: "appphp/TranscodeRule.php",
-    data: {RuleSetID:RuleSetID},
+    data: {op:'get_rule_list'},
     dataType: "json",
     success: function (data) {
-        new_rule = data.new_rule;
-        console.log(new_rule);
+      ruleList = data.ruleList;
+      for(var RuleSetID in data.ruleList){
+        get_rule_obj(RuleSetID,data.ruleList[RuleSetID].RuleVar);
+      }
     }
   });
 }
+
+function get_rule_obj(RuleSetID,RuleVar){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/TranscodeRule.php",
+    data: {op:'get_rule_obj',RuleSetID:RuleSetID},
+    dataType: "json",
+    success: function (data) {
+        var script = RuleVar+'=data.new_rule';
+        eval(script);
+        if(Number(RuleSetID) === defaultRuleSetID){
+          // console.log('Set default rule');
+          var script = 'new_rule = '+RuleVar+';';
+          eval(script);
+        }
+    }
+  });
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -492,19 +522,19 @@ function parse_child_rule(childRuleSet,data){
   var splitStart = 0;
   var bitaddup = 0;
 
-  eval('var ruleObj = '+childRuleSet+';');
+  eval('var ruleObj = '+ruleList[childRuleSet].RuleVar+';');
 
   ruleObj.forEach(function(ruleObj,index){
 
     var exp = ruleObj['Exp'];
     var rule = ruleObj['TranscodeRule'];
 
-    if(typeof ruleObj['length'] === 'number'){
-      var length = ruleObj['length'];
-      var splitEnd = splitStart + length;
-    }else if ( typeof ruleObj['length'] === 'string' ) {
-      splitStart = ruleObj['length'].split('-')[0];
-      var splitEnd = ruleObj['length'].split('-')[1];
+    if(typeof ruleObj['Length'] === 'number'){
+      var Length = ruleObj['Length'];
+      var splitEnd = splitStart + Length;
+    }else if ( typeof ruleObj['Length'] === 'string' ) {
+      splitStart = ruleObj['Length'].split('-')[0];
+      var splitEnd = ruleObj['Length'].split('-')[1];
 
     }
 
@@ -671,11 +701,13 @@ function showFormDataContainer(e,toggle=true){
     $('#source-data-container').css('display','none');
     $('#text-data-container').css('display','none');
     $('#log-data-container').css('display','none');
+    $('#rule-tab-container').css('display','none');
 
     $('#form-tab > a').addClass('a-active');
     $('#source-tab > a').removeClass('a-active');
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').removeClass('a-active');
+    $('#rule-tab > a').removeClass('a-active');
 
     if(toggle) toggleMenu(e);
 }
@@ -685,11 +717,13 @@ function showSourceDataContainer(e,toggle=true){
   $('#source-data-container').css('display','block');
   $('#text-data-container').css('display','none');
   $('#log-data-container').css('display','none');
+  $('#rule-tab-container').css('display','none');
 
   $('#form-tab > a').removeClass('a-active');
   $('#source-tab > a').addClass('a-active');
   $('#text-tab > a').removeClass('a-active');
   $('#log-tab > a').removeClass('a-active');
+  $('#rule-tab > a').removeClass('a-active');
 
   if(toggle) toggleMenu(e);
 }
@@ -699,11 +733,13 @@ function showTextDataContainer(e,toggle=true){
   $('#source-data-container').css('display','none');
   $('#text-data-container').css('display','block');
   $('#log-data-container').css('display','none');
+  $('#rule-tab-container').css('display','none');
 
   $('#form-tab > a').removeClass('a-active');
   $('#source-tab > a').removeClass('a-active');
   $('#text-tab > a').addClass('a-active');
   $('#log-tab > a').removeClass('a-active');
+  $('#rule-tab > a').removeClass('a-active');
 
   if(toggle) toggleMenu(e);
 }
@@ -713,11 +749,29 @@ function showLogDataContainer(e,toggle=true){
   $('#source-data-container').css('display','none');
   $('#text-data-container').css('display','none');
   $('#log-data-container').css('display','block');
+  $('#rule-tab-container').css('display','none');
 
   $('#form-tab > a').removeClass('a-active');
   $('#source-tab > a').removeClass('a-active');
   $('#text-tab > a').removeClass('a-active');
   $('#log-tab > a').addClass('a-active');
+  $('#rule-tab > a').removeClass('a-active');
+
+  if(toggle) toggleMenu(e);
+}
+
+function showRuleTabContainer(e,toggle=true){
+  $('#form-data-container').css('display','none');
+  $('#source-data-container').css('display','none');
+  $('#text-data-container').css('display','none');
+  $('#log-data-container').css('display','none');
+  $('#rule-tab-container').css('display','block');
+
+  $('#form-tab > a').removeClass('a-active');
+  $('#source-tab > a').removeClass('a-active');
+  $('#text-tab > a').removeClass('a-active');
+  $('#log-tab > a').removeClass('a-active');
+  $('#rule-tab > a').addClass('a-active');
 
   if(toggle) toggleMenu(e);
 }

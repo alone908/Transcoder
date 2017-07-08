@@ -1,4 +1,4 @@
-
+<?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
 
@@ -26,6 +26,7 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
+                <li id="rule-tab"><a href="#">RULE</a></li>
                 <li id="source-tab"><a href="#">SOURCE</a></li>
                 <li id="form-tab"><a href="#" class="a-active">FORM</a></li>
                 <li id="text-tab"><a href="#">TEXT</a></li>
@@ -40,6 +41,23 @@
                 <a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
             </div>
             <div id="page-content">
+
+              <div id="rule-tab-container">
+                <span>Select Transcode Rule</span><br>
+                <select id="rule-selector" class="form-control">
+                  <?php
+                  $sql = "select * from rulelist";
+                  $conn->query('SET NAMES UTF8');
+                  $result = $conn->query($sql);
+
+                  if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                      echo '<option value="'.$row['RuleSetID'].'" data-rulevar="'.$row['RuleVar'].'">'.$row['RuleName'].'</option>';
+                    }
+                  }
+                  ?>
+                </select>
+              </div>
 
               <div id="form-data-container">
 
