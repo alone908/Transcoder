@@ -62,9 +62,8 @@ $(document).ready(function(){
     }else { $('.transCodeRule').css('display','none'); }
   })
 
-  $('#rule-selector').on('change',function(e){
-    var script = 'new_rule = RuleSet_'+$(this).val();
-    eval(script);
+  $('#rule-list-table > tbody > tr').on('click',function(e){
+    select_rule(e,$(this));
   })
 
   $("#menu-toggle").on('click',function(e) { toggleMenu(e) });
@@ -128,6 +127,23 @@ $(document).ready(function(){
   //****************************************************************************
 
 })
+
+////////////////////////////////////////////////////////////////////////////////
+function select_rule(e,ele){
+  $('#rule-list-table > tbody > tr').removeClass('info');
+  ele.addClass('info');
+  $('#rule-info').html('');
+  var RuleSetID = ele.data('rulesetid');
+  $('#rule-info').append('<span style="font-size:18px">RuleSetID : '+ele.data('rulesetid')+'</span><br>');
+  for(var key in ruleList[RuleSetID]){
+    $('#rule-info').append('<span style="font-size:18px">'+key+' : '+ruleList[RuleSetID][key]+'</span><br>');
+  }
+  var script = 'new_rule = '+ele.data('rulevar');
+  eval(script);
+  console.log(new_rule);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 

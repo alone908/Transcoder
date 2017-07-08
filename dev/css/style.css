@@ -79,12 +79,6 @@
   overflow-y: auto;
 }
 
-#rule-selector{
-  width: 100px;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
 .lineDiv {
   width:100%;
   white-space: nowrap;

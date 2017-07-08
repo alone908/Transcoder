@@ -1,6 +1,21 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
+<?php $defaultRuleSetID = 1;?>
+<?php
+$rule_list = array();
+$sql = "select * from rulelist";
+$conn->query('SET NAMES UTF8');
+$result = $conn->query($sql);
+if($result->num_rows > 0){
+  while($row = $result->fetch_assoc()){
+    $rule_list[$row['RuleSetID']] = ['RuleName'=>$row['RuleName'],
+                                     'RuleVar'=>$row['RuleVar'],
+                                     'RuleType'=>$row['RuleType'],
+                                     'CreateTime'=>$row['CreateTime']];
+  }
+}
+?>
 
 <script src="js/TranscodeRule.js"></script>
 <script src="js/transcoder.js"></script>
@@ -44,19 +59,28 @@
 
               <div id="rule-tab-container">
                 <span>Select Transcode Rule</span><br>
-                <select id="rule-selector" class="form-control">
+                <div id="rule-list-div" style="display:inline-block;height:50%;width:25%;padding:10px;overflow:auto;">
+                  <table id="rule-list-table" class="table table-hover">
+                    <tbody>
+                      <?php
+                        foreach ($rule_list as $rule_set_id => $rule) {
+                          if($rule_set_id === $defaultRuleSetID && $rule['RuleType'] === 'hasbody'){
+                            echo '<tr style="cursor:pointer;" class="info" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
+                          }else if($rule_set_id !== $defaultRuleSetID && $rule['RuleType'] === 'hasbody'){
+                            echo '<tr style="cursor:pointer;" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
+                          }
+                        }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+                <div id="rule-info" style="display:inline-block;height:35%;width:40%;vertical-align:top;background-color:#f5f5f5;border-radius:5px;margin-left:10px;padding:10px;">
                   <?php
-                  $sql = "select * from rulelist";
-                  $conn->query('SET NAMES UTF8');
-                  $result = $conn->query($sql);
-
-                  if($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                      echo '<option value="'.$row['RuleSetID'].'" data-rulevar="'.$row['RuleVar'].'">'.$row['RuleName'].'</option>';
-                    }
-                  }
-                  ?>
-                </select>
+                  echo '<span style="font-size:18px">RuleSetID : '.$defaultRuleSetID.'</span><br>';
+                  foreach ($rule_list[$defaultRuleSetID] as $key => $value):
+                      echo '<span style="font-size:18px">'.$key.' : '.$value.'</span><br>';
+                  endforeach; ?>
+                </div>
               </div>
 
               <div id="form-data-container">
