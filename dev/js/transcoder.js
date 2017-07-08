@@ -497,7 +497,7 @@ function parse_child_rule(childRuleSet,data){
   ruleObj.forEach(function(ruleObj,index){
 
     var exp = ruleObj['Exp'];
-    var rule = ruleObj['Rule'];
+    var rule = ruleObj['TranscodeRule'];
 
     if(typeof ruleObj['length'] === 'number'){
       var length = ruleObj['length'];

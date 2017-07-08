@@ -109,7 +109,7 @@ var mef01 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef01_1',
@@ -118,7 +118,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_2',
@@ -127,7 +127,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_3',
@@ -136,7 +136,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_4',
@@ -145,7 +145,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:true,
-      Rule:['Decimal','UnixTime']
+      TranscodeRule:['Decimal','UnixTime']
     },
     {
       Content:'mef01_5',
@@ -154,7 +154,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:true,
-      Rule:['Decimal','UnixTime']
+      TranscodeRule:['Decimal','UnixTime']
     },
     {
       Content:'mef01_6',
@@ -163,7 +163,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_7',
@@ -172,7 +172,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_8',
@@ -181,7 +181,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_09',
@@ -190,7 +190,7 @@ var mef01 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef01_10',
@@ -199,7 +199,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_11',
@@ -208,7 +208,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_12',
@@ -217,7 +217,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_13',
@@ -226,7 +226,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_14',
@@ -235,7 +235,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_15',
@@ -244,7 +244,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_16',
@@ -253,7 +253,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:true,
-      Rule:['Decimal','UnixTime']
+      TranscodeRule:['Decimal','UnixTime']
     },
     {
       Content:'mef01_17',
@@ -262,7 +262,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_18',
@@ -271,7 +271,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_19',
@@ -280,7 +280,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_20',
@@ -289,7 +289,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef01_21',
@@ -298,7 +298,7 @@ var mef01 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
 
@@ -308,7 +308,7 @@ var mef01 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     }
 ]
 
@@ -320,7 +320,7 @@ var mef03 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef03_1',
@@ -329,7 +329,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_2',
@@ -338,7 +338,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_3',
@@ -347,7 +347,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_4',
@@ -356,7 +356,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_5',
@@ -365,7 +365,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_6',
@@ -374,7 +374,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_7',
@@ -383,7 +383,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:true,
-      Rule:['LSB','Decimal','UnixTime']
+      TranscodeRule:['LSB','Decimal','UnixTime']
     },
     {
       Content:'mef03_8',
@@ -392,7 +392,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_9',
@@ -401,7 +401,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_10',
@@ -410,7 +410,7 @@ var mef03 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef03_11',
@@ -419,7 +419,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_12',
@@ -428,7 +428,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:true,
-      Rule:['LSB','Decimal','UnixTime']
+      TranscodeRule:['LSB','Decimal','UnixTime']
     },
     {
       Content:'mef03_13',
@@ -437,7 +437,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_14',
@@ -446,7 +446,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_15',
@@ -455,7 +455,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_16',
@@ -464,7 +464,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_17',
@@ -473,7 +473,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_18',
@@ -482,7 +482,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_19',
@@ -491,7 +491,7 @@ var mef03 = [
       dataCoding:'undefined',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef03_20',
@@ -500,7 +500,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_21',
@@ -509,7 +509,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:true,
-      Rule:['LSB','Decimal','UnixTime']
+      TranscodeRule:['LSB','Decimal','UnixTime']
     },
     {
       Content:'mef03_22',
@@ -518,7 +518,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_23',
@@ -527,7 +527,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_24',
@@ -536,7 +536,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef03_25',
@@ -545,7 +545,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_26',
@@ -554,7 +554,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef03_27',
@@ -563,7 +563,7 @@ var mef03 = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     }
 ]
 
@@ -575,7 +575,7 @@ var mef08 = [
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:null
+    TranscodeRule:null
   },
   {
     Content:'mef08_1',
@@ -584,7 +584,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_2',
@@ -593,7 +593,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-1-LSB']
+    TranscodeRule:['Binary-0-1-LSB']
   },
   {
     Content:'mef08_3',
@@ -602,7 +602,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-1-4-LSB']
+    TranscodeRule:['Binary-1-4-LSB']
   },
   {
     Content:'mef08_4',
@@ -611,7 +611,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8-LSB']
+    TranscodeRule:['Binary-4-8-LSB']
   },
   {
     Content:'mef08_5',
@@ -620,7 +620,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_6',
@@ -629,7 +629,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_7',
@@ -638,7 +638,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_8',
@@ -647,7 +647,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_9',
@@ -656,7 +656,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_10',
@@ -665,7 +665,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_11',
@@ -674,7 +674,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_12',
@@ -683,7 +683,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_13',
@@ -692,7 +692,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_14',
@@ -701,7 +701,7 @@ var mef08 = [
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:null
+    TranscodeRule:null
   },
   {
     Content:'mef08_15',
@@ -710,7 +710,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:true,
-    Rule:['LSB','Decimal','UnixTime']
+    TranscodeRule:['LSB','Decimal','UnixTime']
   },
   {
     Content:'mef08_16',
@@ -719,7 +719,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_17',
@@ -728,7 +728,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_18',
@@ -737,7 +737,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_19',
@@ -746,7 +746,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_20',
@@ -755,7 +755,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_21',
@@ -764,7 +764,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_22',
@@ -773,7 +773,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4-LSB']
+    TranscodeRule:['Binary-0-4-LSB']
   },
   {
     Content:'mef08_23',
@@ -782,7 +782,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8-LSB']
+    TranscodeRule:['Binary-4-8-LSB']
   },
   {
     Content:'mef08_24',
@@ -791,7 +791,7 @@ var mef08 = [
     dataCoding:'undefined',
     LSB:false,
     UnixTime:false,
-    Rule:null
+    TranscodeRule:null
   },
   {
     Content:'mef08_25',
@@ -800,7 +800,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:true,
-    Rule:['LSB','Decimal','UnixTime']
+    TranscodeRule:['LSB','Decimal','UnixTime']
   },
   {
     Content:'mef08_26',
@@ -809,7 +809,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_27',
@@ -818,7 +818,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_28',
@@ -827,7 +827,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_29',
@@ -836,7 +836,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_30',
@@ -845,7 +845,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Decimal']
+    TranscodeRule:['Decimal']
   },
   {
     Content:'mef08_31',
@@ -854,7 +854,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:true,
     UnixTime:false,
-    Rule:['LSB','Decimal']
+    TranscodeRule:['LSB','Decimal']
   },
   {
     Content:'mef08_32',
@@ -863,7 +863,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-0-4-LSB']
+    TranscodeRule:['Binary-0-4-LSB']
   },
   {
     Content:'mef08_33',
@@ -872,7 +872,7 @@ var mef08 = [
     dataCoding:'BIN',
     LSB:false,
     UnixTime:false,
-    Rule:['Binary-4-8-LSB']
+    TranscodeRule:['Binary-4-8-LSB']
   }
 ]
 
@@ -884,7 +884,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef0b_1',
@@ -893,7 +893,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_2',
@@ -902,7 +902,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Binary-0-3-LSB']
+      TranscodeRule:['Binary-0-3-LSB']
     },
     {
       Content:'mef0b_3',
@@ -911,7 +911,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Binary-3-8-LSB']
+      TranscodeRule:['Binary-3-8-LSB']
     },
     {
       Content:'mef0b_4',
@@ -920,7 +920,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_5',
@@ -929,7 +929,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_6',
@@ -938,7 +938,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_7',
@@ -947,7 +947,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_8',
@@ -956,7 +956,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_9',
@@ -965,7 +965,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_10',
@@ -974,7 +974,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_11',
@@ -983,7 +983,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef0b_12',
@@ -992,7 +992,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef0b_13',
@@ -1001,7 +1001,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:true,
-      Rule:['LSB','Decimal','UnixTime']
+      TranscodeRule:['LSB','Decimal','UnixTime']
     },
     {
       Content:'mef0b_14',
@@ -1010,7 +1010,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef0b_15',
@@ -1019,7 +1019,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:true,
       UnixTime:false,
-      Rule:['LSB','Decimal']
+      TranscodeRule:['LSB','Decimal']
     },
     {
       Content:'mef0b_16',
@@ -1028,7 +1028,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_17',
@@ -1037,7 +1037,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_18',
@@ -1046,7 +1046,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_19',
@@ -1055,7 +1055,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:null
+      TranscodeRule:null
     },
     {
       Content:'mef0b_20',
@@ -1064,7 +1064,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_21',
@@ -1073,7 +1073,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     },
     {
       Content:'mef0b_22',
@@ -1082,7 +1082,7 @@ var mef0b = [
       dataCoding:'BIN',
       LSB:false,
       UnixTime:false,
-      Rule:['Decimal']
+      TranscodeRule:['Decimal']
     }
 
 ]
