@@ -138,6 +138,7 @@ function select_rule(e,ele){
   for(var key in ruleList[RuleSetID]){
     $('#rule-info').append('<span style="font-size:18px">'+key+' : '+ruleList[RuleSetID][key]+'</span><br>');
   }
+  $('#rule-title-li').text('Transcoder - '+ruleList[RuleSetID]['RuleName']);
   var script = 'new_rule = '+ele.data('rulevar');
   eval(script);
   console.log(new_rule);

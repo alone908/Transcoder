@@ -26,7 +26,7 @@ if($result->num_rows > 0){
     <div style="margin-top:60px;">
       <ol class="breadcrumb" style="margin-bottom:10px;">
         <li><a href="index.php">Home</a></li>
-        <li class="active">Transcoder</li>
+        <li id="rule-title-li" class="active">Transcoder - <?php echo $rule_list[$defaultRuleSetID]['RuleName'];?></li>
         &nbsp;&nbsp;&nbsp;
         <span id="start-btn" class="btn btn-black start"><i class='glyphicon glyphicon-play'></i>&nbsp;&nbsp;START</span>
         <span id="clear-btn" class="btn btn-black clear"><i class='glyphicon glyphicon-warning-sign'></i>&nbsp;&nbsp;CLEAR</span>
@@ -64,10 +64,9 @@ if($result->num_rows > 0){
                     <tbody>
                       <?php
                         foreach ($rule_list as $rule_set_id => $rule) {
-                          if($rule_set_id === $defaultRuleSetID && $rule['RuleType'] === 'hasbody'){
-                            echo '<tr style="cursor:pointer;" class="info" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
-                          }else if($rule_set_id !== $defaultRuleSetID && $rule['RuleType'] === 'hasbody'){
-                            echo '<tr style="cursor:pointer;" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
+                          if($rule['RuleType'] === 'MainRule'){
+                            $class = ($rule_set_id === $defaultRuleSetID) ? 'info' : '';
+                            echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
                           }
                         }
                       ?>
