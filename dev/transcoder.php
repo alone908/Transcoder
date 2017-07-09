@@ -1,23 +1,15 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
+<?php include_once 'appphp/rule_list_array.php';?>
 <?php $defaultRuleSetID = 1;?>
-<?php
-$rule_list = array();
-$sql = "select * from rulelist";
-$conn->query('SET NAMES UTF8');
-$result = $conn->query($sql);
-if($result->num_rows > 0){
-  while($row = $result->fetch_assoc()){
-    $rule_list[$row['RuleSetID']] = ['RuleName'=>$row['RuleName'],
-                                     'RuleVar'=>$row['RuleVar'],
-                                     'RuleType'=>$row['RuleType'],
-                                     'CreateTime'=>$row['CreateTime']];
-  }
-}
-?>
 
-<script src="js/TranscodeRule.js"></script>
+<!-- Custom CSS -->
+<link href="css/landing-page.css" rel="stylesheet">
+<link href="css/simple-sidebar.css" rel="stylesheet">
+
+<!-- Custom JS -->
+<script src="js/an.rule.js"></script>
 <script src="js/transcoder.js"></script>
 
 <!-- Page Content -->
@@ -34,7 +26,6 @@ if($result->num_rows > 0){
         <span id="record-btn" class="btn btn-black" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;RECORDS</button>
         &nbsp;
       </ol>
-
     </div>
 
     <div id="wrapper">

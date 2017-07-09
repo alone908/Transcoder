@@ -141,7 +141,6 @@ function select_rule(e,ele){
   $('#rule-title-li').text('Transcoder - '+ruleList[RuleSetID]['RuleName']);
   var script = 'new_rule = '+ele.data('rulevar');
   eval(script);
-  console.log(new_rule);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -173,7 +172,6 @@ function get_rule_obj(RuleSetID,RuleVar){
         var script = RuleVar+'=data.new_rule';
         eval(script);
         if(Number(RuleSetID) === defaultRuleSetID){
-          // console.log('Set default rule');
           var script = 'new_rule = '+RuleVar+';';
           eval(script);
         }

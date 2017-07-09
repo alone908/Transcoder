@@ -28,8 +28,6 @@
 
     <!-- Custom CSS -->
     <link href="css/jquery.fileupload.css" rel="stylesheet">
-    <link href="css/landing-page.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -56,9 +54,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="transcoder.php">Transcoder</a>
-                </li>
+                <li><a href="transcoder.php">Transcoder</a></li>
+                <li><a href="rm_rulelist.php">Rule Manager</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

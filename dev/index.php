@@ -1,6 +1,10 @@
 <!-- Header -->
 <?php include_once 'header.php';?>
 
+<!-- Custom CSS -->
+<link href="css/landing-page.css" rel="stylesheet">
+<link href="css/simple-sidebar.css" rel="stylesheet">
+
     <!-- <a name="about"></a> -->
     <div class="intro-header">
         <div class="container">

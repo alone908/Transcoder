@@ -11,6 +11,20 @@
   color: white;
 }
 
+footer {
+    padding: 50px 0;
+    background-color: #222;
+    position:fixed;
+    bottom:0px;
+    padding:10px 0px;
+    width:100%;
+    z-index:1500;
+}
+
+p.copyright {
+    margin: 15px 0 0;
+}
+
 /***** transcoder.php style *****/
 
 #form-title-div {
