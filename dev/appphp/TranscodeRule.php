@@ -7,7 +7,7 @@ switch ($_POST['op']) {
 
     $rule_list = array();
 
-    $sql = "select * from rulelist";
+    $sql = "SELECT * FROM rulelist";
     $conn->query('SET NAMES UTF8');
     $result = $conn->query($sql);
 

@@ -2,7 +2,7 @@
 require_once 'appphp/sqldb.php';
 
 $rule_list = array();
-$sql = "select * from rulelist";
+$sql = "SELECT * FROM rulelist ORDER BY RuleName ASC";
 $conn->query('SET NAMES UTF8');
 $result = $conn->query($sql);
 if($result->num_rows > 0){
