@@ -2,3 +2,4 @@
 2. recursive subrule
 3. organize backend file
 4. change .mef form class name
+5. organize js plugin
