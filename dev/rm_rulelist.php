@@ -31,7 +31,11 @@
             <?php
               foreach ($rule_list as $rule_set_id => $rule) {
                   $class = ($rule_set_id === (integer) $current_ruleset_id) ? 'info' : '';
-                  echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'"><td>'.$rule['RuleName'].'</td></tr>';
+                  echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'">
+                  <td>'.$rule['RuleName'].'
+                  <span style="display:inline-block;margin-right:0px;font-size:14px;"><i class="fa fa-clone" aria-hidden="true"></i></spn>
+                  <span style="display:inline-block;margin-right:0px;font-size:14px;"><i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
+                  </td></tr>';
               }
             ?>
           </tbody>
