@@ -95,3 +95,26 @@
     </div>
   </div>
 </div>
+
+<!-- Clone Rule Modal -->
+<div class="modal fade" id="cloneRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Clone Rule</span>
+      </div>
+      <div class="modal-body">
+        <!-- <span style="font-size:14px;color:red;">Clone rule as new one.</span> -->
+        <div class="form-group">
+          <label for="">New Rule Name:</label>
+          <input id="new_rule_name" type="text" class="form-control" placeholder="Rule Name">
+        </div>
+        <span id="clone_err_text" style="font-size:10px;color:red;"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="clone_rule" type="button" class="btn btn-lg-black">Clone</button>
+      </div>
+    </div>
+  </div>
+</div>

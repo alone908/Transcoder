@@ -12,6 +12,12 @@ $(document).ready(function(){
   $('.del_rule_btn').on('click',function(e){ $('#del_rule').data('rulesetid',$(this).data('rulesetid')); })
   $('#del_rule').on('click',function(e){ del_rule($(this).data('rulesetid')); })
 
+  $('.clone_rule_btn').on('click',function(e){
+    check_clone_rulename($(this).data('rulesetid'));
+    $('#clone_rule').data('rulesetid',$(this).data('rulesetid'));
+  })
+  $('#clone_rule').on('click',function(e){ clone_rule($(this).data('rulesetid')); })
+
 })
 
 function get_rule_list(){
@@ -27,14 +33,18 @@ function get_rule_list(){
 }
 
 function select_rule(e,ele){
+
+  var RuleSetID = ele.data('rulesetid');
+  currentRulesetID = RuleSetID;
+
   $('#rule-list-table > tbody > tr').removeClass('info');
   ele.addClass('info');
+
   $('#rule-info').html('');
-  var RuleSetID = ele.data('rulesetid');
-  $('#rule-info').append('<span style="font-size:18px">RuleSetID : '+ele.data('rulesetid')+'</span><br>');
   for(var key in ruleList[RuleSetID]){
     $('#rule-info').append('<span style="font-size:18px">'+key+' : '+ruleList[RuleSetID][key]+'</span><br>');
   }
+
   $('#rule-title-li').text('Rule List - '+ruleList[RuleSetID]['RuleName']);
   $('#rm_rulelist_href').attr('href','rm_rulelist.php?rulesetid='+RuleSetID);
   $('#rm_ruleeditor_href').attr('href','rm_ruleeditor.php?rulesetid='+RuleSetID);
@@ -49,7 +59,31 @@ function del_rule(rulesetid){
     data: {op:'del_rule',rulesetid:rulesetid},
     dataType: "json",
     success: function (data) {
+      window.location = 'rm_rulelist.php';
+    }
+  });
+}
 
+function check_clone_rulename(rulesetid){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rule_list_backend.php",
+    data: {op:'check_clone_rulename',new_name:ruleList[rulesetid]['RuleName']+'[CLONE]'},
+    dataType: "json",
+    success: function (data) {
+      $('#new_rule_name').val(data.new_name);
+    }
+  });
+}
+
+function clone_rule(rulesetid){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rule_list_backend.php",
+    data: {op:'clone_rule',rulesetid:rulesetid,rulename:$('#new_rule_name').val()},
+    dataType: "json",
+    success: function (data) {
+      window.location = 'rm_rulelist.php?rulesetid='+data.newrulesetid;
     }
   });
 }

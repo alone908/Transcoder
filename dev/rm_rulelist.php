@@ -10,6 +10,7 @@
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
 <script src="js/rm_rulelist.js"></script>
+<script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
 
 <div id="wrapper">
 
@@ -46,10 +47,10 @@
       </div>
       <div id="rule-info">
         <?php
-        echo '<span style="font-size:18px">RuleSetID : '.$defaultRuleSetID.'</span><br>';
-        foreach ($rule_list[$defaultRuleSetID] as $key => $value):
+        foreach ($rule_list[$current_ruleset_id] as $key => $value) :
             echo '<span style="font-size:18px">'.$key.' : '.$value.'</span><br>';
-        endforeach; ?>
+        endforeach;
+        ?>
       </div>
 
     </div>

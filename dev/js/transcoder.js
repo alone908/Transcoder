@@ -134,7 +134,7 @@ function select_rule(e,ele){
   ele.addClass('info');
   $('#rule-info').html('');
   var RuleSetID = ele.data('rulesetid');
-  $('#rule-info').append('<span style="font-size:18px">RuleSetID : '+ele.data('rulesetid')+'</span><br>');
+  
   for(var key in ruleList[RuleSetID]){
     $('#rule-info').append('<span style="font-size:18px">'+key+' : '+ruleList[RuleSetID][key]+'</span><br>');
   }
@@ -341,7 +341,7 @@ function build_tpl(linesArray){
       markedValue[lineNumber] = transCode;
     }
 
-    if(condition !== null){
+    if(condition !== null && condition !== ''){
       eval(condition);
     }
 
@@ -361,7 +361,7 @@ function build_tpl(linesArray){
     //************************line content span ********************************
     if( $('.checkContent').prop('checked') ){
 
-      if(childRule !== null){
+      if(childRule !== null && childRule !== ''){
         lineHtml +='<span class="description" style="display:inline-block;">\
                       <a class="childdata" data-childruleset="'+childRuleSet+'" data-childdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
@@ -371,7 +371,7 @@ function build_tpl(linesArray){
 
     }else {
 
-      if(childRule !== null){
+      if(childRule !== null && childRule !== ''){
         lineHtml +='<span class="description" style="display:none;">\
                       <a class="childdata" data-childruleset="'+childRuleSet+'" data-childdata="'+sourceData+'">'+exp+'</a>\
                     </span>';
