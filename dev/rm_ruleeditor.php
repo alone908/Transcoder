@@ -52,16 +52,16 @@
 
               if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle'){ ?>
 
-                <div class="rule_row">
+                <div class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;">
 
                   <span class="handle" style="width:24px;height:31px;display:inline-block;padding:5px;cursor:pointer;-webkit-transform: rotate(90deg);transform: rotate(90deg);"><i class="fa fa-exchange" aria-hidden="true"></i></span>
                   <span type="text" style="width:50px;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LineNumber'];?></span>
                   <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['Length'];?></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['DataCoding'];?></span>
-                  <span type="text" style="width:5%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LSB'];?></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['UnixTime'];?></span>
-                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['TranscodeRule'];?></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
+                  <span type="text" style="width:5%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
+                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
                   <span style="display:inline-block;padding:5px;width:100px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">
                     <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                     <?php if($row['Subject'] === 'Blank'){ ?>
