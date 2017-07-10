@@ -50,7 +50,7 @@
 
               <div id="rule-tab-container">
                 <span>Select Transcode Rule</span><br>
-                <div id="rule-list-div" style="display:inline-block;height:50%;width:25%;padding:10px;overflow:auto;">
+                <div id="rule-list-div">
                   <table id="rule-list-table" class="table table-hover">
                     <tbody>
                       <?php
@@ -64,7 +64,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div id="rule-info" style="display:inline-block;height:35%;width:40%;vertical-align:top;background-color:#f5f5f5;border-radius:5px;margin-left:10px;padding:10px;">
+                <div id="rule-info">
                   <?php
                   echo '<span style="font-size:18px">RuleSetID : '.$defaultRuleSetID.'</span><br>';
                   foreach ($rule_list[$defaultRuleSetID] as $key => $value):

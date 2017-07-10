@@ -25,7 +25,7 @@
       </div>
 
       <span>Select Transcode Rule</span><br>
-      <div id="rule-list-div" style="display:inline-block;height:50%;width:25%;padding:10px;overflow:auto;">
+      <div id="rule-list-div">
         <table id="rule-list-table" class="table table-hover">
           <tbody>
             <?php
@@ -33,15 +33,17 @@
                   $class = ($rule_set_id === (integer) $current_ruleset_id) ? 'info' : '';
                   echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'">
                   <td>'.$rule['RuleName'].'
-                  <span style="display:inline-block;margin-right:0px;font-size:14px;"><i class="fa fa-clone" aria-hidden="true"></i></spn>
-                  <span style="display:inline-block;margin-right:0px;font-size:14px;"><i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
+                  <div style="display:inline-block;float:right;">
+                  <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="'.$rule_set_id.'"><i class="fa fa-clone" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
+                  </div>
                   </td></tr>';
               }
             ?>
           </tbody>
         </table>
       </div>
-      <div id="rule-info" style="display:inline-block;height:35%;width:40%;vertical-align:top;background-color:#f5f5f5;border-radius:5px;margin-left:10px;padding:10px;">
+      <div id="rule-info">
         <?php
         echo '<span style="font-size:18px">RuleSetID : '.$defaultRuleSetID.'</span><br>';
         foreach ($rule_list[$defaultRuleSetID] as $key => $value):
