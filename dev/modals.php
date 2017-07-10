@@ -75,4 +75,23 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- Delete Rule Modal -->
+<div class="modal fade" id="delRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Rule</span>
+      </div>
+      <div class="modal-body">
+        <span style="font-size:14px;color:red;">Are you sure you want to delete this rule ?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="del_rule" type="button" class="btn btn-lg-black">Delete</button>
+      </div>
+    </div>
   </div>
+</div>

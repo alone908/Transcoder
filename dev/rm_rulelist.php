@@ -1,5 +1,6 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
+<?php include_once 'modals.php';?>
 <?php include_once 'appphp/rule_list_array.php';?>
 <?php $page = 'rm_rulelist.php' ?>
 <?php $defaultRuleSetID = 1 ?>
@@ -34,8 +35,8 @@
                   echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'">
                   <td>'.$rule['RuleName'].'
                   <div style="display:inline-block;float:right;">
-                  <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="'.$rule_set_id.'"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                  <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
+                  <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
                   </div>
                   </td></tr>';
               }

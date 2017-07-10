@@ -4,12 +4,13 @@ var defaultRuleSetID = 1;
 get_rule_list();
 
 $(document).ready(function(){
-  
+
   $('#page-wrapper').css('width', ($(document).width()-250).toString()+'px' );
 
-  $('#rule-list-table > tbody > tr').on('click',function(e){
-    select_rule(e,$(this));
-  })
+  $('#rule-list-table > tbody > tr').on('click',function(e){ select_rule(e,$(this)); })
+
+  $('.del_rule_btn').on('click',function(e){ $('#del_rule').data('rulesetid',$(this).data('rulesetid')); })
+  $('#del_rule').on('click',function(e){ del_rule($(this).data('rulesetid')); })
 
 })
 
@@ -39,4 +40,16 @@ function select_rule(e,ele){
   $('#rm_ruleeditor_href').attr('href','rm_ruleeditor.php?rulesetid='+RuleSetID);
   $('#rm_rulebranch_href').attr('href','rm_rulebranch.php?rulesetid='+RuleSetID);
   $('#rm_preference_href').attr('href','rm_preference.php?rulesetid='+RuleSetID);
+}
+
+function del_rule(rulesetid){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rule_list_backend.php",
+    data: {op:'del_rule',rulesetid:rulesetid},
+    dataType: "json",
+    success: function (data) {
+
+    }
+  });
 }
