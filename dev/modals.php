@@ -112,7 +112,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="" type="button" class="btn btn-lg-black">Clone</button>
+        <button id="clone_rule" type="button" class="btn btn-lg-black">Clone</button>
       </div>
     </div>
   </div>

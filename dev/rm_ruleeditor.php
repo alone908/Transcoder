@@ -48,11 +48,38 @@
           $new_rule = array();
 
           if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) { ?>
+            while($row = $result->fetch_assoc()) {
+
+              if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle'){ ?>
+
+                <div class="rule_row">
+
+                  <span class="handle" style="width:24px;height:31px;display:inline-block;padding:5px;cursor:pointer;-webkit-transform: rotate(90deg);transform: rotate(90deg);"><i class="fa fa-exchange" aria-hidden="true"></i></span>
+                  <span type="text" style="width:50px;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LineNumber'];?></span>
+                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['Length'];?></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['DataCoding'];?></span>
+                  <span type="text" style="width:5%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LSB'];?></span>
+                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['UnixTime'];?></span>
+                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['TranscodeRule'];?></span>
+                  <span style="display:inline-block;padding:5px;width:100px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">
+                    <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
+                    <?php if($row['Subject'] === 'Blank'){ ?>
+                    <button class="btn btn-sm-black">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+                    <?php
+                    }
+                    ?>
+                  </span>
+
+                </div>
+
+              <?php
+              }else {
+              ?>
 
               <div class="rule_row">
 
-                <span class="handle" style="display:inline-block;padding:5px;width:24px;cursor:pointer;"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                <span class="handle" style="display:inline-block;padding:5px;width:24px;cursor:pointer;-webkit-transform: rotate(90deg);transform: rotate(90deg);"><i class="fa fa-exchange" aria-hidden="true"></i></span>
                 <span type="text" style="display:inline-block;padding:5px;width:50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LineNumber'];?></span>
                 <input type="text" style="width:20%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['Exp'];?>"></input>
                 <input type="text" style="width:10%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['Length'];?>"></input>
@@ -67,7 +94,8 @@
 
               </div>
 
-          <?php
+              <?php
+              }
             }
           }
           ?>
