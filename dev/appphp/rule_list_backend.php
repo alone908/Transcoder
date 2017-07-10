@@ -93,6 +93,20 @@ switch ($_POST['op']) {
 
     break;
 
+  case 'edit_rule_name':
+
+  $rule_set_id = (integer) $_POST['rulesetid'];
+
+  $query = "UPDATE rulelist SET RuleName='".$_POST['rulename']."' WHERE RuleSetID=".$rule_set_id;
+  $conn->query('SET NAMES UTF8');
+  $conn->query($query);
+
+  $query = "UPDATE transcoderule SET RuleName='".$_POST['rulename']."' WHERE RuleSetID=".$rule_set_id;
+  $conn->query('SET NAMES UTF8');
+  $conn->query($query);
+
+  echo json_encode(array('op'=>'edit_rule_name'));
+
   default:
     # code...
     break;

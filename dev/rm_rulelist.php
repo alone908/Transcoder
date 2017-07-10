@@ -36,6 +36,7 @@
                   echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'">
                   <td>'.$rule['RuleName'].'
                   <div style="display:inline-block;float:right;">
+                  <button class="btn btn-sm-black edit_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#editRuleModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                   <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
                   <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
                   </div>

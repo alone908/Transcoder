@@ -18,6 +18,12 @@ $(document).ready(function(){
   })
   $('#clone_rule').on('click',function(e){ clone_rule($(this).data('rulesetid')); })
 
+  $('.edit_rule_btn').on('click',function(e){
+    $('#rule_name').val(ruleList[$(this).data('rulesetid')].RuleName);
+    $('#save_rule_name').data('rulesetid',$(this).data('rulesetid'));
+  })
+  $('#save_rule_name').on('click',function(e){ edit_rule_name($(this).data('rulesetid')); })
+
 })
 
 function get_rule_list(){
@@ -86,4 +92,20 @@ function clone_rule(rulesetid){
       window.location = 'rm_rulelist.php?rulesetid='+data.newrulesetid;
     }
   });
+}
+
+function edit_rule_name(rulesetid){
+  if($('#rule_name').val() === ''){
+    $('#edit_name_err').text('Rule name can not be left blank.');
+  }else {
+    $.ajax({
+      type: 'POST',
+      url: "appphp/rule_list_backend.php",
+      data: {op:'edit_rule_name',rulesetid:rulesetid,rulename:$('#rule_name').val()},
+      dataType: "json",
+      success: function (data) {
+        window.location = 'rm_rulelist.php?rulesetid='+currentRulesetID;
+      }
+    });
+  }
 }

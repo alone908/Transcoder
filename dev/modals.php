@@ -104,7 +104,6 @@
         <span class="modal-title" style="font-size:18px;font-weight:bold;">Clone Rule</span>
       </div>
       <div class="modal-body">
-        <!-- <span style="font-size:14px;color:red;">Clone rule as new one.</span> -->
         <div class="form-group">
           <label for="">New Rule Name:</label>
           <input id="new_rule_name" type="text" class="form-control" placeholder="Rule Name">
@@ -113,7 +112,29 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="clone_rule" type="button" class="btn btn-lg-black">Clone</button>
+        <button id="" type="button" class="btn btn-lg-black">Clone</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Rule Name Modal -->
+<div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Edit Rule Name</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="margin-bottom:5px;">
+          <label for="">New Rule Name:</label>
+          <input id="rule_name" type="text" class="form-control" placeholder="Rule Name">
+        </div>
+        <span id="edit_name_err" style="font-size:14px;color:red;"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="save_rule_name" type="button" class="btn btn-lg-black">Save</button>
       </div>
     </div>
   </div>
