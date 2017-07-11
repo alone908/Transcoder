@@ -53,6 +53,8 @@ function end_sorting_color(event,ui){
 function sort_linenumber(event,ui){
   $('.rule_row').each(function(index,row){
     row.children[1].textContent = index+1;
+    $('#'+$(this).attr('id')+' .insert_btn').attr('data-linenumber',index+1);
+    $('#'+$(this).attr('id')+' .del_btn').attr('data-linenumber',index+1);
   })
 }
 
@@ -67,8 +69,7 @@ function insert_btn_event(e,ele){
 
 var tempID = 0;
 function insert_row(id,linenumber,type,position){
-
-  console.log($('#'+id));
+  
   tempID ++ ;
 
   if(position === 'before'){
