@@ -83,7 +83,7 @@
               }else {
               ?>
 
-              <div id="<?php echo $row['id'];?>" class="rule_row">
+              <div id="<?php echo $row['id'];?>" class="rule_row" data-subject="<?php echo $row['Subject']?>">
 
                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
@@ -107,7 +107,7 @@
                     <span><?php echo 'RuleName : '.$row['RuleName']; ?></span><br>
                     <span><?php echo 'RuleType : '.$row['RuleType']; ?></span><br>
                     <span><?php echo 'RuleVar : '.$row['RuleVar']; ?></span><br>
-                    <span><?php echo 'LineNumber : '.$row['LineNumber']; ?></span><br>
+                    <span class="detail_linenumber"><?php echo 'LineNumber : '.$row['LineNumber']; ?></span><br>
                     <span><?php echo 'Subject : '.$row['Subject']; ?></span><br>
                     <span><?php echo 'Content : '.$row['Content']; ?></span><br>
                     <span><?php echo 'Exp : '.$row['Exp']; ?></span><br>

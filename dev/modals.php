@@ -151,17 +151,12 @@
         <div class="form-group" style="height:50px;">
 
           <label class="col-sm-2">Type:</label>
-          <label class="col-sm-10">
-            <input type="radio" id="inlineCheckbox1" name="type" value="regular">&nbsp;Regular Line
-            <input type="radio" id="inlineCheckbox1" name="type" value="blank">&nbsp;Blank Line
-          </label>
+          <input type="radio" id="inlineCheckbox1" name="type" value="regular"><span id="regular_radio_text" class="radio_text">Regular Line</span>
+          <input type="radio" id="inlineCheckbox1" name="type" value="blank"><span id="blank_radio_text" class="radio_text">Blank Line</span>
           <br><br>
           <label class="col-sm-2">Position:</label>
-
-          <label class="col-sm-10">
-            <input type="radio" id="inlineCheckbox1" name="position" value="before">&nbsp;Before
-            <input type="radio" id="inlineCheckbox1" name="position" value="after">&nbsp;After
-          </label>
+          <input type="radio" id="inlineCheckbox1" name="position" value="before"><span id="before_radio_text" class="radio_text">Before</span>
+          <input type="radio" id="inlineCheckbox1" name="position" value="after"><span id="after_radio_text" class="radio_text">After</span>
 
         </div>
         <span id="insert_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>

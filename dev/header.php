@@ -12,7 +12,7 @@
     <title>Transcoder</title>
 
     <!-- jQuery -->
-    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/jquery.ui.widget.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.fileupload.js"></script>
