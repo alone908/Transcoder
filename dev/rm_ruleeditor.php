@@ -1,5 +1,6 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
+<?php include_once 'modals.php';?>
 <?php include_once 'appphp/rule_list_array.php';?>
 <?php $page = 'rm_ruleeditor.php' ?>
 <?php $defaultRuleSetID = 1 ?>
@@ -61,16 +62,16 @@
                     <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                   <?php }else { ?>
                     <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
-                  <?php } ?>                              
+                  <?php } ?>
                   <span class="editor_line_span" style="width:10%;"></span>
                   <span class="editor_line_span" style="width:10%;"></span>
                   <span class="editor_line_span" style="width:5%;"></span>
                   <span class="editor_line_span" style="width:10%;"></span>
                   <span class="editor_line_span" style="width:20%;"></span>
                   <span class="editor_line_span">
-                    <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
+                    <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                     <?php if($row['Subject'] === 'Blank'){ ?>
-                    <button class="btn btn-sm-black" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+                    <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
                     <?php
                     }
                     ?>
@@ -93,8 +94,8 @@
                 <input class="UnixTime editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
                 <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
                 <span class="editor_line_span">
-                  <button class="btn btn-sm-black" data-id="<?php echo $row['id'];?>"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
-                  <button class="btn btn-sm-black" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+                  <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
+                  <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
                   <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
                 </span>
                 <br>

@@ -192,6 +192,10 @@ p.copyright {
 
 /***** ruleeditor.php style *****/
 
+.rule_row:hover {
+  background-color: #e6e6e6;
+}
+
 .editor_line_span {
   height:31px;
   display:inline-block;

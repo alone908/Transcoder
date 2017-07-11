@@ -139,3 +139,37 @@
     </div>
   </div>
 </div>
+
+<!-- Insert Rule Row Modal -->
+<div class="modal fade" id="insertRowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Insert Row</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="height:50px;">
+
+          <label class="col-sm-2">Type:</label>
+          <label class="col-sm-10">
+            <input type="radio" id="inlineCheckbox1" name="type" value="regular">&nbsp;Regular Line
+            <input type="radio" id="inlineCheckbox1" name="type" value="blank">&nbsp;Blank Line
+          </label>
+          <br><br>
+          <label class="col-sm-2">Position:</label>
+
+          <label class="col-sm-10">
+            <input type="radio" id="inlineCheckbox1" name="position" value="before">&nbsp;Before
+            <input type="radio" id="inlineCheckbox1" name="position" value="after">&nbsp;After
+          </label>
+
+        </div>
+        <span id="insert_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="insert" type="button" class="btn btn-lg-black">Insert</button>
+      </div>
+    </div>
+  </div>
+</div>
