@@ -14,6 +14,10 @@ $(document).ready(function(){
   });
   $( "#rule_row_container" ).disableSelection();
 
+  $('.detail_btn').on('click',function(e){
+    detail_btn_event(e,$(this));
+  })
+
 })
 
 function start_sorting_color(event,ui){
@@ -35,7 +39,11 @@ function end_sorting_color(event,ui){
 }
 
 function sort_linenumber(event,ui){
-  $('.rule_row').each(function(index,row){    
+  $('.rule_row').each(function(index,row){
     row.children[1].textContent = index+1;
   })
+}
+
+function detail_btn_event(e,ele){
+  $('#detail_'+ele.data('id')).toggle('display');
 }
