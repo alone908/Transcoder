@@ -54,15 +54,15 @@
 
                 <div class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;">
 
-                  <span class="handle" style="width:24px;height:31px;display:inline-block;padding:5px;cursor:pointer;-webkit-transform: rotate(90deg);transform: rotate(90deg);"><i class="fa fa-exchange" aria-hidden="true"></i></span>
-                  <span type="text" style="width:50px;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LineNumber'];?></span>
-                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
-                  <span type="text" style="width:5%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
-                  <span type="text" style="width:10%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
-                  <span type="text" style="width:20%;height:31px;display:inline-block;padding:5px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
-                  <span style="display:inline-block;padding:5px;width:100px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">
+                  <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
+                  <span class="editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                  <span class="editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
+                  <span class="editor_line_span" style="width:10%;"></span>
+                  <span class="editor_line_span" style="width:10%;"></span>
+                  <span class="editor_line_span" style="width:5%;"></span>
+                  <span class="editor_line_span" style="width:10%;"></span>
+                  <span class="editor_line_span" style="width:20%;"></span>
+                  <span class="editor_line_span">
                     <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                     <?php if($row['Subject'] === 'Blank'){ ?>
                     <button class="btn btn-sm-black">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
@@ -79,15 +79,15 @@
 
               <div class="rule_row">
 
-                <span class="handle" style="display:inline-block;padding:5px;width:24px;cursor:pointer;-webkit-transform: rotate(90deg);transform: rotate(90deg);"><i class="fa fa-exchange" aria-hidden="true"></i></span>
-                <span type="text" style="display:inline-block;padding:5px;width:50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;border-bottom:1px solid black;"><?php echo $row['LineNumber'];?></span>
-                <input type="text" style="width:20%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['Exp'];?>"></input>
-                <input type="text" style="width:10%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['Length'];?>"></input>
-                <input type="text" style="width:10%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['DataCoding'];?>"></input>
-                <input type="text" style="width:5%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['LSB'];?>"></input>
-                <input type="text" style="width:10%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['UnixTime'];?>"></input>
-                <input type="text" style="width:20%;border:0;outline:0;background:transparent;border-bottom: 1px solid black;padding:5px;" value="<?php echo $row['TranscodeRule'];?>"></input>
-                <span style="display:inline-block;padding:5px;width:100px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">
+                <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
+                <span class="editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                <input class="editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
+                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Length'];?>"></input>
+                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['DataCoding'];?>"></input>
+                <input class="editor_line_input" type="text" style="width:5%;" value="<?php echo $row['LSB'];?>"></input>
+                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
+                <input class="editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
+                <span class="editor_line_span">
                   <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                   <button class="btn btn-sm-black">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
                 </span>
