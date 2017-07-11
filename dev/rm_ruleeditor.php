@@ -52,11 +52,11 @@
 
               if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle'){ ?>
 
-                <div class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;">
+                <div class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
                   <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
-                  <span class="editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-                  <span class="editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
+                  <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                  <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
                   <span class="editor_line_span" style="width:10%;"></span>
                   <span class="editor_line_span" style="width:10%;"></span>
                   <span class="editor_line_span" style="width:5%;"></span>
@@ -80,13 +80,13 @@
               <div class="rule_row">
 
                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
-                <span class="editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-                <input class="editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
-                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Length'];?>"></input>
-                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['DataCoding'];?>"></input>
-                <input class="editor_line_input" type="text" style="width:5%;" value="<?php echo $row['LSB'];?>"></input>
-                <input class="editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
-                <input class="editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
+                <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
+                <input class="Length editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Length'];?>"></input>
+                <input class="DataCoding editor_line_input" type="text" style="width:10%;" value="<?php echo $row['DataCoding'];?>"></input>
+                <input class="LSB editor_line_input" type="text" style="width:5%;" value="<?php echo $row['LSB'];?>"></input>
+                <input class="UnixTime editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
+                <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
                 <span class="editor_line_span">
                   <button class="btn btn-sm-black"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                   <button class="btn btn-sm-black">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
@@ -100,13 +100,6 @@
           }
           ?>
 
-          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <script>
-            $( function() {
-              $( "#rule_row_container" ).sortable({handle: ".handle"});
-              $( "#rule_row_container" ).disableSelection();
-            } );
-            </script>
 
           <!-- <div class="rule_row">
 
