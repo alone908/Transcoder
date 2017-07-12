@@ -1,7 +1,7 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
 <?php include_once 'appphp/rule_list_array.php';?>
-<?php $page = 'rm_rulebranch.php' ?>
+<?php $page = 'rm_brancheditor.php' ?>
 <?php $defaultRuleSetID = 1 ?>
 <?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
@@ -20,7 +20,7 @@
         <ol class="breadcrumb" style="margin-bottom:10px;">
           <li><a href="index.php">Home</a></li>
           <li>Rule Manager</li>
-          <li>Rule Branch - <?php echo $rule_list[$current_ruleset_id]['RuleName'];?></li>
+          <li>Branch Editor - <?php echo $rule_list[$current_ruleset_id]['RuleName'];?></li>
         </ol>
       </div>
 
