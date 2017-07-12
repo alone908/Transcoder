@@ -41,6 +41,18 @@ $(document).ready(function(){
     }
   })
 
+  $('.del_btn').on('click',function(e){
+    del_btn_event(e,$(this));
+  })
+
+  $('#del_row').on('click',function(e){
+    $('#'+$(this).data('id')).css('display','none');
+    $('#'+$(this).data('id')).removeClass('rule_row').addClass('rule_row_deleted');
+    sort_linenumber(null,null);
+    $('#delRowModal').modal('hide');
+  })
+
+
 })
 
 function start_sorting_color(event,ui){
@@ -63,10 +75,10 @@ function end_sorting_color(event,ui){
 
 function sort_linenumber(event,ui){
   $('.rule_row').each(function(index,row){
-    $('#'+$(this).attr('id')+' .LineNumber').html(index+1);
-    $('#detail_'+$(this).attr('id')+' .detail_linenumber').html('LineNumber : '+(index+1).toString());
-    $('#'+$(this).attr('id')+' .insert_btn').attr('data-linenumber',index+1);
-    $('#'+$(this).attr('id')+' .del_btn').attr('data-linenumber',index+1);
+      $('#'+$(this).attr('id')+' .LineNumber').html(index+1);
+      $('#'+$(this).attr('id')+' .insert_btn').attr('data-linenumber',index+1);
+      $('#'+$(this).attr('id')+' .del_btn').attr('data-linenumber',index+1);
+      // $('#detail_'+$(this).attr('id')+' .detail_linenumber').html('LineNumber : '+(index+1).toString());
   })
 }
 
@@ -77,6 +89,11 @@ function detail_btn_event(e,ele){
 function insert_btn_event(e,ele){
   $('#insert').data('id',ele.data('id'));
   $('#insert').data('linenumber',ele.data('linenumber'));
+}
+
+function del_btn_event(e,ele){
+  $('#del_row').data('id',ele.data('id'));
+  $('#del_row').data('linenumber',ele.data('linenumber'));
 }
 
 var tempID = 0;

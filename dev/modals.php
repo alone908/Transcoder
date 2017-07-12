@@ -168,3 +168,21 @@
     </div>
   </div>
 </div>
+
+<!-- Delete Rule Row Modal -->
+<div class="modal fade" id="delRowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Row</span>
+      </div>
+      <div class="modal-body">
+        <span style="font-size:14px;color:red;">Are you sure you want to delete this row ?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="del_row" type="button" class="btn btn-lg-black">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
