@@ -134,7 +134,7 @@ function select_rule(e,ele){
   ele.addClass('info');
   $('#rule-info').html('');
   var RuleSetID = ele.data('rulesetid');
-  
+
   for(var key in ruleList[RuleSetID]){
     $('#rule-info').append('<span style="font-size:18px">'+key+' : '+ruleList[RuleSetID][key]+'</span><br>');
   }
@@ -667,7 +667,7 @@ function listRecords(){
     success: function (data) {
       data.Records.forEach(function(record,index){
         var num = index+1;
-        $('.record-table').append('<tr>\
+        $('.record-table tbody').append('<tr>\
                                     <td>'+num+'</td>\
                                     <td>'+record.SourceData+'</td>\
                                     <td>'+record.TimeStamp+'</td>\
@@ -683,7 +683,7 @@ function listRecords(){
 }
 
 function clearRecordsTable(){
-  $('.record-table').html('<tr>\
+  $('.record-table tbody').html('<tr>\
                             <th>#</th>\
                             <th>SourceData</th>\
                             <th>TimeStamp</th>\

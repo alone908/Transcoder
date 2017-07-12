@@ -60,13 +60,15 @@
       </div>
       <div class="modal-body">
         <div class="records-container">
-          <table class="table table-condensed table-hover record-table">
+          <table class="table table-hover record-table">
+            <tbody>
             <tr>
               <th>#</th>
               <th>SourceData</th>
               <th>TimeStamp</th>
               <th>LOAD</th>
             <tr>
+            </tbody>
           </table>
         </div>
       </div>

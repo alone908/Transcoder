@@ -11,7 +11,7 @@ $(document).ready(function(){
 
   $( "#rule_row_container" ).sortable({
     handle: ".handle",
-    start: function(event,ui){console.log(ui.item); start_sorting_color(event,ui);},
+    start: function(event,ui){ start_sorting_color(event,ui);},
     stop : function(event,ui){
       end_sorting_color(event,ui);
       sort_linenumber(event,ui);
@@ -198,7 +198,15 @@ function save_rule_table(){
     ruleTable.push( get_row_value($(this).attr('id'),true) );
   })
 
-  console.log(ruleTable);
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rm_ruleeditor_backend.php",
+    data: {op:'save_rule_table',rulesetid:currentRulesetID,ruleTable:ruleTable},
+    dataType: "json",
+    success: function (data) {
+      location.reload();
+    }
+  });
 }
 
 
@@ -211,7 +219,7 @@ function get_row_value(id,del){
       var op = 'update';
     }
   }else if (del) {
-    var op = 'del';
+    var op = 'delete';
   }
 
   var LineNumber = $('#'+id+' .LineNumber').html();
