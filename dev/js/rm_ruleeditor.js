@@ -41,9 +41,7 @@ $(document).ready(function(){
     }
   })
 
-  $('.del_btn').on('click',function(e){
-    del_btn_event(e,$(this));
-  })
+  $('.del_btn').on('click',function(e){ del_btn_event(e,$(this)); })
 
   $('#del_row').on('click',function(e){
     $('#'+$(this).data('id')).css('display','none');
@@ -52,6 +50,7 @@ $(document).ready(function(){
     $('#delRowModal').modal('hide');
   })
 
+  $('#save_btn').on('click',function(e){ save_rule_table(e,$(this)); })
 
 })
 
@@ -115,7 +114,7 @@ function insert_row(id,linenumber,type,position){
           <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
         </span>\
       </div>').insertBefore('#'+id);
     }else if (type === 'regular') {
@@ -131,7 +130,7 @@ function insert_row(id,linenumber,type,position){
         <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
         <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
         </span>').insertBefore('#'+id);
     }
 
@@ -150,7 +149,7 @@ function insert_row(id,linenumber,type,position){
           <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
         </span>\
       </div>').insertAfter('#'+id);
     }else if (type === 'regular') {
@@ -166,7 +165,7 @@ function insert_row(id,linenumber,type,position){
         <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
         <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
         </span>').insertAfter('#'+id);
     }
   }
@@ -177,10 +176,82 @@ function insert_row(id,linenumber,type,position){
     insert_btn_event(e,$(this));
   })
 
+  $('.del_btn').off('click').on('click',function(e){ del_btn_event(e,$(this)); })
+
   $('.rule_row').hover(function(){
     if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#e6e6e6');
   },function(){
     if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#fff');
   })
+
+}
+
+function save_rule_table(){
+
+  var ruleTable = [];
+
+  $('.rule_row').each(function(index,row){
+    ruleTable.push( get_row_value($(this).attr('id'),false) );
+  })
+
+  $('.rule_row_deleted').each(function(index,row){
+    ruleTable.push( get_row_value($(this).attr('id'),true) );
+  })
+
+  console.log(ruleTable);
+}
+
+
+function get_row_value(id,del){
+
+  if(!del){
+    if(id.indexOf('temp') >= 0){
+      var op = 'insert';
+    }else {
+      var op = 'update';
+    }
+  }else if (del) {
+    var op = 'del';
+  }
+
+  var LineNumber = $('#'+id+' .LineNumber').html();
+
+  if( $('#'+id+' .Exp').prop('tagName') === 'SPAN' ){
+    var Exp = $('#'+id+' .Exp').html();
+  }else if ( $('#'+id+' .Exp').prop('tagName') === 'INPUT' ) {
+    var Exp = $('#'+id+' .Exp').val();
+  }
+
+  if( $('#'+id+' .Length').prop('tagName') === 'SPAN' ){
+    var Length = $('#'+id+' .Length').html();
+  }else if ( $('#'+id+' .Length').prop('tagName') === 'INPUT' ) {
+    var Length = $('#'+id+' .Length').val();
+  }
+
+  if( $('#'+id+' .DataCoding').prop('tagName') === 'SPAN' ){
+    var DataCoding = $('#'+id+' .DataCoding').html();
+  }else if ( $('#'+id+' .DataCoding').prop('tagName') === 'INPUT' ) {
+    var DataCoding = $('#'+id+' .DataCoding').val();
+  }
+
+  if( $('#'+id+' .LSB').prop('tagName') === 'SPAN' ){
+    var LSB = $('#'+id+' .LSB').html();
+  }else if ( $('#'+id+' .LSB').prop('tagName') === 'INPUT' ) {
+    var LSB = $('#'+id+' .LSB').val();
+  }
+
+  if( $('#'+id+' .UnixTime').prop('tagName') === 'SPAN' ){
+    var UnixTime = $('#'+id+' .UnixTime').html();
+  }else if ( $('#'+id+' .UnixTime').prop('tagName') === 'INPUT' ) {
+    var UnixTime = $('#'+id+' .UnixTime').val();
+  }
+
+  if( $('#'+id+' .TranscodeRule').prop('tagName') === 'SPAN' ){
+    var TranscodeRule = $('#'+id+' .TranscodeRule').html();
+  }else if ( $('#'+id+' .TranscodeRule').prop('tagName') === 'INPUT' ) {
+    var TranscodeRule = $('#'+id+' .TranscodeRule').val();
+  }
+
+  return {op:op,id:id,LineNumber:LineNumber,Exp:Exp,Length:Length,DataCoding:DataCoding,LSB:LSB,UnixTime:UnixTime,TranscodeRule:TranscodeRule}
 
 }

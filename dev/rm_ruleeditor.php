@@ -18,11 +18,13 @@
 
     <div id="page-wrapper" style="position:absolute;width:100%;height:100%;">
 
-      <div style="margin-top:10px;">
+      <div>
         <ol class="breadcrumb" style="margin-bottom:10px;">
           <li><a href="index.php">Home</a></li>
           <li>Rule Manager</li>
           <li>Rule Editor - <?php echo $rule_list[$current_ruleset_id]['RuleName'];?></li>
+          &nbsp;&nbsp;&nbsp;
+          <span id="save_btn" class="btn btn-black start"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;SAVE</span>
         </ol>
       </div>
 
