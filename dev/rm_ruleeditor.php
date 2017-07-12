@@ -63,11 +63,11 @@
                   <?php }else { ?>
                     <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
                   <?php } ?>
-                  <span class="editor_line_span" style="width:10%;"></span>
-                  <span class="editor_line_span" style="width:10%;"></span>
-                  <span class="editor_line_span" style="width:5%;"></span>
-                  <span class="editor_line_span" style="width:10%;"></span>
-                  <span class="editor_line_span" style="width:20%;"></span>
+                  <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
+                  <span class="DataCoding editor_line_span" style="width:10%;"></span>
+                  <span class="LSB editor_line_span" style="width:5%;"></span>
+                  <span class="UnixTime editor_line_span" style="width:10%;"></span>
+                  <span class="TranscodeRule editor_line_span" style="width:20%;"></span>
                   <span class="editor_line_span">
                     <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                     <?php if($row['Subject'] === 'Blank'){ ?>

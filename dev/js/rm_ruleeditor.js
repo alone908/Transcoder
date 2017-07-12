@@ -108,11 +108,11 @@ function insert_row(id,linenumber,type,position){
         <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
           <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:5%;"></span>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:20%;"></span>\
+          <span class="Length editor_line_span" style="width:10%;">0</span>\
+          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+          <span class="LSB editor_line_span" style="width:5%;"></span>\
+          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
           <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -143,11 +143,11 @@ function insert_row(id,linenumber,type,position){
         <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
           <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:5%;"></span>\
-          <span class="editor_line_span" style="width:10%;"></span>\
-          <span class="editor_line_span" style="width:20%;"></span>\
+          <span class="Length editor_line_span" style="width:10%;">0</span>\
+          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+          <span class="LSB editor_line_span" style="width:5%;"></span>\
+          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
           <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
           <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
