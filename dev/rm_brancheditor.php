@@ -7,28 +7,8 @@
 
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
-<!-- load the d3.js library -->
-<script src="js/d3.min.js"></script>
-
-<style>
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-
-.node text {
-  font: 14px sans-serif;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 3px;
-}
-
-</style>
+<!-- Custom JS -->
+<script src="js/rm_brancheditor.js"></script>
 
 <div id="wrapper">
 
@@ -44,16 +24,8 @@
         </ol>
       </div>
 
-      <div id="#TreeContainer" style="height:300px;width:960px;border:1px solid black;">
-        <svg></svg>
-      </div>
-
     </div>
 
 </div>
 
 <?php include_once 'footer.php';?>
-
-
-<!-- Custom JS -->
-<script src="js/rm_rulebranch.js"></script>

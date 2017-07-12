@@ -61,7 +61,7 @@ function select_rule(e,ele){
 function del_rule(rulesetid){
   $.ajax({
     type: 'POST',
-    url: "appphp/rule_list_backend.php",
+    url: "appphp/rm_rulelist_backend.php",
     data: {op:'del_rule',rulesetid:rulesetid},
     dataType: "json",
     success: function (data) {
@@ -73,7 +73,7 @@ function del_rule(rulesetid){
 function check_clone_rulename(rulesetid){
   $.ajax({
     type: 'POST',
-    url: "appphp/rule_list_backend.php",
+    url: "appphp/rm_rulelist_backend.php",
     data: {op:'check_clone_rulename',new_name:ruleList[rulesetid]['RuleName']+'[CLONE]'},
     dataType: "json",
     success: function (data) {
@@ -85,7 +85,7 @@ function check_clone_rulename(rulesetid){
 function clone_rule(rulesetid){
   $.ajax({
     type: 'POST',
-    url: "appphp/rule_list_backend.php",
+    url: "appphp/rm_rulelist_backend.php",
     data: {op:'clone_rule',rulesetid:rulesetid,rulename:$('#new_rule_name').val()},
     dataType: "json",
     success: function (data) {
@@ -100,7 +100,7 @@ function edit_rule_name(rulesetid){
   }else {
     $.ajax({
       type: 'POST',
-      url: "appphp/rule_list_backend.php",
+      url: "appphp/rm_rulelist_backend.php",
       data: {op:'edit_rule_name',rulesetid:rulesetid,rulename:$('#rule_name').val()},
       dataType: "json",
       success: function (data) {
