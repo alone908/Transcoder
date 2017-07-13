@@ -53,8 +53,7 @@
 
 </div>
 
-<?php include_once 'footer.php';?>
-
-
 <!-- Custom JS -->
 <script src="js/rm_rulebranch.js"></script>
+
+<?php include_once 'footer.php';?>
