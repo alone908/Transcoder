@@ -7,67 +7,15 @@ $(document).ready(function(){
 $.ajax({
   type: 'POST',
   url: "appphp/rm_rulebranch_backend.php",
-  data: {op:'save_rule_table',rulesetid:currentRulesetID,ruleTable:ruleTable},
+  data: {op:'save_rule_table',rulesetid:currentRulesetID},
   dataType: "json",
   success: function (data) {
     buildBranch(data.treeData);
   }
 });
 
-var treeData =
-{
- "name": "Source",
- "children": [
-   {"name":"公車",
-    "children":[
-      {"name":"1~15"},
-      {"name":"16",
-       "children":[
-          {"name":"mef08",
-           "children":[{"name":"1~23"}]
-          },
-          {"name":"mef0b",
-           "children":[{"name":"1~28"}]
-          },
-       ]
-     },
-     {"name":"17",
-      "children":[
-         {"name":"mef08",
-          "children":[{"name":"1~23"}]
-         },
-         {"name":"mef0b",
-          "children":[{"name":"1~28"}]
-         },
-      ]
-    },
-    {"name":"18",
-     "children":[
-        {"name":"mef08",
-         "children":[{"name":"1~23"}]
-        },
-        {"name":"mef0b",
-         "children":[{"name":"1~28"}]
-        },
-     ]
-    },
-    {"name":"19",
-    "children":[
-       {"name":"mef08",
-        "children":[{"name":"1~23"}]
-       },
-       {"name":"mef0b",
-        "children":[{"name":"1~28"}]
-       },
-      ]
-     },
-     {"name":"17~86"}
-    ]
-   }
- ]
-};
-
-function buildBranch(){
+var treemap,root,svg,i,duration;
+function buildBranch(treeData){
 
   // Set the dimensions and margins of the diagram
   var margin = {top: 20, right: 90, bottom: 20, left: 90},
@@ -77,19 +25,19 @@ function buildBranch(){
   // append the svg object to the body of the page
   // appends a 'group' element to 'svg'
   // moves the 'group' element to the top left margin
-  var svg = d3.select("svg")
+  svg = d3.select("svg")
       .attr("width", width + margin.right + margin.left)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate("
             + margin.left + "," + margin.top + ")");
 
-  var i = 0,
+  i = 0,
       duration = 750,
       root;
 
   // declares a tree layout and assigns the size
-  var treemap = d3.tree().size([height, width]);
+  treemap = d3.tree().size([height, width]);
 
   // Assigns parent, children, height, depth
   root = d3.hierarchy(treeData, function(d) { return d.children; });
@@ -100,7 +48,7 @@ function buildBranch(){
   // root.children.forEach(collapse);
 
   update(root);
-  
+
 }
 
 // Collapse the node and all it's children

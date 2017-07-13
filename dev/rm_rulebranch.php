@@ -9,6 +9,7 @@
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- load the d3.js library -->
 <script src="js/d3.min.js"></script>
+<script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
 
 <style>
 
