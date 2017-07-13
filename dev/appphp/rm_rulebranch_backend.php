@@ -57,12 +57,12 @@ $branch = [];
 foreach ($line_section as $key => $section) {
 
   if(!isset($section['ChildRule'])){
-      $branch[] = ['name'=>(string)$section['start'].'~'.(string)$section['end']];
+      $branch[] = ['name'=>'Line: '.(string)$section['start'].'~'.(string)$section['end']];
   }elseif (isset($section['ChildRule'])) {
 
       $child_rules = explode(',',$section['ChildRule']);
 
-      $branch[] = ['name'=>(string) $section['end'],
+      $branch[] = ['name'=>'Line :'.(string) $section['end'],
                    'children'=>[]];
 
       $children = [];
@@ -72,7 +72,7 @@ foreach ($line_section as $key => $section) {
         $child_rule_node =
         ['name'=>$rule_list[$child_rule_set]['RuleName'],
          'children'=>[
-            ['name'=>'1~'.$result->num_rows]
+            ['name'=>'Line: 1~'.$result->num_rows]
            ]
          ];
          $branch[count($branch)-1]['children'][] = $child_rule_node;
