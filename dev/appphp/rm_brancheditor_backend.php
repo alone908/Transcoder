@@ -6,17 +6,47 @@ switch ($_POST['op']) {
 
   $branch = [];
 
-  $query = "SELECT * FROM transcoderule WHERE RuleSetID=".$_POST['rulesetid']." ORDER BY LineNumber;";
+  $query = "SELECT * FROM transcoderule WHERE RuleSetID=".$_POST['rulesetid']." AND NOT `Condition`='' ORDER BY LineNumber ASC;";
   $conn->query('SET NAMES UTF8');
   $result = $conn->query($query);
 
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $branch[] = ['id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
+        $branch[$row['id']] = ['id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Marked'=>$row['Marked'],'PreConditionLine'=>$row['PreConditionLine'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
+
+        $conditions = explode(';',$row['Condition']);
+        unset($conditions[count($conditions)-1]);
+
+        foreach ($conditions as $key => $condi) {
+
+          preg_match('/markedValue\["(.*)"]/', $condi, $matches);
+          if(isset($matches[1])){
+            $pre_condi_line = $matches[1];
+          }else {
+            $pre_condi_line = null;
+          }
+
+          preg_match('/===\s"(.*)"\)/', $condi, $matches);
+          if(isset($matches[1])){
+            $condi_value = $matches[1];
+          }else {
+            $condi_value = null;
+          }
+
+          preg_match('/childRuleSet\s=\s"(.*)"/', $condi, $matches);
+          if(isset($matches[1])){
+            $child_ruleset = $matches[1];
+          }else {
+            $child_ruleset = null;
+          }
+
+          $branch[$row['id']]['condition_array'][] = ['pre_line'=>$pre_condi_line,'condi_val'=>$condi_value,'childset'=>$child_ruleset];
+
+        }
     }
   }
 
-
+  echo json_encode(array('branch'=>$branch));
 
     break;
 
