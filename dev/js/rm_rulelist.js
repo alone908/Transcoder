@@ -5,7 +5,7 @@ get_rule_list();
 
 $(document).ready(function(){
 
-  $('#page-wrapper').css('width', ($(document).width()-250).toString()+'px' );
+  $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
 
   $('#rule-list-table > tbody > tr').on('click',function(e){ select_rule(e,$(this)); })
 

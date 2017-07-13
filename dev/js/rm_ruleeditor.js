@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $('#page-wrapper').css('width', ($(document).width()-250).toString()+'px' );
+  $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
   $('#editor').css('height', ($('#page-wrapper').height()-135).toString()+'px' );
   $('#rule_row_container').css('height', ($('#editor').height()-35).toString()+'px' );
 

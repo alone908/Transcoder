@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $('#page-wrapper').css('width', ($(document).width()-250).toString()+'px' );
+  $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
 
 })
 
@@ -11,48 +11,48 @@ var treeData =
  "children": [
    {"name":"公車",
     "children":[
-      {"name":"Line 1 ~ 15"},
-      {"name":"Line 16",
+      {"name":"1~15"},
+      {"name":"16",
        "children":[
           {"name":"mef08",
-           "children":[{"name":"Line 1 ~ 23"}]
+           "children":[{"name":"1~23"}]
           },
           {"name":"mef0b",
-           "children":[{"name":"Line 1 ~ 28"}]
+           "children":[{"name":"1~28"}]
           },
        ]
      },
-     {"name":"Line 17",
+     {"name":"17",
       "children":[
          {"name":"mef08",
-          "children":[{"name":"Line 1 ~ 23"}]
+          "children":[{"name":"1~23"}]
          },
          {"name":"mef0b",
-          "children":[{"name":"Line 1 ~ 28"}]
+          "children":[{"name":"1~28"}]
          },
       ]
     },
-    {"name":"Line 18",
+    {"name":"18",
      "children":[
         {"name":"mef08",
-         "children":[{"name":"Line 1 ~ 23"}]
+         "children":[{"name":"1~23"}]
         },
         {"name":"mef0b",
-         "children":[{"name":"Line 1 ~ 28"}]
+         "children":[{"name":"1~28"}]
         },
      ]
     },
-    {"name":"Line 19",
+    {"name":"19",
     "children":[
        {"name":"mef08",
-        "children":[{"name":"Line 1 ~ 23"}]
+        "children":[{"name":"1~23"}]
        },
        {"name":"mef0b",
-        "children":[{"name":"Line 1 ~ 28"}]
+        "children":[{"name":"1~28"}]
        },
       ]
      },
-     {"name":"Line 17 ~ 86"}
+     {"name":"17~86"}
     ]
    }
  ]
@@ -60,9 +60,9 @@ var treeData =
 
 
 // Set the dimensions and margins of the diagram
-var margin = {top: 20, right: 90, bottom: 30, left: 90},
-    width = 960 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+var margin = {top: 20, right: 90, bottom: 20, left: 90},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 // appends a 'group' element to 'svg'
@@ -110,7 +110,7 @@ function update(source) {
       links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d){ d.y = d.depth * 180});
+  nodes.forEach(function(d){ d.y = d.depth * 100});
 
   // ****************** Nodes section ***************************
 
@@ -136,12 +136,14 @@ function update(source) {
 
   // Add labels for the nodes
   nodeEnter.append('text')
-      .attr("dy", ".35em")
+      .attr("dy", "-.5em")
       .attr("x", function(d) {
-          return d.children || d._children ? -13 : 13;
+          // return d.children || d._children ? -13 : 13;
+          return -13;
       })
       .attr("text-anchor", function(d) {
-          return d.children || d._children ? "end" : "start";
+          // return d.children || d._children ? "end" : "start";
+          return "end";
       })
       .text(function(d) { return d.data.name; });
 

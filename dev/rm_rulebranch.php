@@ -15,17 +15,18 @@
 .node circle {
   fill: #fff;
   stroke: steelblue;
-  stroke-width: 3px;
+  stroke-width: 2px;
 }
 
 .node text {
-  font: 14px sans-serif;
+  font: 14px;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .link {
   fill: none;
   stroke: #ccc;
-  stroke-width: 3px;
+  stroke-width: 2px;
 }
 
 </style>
@@ -44,7 +45,7 @@
         </ol>
       </div>
 
-      <div id="#TreeContainer" style="height:300px;width:960px;border:1px solid black;">
+      <div id="#TreeContainer" style="height:500px;width:800px;">
         <svg></svg>
       </div>
 
