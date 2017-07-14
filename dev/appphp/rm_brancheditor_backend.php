@@ -53,8 +53,14 @@ switch ($_POST['op']) {
   $query = "SELECT * FROM transcoderule WHERE RuleSetID=".$_POST['rulesetid'];
   $result = $conn->query($query);
   $total_lines = $result->num_rows;
+  $branch_basket = [];
+  if($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $branch_basket[$row['id']] = ['id'=>$row['id'],'LineNumber'=>$row['LineNumber']];
+    }
+  }
 
-  echo json_encode(array('branch'=>$branch,'total_lines'=>$total_lines,'first_branch_id'=>$first_branch_id));
+  echo json_encode(array('branch'=>$branch,'total_lines'=>$total_lines,'first_branch_id'=>$first_branch_id,'branch_basket'=>$branch_basket));
 
     break;
 

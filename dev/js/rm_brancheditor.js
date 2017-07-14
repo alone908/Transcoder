@@ -1,4 +1,4 @@
-var branch,totalLines,ruleList;
+var branch,totalLines,ruleList,branch_basket;
 
 $(document).ready(function(){
 
@@ -19,9 +19,9 @@ $(document).ready(function(){
   $('#nocondi_radio_text').on('click',function(e){ $('input[value=nocondi]').prop("checked", true); });
   $('#withcondi_radio_text').on('click',function(e){ $('input[value=withcondi]').prop("checked", true); });
 
-  $('#add_branch_btn').on('click',function(e){
+  $('#add_branch_btn').on('click',function(e){  });
 
-  });
+  $('#add_branch').on('click',function(e){ add_branch(e,$(this)) });
 
   $.ajax({
     type: 'POST',
@@ -32,6 +32,7 @@ $(document).ready(function(){
 
       branch = data.branch;
       totalLines = data.total_lines;
+      branch_basket = data.branch_basket;
 
       $('#branch_select').html( branch_select_option( data.first_branch_id ) );
       $('#conditions_div').html( condi_div_tpl( data.first_branch_id ) );
@@ -40,6 +41,8 @@ $(document).ready(function(){
       branch[data.first_branch_id]['condition_array'][0]['pre_line'] === ''){
         $('#add_condi_btn').attr('disabled',true);
       }
+
+      $('#add_branch_select').html( add_branch_select_option() );
 
     }
   })
@@ -63,15 +66,76 @@ function del_condi(e,ele){
 
 function del_branch(e,ele){
   branch[$('#branch_select').val()]['op'] = 'del';
+  branch[$('#branch_select').val()]['condition_array'].forEach(function(condi,index){
+    branch[$('#branch_select').val()]['condition_array'][index]['op'] = 'del';
+  })
   $('#branch_select option[value="'+$('#branch_select').val()+'"]').remove();
+}
+
+function add_branch(e,ele){
+  var valid = true;
+  $('#branch_select option').each(function(key,op){
+    if( $(op).val() === $('#add_branch_select').val() ){
+      valid = false
+    }
+  })
+
+  if(!valid){
+    $('#add_branch_err').html('This branch has already existed.');
+  }else if (valid) {
+    $('#add_branch_err').html('');
+    $('#addBranchModal').modal('hide');
+    $('#branch_select').append('<option value="'+$('#add_branch_select').val()+'">'+$('#add_branch_select option:selected').html()+'</option>')
+
+    if($('input[name=branchtype]:checked').val() === 'nocondi'){
+
+      branch[Number( $('#add_branch_select').val() )] = {
+        id:$('#add_branch_select').val(),
+        op:'update',
+        LineNumber:branch_basket[Number( $('#add_branch_select').val() )]['LineNumber'],
+        ChildRule:'',
+        Condition:'',
+        Marked:'false',
+        PreConditionLine:null,
+        condition_array:[{
+          childset:'',
+          condi_val:'',
+          op:'update',
+          pre_line:null
+        }]
+      }
+
+    }else if ($('input[name=branchtype]:checked').val() === 'withcondi') {
+
+      branch[Number( $('#add_branch_select').val() )] = {
+        id:$('#add_branch_select').val(),
+        op:'update',
+        LineNumber:branch_basket[Number( $('#add_branch_select').val() )]['LineNumber'],
+        ChildRule:'',
+        Condition:'',
+        Marked:'false',
+        PreConditionLine:null,
+        condition_array:[{
+          childset:'',
+          condi_val:'',
+          op:'update',
+          pre_line:'0'
+        }]
+      }
+
+    }
+
+    $('#branch_select option[value='+$('#add_branch_select').val()+']').prop('selected',true);
+    select_branch( Number( $('#add_branch_select').val() ) )
+  }
 }
 
 function branch_select_option(first_branch_id){
   var tpl = '';
 
   for(var key in branch){
-    if(Number(key) !== first_branch_id) tpl += '<option value="'+branch[key]['id']+'">Line : '+branch[key]['LineNumber']+'</option>';
-    if(Number(key) === first_branch_id) tpl += '<option value="'+branch[key]['id']+'" selected>Line : '+branch[key]['LineNumber']+'</option>';
+    if(Number(key) !== first_branch_id) tpl += '<option value="'+branch[key]['id']+'" data-linenumber="'+branch[key]['LineNumber']+'">Line : '+branch[key]['LineNumber']+'</option>';
+    if(Number(key) === first_branch_id) tpl += '<option value="'+branch[key]['id']+'" data-linenumber="'+branch[key]['LineNumber']+'" selected>Line : '+branch[key]['LineNumber']+'</option>';
   }
 
   return tpl;
@@ -80,12 +144,9 @@ function branch_select_option(first_branch_id){
 function add_branch_select_option(){
   var tpl = '';
 
-  console.log(totalBranchNum);
-
-  for(var i=1; i<=totalBranchNum; i++){
-    tpl += '<option value="'+branch[key]['id']+'">Line : '+branch[key]['LineNumber']+'</option>';    
+  for(var id in branch_basket){
+    tpl += '<option value="'+branch_basket[id]['id']+'" data-linenumber="'+branch_basket[id]['LineNumber']+'">Line : '+branch_basket[id]['LineNumber']+'</option>';
   }
-
 
   return tpl;
 }
@@ -177,11 +238,11 @@ function no_condi_line_tpl(id,condi_key,condi,del_valid){
 
 function pre_line_option(id,key){
   var tpl = '';
-  for(var i=1;i<=totalLines;i++){
-    if(i === Number(branch[id]['condition_array'][key]['pre_line'])){
-      tpl += '<option value="'+i+'" selected>'+i+'</option>';
+  for(var index in branch_basket){
+    if(index === branch[id]['condition_array'][key]['pre_line']){
+      tpl += '<option value="'+index+'" selected>'+branch_basket[index]['LineNumber']+'</option>';
     }else {
-      tpl += '<option value="'+i+'">'+i+'</option>';
+      tpl += '<option value="'+index+'">'+branch_basket[index]['LineNumber']+'</option>';
     }
   }
   return tpl;
