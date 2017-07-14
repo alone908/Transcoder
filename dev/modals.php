@@ -188,3 +188,36 @@
     </div>
   </div>
 </div>
+
+<!-- Add Branch Modal -->
+<div class="modal fade" id="addBranchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Insert Row</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="height:50px;">
+
+          <label class="col-sm-3">Branch :</label>
+          <select id="add_branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
+            <option>123</option>
+            <option>123</option>
+            <option>123</option>
+            <option>123</option>
+          </select>
+          <br><br>
+          <label class="col-sm-3">Branch Type:</label>
+          <input type="radio" name="branchtype" value="nocondi"><span id="nocondi_radio_text" class="radio_text">No Condition</span>
+          <input type="radio" name="branchtype" value="withcondi"><span id="withcondi_radio_text" class="radio_text">With Condition</span>
+
+        </div>
+        <span id="insert_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="add_branch" type="button" class="btn btn-lg-black">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

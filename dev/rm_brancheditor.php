@@ -1,14 +1,22 @@
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
+<?php include_once 'modals.php';?>
 <?php include_once 'appphp/rule_list_array.php';?>
 <?php $page = 'rm_brancheditor.php' ?>
 <?php $defaultRuleSetID = 1 ?>
 <?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
+<?php
+$query = "SELECT * FROM transcoderule WHERE RuleSetID=".$current_ruleset_id;
+$result = $conn->query($query);
+$total_branch = $result->num_rows;
+?>
+
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
 <script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
+<script>var totalBranchNum=<?php echo $total_branch; ?></script>
 <script src="js/rm_brancheditor.js"></script>
 
 <div id="wrapper">
@@ -31,8 +39,8 @@
         <select id="branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
         </select>
 
-        <span id="add_branch_brn" class="btn btn-lg-black" >Add Branch</span>
-        <span id="del_branch_brn" class="btn btn-lg-black" >Delete Branch</span>
+        <span id="add_branch_btn" class="btn btn-lg-black" data-toggle="modal" data-target="#addBranchModal">Add Branch</span>
+        <span id="del_branch_btn" class="btn btn-lg-black" >Delete Branch</span>
 
         <div id="conditions_div"></div>
 

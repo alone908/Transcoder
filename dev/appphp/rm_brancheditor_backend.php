@@ -16,7 +16,7 @@ switch ($_POST['op']) {
 
         if($first_branch_id === null) $first_branch_id = $row['id'];
 
-        $branch[$row['id']] = ['id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Marked'=>$row['Marked'],'PreConditionLine'=>$row['PreConditionLine'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
+        $branch[$row['id']] = ['op'=>'update','id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Marked'=>$row['Marked'],'PreConditionLine'=>$row['PreConditionLine'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
 
         $conditions = explode(';',$row['Condition']);
         unset($conditions[count($conditions)-1]);
@@ -44,7 +44,7 @@ switch ($_POST['op']) {
             $child_ruleset = null;
           }
 
-          $branch[$row['id']]['condition_array'][] = ['pre_line'=>$pre_condi_line,'condi_val'=>$condi_value,'childset'=>$child_ruleset];
+          $branch[$row['id']]['condition_array'][] = ['op'=>'update','pre_line'=>$pre_condi_line,'condi_val'=>$condi_value,'childset'=>$child_ruleset];
 
         }
     }

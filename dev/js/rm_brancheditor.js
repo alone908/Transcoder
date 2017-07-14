@@ -2,9 +2,26 @@ var branch,totalLines,ruleList;
 
 $(document).ready(function(){
 
+  add_branch_select_option();
+
   $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
 
   $('#branch_select').on('change',function(e){ select_branch( Number( $(this).val() ) ) });
+
+  $('.del_condi_btn').on('click',function(e){
+    del_condi(e,$(this));
+  })
+
+  $('#del_branch_btn').on('click',function(e){
+    del_branch(e,$(this));
+  })
+
+  $('#nocondi_radio_text').on('click',function(e){ $('input[value=nocondi]').prop("checked", true); });
+  $('#withcondi_radio_text').on('click',function(e){ $('input[value=withcondi]').prop("checked", true); });
+
+  $('#add_branch_btn').on('click',function(e){
+
+  });
 
   $.ajax({
     type: 'POST',
@@ -39,6 +56,16 @@ $.ajax({
   }
 });
 
+function del_condi(e,ele){
+  $(ele[0].parentElement).css('display','none');
+  branch[$(ele).data('branchid')]['condition_array'][$(ele).data('condikey')]['op'] = 'del';
+}
+
+function del_branch(e,ele){
+  branch[$('#branch_select').val()]['op'] = 'del';
+  $('#branch_select option[value="'+$('#branch_select').val()+'"]').remove();
+}
+
 function branch_select_option(first_branch_id){
   var tpl = '';
 
@@ -50,9 +77,26 @@ function branch_select_option(first_branch_id){
   return tpl;
 }
 
+function add_branch_select_option(){
+  var tpl = '';
+
+  console.log(totalBranchNum);
+
+  for(var i=1; i<=totalBranchNum; i++){
+    tpl += '<option value="'+branch[key]['id']+'">Line : '+branch[key]['LineNumber']+'</option>';    
+  }
+
+
+  return tpl;
+}
 
 function select_branch(id){
   $('#conditions_div').html( condi_div_tpl(id) );
+
+  $('.del_condi_btn').on('click',function(e){
+    del_condi(e,$(this));
+  })
+
 }
 
 function condi_div_tpl(id){
@@ -84,7 +128,7 @@ function condition_line_tpl(id,condi_key,condi,del_valid){
   var tpl = '';
 
   if(del_valid){
-    var del_btn = '&nbsp;<button class="btn btn-lg-black" data-rulesetid="'+id+'" style="vertical-align:top;"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>';
+    var del_btn = '&nbsp;<button class="btn btn-lg-black del_condi_btn" data-branchid="'+id+'" data-condikey="'+condi_key+'" style="vertical-align:top;"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>';
   }else {
     var del_btn = '';
   }
