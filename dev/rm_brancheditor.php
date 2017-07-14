@@ -78,7 +78,7 @@ $total_lines = $result->num_rows;
       <div id="brancheditor-container">
 
         <h3>Branch:</h3>
-        <select class="form-control" style="width:250px;cursor:pointer">
+        <select id="branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
           <?php
           foreach ($branch as $key => $line) :
           ?>
@@ -87,6 +87,11 @@ $total_lines = $result->num_rows;
           endforeach;
           ?>
         </select>
+
+        <span id="" class="btn btn-lg-black" >Add Branch</span>
+        <span id="" class="btn btn-lg-black" disabled>Add Condition</span>
+
+        <div id="conditions_div">
 
           <?php
           foreach ($branch[$first_branch_id]['condition_array'] as $key => $condi) {
@@ -170,6 +175,7 @@ $total_lines = $result->num_rows;
           }
           ?>
 
+        </div>
 
       </div>
 

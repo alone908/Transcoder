@@ -46,7 +46,11 @@ switch ($_POST['op']) {
     }
   }
 
-  echo json_encode(array('branch'=>$branch));
+  $query = "SELECT * FROM transcoderule WHERE RuleSetID=".$_POST['rulesetid'];
+  $result = $conn->query($query);
+  $total_lines = $result->num_rows;
+
+  echo json_encode(array('branch'=>$branch,'total_lines'=>$total_lines));
 
     break;
 
