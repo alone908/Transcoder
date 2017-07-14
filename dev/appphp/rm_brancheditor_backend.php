@@ -10,8 +10,12 @@ switch ($_POST['op']) {
   $conn->query('SET NAMES UTF8');
   $result = $conn->query($query);
 
+  $first_branch_id = null;
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+
+        if($first_branch_id === null) $first_branch_id = $row['id'];
+
         $branch[$row['id']] = ['id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Marked'=>$row['Marked'],'PreConditionLine'=>$row['PreConditionLine'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
 
         $conditions = explode(';',$row['Condition']);
@@ -50,7 +54,7 @@ switch ($_POST['op']) {
   $result = $conn->query($query);
   $total_lines = $result->num_rows;
 
-  echo json_encode(array('branch'=>$branch,'total_lines'=>$total_lines));
+  echo json_encode(array('branch'=>$branch,'total_lines'=>$total_lines,'first_branch_id'=>$first_branch_id));
 
     break;
 
