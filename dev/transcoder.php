@@ -65,8 +65,7 @@
                   </table>
                 </div>
                 <div id="rule-info">
-                  <?php
-                  echo '<span style="font-size:18px">RuleSetID : '.$defaultRuleSetID.'</span><br>';
+                  <?php                  
                   foreach ($rule_list[$defaultRuleSetID] as $key => $value):
                       echo '<span style="font-size:18px">'.$key.' : '.$value.'</span><br>';
                   endforeach; ?>

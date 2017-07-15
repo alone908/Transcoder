@@ -7,16 +7,13 @@
 <?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
 <?php
-$query = "SELECT * FROM transcoderule WHERE RuleSetID=".$current_ruleset_id;
-$result = $conn->query($query);
-$total_branch = $result->num_rows;
+
 ?>
 
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
 <script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
-<script>var totalBranchNum=<?php echo $total_branch; ?></script>
 <script src="js/rm_brancheditor.js"></script>
 
 <div id="wrapper">
@@ -35,7 +32,7 @@ $total_branch = $result->num_rows;
 
       <div id="brancheditor-container">
 
-        <h3>Branch:</h3>
+        <h3 id="branch_editor_title">Branch:</h3>
         <select id="branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
         </select>
 

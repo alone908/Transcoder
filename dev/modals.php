@@ -205,7 +205,7 @@
           <br><br>
           <label class="col-sm-3">Branch Type:</label>
           <input type="radio" name="branchtype" value="nocondi" checked><span id="nocondi_radio_text" class="radio_text">No Condition</span>
-          <input type="radio" name="branchtype" value="withcondi"  disabled><span id="withcondi_radio_text" class="radio_text">With Condition</span>
+          <input type="radio" name="branchtype" value="withcondi" style="display:none;"><span id="withcondi_radio_text" class="radio_text" style="display:none;">With Condition</span>
 
         </div>
         <span id="add_branch_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>

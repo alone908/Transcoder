@@ -38,11 +38,12 @@ $(document).ready(function(){
 
   $('#add_branch_select').on('change',function(e){
     if( $('#add_branch_select').val() === '1' ){
-      $('input[value=withcondi]').prop('disabled',true);
-      $('#withcondi_radio_text').off('click');
+      $('input[value=withcondi]').css('display','none');
+      $('#withcondi_radio_text').css('display','none');
       $('input[value=nocondi]').prop("checked", true);
     }else {
-      $('input[value=withcondi]').prop('disabled',false);
+      $('input[value=withcondi]').css('display','inline');
+      $('#withcondi_radio_text').css('display','inline');
       $('#withcondi_radio_text').on('click',function(e){ $('input[value=withcondi]').prop("checked", true); });
     }
   })
@@ -54,15 +55,23 @@ $(document).ready(function(){
     dataType: "json",
     success: function (data) {
 
-      branch = data.branch;
-      totalLines = data.total_lines;
-      branch_basket = data.branch_basket;
+      if(data.supported){
 
-      $('#branch_select').html( branch_select_option() );
+        branch = data.branch;
+        totalLines = data.total_lines;
+        branch_basket = data.branch_basket;
 
-      select_branch( Number( $('#branch_select').val() ) );
+        $('#branch_select').html( branch_select_option() );
 
-      $('#add_branch_select').html( add_branch_select_option() );
+        select_branch( Number( $('#branch_select').val() ) );
+
+        $('#add_branch_select').html( add_branch_select_option() );
+
+      }else if (!data.supported) {
+
+        not_supported_tpl(data.ruleInfo);
+
+      }
 
     }
   })
@@ -335,4 +344,16 @@ function childset_option(id,key){
     }
   }
   return tpl;
+}
+
+function not_supported_tpl(ruleInfo){
+  var infoTpl = '';
+  for(var key in ruleInfo){
+    infoTpl += '<span style="font-size:18px">'+key+' : '+ruleInfo[key]+'</span><br>';
+  }
+  $('#brancheditor-container').html('\
+  <h3>This rule is not supported by Branch Editor.</h3>\
+  <div id="rule-info">'+
+    infoTpl+'\
+  </div>');
 }
