@@ -41,7 +41,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation" style="margin-bottom:10px;">
-    <div class="container topnav" style="width:100%;">
+    <div class="container topnav" style="padding-left:15px;padding-right:50px;width:100%;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -57,6 +57,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="transcoder.php">Transcoder</a></li>
                 <li><a href="rm_rulelist.php">Rule Manager</a></li>
+                <li><a href="file_explorer.php">File Manager</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
