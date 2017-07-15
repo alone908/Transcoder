@@ -2,7 +2,7 @@
 
 require_once 'sqldb.php';
 
-$sql = "select * from DataRecord where id=".(integer) $_POST['recordid'];
+$sql = "select * from datarecord where id=".(integer) $_POST['recordid'];
 $conn->query('SET NAMES UTF8');
 $result = $conn->query($sql);
 

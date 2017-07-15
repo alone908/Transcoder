@@ -2,7 +2,7 @@
 
 require_once 'sqldb.php';
 
-$sql = "select * from DataRecord order by id desc LIMIT 50";
+$sql = "select * from datarecord order by id desc LIMIT 50";
 $conn->query('SET NAMES UTF8');
 $result = $conn->query($sql);
 
