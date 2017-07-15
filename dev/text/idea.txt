@@ -1,7 +1,12 @@
-1. subrule title on mefform
-2. recursive subrule
-3. organize backend file
-4. change .mef form class name
+1.advanced column rule editor.
+2.subrule title on mefform
+3.ajax loading page, error page
+4. organize backend file
 5. organize js plugin
-6.theme
-7.ajax loading page, error page
+6. preference
+7. advanced page -> include source and file manager.
+6.add blank rule button in rm_rulelist
+
++++ Next Time ++++++
+1.recursive sub rule
+2.theme
