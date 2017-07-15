@@ -4,3 +4,4 @@
 4. change .mef form class name
 5. organize js plugin
 6.theme
+7.ajax loading page, error page

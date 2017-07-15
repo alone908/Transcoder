@@ -205,7 +205,7 @@
           <br><br>
           <label class="col-sm-3">Branch Type:</label>
           <input type="radio" name="branchtype" value="nocondi" checked><span id="nocondi_radio_text" class="radio_text">No Condition</span>
-          <input type="radio" name="branchtype" value="withcondi"><span id="withcondi_radio_text" class="radio_text">With Condition</span>
+          <input type="radio" name="branchtype" value="withcondi"  disabled><span id="withcondi_radio_text" class="radio_text">With Condition</span>
 
         </div>
         <span id="add_branch_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
@@ -213,6 +213,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button id="add_branch" type="button" class="btn btn-lg-black">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Branch Modal -->
+<div class="modal fade" id="delBranchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Branch</span>
+      </div>
+      <div class="modal-body">
+        <span style="font-size:14px;color:red;">Are you sure you want to delete this branch ?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="del_branch" type="button" class="btn btn-lg-black">Delete</button>
       </div>
     </div>
   </div>

@@ -39,8 +39,9 @@ $total_branch = $result->num_rows;
         <select id="branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
         </select>
 
-        <span id="add_branch_btn" class="btn btn-lg-black" data-toggle="modal" data-target="#addBranchModal">Add Branch</span>
-        <span id="del_branch_btn" class="btn btn-lg-black" >Delete Branch</span>
+        <span id="add_branch_btn" class="btn btn-lg-black" data-toggle="modal" data-target="#addBranchModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;ADD</span>
+        <span id="del_branch_btn" class="btn btn-lg-black" data-toggle="modal" data-target="#delBranchModal"><i class="fa fa-minus" aria-hidden="true"></i>&nbsp;&nbsp;DELETE</span>
+        <span id="save_branch_btn" class="btn btn-lg-black"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;SAVE</span>
 
         <div id="conditions_div"></div>
 

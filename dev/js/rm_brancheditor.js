@@ -8,20 +8,40 @@ $(document).ready(function(){
 
   $('#branch_select').on('change',function(e){ select_branch( Number( $(this).val() ) ) });
 
-  $('.del_condi_btn').on('click',function(e){
+  $('.del_condi_btn').off('click').on('click',function(e){
     del_condi(e,$(this));
   })
 
-  $('#del_branch_btn').on('click',function(e){
+  $('#add_condi_btn').off('click').on('click',function(e){
+    add_condi(e,$(this));
+    $('.del_condi_btn').off('click').on('click',function(e){
+      del_condi(e,$(this));
+    })
+  })
+
+  $('#del_branch_btn').on('click',function(e){});
+
+  $('#del_branch').on('click',function(e){
     del_branch(e,$(this));
+    $('#delBranchModal').modal('hide');
   })
 
   $('#nocondi_radio_text').on('click',function(e){ $('input[value=nocondi]').prop("checked", true); });
-  $('#withcondi_radio_text').on('click',function(e){ $('input[value=withcondi]').prop("checked", true); });
 
   $('#add_branch_btn').on('click',function(e){  });
 
   $('#add_branch').on('click',function(e){ add_branch(e,$(this)) });
+
+  $('#add_branch_select').on('change',function(e){
+    if( $('#add_branch_select').val() === '1' ){
+      $('input[value=withcondi]').prop('disabled',true);
+      $('#withcondi_radio_text').off('click');
+      $('input[value=nocondi]').prop("checked", true);
+    }else {
+      $('input[value=withcondi]').prop('disabled',false);
+      $('#withcondi_radio_text').on('click',function(e){ $('input[value=withcondi]').prop("checked", true); });
+    }
+  })
 
   $.ajax({
     type: 'POST',
@@ -39,7 +59,7 @@ $(document).ready(function(){
 
       if(branch[data.first_branch_id]['condition_array'][0]['pre_line'] === null ||
       branch[data.first_branch_id]['condition_array'][0]['pre_line'] === ''){
-        $('#add_condi_btn').attr('disabled',true);
+        $('#add_condi_btn').css('display','none');
       }
 
       $('#add_branch_select').html( add_branch_select_option() );
@@ -64,12 +84,24 @@ function del_condi(e,ele){
   branch[$(ele).data('branchid')]['condition_array'][$(ele).data('condikey')]['op'] = 'del';
 }
 
+function add_condi(e,ele){
+  branch[$('#branch_select').val()]['condition_array'].push({
+    childset:'',
+    condi_val:'',
+    op:'update',
+    pre_line:'null'
+  })
+  $('#conditions_div').html( condi_div_tpl( Number($('#branch_select').val()) ) );
+}
+
 function del_branch(e,ele){
   branch[$('#branch_select').val()]['op'] = 'del';
   branch[$('#branch_select').val()]['condition_array'].forEach(function(condi,index){
     branch[$('#branch_select').val()]['condition_array'][index]['op'] = 'del';
   })
   $('#branch_select option[value="'+$('#branch_select').val()+'"]').remove();
+  $('#conditions_div').html( condi_div_tpl( Number($('#branch_select').val()) ) );
+
 }
 
 function add_branch(e,ele){
@@ -119,7 +151,7 @@ function add_branch(e,ele){
           childset:'',
           condi_val:'',
           op:'update',
-          pre_line:'0'
+          pre_line:'null'
         }]
       }
 
@@ -158,6 +190,8 @@ function select_branch(id){
     del_condi(e,$(this));
   })
 
+  toggle_add_condi_btn();
+
 }
 
 function condi_div_tpl(id){
@@ -169,20 +203,27 @@ function condi_div_tpl(id){
     if(condi['pre_line'] !== null && condi['pre_line'] !== ''){
 
       var del_valid = (key === 0) ? false : true;
-
       tpl += condition_line_tpl(id,key,condi,del_valid);
-      $('#add_condi_btn').removeAttr('disabled');
+
 
     }else if (condi['pre_line'] === null || condi['pre_line'] === '') {
 
       tpl += no_condi_line_tpl(id,key);
-      $('#add_condi_btn').attr('disabled',true);
 
     }
 
   })
 
   return tpl;
+}
+
+function toggle_add_condi_btn(){
+  if(branch[Number($('#branch_select').val())]['condition_array'][0]['pre_line'] === null ||
+  branch[Number($('#branch_select').val())]['condition_array'][0]['pre_line'] === ''){
+    $('#add_condi_btn').css('display','none');
+  }else {
+    $('#add_condi_btn').css('display','inline-block');
+  }
 }
 
 function condition_line_tpl(id,condi_key,condi,del_valid){
@@ -237,19 +278,24 @@ function no_condi_line_tpl(id,condi_key,condi,del_valid){
 }
 
 function pre_line_option(id,key){
-  var tpl = '';
+  var tpl = '<option value="">--None--</option>';
   for(var index in branch_basket){
-    if(index === branch[id]['condition_array'][key]['pre_line']){
-      tpl += '<option value="'+index+'" selected>'+branch_basket[index]['LineNumber']+'</option>';
-    }else {
-      tpl += '<option value="'+index+'">'+branch_basket[index]['LineNumber']+'</option>';
+    var preLine = branch[id]['condition_array'][key]['pre_line'];
+    if( Number(index) < Number( branch_basket[$('#branch_select').val()]['LineNumber'])  ){
+
+      if(index === preLine){
+        tpl += '<option value="'+index+'" selected>'+branch_basket[index]['LineNumber']+'</option>';
+      }else if( index !== preLine){
+        tpl += '<option value="'+index+'">'+branch_basket[index]['LineNumber']+'</option>';
+      }
+
     }
   }
   return tpl;
 }
 
 function childset_option(id,key){
-  var tpl = '';
+  var tpl = '<option value="">--No Selected--</option>';
   for(var rulesetid in ruleList) {
     if(ruleList[rulesetid]['RuleType'] === 'SubRule'){
       if(rulesetid === branch[id]['condition_array'][key]['childset']){
