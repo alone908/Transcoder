@@ -13,9 +13,9 @@
 
 
 -- Dumping database structure for carddata
-DROP DATABASE IF EXISTS `carddata`;
-CREATE DATABASE IF NOT EXISTS `carddata` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `carddata`;
+DROP DATABASE IF EXISTS `Transcoder`;
+CREATE DATABASE IF NOT EXISTS `Transcoder` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `Transcoder`;
 
 -- Dumping structure for table carddata.datarecord
 DROP TABLE IF EXISTS `datarecord`;

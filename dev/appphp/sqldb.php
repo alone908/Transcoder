@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "A123456b";
-$dbname = "CardData";
+$dbname = "Transcoder";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
