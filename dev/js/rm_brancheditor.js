@@ -26,6 +26,10 @@ $(document).ready(function(){
     $('#delBranchModal').modal('hide');
   })
 
+  $('#save_branch_btn').on('click',function(e){
+    save_branch();
+  })
+
   $('#nocondi_radio_text').on('click',function(e){ $('input[value=nocondi]').prop("checked", true); });
 
   $('#add_branch_btn').on('click',function(e){  });
@@ -56,11 +60,7 @@ $(document).ready(function(){
 
       $('#branch_select').html( branch_select_option( data.first_branch_id ) );
       $('#conditions_div').html( condi_div_tpl( data.first_branch_id ) );
-
-      if(branch[data.first_branch_id]['condition_array'][0]['pre_line'] === null ||
-      branch[data.first_branch_id]['condition_array'][0]['pre_line'] === ''){
-        $('#add_condi_btn').css('display','none');
-      }
+      toggle_add_condi_btn();
 
       $('#add_branch_select').html( add_branch_select_option() );
 
@@ -92,6 +92,18 @@ function add_condi(e,ele){
     pre_line:'null'
   })
   $('#conditions_div').html( condi_div_tpl( Number($('#branch_select').val()) ) );
+}
+
+function save_branch(){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rm_brancheditor_backend.php",
+    data: {op:'save_branch',branch:branch,rulesetid:currentRulesetID},
+    dataType: "json",
+    success: function (data) {
+
+    }
+  })
 }
 
 function del_branch(e,ele){
