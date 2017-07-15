@@ -18,7 +18,9 @@ switch ($_POST['op']) {
 
         $branch[$row['id']] = ['op'=>'update','id'=>$row['id'],'LineNumber'=>$row['LineNumber'],'Marked'=>$row['Marked'],'PreConditionLine'=>$row['PreConditionLine'],'Condition'=>$row['Condition'],'ChildRule'=>$row['ChildRule']];
 
-        $conditions = explode(';',$row['Condition']);
+
+          $conditions = explode(';',$row['Condition']);
+
         unset($conditions[count($conditions)-1]);
 
         foreach ($conditions as $key => $condi) {
@@ -44,7 +46,7 @@ switch ($_POST['op']) {
             $child_ruleset = null;
           }
 
-          $branch[$row['id']]['condition_array'][] = ['op'=>'update','pre_line'=>$pre_condi_line,'condi_val'=>$condi_value,'childset'=>$child_ruleset];
+          $branch[$row['id']]['condition_array'][] = ['pre_line'=>$pre_condi_line,'condi_val'=>$condi_value,'childset'=>$child_ruleset];
 
         }
     }
@@ -66,7 +68,62 @@ switch ($_POST['op']) {
 
   case 'save_branch':
 
-  print_r($_POST['branch']);
+  $query = "UPDATE transcoderule SET Marked='false' WHERE RuleSetID=".$_POST['rulesetid'];
+  $result = $conn->query($query);
+
+  foreach ($_POST['branch'] as $id => $line) {
+    if($line['op'] === 'update'){
+
+      $PreConditionLine = '';
+      $ChildRule = '';
+      $Condition = '';
+      $PreConditionLine_array = [];
+      $ChildRule_array = [];
+
+      foreach ($line['condition_array'] as $key => $condi) {
+
+        if(!in_array($condi['pre_line'],$PreConditionLine_array)){
+          $PreConditionLine_array[] = $condi['pre_line'];
+        }
+
+        if(!in_array($condi['childset'],$ChildRule_array)){
+          $ChildRule_array[] = $condi['childset'];
+        }
+
+        if($condi['pre_line'] === null || $condi['pre_line'] === ''){
+          $Condition .= 'childRuleSet = "'.$condi['childset'].'";';
+        }else {
+          $Condition .= 'if(markedValue["'.$condi['pre_line'].'"] === "'.$condi['condi_val'].'"){ childRuleSet = "'.$condi['childset'].'" };';
+        }
+
+      }
+
+      $PreConditionLine = implode(',',$PreConditionLine_array);
+      $ChildRule = implode(',',$ChildRule_array);
+
+      if(count($PreConditionLine_array)>0){
+
+        foreach ($PreConditionLine_array as $key => $value) {
+          $query = "UPDATE transcoderule SET Marked='true' WHERE LineNumber=".$value." AND RuleSetID=".$_POST['rulesetid'];
+          $result = $conn->query($query);
+        }
+
+      }else {
+
+      }
+
+      $query = "UPDATE transcoderule SET PreConditionLine='".$PreConditionLine."' , ChildRule='".$ChildRule."' , `Condition`='".$Condition."' WHERE id=".$id;
+      $result = $conn->query($query);
+
+    }elseif ($line['op'] === 'del') {
+
+      $query = "UPDATE transcoderule SET PreConditionLine='' , ChildRule='' , `Condition`='' WHERE id=".$id;
+      $result = $conn->query($query);
+
+    }
+  }
+
+  echo json_encode(array('branch'=>$_POST['branch']));
 
     break;
 

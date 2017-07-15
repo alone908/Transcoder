@@ -57,7 +57,11 @@ $branch = [];
 foreach ($line_section as $key => $section) {
 
   if(!isset($section['ChildRule'])){
-      $branch[] = ['name'=>'Line: '.(string)$section['start'].'~'.(string)$section['end']];
+      if( $section['start'] !== $section['end'] ){
+        $branch[] = ['name'=>'Line: '.(string)$section['start'].'~'.(string)$section['end']];
+      }elseif ( $section['start'] === $section['end'] ) {
+        $branch[] = ['name'=>'Line: '.(string)$section['start']];
+      }
   }elseif (isset($section['ChildRule'])) {
 
       $child_rules = explode(',',$section['ChildRule']);

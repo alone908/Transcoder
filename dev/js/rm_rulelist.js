@@ -55,6 +55,7 @@ function select_rule(e,ele){
   $('#rm_rulelist_href').attr('href','rm_rulelist.php?rulesetid='+RuleSetID);
   $('#rm_ruleeditor_href').attr('href','rm_ruleeditor.php?rulesetid='+RuleSetID);
   $('#rm_rulebranch_href').attr('href','rm_rulebranch.php?rulesetid='+RuleSetID);
+  $('#rm_brancheditor_href').attr('href','rm_preference.php?rulesetid='+RuleSetID);
   $('#rm_preference_href').attr('href','rm_preference.php?rulesetid='+RuleSetID);
 }
 

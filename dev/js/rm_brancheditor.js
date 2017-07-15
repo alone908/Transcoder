@@ -58,9 +58,9 @@ $(document).ready(function(){
       totalLines = data.total_lines;
       branch_basket = data.branch_basket;
 
-      $('#branch_select').html( branch_select_option( data.first_branch_id ) );
-      $('#conditions_div').html( condi_div_tpl( data.first_branch_id ) );
-      toggle_add_condi_btn();
+      $('#branch_select').html( branch_select_option() );
+
+      select_branch( Number( $('#branch_select').val() ) );
 
       $('#add_branch_select').html( add_branch_select_option() );
 
@@ -80,8 +80,8 @@ $.ajax({
 });
 
 function del_condi(e,ele){
-  $(ele[0].parentElement).css('display','none');
-  branch[$(ele).data('branchid')]['condition_array'][$(ele).data('condikey')]['op'] = 'del';
+  branch[$(ele).data('branchid')]['condition_array'].splice($(ele).data('condikey'),1);
+  select_branch( Number( $('#branch_select').val() ) );
 }
 
 function add_condi(e,ele){
@@ -91,29 +91,13 @@ function add_condi(e,ele){
     op:'update',
     pre_line:'null'
   })
-  $('#conditions_div').html( condi_div_tpl( Number($('#branch_select').val()) ) );
-}
-
-function save_branch(){
-  $.ajax({
-    type: 'POST',
-    url: "appphp/rm_brancheditor_backend.php",
-    data: {op:'save_branch',branch:branch,rulesetid:currentRulesetID},
-    dataType: "json",
-    success: function (data) {
-
-    }
-  })
+  select_branch( Number( $('#branch_select').val() ) );
 }
 
 function del_branch(e,ele){
   branch[$('#branch_select').val()]['op'] = 'del';
-  branch[$('#branch_select').val()]['condition_array'].forEach(function(condi,index){
-    branch[$('#branch_select').val()]['condition_array'][index]['op'] = 'del';
-  })
   $('#branch_select option[value="'+$('#branch_select').val()+'"]').remove();
-  $('#conditions_div').html( condi_div_tpl( Number($('#branch_select').val()) ) );
-
+  select_branch( Number( $('#branch_select').val() ) )
 }
 
 function add_branch(e,ele){
@@ -170,16 +154,27 @@ function add_branch(e,ele){
     }
 
     $('#branch_select option[value='+$('#add_branch_select').val()+']').prop('selected',true);
-    select_branch( Number( $('#add_branch_select').val() ) )
+    select_branch( Number( $('#branch_select').val() ) )
   }
 }
 
-function branch_select_option(first_branch_id){
+function save_branch(){
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rm_brancheditor_backend.php",
+    data: {op:'save_branch',branch:branch,rulesetid:currentRulesetID},
+    dataType: "json",
+    success: function (data) {
+      location.reload();
+    }
+  })
+}
+
+function branch_select_option(){
   var tpl = '';
 
   for(var key in branch){
-    if(Number(key) !== first_branch_id) tpl += '<option value="'+branch[key]['id']+'" data-linenumber="'+branch[key]['LineNumber']+'">Line : '+branch[key]['LineNumber']+'</option>';
-    if(Number(key) === first_branch_id) tpl += '<option value="'+branch[key]['id']+'" data-linenumber="'+branch[key]['LineNumber']+'" selected>Line : '+branch[key]['LineNumber']+'</option>';
+    tpl += '<option value="'+branch[key]['id']+'" data-linenumber="'+branch[key]['LineNumber']+'">Line : '+branch[key]['LineNumber']+'</option>';
   }
 
   return tpl;
@@ -196,13 +191,10 @@ function add_branch_select_option(){
 }
 
 function select_branch(id){
+
   $('#conditions_div').html( condi_div_tpl(id) );
-
-  $('.del_condi_btn').on('click',function(e){
-    del_condi(e,$(this));
-  })
-
   toggle_add_condi_btn();
+  attach_event_to_condi_div();
 
 }
 
@@ -229,6 +221,35 @@ function condi_div_tpl(id){
   return tpl;
 }
 
+function attach_event_to_condi_div(){
+
+  $('.del_condi_btn').off('click').on('click',function(e){
+    del_condi(e,$(this));
+  })
+
+  $('.condi_preline').off('change').on('change',function(e){
+
+    branch[Number($(this).data('branchid'))]['condition_array'][Number($(this).data('condikey'))]['pre_line'] =
+    $(this).val();
+
+  })
+
+  $('.condi_val').off('change').on('change',function(e){
+
+    branch[Number($(this).data('branchid'))]['condition_array'][Number($(this).data('condikey'))]['condi_val'] =
+    $(this).val();
+
+  })
+
+  $('.condi_childset').off('change').on('change',function(e){
+
+    branch[Number($(this).data('branchid'))]['condition_array'][Number($(this).data('condikey'))]['childset'] =
+    $(this).val();
+
+  })
+
+}
+
 function toggle_add_condi_btn(){
   if(branch[Number($('#branch_select').val())]['condition_array'][0]['pre_line'] === null ||
   branch[Number($('#branch_select').val())]['condition_array'][0]['pre_line'] === ''){
@@ -249,22 +270,20 @@ function condition_line_tpl(id,condi_key,condi,del_valid){
 
   tpl += "\
   <div class='condi_container' style='margin-top:10px;background-color:#f5f5f5;border-radius:5px;padding:10px;'>\
-    <form class='form-inline' style='display:inline-block'>\
-      <div class='form-group'>\
+      <div class='form-group' style='display:inline;'>\
         <label style='font-size:18px;'>Previous&nbsp;&nbsp;Line&nbsp;&nbsp;</label>\
-        <select class='form-control' style='width:100px;cursor:pointer;vertical-align:text-bottom;'>"+pre_line_option(id,condi_key)+"\
+        <select class='form-control condi_preline' data-branchid=\""+id+"\" data-condikey=\""+condi_key+"\" style='display:inline;width:100px;cursor:pointer;vertical-align:text-bottom;'>"+pre_line_option(id,condi_key)+"\
         </select>\
       </div>\
-      <div class='form-group'>\
+      <div class='form-group' style='display:inline;'>\
         <label style='font-size:18px;'><i class='fa fa-long-arrow-right' aria-hidden='true'></i>&nbsp;&nbsp;Equals&nbsp;&nbsp;Value&nbsp;&nbsp;</label>\
-        <input type='text' class='form-control' placeholder='value' value='"+condi['condi_val']+"' style='width:100px;vertical-align:text-bottom;'>\
+        <input type='text' class='form-control condi_val' placeholder='value' value='"+condi['condi_val']+"' data-branchid=\""+id+"\" data-condikey=\""+condi_key+"\" style='display:inline;width:100px;vertical-align:text-bottom;'>\
       </div>\
-      <div class='form-group'>\
+      <div class='form-group' style='display:inline;'>\
         <label style='font-size:18px;'><i class='fa fa-long-arrow-right' aria-hidden='true'></i>&nbsp;&nbsp;Apply&nbsp;&nbsp;Rule&nbsp;&nbsp;</label>\
-        <select class='form-control' style='width:200px;cursor:pointer;vertical-align:text-bottom;'>"+childset_option(id,condi_key)+"\
+        <select class='form-control condi_childset' data-branchid=\""+id+"\" data-condikey=\""+condi_key+"\" style='display:inline;width:200px;cursor:pointer;vertical-align:text-bottom;'>"+childset_option(id,condi_key)+"\
         </select>\
-      </div>\
-    </form>"
+      </div>"
     +del_btn+"\
   </div>";
 
@@ -276,13 +295,11 @@ function no_condi_line_tpl(id,condi_key,condi,del_valid){
 
   tpl += "\
   <div class='condi_container' style='margin-top:10px;background-color:#f5f5f5;border-radius:5px;padding:10px;'>\
-  <form class='form-inline'>\
-      <div class='form-group'>\
+      <div class='form-group' style='display:inline;'>\
         <label style='font-size:18px;'>Apply&nbsp;&nbsp;Rule&nbsp;&nbsp;</label>\
-        <select class='form-control' style='width:200px;cursor:pointer;vertical-align:text-bottom;'>"+childset_option(id,condi_key)+"\
+        <select class='form-control condi_childset' data-branchid=\""+id+"\" data-condikey=\""+condi_key+"\" style='display:inline;width:200px;cursor:pointer;vertical-align:text-bottom;'>"+childset_option(id,condi_key)+"\
         </select>\
       </div>\
-    </form>\
   </div>";
 
   return tpl;
@@ -291,14 +308,14 @@ function no_condi_line_tpl(id,condi_key,condi,del_valid){
 
 function pre_line_option(id,key){
   var tpl = '<option value="">--None--</option>';
+
   for(var index in branch_basket){
     var preLine = branch[id]['condition_array'][key]['pre_line'];
-    if( Number(index) < Number( branch_basket[$('#branch_select').val()]['LineNumber'])  ){
-
-      if(index === preLine){
-        tpl += '<option value="'+index+'" selected>'+branch_basket[index]['LineNumber']+'</option>';
+    if( Number(branch_basket[index]['LineNumber']) < Number( branch_basket[$('#branch_select').val()]['LineNumber'])  ){
+      if(branch_basket[index]['LineNumber'] == preLine){
+        tpl += '<option value="'+branch_basket[index]['LineNumber']+'" selected>'+branch_basket[index]['LineNumber']+'</option>';
       }else if( index !== preLine){
-        tpl += '<option value="'+index+'">'+branch_basket[index]['LineNumber']+'</option>';
+        tpl += '<option value="'+branch_basket[index]['LineNumber']+'">'+branch_basket[index]['LineNumber']+'</option>';
       }
 
     }
