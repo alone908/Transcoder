@@ -1,14 +1,13 @@
 
-2.subrule title on mefform
-3.file magager
-
-3.ajax loading page, error page
 
 4. organize backend file
 5. organize js plugin
-6. preference
-7. advanced page -> include source and file manager.
+
+6. preference : default rulesetid,
+
 6.add blank rule button in rm_rulelist
+
+3.ajax loading page, error page
 
 +++ Next Time ++++++
 1.recursive sub rule

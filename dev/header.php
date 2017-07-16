@@ -12,15 +12,15 @@
     <title>Transcoder</title>
 
     <!-- jQuery -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/jquery.ui.widget.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.fileupload.js"></script>
-    <script src="js/jquery.fileupload-process.js"></script>
-    <script src="js/jquery.fileupload-validate.js"></script>
+    <script src="appjs/jquery-3.2.1.min.js"></script>
+    <script src="appjs/jquery.ui.widget.js"></script>
+    <script src="appjs/jquery-ui.min.js"></script>
+    <script src="appjs/jquery.fileupload.js"></script>
+    <script src="appjs/jquery.fileupload-process.js"></script>
+    <script src="appjs/jquery.fileupload-validate.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="appjs/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
 
@@ -57,7 +57,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="transcoder.php">Transcoder</a></li>
                 <li><a href="rm_rulelist.php">Rule Manager</a></li>
-                <li><a href="file_explorer.php">File Manager</a></li>
+                <li><a href="ad_fileexplorer.php">Advance</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
