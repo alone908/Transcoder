@@ -1,7 +1,5 @@
 
 
-4. organize backend file
-5. organize js plugin
 
 6. preference : default rulesetid,
 

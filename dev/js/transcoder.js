@@ -75,7 +75,7 @@ $(document).ready(function(){
 
   //***** Upload Course ZIP file **********************
   $('#fileupload').fileupload({
-    url: 'appphp/parse_upload_file.php',
+    url: 'appphp/upload_file.php',
     dataType: 'json',
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(txt|dat)$/i,
@@ -208,13 +208,14 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
 
   if(insertRecord){
     var datapost = {
+      op:'insert_record',
       sourceData:originalDATA,
       transCodeLog:data.lineLog,
     }
 
     $.ajax({
       type: 'POST',
-      url: "appphp/insertRecord.php",
+      url: "appphp/transcoder_backend.php",
       data: datapost,
       dataType: "json",
       success: function (data) {
@@ -591,8 +592,8 @@ function serverfilelist(path){
 
   $.ajax({
     type: 'POST',
-    url: "appphp/upload_filelist.php",
-    data:{path:path},
+    url: "appphp/transcoder_backend.php",
+    data:{op:'upload_filelist',path:path},
     dataType: "json",
     success: function (data) {
 
@@ -627,8 +628,8 @@ function parse_file_onServer(path){
 
   $.ajax({
     type: 'POST',
-    url: "appphp/parse_file_onServer.php",
-    data:{path:path},
+    url: "appphp/transcoder_backend.php",
+    data:{op:'parse_file_onServer',path:path},
     dataType: "json",
     success: function (data) {
       parse_new_data(data.sourceData, true, true);
@@ -663,7 +664,8 @@ function parse_local_file(e){
 function listRecords(){
   $.ajax({
     type: 'POST',
-    url: "appphp/getRecord.php",
+    url: "appphp/transcoder_backend.php",
+    data:{op:'list_records'},
     dataType: "json",
     success: function (data) {
       data.Records.forEach(function(record,index){
@@ -695,8 +697,8 @@ function clearRecordsTable(){
 function getSingleRecord(recordid){
  $.ajax({
    type: 'POST',
-   url: "appphp/getSingleRecord.php",
-   data: {recordid:recordid},
+   url: "appphp/transcoder_backend.php",
+   data: {op:'get_single_record',recordid:recordid},
    dataType: "json",
    success: function (data) {
      parse_new_data(data.Record.SourceData,true,false);
