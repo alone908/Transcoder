@@ -11,13 +11,13 @@ switch ($_POST['op']) {
   date_default_timezone_set("Asia/Taipei");
   $localTime = str_replace(',','',(string) date(DATE_RFC850));
 
-  $sql = "INSERT INTO DataRecord(SourceData,transCodeLog,TaiwanTime)
+  $sql = "INSERT INTO datarecord(SourceData,transCodeLog,TaiwanTime)
           VALUES ('".$sourceData."','".$transCodeLog."','".$localTime."')";
 
   $conn->query('SET NAMES UTF8');
   $conn->query($sql);
 
-  $sql = "SELECT MAX(id) FROM DataRecord";
+  $sql = "SELECT MAX(id) FROM datarecord";
   $result = $conn->query($sql);
 
   if($result->num_rows > 0) {
@@ -25,7 +25,7 @@ switch ($_POST['op']) {
     //keep maxmum 50 records
     $row = $result->fetch_assoc();
     $floor = (integer) $row['MAX(id)']-50;
-    $sql = "DELETE FROM DataRecord where id <= $floor";
+    $sql = "DELETE FROM datarecord where id <= $floor";
     $conn->query($sql);
 
   }else {
