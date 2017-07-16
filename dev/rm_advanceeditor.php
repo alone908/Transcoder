@@ -2,14 +2,14 @@
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
 <?php include_once 'appphp/rule_list_array.php';?>
-<?php $page = 'rm_ruleeditor.php' ?>
+<?php $page = 'rm_advanceeditor.php' ?>
 <?php $defaultRuleSetID = 1 ?>
 <?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
-<script src="js/rm_ruleeditor.js"></script>
+<script src="js/rm_advanceeditor.js"></script>
 <script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
 
 <div id="wrapper">
@@ -30,7 +30,7 @@
 
       <div id="editor" style="height:85%;">
         <div id="editor_title" style="height:30px;background-color:#222;color:#9d9d9d;">
-          <span style="display:inline-block;padding:5px;width:25px;"></span>
+          <!-- <span style="display:inline-block;padding:5px;width:25px;"></span> -->
           <span style="display:inline-block;padding:5px;width:50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">#</span>
           <span style="display:inline-block;padding:5px;width:15%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Subject</span>
           <span style="display:inline-block;padding:5px;width:15%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Content</span>
@@ -57,23 +57,23 @@
 
                 <div id="<?php echo $row['id'];?>" class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
-                  <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
+                  <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->
                   <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
 
                   <?php if($row['Subject'] === 'Blank'){ ?>
-                    <input class="Exp editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Subject'];?>"></input>
+                    <input class="Subject editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Subject'];?>"></input>
                   <?php }else { ?>
-                    <span class="Exp editor_line_span" style="width:15%;border-bottom:1px solid black;"><?php echo $row['Subject'];?></span>
+                    <span class="Subject editor_line_span" style="width:15%;border-bottom:1px solid black;"><?php echo $row['Subject'];?></span>
                   <?php } ?>
-                  <span class="Length editor_line_span" style="width:15%;"><?php echo $row['Content']?></span>
-                  <span class="DataCoding editor_line_span" style="width:10%;"></span>
-                  <span class="LSB editor_line_span" style="width:10%;"></span>
-                  <span class="UnixTime editor_line_span" style="width:10%;"></span>
-                  <span class="TranscodeRule editor_line_span" style="width:20%;"></span>
+                  <span class="Content editor_line_span" style="width:15%;"><?php echo $row['Content']?></span>
+                  <span class="Marked editor_line_span" style="width:10%;"></span>
+                  <span class="PreConditionLine editor_line_span" style="width:10%;"></span>
+                  <span class="ChildRule editor_line_span" style="width:10%;"></span>
+                  <span class="Condition editor_line_span" style="width:20%;"></span>
                   <span class="editor_line_span">
-                    <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
+                    <!-- <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->
                     <?php if($row['Subject'] === 'Blank'){ ?>
-                    <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+                    <!-- <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->
                     <?php
                     }
                     ?>
@@ -87,17 +87,17 @@
 
               <div id="<?php echo $row['id'];?>" class="rule_row" data-subject="<?php echo $row['Subject']?>">
 
-                <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
+                <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->
                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-                <input class="Exp editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Subject'];?>"></input>
-                <input class="Length editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Content'];?>"></input>
-                <input class="DataCoding editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Marked'];?>"></input>
-                <input class="LSB editor_line_input" type="text" style="width:10%;" value="<?php echo $row['PreConditionLine'];?>"></input>
-                <input class="UnixTime editor_line_input" type="text" style="width:10%;" value="<?php echo $row['ChildRule'];?>"></input>
-                <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value="<?php echo htmlspecialchars($row['Condition']);?>"></input>
+                <input class="Subject editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Subject'];?>"></input>
+                <input class="Content editor_line_input" type="text" style="width:15%;" value="<?php echo $row['Content'];?>"></input>
+                <input class="Marked editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Marked'];?>"></input>
+                <input class="PreConditionLine editor_line_input" type="text" style="width:10%;" value="<?php echo $row['PreConditionLine'];?>"></input>
+                <input class="ChildRule editor_line_input" type="text" style="width:10%;" value="<?php echo $row['ChildRule'];?>"></input>
+                <input class="Condition editor_line_input" type="text" style="width:20%;" value="<?php echo htmlspecialchars($row['Condition']);?>"></input>
                 <span class="editor_line_span">
-                  <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
-                  <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+                  <!-- <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->
+                  <!-- <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->
                   <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
                 </span>
                 <br>

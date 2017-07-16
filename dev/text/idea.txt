@@ -1,6 +1,9 @@
-1.advanced column rule editor.
+
 2.subrule title on mefform
+3.file magager
+
 3.ajax loading page, error page
+
 4. organize backend file
 5. organize js plugin
 6. preference

@@ -104,33 +104,33 @@ function insert_row(id,linenumber,type,position){
     if(type === 'blank'){
       $('\
       <div id="temp_'+tempID+'" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+        <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
-          <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="Length editor_line_span" style="width:10%;">0</span>\
-          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
-          <span class="LSB editor_line_span" style="width:5%;"></span>\
-          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
-          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+          <input class="Subject editor_line_input" type="text" style="width:15%;" value="Blank"></input>\
+          <span class="Content editor_line_span" style="width:15%;">=====</span>\
+          <span class="Marked editor_line_span" style="width:10%;"></span>\
+          <span class="PreConditionLine editor_line_span" style="width:10%;"></span>\
+          <span class="ChildRule editor_line_span" style="width:10%;"></span>\
+          <span class="Condition editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <!-- <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->\
+          <!-- <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->\
         </span>\
       </div>').insertBefore('#'+id);
     }else if (type === 'regular') {
       $('\
       <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRulesetID+'_'+linenumber+'">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+        <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
-        <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
-        <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
-        <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
+        <input class="Subject editor_line_input" type="text" style="width:15%;" value=""></input>\
+        <input class="Content editor_line_input" type="text" style="width:15%;" value=""></input>\
+        <input class="Marked editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="PreConditionLine editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="ChildRule editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="Condition editor_line_input" type="text" style="width:20%;" value=""></input>\
         <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <!-- <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->\
+          <!-- <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->\
         </span>').insertBefore('#'+id);
     }
 
@@ -139,33 +139,33 @@ function insert_row(id,linenumber,type,position){
     if(type === 'blank'){
       $('\
       <div id="temp_'+tempID+'" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+        <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
-          <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="Length editor_line_span" style="width:10%;">0</span>\
-          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
-          <span class="LSB editor_line_span" style="width:5%;"></span>\
-          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
-          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+          <input class="Subject editor_line_input" type="text" style="width:15%;" value="Blank"></input>\
+          <span class="Content editor_line_span" style="width:15%;">=====</span>\
+          <span class="Marked editor_line_span" style="width:10%;"></span>\
+          <span class="PreConditionLine editor_line_span" style="width:10%;"></span>\
+          <span class="ChildRule editor_line_span" style="width:10%;"></span>\
+          <span class="Condition editor_line_span" style="width:20%;"></span>\
           <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <!-- <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->\
+          <!-- <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->\
         </span>\
       </div>').insertAfter('#'+id);
     }else if (type === 'regular') {
       $('\
       <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRulesetID+'_'+linenumber+'">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+        <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
-        <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
-        <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
-        <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
+        <input class="Subject editor_line_input" type="text" style="width:15%;" value=""></input>\
+        <input class="Content editor_line_input" type="text" style="width:15%;" value=""></input>\
+        <input class="Marked editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="PreConditionLine editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="ChildRule editor_line_input" type="text" style="width:10%;" value=""></input>\
+        <input class="Condition editor_line_input" type="text" style="width:20%;" value=""></input>\
         <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+          <!-- <button class="btn btn-sm-black insert_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button> -->\
+          <!-- <button class="btn btn-sm-black del_btn" data-id="temp_'+tempID+'" data-linenumber="'+linenumber+'" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button> -->\
         </span>').insertAfter('#'+id);
     }
   }
@@ -224,42 +224,42 @@ function get_row_value(id,del){
 
   var LineNumber = $('#'+id+' .LineNumber').html();
 
-  if( $('#'+id+' .Exp').prop('tagName') === 'SPAN' ){
-    var Exp = $('#'+id+' .Exp').html();
-  }else if ( $('#'+id+' .Exp').prop('tagName') === 'INPUT' ) {
-    var Exp = $('#'+id+' .Exp').val();
+  if( $('#'+id+' .Subject').prop('tagName') === 'SPAN' ){
+    var Subject = $('#'+id+' .Subject').html();
+  }else if ( $('#'+id+' .Subject').prop('tagName') === 'INPUT' ) {
+    var Subject = $('#'+id+' .Subject').val();
   }
 
-  if( $('#'+id+' .Length').prop('tagName') === 'SPAN' ){
-    var Length = $('#'+id+' .Length').html();
-  }else if ( $('#'+id+' .Length').prop('tagName') === 'INPUT' ) {
-    var Length = $('#'+id+' .Length').val();
+  if( $('#'+id+' .Content').prop('tagName') === 'SPAN' ){
+    var Content = $('#'+id+' .Content').html();
+  }else if ( $('#'+id+' .Content').prop('tagName') === 'INPUT' ) {
+    var Content = $('#'+id+' .Content').val();
   }
 
-  if( $('#'+id+' .DataCoding').prop('tagName') === 'SPAN' ){
-    var DataCoding = $('#'+id+' .DataCoding').html();
-  }else if ( $('#'+id+' .DataCoding').prop('tagName') === 'INPUT' ) {
-    var DataCoding = $('#'+id+' .DataCoding').val();
+  if( $('#'+id+' .Marked').prop('tagName') === 'SPAN' ){
+    var Marked = $('#'+id+' .Marked').html();
+  }else if ( $('#'+id+' .Marked').prop('tagName') === 'INPUT' ) {
+    var Marked = $('#'+id+' .Marked').val();
   }
 
-  if( $('#'+id+' .LSB').prop('tagName') === 'SPAN' ){
-    var LSB = $('#'+id+' .LSB').html();
-  }else if ( $('#'+id+' .LSB').prop('tagName') === 'INPUT' ) {
-    var LSB = $('#'+id+' .LSB').val();
+  if( $('#'+id+' .PreConditionLine').prop('tagName') === 'SPAN' ){
+    var PreConditionLine = $('#'+id+' .PreConditionLine').html();
+  }else if ( $('#'+id+' .PreConditionLine').prop('tagName') === 'INPUT' ) {
+    var PreConditionLine = $('#'+id+' .PreConditionLine').val();
   }
 
-  if( $('#'+id+' .UnixTime').prop('tagName') === 'SPAN' ){
-    var UnixTime = $('#'+id+' .UnixTime').html();
-  }else if ( $('#'+id+' .UnixTime').prop('tagName') === 'INPUT' ) {
-    var UnixTime = $('#'+id+' .UnixTime').val();
+  if( $('#'+id+' .ChildRule').prop('tagName') === 'SPAN' ){
+    var ChildRule = $('#'+id+' .ChildRule').html();
+  }else if ( $('#'+id+' .ChildRule').prop('tagName') === 'INPUT' ) {
+    var ChildRule = $('#'+id+' .ChildRule').val();
   }
 
-  if( $('#'+id+' .TranscodeRule').prop('tagName') === 'SPAN' ){
-    var TranscodeRule = $('#'+id+' .TranscodeRule').html();
-  }else if ( $('#'+id+' .TranscodeRule').prop('tagName') === 'INPUT' ) {
-    var TranscodeRule = $('#'+id+' .TranscodeRule').val();
+  if( $('#'+id+' .Condition').prop('tagName') === 'SPAN' ){
+    var Condition = $('#'+id+' .Condition').html();
+  }else if ( $('#'+id+' .Condition').prop('tagName') === 'INPUT' ) {
+    var Condition = $('#'+id+' .Condition').val();
   }
 
-  return {op:op,id:id,LineNumber:LineNumber,Exp:Exp,Length:Length,DataCoding:DataCoding,LSB:LSB,UnixTime:UnixTime,TranscodeRule:TranscodeRule}
+  return {op:op,id:id,LineNumber:LineNumber,Subject:Subject,Content:Content,Marked:Marked,PreConditionLine:PreConditionLine,ChildRule:ChildRule,Condition:Condition}
 
 }
