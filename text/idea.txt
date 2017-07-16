@@ -1,0 +1,8 @@
+
+1.add blank rule button in rm_rulelist
+2. preference : default rulesetid,
+
++++ Next Time ++++++
+1.recursive sub rule
+2.theme
+3.add theme in preference

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 	<?php	require_once 'header.php';	?>
 	<?php	require_once 'appphp/TranscodeRule.php';	?>
 	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
@@ -31,103 +32,136 @@
 			<h4>Source Data</h4>
       <textarea type="text" class="form-control originalDATA" style="width:100%; height:500px;">
       </textarea>
+=======
+<!-- Header -->
+<?php include_once 'header.php';?>
+
+<!-- Custom CSS -->
+<link href="css/landing-page.css" rel="stylesheet">
+<link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- <a name="about"></a> -->
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1 style="font-family:'Gloria Hallelujah'">Transcoder</h1>
+                        <h3 style="font-family:'Gloria Hallelujah'">A simple transcoder makes your work easier.</h3>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <!-- <li>
+                                <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li> -->
+                            <li>
+                                <a href="https://github.com/alone908/CardTranscoder" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <!-- <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+>>>>>>> development
     </div>
+    <!-- /.intro-header -->
 
-		<div class="tabs">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="<?php if($_GET['tab'] === 'form') echo 'active'; ?>"><a href="#form" aria-controls="form" role="tab" data-toggle="tab">FORM</a></li>
-				<li role="presentation" class="<?php if($_GET['tab'] === 'text') echo 'active'; ?>"><a href="#text" aria-controls="text" role="tab" data-toggle="tab">TEXT</a></li>
-				<li role="presentation" class="<?php if($_GET['tab'] === 'rule') echo 'active'; ?>"><a href="#ruleEditor" aria-controls="ruleEditor" role="tab" data-toggle="tab">Rule Editor</a></li>
-				<li role="presentation" class="<?php if($_GET['tab'] === 'log') echo 'active'; ?>"><a href="#log" aria-controls="log" role="tab" data-toggle="tab">LOG</a></li>
-      </ul>
-      <!-- Tab panes -->
-      <div class="tab-content">
+    <!-- Page Content -->
 
-				<div role="tabpanel" id="form" class="tab-pane <?php if($_GET['tab'] === 'form') echo 'active'; ?>" style="margin:10 0 0 0;">
-					<div class="checkbox" style="">
-						<label><input class="checkContent" type="checkbox" value="" checked>內容</label>
-						<label><input class="checktransCode" type="checkbox" value="" checked>轉碼</label>
-						<label><input class="checktranscodeRule" type="checkbox" value="" >轉碼規則</label>
-					</div>
-					<div class="mefTitle">
-						<font style="font-weight:bold;">MEF01/MEF03/MEF08/MEF0B</font>
-					</div>
-					<div class = "dataForm">
-					</div>
-					<div class = "mefForm">
-					</div>
-				</div>
+    <div class="content-section-a">
 
-        <div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'text') echo 'active'; ?>" id="text" style="margin:10 0 0 0;">
-					<textarea type="text" class="form-control dataText" style="width:100%;height:650px;">
-					</textarea>
-				</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Simple Use Transcoder</h2>
+                    <p class="lead">Just click start button, let Transcoder does the work for you. Transcoder is designed for saving your life.<br>You can import data from file or simply copy and paste it.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="img/transcoder.png" alt="">
+                </div>
+            </div>
 
-				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'rule') echo 'active'; ?>" id="ruleEditor" style="margin:10 0 0 0;">
-					<div class = "transCodeEditor">
-						<h3 style="margin-top:0px;">轉碼規則編輯器(TranscodeRule Editor)</h3>
-						<h5 style="color:red;">(i)支援規則有 : AN,LSB,Decimal,UnixTime. 不同規則請以逗點隔開，ex (LSB,Decimal) 或 (AN,Decimal,UnixTime).</h5>
-						<h5 style="color:red;">(ii)順序會有影響，(LSB,Decimal) 和 (Decimal,LSB) 會產生不同結果.</h5>
-						<h5 style="color:red;">(iii)點選規則號碼，選新增,刪除,或修改.</h5>
-						<div class="rules">
-
-							<table class="table table-hover">
-								<tr>
-									<th>#</th>
-									<th>Section</th>
-									<th>Content</th>
-									<th>Exp</th>
-									<th style="width:6%;">Length</th>
-									<th style="width:8.5%;">DataCoding</th>
-									<th style="width:6%;">LSB</th>
-									<th style="width:6%;">UnixTime</th>
-									<th>Rule</th>
-									<th style="width:135px;">CreateTime</th>
-								</tr>
-								<?php
-								$sql = "select * from TransCodeRule order by RuleID";
-								$conn->query('SET NAMES UTF8');
-								$result = $conn->query($sql);
-
-								if($result->num_rows > 0) {
-									while($row = $result->fetch_assoc()) {
-                    if($row['Subject'] !== 'Blank1' && $row['Subject'] !== 'Blank2' &&
-										   $row['Subject'] !== 'Blank3' && $row['Subject'] !== 'HeadTitle' &&
-										   $row['Subject'] !== 'BodyTitle'){
-
-												 echo '<tr>
-												 <td class="td RuleID" data-ruleid="'.$row['RuleID'].'">'.(integer) $row['RuleID'].'</td>
-												 <td class="td rule'.$row['RuleID'].'" data-type="Section">'.$row['Section'].'</td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Content'].'" data-type="Content"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Exp'].'" data-type="Exp"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Length'].'" data-type="Length"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['DataCoding'].'" data-type="DataCoding"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['LSB'].'" data-type="LSB"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['UnixTime'].'" data-type="UnixTime"></input></td>
-												 <td class="td"><input class="rule'.$row['RuleID'].'" type="text" value="'.$row['Rule'].'" data-type="Rule"></input></td>
-												 <td class="td rule'.$row['RuleID'].'" style="width:135px; font-size:12px; padding:2px;" data-type="CreateTime">'.$row['CreateTime'].'</td>
-												 </tr>';
-										}
-									}
-								}else {
-
-								}
-								?>
-              </table>
-
-						</div>
-					</div>
-				</div>
-
-				<div role="tabpanel" class="tab-pane <?php if($_GET['tab'] === 'log') echo 'active'; ?>" id="log" style="margin:10 0 0 0;">
-					<textarea type="text" class="form-control datalog" style="width:100%;height:650px;">
-					</textarea>
-				</div>
-      </div>
+        </div>
 
     </div>
+    <!-- /.content-section-a -->
 
-  </div>
-</body>
-</html>
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Powerful Rule Editor</h2>
+                    <p class="lead">Customize your rule, rearrange or insert rule, modify field value, you can even apply multiple rules to trnascoder.<br>Everything is in Rule Editor.</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="img/ruleeditor.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Rule Branch Feature</h2>
+                    <p class="lead">Apply sub rule to any line you want, even better, you can decide witch sub rule should be applied under certain conditions.<br>Start with rule branch editor.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="img/rulebranch.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Connect to Transcoder</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <!-- <li>
+                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li> -->
+                        <li>
+                            <a href="https://github.com/alone908/CardTranscoder" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <!-- <li>
+                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.banner -->
+
+<!-- Footer -->
+<?php include_once 'footer.php';?>
