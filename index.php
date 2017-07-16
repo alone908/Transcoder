@@ -1,38 +1,3 @@
-<<<<<<< HEAD
-	<?php	require_once 'header.php';	?>
-	<?php	require_once 'appphp/TranscodeRule.php';	?>
-	<?php	if( !isset($_GET['tab']) ) $_GET['tab'] = 'form';	?>
-	<?php	$noCover = (isset($_GET['noCover'])) ? $_GET['noCover'] : 'false' ;?>
-	<?php	$versionModal = (isset($_GET['vM'])) ? 'false' : 'true' ;?>
-
-	<script src="js/index.js"></script>
-	<script src="js/TranscodeRule.js"></script>
-	<script>var TranscodeRule = '<?php echo $transcodeRuleJSON; ?>'</script>
-
-  <div class="container" style="">
-
-    <!-- Add welcome cover in the beggining -->
-    <?php if($noCover === 'false') require_once 'cover.php' ?>
-		<!-- Add welcome cover in the beggining -->
-
-		<?php	require_once 'recordModal.php';	?>
-		<?php	require_once 'importModal.php';	?>
-		<?php	require_once 'versionModal.php';	?>
-
-		<nav class="navbar navbar-inverse" style="margin:5px 0px;padding:10px 5px;min-height:0px;">
-			<button type="button" class="btn btn-info start" style="background-color:#0e61a7;">Start</button>
-			<button type="button" class="btn btn-info clear" style="background-color:#0e61a7;">Clear</button>
-			<button type="button" class="btn btn-info record" style="background-color:#0e61a7;" data-toggle="modal" data-target="#recordModal"><i class='glyphicon glyphicon-list-alt'></i>&nbsp;&nbsp;Records</button>
-			<button type="button" class="btn btn-info import" style="background-color:#0e61a7;" data-toggle="modal" data-target="#importModal"><i class='glyphicon glyphicon-save'></i>&nbsp;&nbsp;Import</button>
-			<a href="file_manager.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-folder-open'></i>&nbsp;&nbsp;File Manager</a>
-			<a href="sourceCode.php" class="btn btn-info fm" style="background-color:#0e61a7;"><i class='glyphicon glyphicon-barcode'></i>&nbsp;&nbsp;Source Code</a>
-		</nav>
-
-    <div style="display:inline-block; width:10%; margin:-3 0 0 0;">
-			<h4>Source Data</h4>
-      <textarea type="text" class="form-control originalDATA" style="width:100%; height:500px;">
-      </textarea>
-=======
 <!-- Header -->
 <?php include_once 'header.php';?>
 
@@ -68,7 +33,6 @@
         </div>
         <!-- /.container -->
 
->>>>>>> development
     </div>
     <!-- /.intro-header -->
 
