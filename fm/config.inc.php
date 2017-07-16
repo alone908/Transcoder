@@ -62,10 +62,10 @@ loginPassword = ""
 fmWebPath = ""
 
 ; FileManager width; percent (e.g. "100%") or pixels (e.g. 700)
-fmWidth = "95%"
+fmWidth = "85%"
 
 ; FileManager height; percent (e.g. "100%") or pixels (e.g. 700)
-fmHeight = "80%"
+fmHeight = "85%"
 
 ; FileManager margin (pixels)
 fmMargin = 0
@@ -300,7 +300,7 @@ enableEdit = yes
 enableDelete = yes
 
 ; enable file restoring
-enableRestore = no
+enableRestore = yes
 
 ; enable file / directory renaming
 enableRename = yes
