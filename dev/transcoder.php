@@ -29,6 +29,8 @@
     </div>
 
     <div id="wrapper">
+        <div id="loader"><img src="img/loading.gif" style="background-color:rgba(0,0,0,0)"></div>
+        <div id="ajax_err"></div>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
