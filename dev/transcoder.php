@@ -65,7 +65,7 @@
                   </table>
                 </div>
                 <div id="rule-info">
-                  <?php                  
+                  <?php
                   foreach ($rule_list[$defaultRuleSetID] as $key => $value):
                       echo '<span style="font-size:18px">'.$key.' : '.$value.'</span><br>';
                   endforeach; ?>
@@ -81,7 +81,7 @@
       						   <label><input class="checktranscodeRule" type="checkbox" value="" >Rule</label>
       					   </div>
                    <div class="mefTitle">
-                     <font style="font-weight:bold;">MEF01/MEF03/MEF08/MEF0B</font>
+                     <font id="subrule_title" style="font-weight:bold;">Sub Rule : </font>
                    </div>
                 </div>
                 <div id="form-data" class = "dataForm"></div>

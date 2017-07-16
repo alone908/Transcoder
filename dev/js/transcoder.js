@@ -203,6 +203,7 @@ function parse_new_data(originalDATA,replaceOriginalDATA,insertRecord){
 
   $('.childdata').on('click',function(){
       parse_child_rule( $(this).data('childruleset') , $(this).data('childdata') );
+      $('#subrule_title').html('Sub Rule : '+ruleList[$(this).data('childruleset')]['RuleName']);
   })
 
   if(insertRecord){
