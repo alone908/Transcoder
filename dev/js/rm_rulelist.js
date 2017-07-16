@@ -54,6 +54,7 @@ function select_rule(e,ele){
   $('#rule-title-li').text('Rule List - '+ruleList[RuleSetID]['RuleName']);
   $('#rm_rulelist_href').attr('href','rm_rulelist.php?rulesetid='+RuleSetID);
   $('#rm_ruleeditor_href').attr('href','rm_ruleeditor.php?rulesetid='+RuleSetID);
+  $('#rm_advanceeditor_href').attr('href','rm_advanceeditor.php?rulesetid='+RuleSetID);
   $('#rm_rulebranch_href').attr('href','rm_rulebranch.php?rulesetid='+RuleSetID);
   $('#rm_brancheditor_href').attr('href','rm_brancheditor.php?rulesetid='+RuleSetID);
   $('#rm_preference_href').attr('href','rm_preference.php?rulesetid='+RuleSetID);
