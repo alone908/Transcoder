@@ -13,6 +13,7 @@
 <script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
 
 <div id="wrapper">
+<?php include_once 'loader_err.php'; ?>
 
     <?php include_once 'rm_sidebar.php';?>
 

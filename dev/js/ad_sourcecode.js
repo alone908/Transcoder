@@ -7,7 +7,7 @@ $(document).ready(function(){
   $('.saveFile').click(function(e){
 
     if(codeMirrorValue){
-
+      $('#loader').css('display','block');
       $.ajax({
         type: 'POST',
         url: "appphp/ad_sourcecode_backend.php",
@@ -15,6 +15,10 @@ $(document).ready(function(){
         dataType: "json",
         success: function (data) {
           location.reload();
+        },
+        error: function(requestObject, error, errorThrown) {
+                $('#loader').css('display','none');
+                $('#ajax_err').css('display','block');
         }
       });
     }
@@ -28,7 +32,6 @@ var zTreeObj;
 var setting = {
   callback:{
     onClick:function(e){
-      console.log('click');
       if(e.target.dataset.url){
         var file_ext = e.target.dataset.url.split('.').pop();
         if( $.inArray( file_ext,['txt','html','css','js','php','sql'] ) !== -1 ){
@@ -55,6 +58,9 @@ $.ajax({
       zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zTreeNodes);
     });
 
+  },
+  error: function(requestObject, error, errorThrown) {
+          $('#ajax_err').css('display','block');
   }
 });
 
@@ -104,6 +110,9 @@ function build_codeMirror(url,file_ext){
         if(editable){ $('.saveFile').css('display','inline-block') }
         if(!editable){ $('.saveFile').css('display','none') }
 
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 

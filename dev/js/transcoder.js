@@ -158,6 +158,9 @@ function get_rule_list(){
       for(var RuleSetID in data.ruleList){
         get_rule_obj(RuleSetID,data.ruleList[RuleSetID].RuleVar);
       }
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 }
@@ -175,6 +178,9 @@ function get_rule_obj(RuleSetID,RuleVar){
           var script = 'new_rule = '+RuleVar+';';
           eval(script);
         }
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 }
@@ -619,6 +625,9 @@ function serverfilelist(path){
         }
       })
 
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 
@@ -633,6 +642,9 @@ function parse_file_onServer(path){
     dataType: "json",
     success: function (data) {
       parse_new_data(data.sourceData, true, true);
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 
@@ -681,6 +693,9 @@ function listRecords(){
           getSingleRecord($(this).data('recordid'));
           $('#recordModal').modal('hide');
       })
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 }
@@ -702,6 +717,9 @@ function getSingleRecord(recordid){
    dataType: "json",
    success: function (data) {
      parse_new_data(data.Record.SourceData,true,false);
+   },
+   error: function(requestObject, error, errorThrown) {
+           $('#ajax_err').css('display','block');
    }
  });
 }

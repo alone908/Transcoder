@@ -29,6 +29,7 @@
 <script src="js/ad_sourcecode.js"></script>
 
 <div id="wrapper">
+<?php include_once 'loader_err.php'; ?>
 
     <?php include_once 'ad_sidebar.php';?>
 

@@ -33,6 +33,7 @@
 </style>
 
 <div id="wrapper">
+<?php include_once 'loader_err.php'; ?>
 
     <?php include_once 'rm_sidebar.php';?>
 

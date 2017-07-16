@@ -198,6 +198,7 @@ function save_rule_table(){
     ruleTable.push( get_row_value($(this).attr('id'),true) );
   })
 
+  $('#loader').css('display','block');
   $.ajax({
     type: 'POST',
     url: "appphp/rm_ruleeditor_backend.php",
@@ -205,6 +206,10 @@ function save_rule_table(){
     dataType: "json",
     success: function (data) {
       location.reload();
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#loader').css('display','none');
+            $('#ajax_err').css('display','block');
     }
   });
 }

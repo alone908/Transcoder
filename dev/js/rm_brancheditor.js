@@ -73,6 +73,9 @@ $(document).ready(function(){
 
       }
 
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   })
 
@@ -85,6 +88,9 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     ruleList = data.ruleList;
+  },
+  error: function(requestObject, error, errorThrown) {
+          $('#ajax_err').css('display','block');
   }
 });
 
@@ -168,6 +174,7 @@ function add_branch(e,ele){
 }
 
 function save_branch(){
+  $('#loader').css('display','block');
   $.ajax({
     type: 'POST',
     url: "appphp/rm_brancheditor_backend.php",
@@ -175,6 +182,9 @@ function save_branch(){
     dataType: "json",
     success: function (data) {
       location.reload();
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   })
 }

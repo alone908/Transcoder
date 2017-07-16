@@ -34,6 +34,9 @@ function get_rule_list(){
     dataType: "json",
     success: function (data) {
       ruleList = data.ruleList;
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
     }
   });
 }
@@ -61,6 +64,7 @@ function select_rule(e,ele){
 }
 
 function del_rule(rulesetid){
+  $('#loader').css('display','block');
   $.ajax({
     type: 'POST',
     url: "appphp/rm_rulelist_backend.php",
@@ -68,11 +72,16 @@ function del_rule(rulesetid){
     dataType: "json",
     success: function (data) {
       window.location = 'rm_rulelist.php';
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#loader').css('display','none');
+            $('#ajax_err').css('display','block');
     }
   });
 }
 
 function check_clone_rulename(rulesetid){
+  $('#loader').css('display','block');
   $.ajax({
     type: 'POST',
     url: "appphp/rm_rulelist_backend.php",
@@ -80,11 +89,17 @@ function check_clone_rulename(rulesetid){
     dataType: "json",
     success: function (data) {
       $('#new_rule_name').val(data.new_name);
+      $('#loader').css('display','none');
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#loader').css('display','none');
+            $('#ajax_err').css('display','block');
     }
   });
 }
 
 function clone_rule(rulesetid){
+  $('#loader').css('display','block');
   $.ajax({
     type: 'POST',
     url: "appphp/rm_rulelist_backend.php",
@@ -92,6 +107,10 @@ function clone_rule(rulesetid){
     dataType: "json",
     success: function (data) {
       window.location = 'rm_rulelist.php?rulesetid='+data.newrulesetid;
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#loader').css('display','none');
+            $('#ajax_err').css('display','block');
     }
   });
 }
@@ -100,6 +119,7 @@ function edit_rule_name(rulesetid){
   if($('#rule_name').val() === ''){
     $('#edit_name_err').text('Rule name can not be left blank.');
   }else {
+    $('#loader').css('display','block');
     $.ajax({
       type: 'POST',
       url: "appphp/rm_rulelist_backend.php",
@@ -107,6 +127,10 @@ function edit_rule_name(rulesetid){
       dataType: "json",
       success: function (data) {
         window.location = 'rm_rulelist.php?rulesetid='+currentRulesetID;
+      },
+      error: function(requestObject, error, errorThrown) {
+              $('#loader').css('display','none');
+              $('#ajax_err').css('display','block');
       }
     });
   }

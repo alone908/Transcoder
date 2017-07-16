@@ -11,6 +11,9 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     buildBranch(data.treeData);
+  },
+  error: function(requestObject, error, errorThrown) {
+          $('#ajax_err').css('display','block');
   }
 });
 
