@@ -24,6 +24,30 @@ $(document).ready(function(){
   })
   $('#save_rule_name').on('click',function(e){ edit_rule_name($(this).data('rulesetid')); })
 
+  $('#add_rule').on('click',function(e){ add_rule() });
+
+  $('#mainrule_radio_text').on('click',function(e){
+      $('input[value=mainrule]').prop('checked',true);
+      $('#mainrule_op').css('display','block');
+      $('#subrule_op').css('display','none');
+  })
+
+  $('#subrule_radio_text').on('click',function(e){
+    $('input[value=subrule]').prop('checked',true);
+    $('#mainrule_op').css('display','none');
+    $('#subrule_op').css('display','block');
+  })
+
+  $('input[name=ruletype]').on('change',function(e){
+    if($('input[name=ruletype]:checked').val() === 'mainrule'){
+      $('#mainrule_op').css('display','block');
+      $('#subrule_op').css('display','none');
+    }else if ($('input[name=ruletype]:checked').val() === 'subrule') {
+      $('#mainrule_op').css('display','none');
+      $('#subrule_op').css('display','block');
+    }
+  })
+
 })
 
 function get_rule_list(){
@@ -61,6 +85,28 @@ function select_rule(e,ele){
   $('#rm_rulebranch_href').attr('href','rm_rulebranch.php?rulesetid='+RuleSetID);
   $('#rm_brancheditor_href').attr('href','rm_brancheditor.php?rulesetid='+RuleSetID);
   $('#rm_preference_href').attr('href','rm_preference.php?rulesetid='+RuleSetID);
+}
+
+function add_rule(){
+  $('#loader').css('display','block');
+  $.ajax({
+    type: 'POST',
+    url: "appphp/rm_rulelist_backend.php",
+    data: {op:'add_rule',
+           rule_name:$('#name_of_rule').val(),
+           rule_type:$('input[name=ruletype]:checked').val(),
+           lines_in_head:$('#lines_in_head').val(),
+           lines_in_body:$('#lines_in_body').val(),
+           lines_in_rule:$('#lines_in_rule').val()},
+    dataType: "json",
+    success: function (data) {
+      window.location = 'rm_rulelist.php';
+    },
+    error: function(requestObject, error, errorThrown) {
+            $('#loader').css('display','none');
+            $('#ajax_err').css('display','block');
+    }
+  });
 }
 
 function del_rule(rulesetid){

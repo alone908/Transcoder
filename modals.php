@@ -79,6 +79,47 @@
   </div>
 </div>
 
+<!-- Add Rule Modal -->
+<div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" style="font-size:18px;font-weight:bold;">Add Rule</span>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label class="col-sm-5" style="padding:0px 6px;">Rule Name:</label>
+          <input id="name_of_rule" type="text" class="form-control" placeholder="Rule Name" style="width:300px">
+        </div>
+
+        <div class="form-group">
+        <label class="col-sm-5" style="padding:0px 6px;">Rule Type:</label>
+          <input type="radio" name="ruletype" value="mainrule" checked><span id="mainrule_radio_text" class="radio_text">Main Rule</span>
+          <input type="radio" name="ruletype" value="subrule" ><span id="subrule_radio_text" class="radio_text" >Sub Rule</span>
+        </div>
+
+        <div id="mainrule_op" class="form-group">
+          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule head:</label>
+          <input id="lines_in_head" type="text" class="form-control" placeholder="0" style="width:100px">
+          <br>
+          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule body:</label>
+          <input id="lines_in_body" type="text" class="form-control" placeholder="0" style="width:100px">
+        </div>
+
+        <div id="subrule_op" class="form-group" style="display:none;">
+          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule:</label>
+          <input id="lines_in_rule" type="text" class="form-control" placeholder="0" style="width:100px">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="add_rule" type="button" class="btn btn-lg-black">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Rule Modal -->
 <div class="modal fade" id="delRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

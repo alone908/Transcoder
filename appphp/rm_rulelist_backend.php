@@ -3,6 +3,13 @@
 require_once 'sqldb.php';
 
 switch ($_POST['op']) {
+
+  case 'add_rule':
+
+  
+
+    break;
+
   case 'del_rule':
 
     $rule_set_id = (integer) $_POST['rulesetid'];

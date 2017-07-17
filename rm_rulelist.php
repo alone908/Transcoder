@@ -36,17 +36,19 @@
               foreach ($rule_list as $rule_set_id => $rule) {
                   $class = ($rule_set_id === (integer) $current_ruleset_id) ? 'info' : '';
                   echo '<tr style="cursor:pointer;" class="'.$class.'" data-rulesetid="'.$rule_set_id.'" data-rulevar="'.$rule['RuleVar'].'">
-                  <td>'.$rule['RuleName'].'
-                  <div style="display:inline-block;float:right;">
+                  <td style="padding:8px 2px;">'.$rule['RuleName'].'</td>
+                  <td style="padding:8px 2px;width:75px;">
                   <button class="btn btn-sm-black edit_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#editRuleModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                   <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                  <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
-                  </div>
+                  <button class="btn btn-sm-black del_rule_btn" data-rulesetid="'.$rule_set_id.'" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>                  
                   </td></tr>';
               }
             ?>
           </tbody>
         </table>
+        <button class="btn btn-lg-black add_rule_btn" data-toggle="modal" data-target="#addRuleModal" style="display:inline-block;float:right;">
+          Add Rule
+        </button>
       </div>
       <div id="rule-info">
         <?php
