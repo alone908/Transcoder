@@ -1,5 +1,4 @@
 
-1.add blank rule button in rm_rulelist
 2. preference : default rulesetid,
 
 +++ Next Time ++++++

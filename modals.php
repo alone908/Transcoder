@@ -95,8 +95,8 @@
 
         <div class="form-group">
         <label class="col-sm-5" style="padding:0px 6px;">Rule Type:</label>
-          <input type="radio" name="ruletype" value="mainrule" checked><span id="mainrule_radio_text" class="radio_text">Main Rule</span>
-          <input type="radio" name="ruletype" value="subrule" ><span id="subrule_radio_text" class="radio_text" >Sub Rule</span>
+          <input type="radio" name="ruletype" value="MainRule" checked><span id="mainrule_radio_text" class="radio_text">Main Rule</span>
+          <input type="radio" name="ruletype" value="SubRule" ><span id="subrule_radio_text" class="radio_text" >Sub Rule</span>
         </div>
 
         <div id="mainrule_op" class="form-group">

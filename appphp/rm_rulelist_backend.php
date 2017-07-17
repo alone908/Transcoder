@@ -6,7 +6,96 @@ switch ($_POST['op']) {
 
   case 'add_rule':
 
-  
+  //Add row in rulelist; ///////////////////////////////////////////////////
+  $query = "SELECT * FROM rulelist ORDER BY id desc LIMIT 1";
+  $result = $conn->query($query);
+  $row = $result->fetch_assoc();
+  $new_rule_set_id = $row['id']+1;
+  $new_rule_set_id_text = (string) $row['id']+1;
+  $rule_var = 'RuleSet_'.$new_rule_set_id_text;
+
+  date_default_timezone_set("Asia/Taipei");
+  $localTime = str_replace(',','',(string) date(DATE_RFC850));
+
+  $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime)
+  VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."','Add Rule','".$localTime."')";
+
+  $conn->query('SET NAMES UTF8');
+  $conn->query($query);
+
+  if($_POST['rule_type'] === 'MainRule'){
+
+    $line_num = 1;
+    //Insert HeadTitle Row
+    $query = "INSERT INTO transcoderule
+    (RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,PreConditionLine,ChildRule,`Condition`)
+    VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."',".$line_num.",
+    'HeadTitle','==表頭==','==表頭==',0,NULL,NULL,NULL,NULL,'".$localTime."','false',NULL,NULL,NULL)";
+
+    $conn->query('SET NAMES UTF8');
+    $conn->query($query);
+
+    for($i=1;$i<=(integer) $_POST['lines_in_head'];$i++){
+
+      $line_num ++ ;
+      $subject = $rule_var.'_'.$line_num;
+
+      $query = "INSERT INTO transcoderule
+      (RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,PreConditionLine,ChildRule,`Condition`)
+      VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."',".$line_num.",
+      '".$subject."',NULL,NULL,0,NULL,NULL,NULL,NULL,'".$localTime."','false',NULL,NULL,NULL)";
+
+      $conn->query('SET NAMES UTF8');
+      $conn->query($query);
+
+    }
+
+    //Insert BodyTitle Row
+    $line_num ++ ;
+    $query = "INSERT INTO transcoderule
+    (RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,PreConditionLine,ChildRule,`Condition`)
+    VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."',".$line_num.",
+    'BodyTitle','==表身==','==表身==',0,NULL,NULL,NULL,NULL,'".$localTime."','false',NULL,NULL,NULL)";
+
+    $conn->query('SET NAMES UTF8');
+    $conn->query($query);
+
+    for($i=1;$i<=(integer) $_POST['lines_in_body'];$i++){
+
+      $line_num ++ ;
+      $subject = $rule_var.'_'.$line_num;
+
+      $query = "INSERT INTO transcoderule
+      (RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,PreConditionLine,ChildRule,`Condition`)
+      VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."',".$line_num.",
+      '".$subject."',NULL,NULL,0,NULL,NULL,NULL,NULL,'".$localTime."','false',NULL,NULL,NULL)";
+
+      $conn->query('SET NAMES UTF8');
+      $conn->query($query);
+
+    }
+
+  }elseif ($_POST['rule_type'] === 'SubRule') {
+
+    $line_num = 0;
+    for($i=1;$i<=(integer) $_POST['lines_in_rule'];$i++){
+
+      $line_num ++ ;
+      $subject = $rule_var.'_'.$line_num;
+
+      $query = "INSERT INTO transcoderule
+      (RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,PreConditionLine,ChildRule,`Condition`)
+      VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."',".$line_num.",
+      '".$subject."',NULL,NULL,0,NULL,NULL,NULL,NULL,'".$localTime."','false',NULL,NULL,NULL)";
+
+      $conn->query('SET NAMES UTF8');
+      $conn->query($query);
+
+    }
+
+  }
+
+  echo json_encode(array('op'=>'add_rule','rulesetid'=>$new_rule_set_id));
 
     break;
 

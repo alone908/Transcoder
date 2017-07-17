@@ -27,22 +27,22 @@ $(document).ready(function(){
   $('#add_rule').on('click',function(e){ add_rule() });
 
   $('#mainrule_radio_text').on('click',function(e){
-      $('input[value=mainrule]').prop('checked',true);
+      $('input[value=MainRule]').prop('checked',true);
       $('#mainrule_op').css('display','block');
       $('#subrule_op').css('display','none');
   })
 
   $('#subrule_radio_text').on('click',function(e){
-    $('input[value=subrule]').prop('checked',true);
+    $('input[value=SubRule]').prop('checked',true);
     $('#mainrule_op').css('display','none');
     $('#subrule_op').css('display','block');
   })
 
   $('input[name=ruletype]').on('change',function(e){
-    if($('input[name=ruletype]:checked').val() === 'mainrule'){
+    if($('input[name=ruletype]:checked').val() === 'MainRule'){
       $('#mainrule_op').css('display','block');
       $('#subrule_op').css('display','none');
-    }else if ($('input[name=ruletype]:checked').val() === 'subrule') {
+    }else if ($('input[name=ruletype]:checked').val() === 'SubRule') {
       $('#mainrule_op').css('display','none');
       $('#subrule_op').css('display','block');
     }
