@@ -267,8 +267,10 @@ function split_origin_data(originalDATA){
 
       var subject = new_rule[i]['Subject'];
       var length = new_rule[i]['Length'];
-      var obj = new_rule[i];
-
+      var obj = {};
+      for (var key in new_rule[i]){
+        obj[key] = new_rule[i][key];
+      }
       obj.Data = originalDATA.substring(startPOS,startPOS+length);
       linesArray.push(obj);
       startPOS += length;
