@@ -16,15 +16,15 @@
                         <h3 style="font-family:'Gloria Hallelujah'">A simple transcoder makes your work easier.</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
-                            <!-- <li>
-                                <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                            </li> -->
                             <li>
-                                <a href="https://github.com/alone908/CardTranscoder" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                                <a href="transcoder.php" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
                             </li>
-                            <!-- <li>
-                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                            </li> -->
+                            <li>
+                                <a href="rm_rulelist.php" class="btn btn-default btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i></i> <span class="network-name">Rule Manager</span></a>
+                            </li>
+                            <li>
+                                <a href="ad_fileexplorer.php" class="btn btn-default btn-lg"><i class="fa fa-cubes" aria-hidden="true"></i> <span class="network-name">Advance</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
