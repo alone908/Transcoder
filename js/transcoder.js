@@ -627,9 +627,9 @@ function serverfilelist(path){
       })
 
     },
-    error: function(requestObject, error, errorThrown) {
-            $('#ajax_err').css('display','block');
-    }
+    // error: function(requestObject, error, errorThrown) {
+    //         $('#ajax_err').css('display','block');
+    // }
   });
 
 }
