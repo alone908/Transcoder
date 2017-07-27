@@ -554,13 +554,12 @@ function parse_child_rule(childRuleSet,data){
     var exp = ruleObj['Exp'];
     var rule = ruleObj['TranscodeRule'];
 
-    if(typeof ruleObj['Length'] === 'number'){
+    if( ruleObj['Length'].toString().indexOf('.') < 0){
       var Length = ruleObj['Length'];
       var splitEnd = splitStart + Length;
-    }else if ( typeof ruleObj['Length'] === 'string' ) {
-      splitStart = ruleObj['Length'].split('-')[0];
-      var splitEnd = ruleObj['Length'].split('-')[1];
-
+    }else if ( ruleObj['Length'].toString().indexOf('.') >= 0 ) {
+      splitStart = ruleObj['Length'].toString().split('.')[0];
+      var splitEnd = ruleObj['Length'].toString().split('.')[1];
     }
 
     var splitdata = data.substring(splitStart,splitEnd);

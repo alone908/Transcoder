@@ -42,7 +42,7 @@ switch ($_POST['op']) {
                      'LineNumber'=>$row['LineNumber'],
                      'Content'=>$row['Content'],
                      'Exp'=>$row['Exp'],
-                     'Length'=> (integer) $row['Length'],
+                     'Length'=> (float) $row['Length'],
                      'DataCoding'=> $row['DataCoding'],
                      'LSB'=> $LSB,
                      'UnixTime'=>$UnixTime,
