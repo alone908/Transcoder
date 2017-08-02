@@ -229,6 +229,8 @@ function get_row_value(id,del){
 
   var LineNumber = $('#'+id+' .LineNumber').html();
 
+  var Subject = $('#'+id).data('subject');
+
   if( $('#'+id+' .Exp').prop('tagName') === 'SPAN' ){
     var Exp = $('#'+id+' .Exp').html();
   }else if ( $('#'+id+' .Exp').prop('tagName') === 'INPUT' ) {
@@ -265,6 +267,6 @@ function get_row_value(id,del){
     var TranscodeRule = $('#'+id+' .TranscodeRule').val();
   }
 
-  return {op:op,id:id,LineNumber:LineNumber,Exp:Exp,Length:Length,DataCoding:DataCoding,LSB:LSB,UnixTime:UnixTime,TranscodeRule:TranscodeRule}
+  return {op:op,id:id,Subject:Subject,LineNumber:LineNumber,Exp:Exp,Length:Length,DataCoding:DataCoding,LSB:LSB,UnixTime:UnixTime,TranscodeRule:TranscodeRule}
 
 }

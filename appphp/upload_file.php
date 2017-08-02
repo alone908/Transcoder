@@ -2,6 +2,8 @@
 
 include_once 'UploadHandler.php';
 
+if(!is_dir('../uploadfiles/')) mkdir("../uploadfiles/", 0777);
+
 $upload_handler = new UploadHandler(array('upload_dir' => '../uploadfiles/'));
 
 $upload_handler->response['files']['0']->content =
