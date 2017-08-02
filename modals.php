@@ -79,6 +79,42 @@
   </div>
 </div>
 
+<!-- Calculator Modal -->
+<div class="modal fade" id="calculatorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <span class="modal-title" id="myModalLabel" style="font-size:18px;">Summarize Line</span>
+
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Summarize Line</label>
+                        <div class="col-sm-6">
+                            <input id="summarize-line" type="text" class="form-control" placeholder="Line Number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Total</label>
+                        <div class="col-sm-6">
+                            <span id="line-total" class="" style="display: inline-block;width: 269px; height: 26px; border-bottom: 1px solid black;"></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="sumup-line" type="button" class="btn btn-lg-black">Summarize</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Add Rule Modal -->
 <div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
