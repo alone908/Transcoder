@@ -3,7 +3,6 @@
 <?php include_once 'appphp/rule_list_array.php';?>
 <?php $page = 'rm_preference.php' ?>
 <?php $defaultRuleSetID = 1 ?>
-<?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">

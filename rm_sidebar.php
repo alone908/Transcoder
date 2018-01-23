@@ -6,7 +6,7 @@
         <li class="<?php if($page === 'rm_advanceeditor.php') echo 'active'; ?>"><a id="rm_advanceeditor_href" href="rm_advanceeditor.php?rulesetid=<?php echo $current_ruleset_id;?>"><i class="fa fa-pencil-square-o"></i>&nbsp;Advance Editor</a></li>
         <li class="<?php if($page === 'rm_rulebranch.php') echo 'active'; ?>"><a  id="rm_rulebranch_href" href="rm_rulebranch.php?rulesetid=<?php echo $current_ruleset_id;?>"><i class="fa fa-tree"></i>&nbsp;Rule Branch</a></li>
         <li class="<?php if($page === 'rm_brancheditor.php') echo 'active'; ?>"><a  id="rm_brancheditor_href" href="rm_brancheditor.php?rulesetid=<?php echo $current_ruleset_id;?>"><i class="fa fa-leaf"></i>&nbsp;Branch Editor</a></li>
-        <li class="<?php if($page === 'rm_preference.php') echo 'active'; ?>"><a  id="rm_preference_href" href="rm_preference.php?rulesetid=<?php echo $current_ruleset_id;?>"><i class="fa fa-heart"></i>&nbsp;Preference</a></li>
+        <li class="<?php if($page === 'rm_preference.php') echo 'active'; ?>"><a  id="rm_preference_href" href="rm_preference.php"><i class="fa fa-heart"></i>&nbsp;Preference</a></li>
         <!-- <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">

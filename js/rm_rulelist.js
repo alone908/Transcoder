@@ -100,7 +100,7 @@ function select_rule(e, ele) {
     $('#rm_advanceeditor_href').attr('href', 'rm_advanceeditor.php?rulesetid=' + RuleSetID);
     $('#rm_rulebranch_href').attr('href', 'rm_rulebranch.php?rulesetid=' + RuleSetID);
     $('#rm_brancheditor_href').attr('href', 'rm_brancheditor.php?rulesetid=' + RuleSetID);
-    $('#rm_preference_href').attr('href', 'rm_preference.php?rulesetid=' + RuleSetID);
+
 }
 
 function add_rule() {

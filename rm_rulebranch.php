@@ -13,43 +13,45 @@
 
 <style>
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
+    .node circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 2px;
+    }
 
-.node text {
-  font: 14px;
-  font-family: 'Noto Sans TC', sans-serif;
-}
+    .node text {
+        font: 14px;
+        font-family: 'Noto Sans TC', sans-serif;
+    }
 
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 2px;
+    }
 
 </style>
 
 <div id="wrapper">
-<?php include_once 'loader_err.php'; ?>
+    <?php include_once 'loader_err.php'; ?>
 
     <?php include_once 'rm_sidebar.php';?>
 
     <div id="page-wrapper" style="position:absolute;width:100%;height:100%;">
 
-      <div style="margin-top:10px;">
-        <ol class="breadcrumb" style="margin-bottom:10px;">
-          <li><a href="index.php">Home</a></li>
-          <li>Rule Manager</li>
-          <li>Rule Branch - <?php echo $rule_list[$current_ruleset_id]['RuleName'];?></li>
-        </ol>
-      </div>
+        <div style="margin-top:10px;">
+            <ol class="breadcrumb" style="margin-bottom:10px;">
+                <li><a href="index.php">Home</a></li>
+                <li>Rule Manager</li>
+                <li>Rule Branch - <?php echo $rule_list[$current_ruleset_id]['RuleName'];?></li>
+                &nbsp;&nbsp;&nbsp;
+                <div id="rule_selector" style="display: inline-block;"></div>
+            </ol>
+        </div>
 
-      <div id="#TreeContainer" style="height:500px;width:800px;">
-        <svg></svg>
-      </div>
+        <div id="#TreeContainer" style="height:500px;width:800px;">
+            <svg></svg>
+        </div>
 
     </div>
 
