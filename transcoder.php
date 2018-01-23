@@ -23,6 +23,7 @@
             <li id="rule-title-li" class="active">Transcoder
                 - <?php echo $rule_list[$defaultRuleSetID]['RuleName']; ?></li>
             &nbsp;&nbsp;&nbsp;
+            <div id="rule_selector" style="display: inline-block;"></div>
             <span id="start-btn" class="btn btn-black start"><i
                         class='glyphicon glyphicon-play'></i>&nbsp;&nbsp;START</span>
             <span id="clear-btn" class="btn btn-black clear"><i class='glyphicon glyphicon-warning-sign'></i>&nbsp;&nbsp;CLEAR</span>

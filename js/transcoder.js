@@ -1,5 +1,6 @@
 var new_rule, ruleList;
 var defaultRuleSetID = 1;
+var currentRulesetID= 1;
 
 get_rule_list();
 
@@ -7,6 +8,28 @@ $(document).ready(function () {
 
     var wrapperHeight = $(document).innerHeight() - 160;
     $('#wrapper').css('height', wrapperHeight.toString() + 'px');
+
+    $('#rule_selector').ruleSelector({
+        RuleType:'MainRule',
+        SelectedCallback:function(rulelist,selectedRuleID){
+            currentRulesetID = selectedRuleID;
+
+            $('#rule-list-table > tbody > tr').removeClass('info');
+            $('#rule-list-table > tbody > tr').each(function(index,tr){
+                if($(this).data('rulesetid').toString() === selectedRuleID ){
+                    $(this).addClass('info');
+                }
+            })
+
+            $('#rule-info').html('');
+            for (var key in ruleList[selectedRuleID]) {
+                $('#rule-info').append('<span style="font-size:18px">' + key + ' : ' + ruleList[selectedRuleID][key] + '</span><br>');
+            }
+            $('#rule-title-li').text('Transcoder - ' + ruleList[selectedRuleID]['RuleName']);
+            var script = 'new_rule = ' + ruleList[selectedRuleID]['RuleVar'];
+            eval(script);
+        }
+    });
 
     $('.start').on('click', function (e) {
         parse_new_data($('.originalDATA').val(), false, true);
@@ -804,7 +827,7 @@ function toggleMenu(e) {
     $("#menu-toggle-div").toggleClass("toggled");
 }
 
-function showFormDataContainer(e, toggle=true) {
+function showFormDataContainer(e, toggle = true) {
     $('#form-data-container').css('display', 'block');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
@@ -820,7 +843,7 @@ function showFormDataContainer(e, toggle=true) {
     if (toggle) toggleMenu(e);
 }
 
-function showSourceDataContainer(e, toggle=true) {
+function showSourceDataContainer(e, toggle = true) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'block');
     $('#text-data-container').css('display', 'none');
@@ -836,7 +859,7 @@ function showSourceDataContainer(e, toggle=true) {
     if (toggle) toggleMenu(e);
 }
 
-function showTextDataContainer(e, toggle=true) {
+function showTextDataContainer(e, toggle = true) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'block');
@@ -852,7 +875,7 @@ function showTextDataContainer(e, toggle=true) {
     if (toggle) toggleMenu(e);
 }
 
-function showLogDataContainer(e, toggle=true) {
+function showLogDataContainer(e, toggle = true) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
@@ -868,7 +891,7 @@ function showLogDataContainer(e, toggle=true) {
     if (toggle) toggleMenu(e);
 }
 
-function showRuleTabContainer(e, toggle=true) {
+function showRuleTabContainer(e, toggle = true) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
