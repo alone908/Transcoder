@@ -34,7 +34,7 @@ $(document).ready(function () {
     $('.start').on('click', function (e) {
         parse_new_data($('.originalDATA').val(), false, true);
         if ($("#wrapper").hasClass('toggled')) {
-            showFormDataContainer(e);
+            showFormDataContainer(e, true);
         }
         else {
             showFormDataContainer(e, false)
@@ -48,7 +48,7 @@ $(document).ready(function () {
         $('.datalog').val('');
         $('.dataText').val('');
         if ($("#wrapper").hasClass('toggled')) {
-            showFormDataContainer(e);
+            showFormDataContainer(e, true);
         }
         else {
             showFormDataContainer(e, false)
@@ -58,7 +58,7 @@ $(document).ready(function () {
     $('#import-btn').on('click', function (e) {
         serverfilelist('../uploadfiles');
         if ($("#wrapper").hasClass('toggled')) {
-            showFormDataContainer(e);
+            showFormDataContainer(e, true);
         }
         else {
             showFormDataContainer(e, false)
@@ -79,7 +79,7 @@ $(document).ready(function () {
     $('#record-btn').on('click', function (e) {
         listRecords();
         if ($("#wrapper").hasClass('toggled')) {
-            showFormDataContainer(e);
+            showFormDataContainer(e, true);
         }
         else {
             showFormDataContainer(e, false)
@@ -138,19 +138,19 @@ $(document).ready(function () {
         toggleMenu(e)
     });
     $('#form-tab').on('click', function (e) {
-        showFormDataContainer(e)
+        showFormDataContainer(e, true)
     });
     $('#source-tab').on('click', function (e) {
-        showSourceDataContainer(e)
+        showSourceDataContainer(e,true)
     });
     $('#text-tab').on('click', function (e) {
-        showTextDataContainer(e)
+        showTextDataContainer(e,true)
     });
     $('#log-tab').on('click', function (e) {
-        showLogDataContainer(e)
+        showLogDataContainer(e, true)
     });
     $('#rule-tab').on('click', function (e) {
-        showRuleTabContainer(e)
+        showRuleTabContainer(e, true)
     });
 
     //***** Upload Course ZIP file **********************
@@ -827,7 +827,7 @@ function toggleMenu(e) {
     $("#menu-toggle-div").toggleClass("toggled");
 }
 
-function showFormDataContainer(e, toggle = true) {
+function showFormDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'block');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
@@ -843,7 +843,7 @@ function showFormDataContainer(e, toggle = true) {
     if (toggle) toggleMenu(e);
 }
 
-function showSourceDataContainer(e, toggle = true) {
+function showSourceDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'block');
     $('#text-data-container').css('display', 'none');
@@ -859,7 +859,7 @@ function showSourceDataContainer(e, toggle = true) {
     if (toggle) toggleMenu(e);
 }
 
-function showTextDataContainer(e, toggle = true) {
+function showTextDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'block');
@@ -875,7 +875,7 @@ function showTextDataContainer(e, toggle = true) {
     if (toggle) toggleMenu(e);
 }
 
-function showLogDataContainer(e, toggle = true) {
+function showLogDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
@@ -891,7 +891,7 @@ function showLogDataContainer(e, toggle = true) {
     if (toggle) toggleMenu(e);
 }
 
-function showRuleTabContainer(e, toggle = true) {
+function showRuleTabContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
