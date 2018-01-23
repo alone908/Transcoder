@@ -23,6 +23,7 @@
     <script src="appjs/bootstrap.min.js"></script>
 
     <!-- Custom JS -->
+    <script src="js/ruleSelector.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
