@@ -312,3 +312,33 @@
     </div>
   </div>
 </div>
+
+<!-- Delete Branch Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Login</span>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="inputUser" class="col-sm-2 col-form-label">User</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputUser" placeholder="User">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="login_btn" type="button" class="btn btn-lg-black">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

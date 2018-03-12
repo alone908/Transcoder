@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +46,11 @@
 
 <body>
 
+<script>
+    var login_user = <?php if(isset($_SESSION['login_user'])){ echo $_SESSION['login_user']; }else{echo 'null';}; ?>;
+    var user_auth = <?php if(isset($_SESSION['user_auth'])){ echo $_SESSION['user_auth']; }else{echo 'null';}; ?>;
+</script>
+
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top topnav" role="navigation" style="margin-bottom:10px;">
     <div class="container topnav" style="padding-left:15px;padding-right:50px;width:100%;">
@@ -56,9 +67,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="transcoder.php">Transcoder</a></li>
-                <li><a href="rm_rulelist.php">Rule Manager</a></li>
-                <li><a href="ad_fileexplorer.php">Advance</a></li>
+                <li><a id="login" data-target="#loginModal" style="cursor: pointer;">
+                        <?php
+                        if (isset($_SESSION['login_user'])) {
+                            echo $_SESSION['login_user'];
+                        } else {
+                            echo 'Login';
+                        } ?>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

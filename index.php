@@ -1,5 +1,9 @@
 <!-- Header -->
 <?php include_once 'header.php';?>
+<?php include_once 'modals.php';?>
+
+<!-- Custom JS -->
+<script src="js/index.js"></script>
 
 <!-- Custom CSS -->
 <link href="css/landing-page.css" rel="stylesheet">
@@ -20,10 +24,10 @@
                                 <a href="transcoder.php" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
                             </li>
                             <li>
-                                <a href="rm_rulelist.php" class="btn btn-default btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i></i> <span class="network-name">Rule Manager</span></a>
+                                <a id="rule_manager" class="btn btn-default btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i></i> <span class="network-name">Rule Manager</span></a>
                             </li>
                             <li>
-                                <a href="ad_fileexplorer.php" class="btn btn-default btn-lg"><i class="fa fa-cubes" aria-hidden="true"></i> <span class="network-name">Advance</span></a>
+                                <a id="advance" class="btn btn-default btn-lg"><i class="fa fa-cubes" aria-hidden="true"></i> <span class="network-name">Advance</span></a>
                             </li>
                         </ul>
                     </div>
