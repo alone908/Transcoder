@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#login').click(function () {
         if(login_user === null){
             $('#loginModal').modal('show');
@@ -7,6 +8,13 @@ $(document).ready(function () {
     $('#rule_manager, #advance').click(function () {
         if(login_user === null || user_auth !== 'admin'){
             $('#loginModal').modal('show');
+        }
+        if(login_user !== null && user_auth === 'admin'){
+            if($(this).attr('id') === 'rule_manager'){
+                window.location = "rm_rulelist.php";
+            }else if($(this).attr('id') === 'advance'){
+                window.location = "ad_fileexplorer.php";
+            }
         }
     })
     $('#login_btn').click(function () {
@@ -17,9 +25,9 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 if(data.result === 'good'){
-                    $('#loginModal').modal('hide');
-                    $('#login').html($('#inputUser').val());
-                    document.reload();
+                    location.reload();
+                }else if(data.result === 'bad'){
+                    $('#login_err_text').html('Sorry! User name or password is not correct.');
                 }
             },
             error: function (requestObject, error, errorThrown) {
@@ -27,5 +35,9 @@ $(document).ready(function () {
                 $('#ajax_err').css('display', 'block');
             }
         });
+    })
+
+    $('#loginModal').on('hidden.bs.modal', function (e) {
+        $('#login_err_text').html('');
     })
 })

@@ -323,18 +323,19 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="inputUser" class="col-sm-2 col-form-label">User</label>
+                        <label for="inputUser" class="col-sm-2 col-form-label" style="margin-top: 5px;">User</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputUser" placeholder="User">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <label for="inputPassword" class="col-sm-2 col-form-label" style="margin-top: 5px;">Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                         </div>
                     </div>
                 </form>
+                <span id="login_err_text" style="font-size:10px;color:red;"></span>
             </div>
             <div class="modal-footer">
                 <button id="login_btn" type="button" class="btn btn-lg-black">Login</button>

@@ -1,3 +1,11 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth'])){
+    header('Location: index.php');
+}
+?>
 <?php require_once 'appphp/sqldb.php';?>
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>

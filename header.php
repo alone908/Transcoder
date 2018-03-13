@@ -47,8 +47,8 @@ if(!isset($_SESSION)){
 <body>
 
 <script>
-    var login_user = <?php if(isset($_SESSION['login_user'])){ echo $_SESSION['login_user']; }else{echo 'null';}; ?>;
-    var user_auth = <?php if(isset($_SESSION['user_auth'])){ echo $_SESSION['user_auth']; }else{echo 'null';}; ?>;
+    var login_user = <?php if(isset($_SESSION['login_user'])){ echo '\''.$_SESSION['login_user'].'\''; }else{echo 'null';}; ?>;
+    var user_auth = <?php if(isset($_SESSION['user_auth'])){ echo '\''.$_SESSION['user_auth'].'\''; }else{echo 'null';}; ?>;
 </script>
 
 <!-- Navigation -->
@@ -72,9 +72,15 @@ if(!isset($_SESSION)){
                         if (isset($_SESSION['login_user'])) {
                             echo $_SESSION['login_user'];
                         } else {
-                            echo 'Login';
+                            echo 'Log in';
                         } ?>
                     </a>
+                </li>
+                <li>
+                    <a>|</a>
+                </li>
+                <li>
+                    <a href="appphp/logout.php">Log out</a>
                 </li>
             </ul>
         </div>

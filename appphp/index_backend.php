@@ -17,8 +17,6 @@ switch ($_POST['op']) {
     case 'login':
 
         $query = "SELECT * FROM users WHERE user_name='" . $_POST['user'] . "';";
-
-        $conn->query('SET NAMES UTF8');
         $result = $conn->query($query);
 
         if ($result->num_rows === 1) {
@@ -26,7 +24,7 @@ switch ($_POST['op']) {
             if ($_POST['password'] === $row['user_password']) {
                 $_SESSION['login_user'] = $row['user_name'];
                 $_SESSION['user_auth'] = $row['user_auth'];
-                echo json_encode(array('result' => 'good'));
+                echo json_encode(array('result' => 'good','user'=>$row['user_name']));
             } else {
                 echo json_encode(array('result' => 'bad'));
             }
