@@ -313,7 +313,7 @@
   </div>
 </div>
 
-<!-- Delete Branch Modal -->
+<!-- Log In Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -339,6 +339,22 @@
             </div>
             <div class="modal-footer">
                 <button id="login_btn" type="button" class="btn btn-lg-black">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Not Admin Modal -->
+<div class="modal fade" id="notAdminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Sorry!</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:10px;color:red;">You need to login as admin to use this feature.</span>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
     </div>

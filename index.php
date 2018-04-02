@@ -22,7 +22,7 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a id="transcoder" href="transcoder.php" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
+                                <a id="transcoder" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
                             </li>
                             <li>
                                 <a id="rule_manager" class="btn btn-default btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i></i> <span class="network-name">Rule Manager</span></a>

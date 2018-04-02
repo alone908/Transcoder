@@ -2,7 +2,7 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth'])){
+    if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSION['user_auth'] !== 'admin'){
         header('Location: index.php');
     }
 ?>
