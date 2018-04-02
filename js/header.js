@@ -3,6 +3,9 @@ $(document).ready(function () {
     $('#login').click(function () {
         if(login_user === null){
             $('#loginModal').modal('show');
+        }else {
+            console.log('show profile');
+            $('#profileModal').modal('show');
         }
     })
 
