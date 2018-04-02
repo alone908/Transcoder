@@ -18,10 +18,11 @@
                     <div class="intro-message">
                         <h1 style="font-family:'Gloria Hallelujah'">Transcoder</h1>
                         <h3 style="font-family:'Gloria Hallelujah'">A simple transcoder makes your work easier.</h3>
+                        <h5 style="font-family:'Gloria Hallelujah'">Upload or copy paste your machine hexadecimal data, then use transcdoer decode data become human readable text, and also you can customize your decoding rule by rule manager.</h5>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="transcoder.php" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
+                                <a id="transcoder" href="transcoder.php" class="btn btn-default btn-lg"><i class="fa fa-calculator" aria-hidden="true"></i> <span class="network-name">Transcoder</span></a>
                             </li>
                             <li>
                                 <a id="rule_manager" class="btn btn-default btn-lg"><i class="fa fa-cogs" aria-hidden="true"></i></i> <span class="network-name">Rule Manager</span></a>
@@ -109,7 +110,7 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>Connect to Transcoder</h2>
+                    <h2>Contact us</h2>
                 </div>
                 <div class="col-lg-6">
                     <ul class="list-inline banner-social-buttons">
@@ -117,8 +118,11 @@
                             <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                         </li> -->
                         <li>
-                            <a href="https://github.com/alone908/CardTranscoder" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            <a href="mailto:alone908@hotmail.com" class="btn btn-default btn-lg"><i class="fa fa-envelope"></i><span class="">&nbsp;&nbsp;&nbsp;alone908@hotmail.com</span></a>
                         </li>
+<!--                        <li>-->
+<!--                            <a href="https://github.com/alone908/CardTranscoder" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>-->
+<!--                        </li>-->
                         <!-- <li>
                             <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                         </li> -->
