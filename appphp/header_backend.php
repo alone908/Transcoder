@@ -133,7 +133,7 @@ switch ($_POST['op']) {
         $query = "INSERT INTO users(user_name,user_password,user_email,user_auth) VALUES ('" . $_POST['user'] . "','" . $_POST['password'] . "','" . $_POST['email'] . "','user')";
         $conn->query($query);
 
-        echo json_encode(array('result' => 'good', 'user'=>$_POST['user']));
+        echo json_encode(array('result' => 'good', 'user'=>$_POST['user'], 'password'=>$_POST['password']));
 
         break;
 }

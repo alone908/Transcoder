@@ -343,7 +343,6 @@ if(!isset($_SESSION)){
                 <span id="login_err_text" style="font-size:10px;color:red;"></span>
             </div>
             <div class="modal-footer">
-                <button id="signup_btn" type="button" class="btn btn-lg-black">Sign up</button>
                 <button id="login_btn" type="button" class="btn btn-lg-black">Login</button>
             </div>
         </div>

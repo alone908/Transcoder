@@ -7,7 +7,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: "appphp/index_backend.php",
+                url: "appphp/header_backend.php",
                 data: {op: 'get_profile', userid: login_userid},
                 dataType: "json",
                 success: function (data) {
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: "appphp/index_backend.php",
+                url: "appphp/header_backend.php",
                 data: {op: 'save_profile', userid: login_userid, user:$('#userName').val(), password:$('#userPass').val(), email:$('#userEmail').val()},
                 dataType: "json",
                 success: function (data) {
@@ -66,23 +66,7 @@ $(document).ready(function () {
     })
 
     $('#login_btn').click(function () {
-        $.ajax({
-            type: 'POST',
-            url: "appphp/index_backend.php",
-            data: {op: 'login', user: $('#inputUser').val() , password: $('#inputPassword').val()},
-            dataType: "json",
-            success: function (data) {
-                if(data.result === 'good'){
-                    location.reload();
-                }else if(data.result === 'bad'){
-                    $('#login_err_text').html('Sorry! User name or password is not correct.');
-                }
-            },
-            error: function (requestObject, error, errorThrown) {
-                $('#loader').css('display', 'none');
-                $('#ajax_err').css('display', 'block');
-            }
-        });
+        login($('#inputUser').val(),$('#inputPassword').val())
     })
 
     $('#signup_btn').click(function () {
@@ -104,13 +88,13 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                url: "appphp/index_backend.php",
+                url: "appphp/header_backend.php",
                 data: {op: 'signup', user:$('#signupUserName').val(), password:$('#signupUserPass').val(), email:$('#signupUserEmail').val()},
                 dataType: "json",
                 success: function (data) {
                     if(data.result === 'good'){
                         $('#signupModal').modal('hide');
-                        location.reload();
+                        login(data.user,data.password);
                     }else if(data.result === 'bad'){
                         $('#signup_err_text').html(data.msg);
                     }
@@ -141,3 +125,23 @@ $(document).ready(function () {
     })
 
 })
+
+function login(user,password) {
+    $.ajax({
+        type: 'POST',
+        url: "appphp/header_backend.php",
+        data: {op: 'login', user: user , password: password},
+        dataType: "json",
+        success: function (data) {
+            if(data.result === 'good'){
+                location.reload();
+            }else if(data.result === 'bad'){
+                $('#login_err_text').html('Sorry! User name or password is not correct.');
+            }
+        },
+        error: function (requestObject, error, errorThrown) {
+            $('#loader').css('display', 'none');
+            $('#ajax_err').css('display', 'block');
+        }
+    });
+}
