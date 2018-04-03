@@ -49,6 +49,7 @@ if(!isset($_SESSION)){
 
 <script>
     var login_user = <?php if(isset($_SESSION['login_user'])){ echo '\''.$_SESSION['login_user'].'\''; }else{echo 'null';}; ?>;
+    var login_userid = <?php if(isset($_SESSION['login_userid'])){ echo '\''.$_SESSION['login_userid'].'\''; }else{echo 'null';}; ?>;
     var user_auth = <?php if(isset($_SESSION['user_auth'])){ echo '\''.$_SESSION['user_auth'].'\''; }else{echo 'null';}; ?>;
 </script>
 

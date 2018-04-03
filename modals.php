@@ -1,3 +1,8 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+?>
 <!-- Import Modal -->
 
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -361,10 +366,52 @@
 </div>
 
 <!-- Profile Modal -->
-<div class="modal fade bd-example-modal-lg" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            ...
-        </div>
-    </div>
-</div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="profileTitle">Alone908</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="userName" class="col-sm-2 col-form-label" style="margin-top: 5px;">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userName" placeholder="User Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userEmail" class="col-sm-2 col-form-label" style="margin-top: 5px;">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="userPass" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirmUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Confirm</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="confirmUserPass" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userEnrollment" class="col-sm-2 col-form-label" style="margin-top: 5px;">Enrollment</label>
+                        <div class="col-sm-10">
+                            <span class="form-control" id="userEnrollment">06-15-2018 ~ 07-15-2018</span>
+                        </div>
+                    </div>
+                </form>
+                <span id="profile_err_text" style="font-size:10px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="saveUserProfile" class="btn btn-lg-black" data-userid="<?php echo $_SESSION['login_userid'] ?>">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
