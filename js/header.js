@@ -124,6 +124,10 @@ $(document).ready(function () {
         }
     })
 
+    $('.buyTranscoder').click(function () {
+        $('#profileModal').modal('hide');
+    })
+
     $('#loginModal').on('hidden.bs.modal', function (e) {
         $('#login_err_text').html('');
     })

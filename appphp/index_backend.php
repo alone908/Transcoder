@@ -25,6 +25,37 @@ switch ($_POST['op']) {
                 $_SESSION['login_user'] = $row['user_name'];
                 $_SESSION['login_userid'] = $row['id'];
                 $_SESSION['user_auth'] = $row['user_auth'];
+
+                //check enrollment
+                if($row['enrollment_end'] === null){
+                    $_SESSION['user_enrollment'] = 'no';
+                }else{
+                    $enroll_date_array = explode('-',$row['enrollment_end']);
+                    $enroll_year = (integer) $enroll_date_array[2];
+                    $enroll_month = (integer) $enroll_date_array[0];
+                    $enroll_day = (integer) $enroll_date_array[1];
+                    $current_year = (integer) date('Y');
+                    $current_month = (integer) date('n');
+                    $current_day = (integer) date('j');
+                    if($enroll_year > $current_year){
+                        $_SESSION['user_enrollment'] = 'going';
+                    }else if($enroll_year === $current_year){
+                        if($enroll_month > $current_month){
+                            $_SESSION['user_enrollment'] = 'going';
+                        }elseif ($enroll_month === $current_month){
+                            if($enroll_day >= $current_day){
+                                $_SESSION['user_enrollment'] = 'going';
+                            }else{
+                                $_SESSION['user_enrollment'] = 'expired';
+                            }
+                        }else{
+                            $_SESSION['user_enrollment'] = 'expired';
+                        }
+                    }else{
+                        $_SESSION['user_enrollment'] = 'expired';
+                    }
+                }
+
                 echo json_encode(array('result' => 'good','user'=>$row['user_name']));
             } else {
                 echo json_encode(array('result' => 'bad'));

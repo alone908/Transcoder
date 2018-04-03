@@ -13,5 +13,6 @@ if(!isset($_SESSION)){
 unset($_SESSION['login_user']);
 unset($_SESSION['login_userid']);
 unset($_SESSION['user_auth']);
+unset($_SESSION['user_enrollment']);
 
 header("Location: ../index.php");

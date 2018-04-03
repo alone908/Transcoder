@@ -366,6 +366,23 @@ if(!isset($_SESSION)){
     </div>
 </div>
 
+<!-- Buy Enrollment Modal -->
+<div class="modal fade" id="buyEnrollmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Thank you!</span>
+            </div>
+            <div class="modal-body">
+                <span style="vertical-align: bottom">Buy Transcoder $500NT/month</span>&nbsp;&nbsp;&nbsp;
+                <a class="buyTranscoder" href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg" target="_blank"><img border="0" src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Profile Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
@@ -407,6 +424,8 @@ if(!isset($_SESSION)){
                         </div>
                     </div>
                 </form>
+                <span style="vertical-align: bottom">Buy Transcoder $500NT/month</span>&nbsp;&nbsp;&nbsp;
+                <a class="buyTranscoder" href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg" target="_blank"><img border="0" src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
                 <span id="profile_err_text" style="font-size:10px;color:red;"></span>
             </div>
             <div class="modal-footer">
