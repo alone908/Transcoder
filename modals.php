@@ -343,6 +343,7 @@ if(!isset($_SESSION)){
                 <span id="login_err_text" style="font-size:10px;color:red;"></span>
             </div>
             <div class="modal-footer">
+                <button id="signup_btn" type="button" class="btn btn-lg-black">Sign up</button>
                 <button id="login_btn" type="button" class="btn btn-lg-black">Login</button>
             </div>
         </div>
@@ -371,7 +372,7 @@ if(!isset($_SESSION)){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="profileTitle">Alone908</h4>
+                <h4 class="modal-title" id="profileTitle"></h4>
             </div>
             <div class="modal-body">
                 <form>
@@ -402,7 +403,7 @@ if(!isset($_SESSION)){
                     <div class="form-group row">
                         <label for="userEnrollment" class="col-sm-2 col-form-label" style="margin-top: 5px;">Enrollment</label>
                         <div class="col-sm-10">
-                            <span class="form-control" id="userEnrollment">06-15-2018 ~ 07-15-2018</span>
+                            <span class="form-control" id="userEnrollment" style="border: 0px; box-shadow: none;">06-15-2018 ~ 07-15-2018</span>
                         </div>
                     </div>
                 </form>
@@ -411,6 +412,51 @@ if(!isset($_SESSION)){
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" id="saveUserProfile" class="btn btn-lg-black" data-userid="<?php echo $_SESSION['login_userid'] ?>">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="profileTitle">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="signupUserName" class="col-sm-2 col-form-label" style="margin-top: 5px;">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="signupUserName" placeholder="User Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="signupUserEmail" class="col-sm-2 col-form-label" style="margin-top: 5px;">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="signupUserEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="signupUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="signupUserPass" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="signupConfirmUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Confirm</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="signupConfirmUserPass" placeholder="Password">
+                        </div>
+                    </div>
+                </form>
+                <span id="signup_err_text" style="font-size:10px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="signupUser" class="btn btn-lg-black">Sign up</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

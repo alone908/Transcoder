@@ -16,7 +16,12 @@ $(document).ready(function () {
                         $('#userName').val(data.user);
                         $('#userEmail').val(data.email);
                         $('#userPass, #confirmUserPass').val(data.password);
-                        $('#userEnrollment').html(data.enrollment_start + ' ~ ' + data.enrollment_end);
+                        if(data.enrollment_start !== '' && data.enrollment_end !== ''){
+                            $('#userEnrollment').html(data.enrollment_start + ' ~ ' + data.enrollment_end);
+                        }else {
+                            $('#userEnrollment').html('No Enrollment');
+                        }
+                        $('#profileTitle').html(data.user);
                         $('#profileModal').modal('show');
 
                     }else if(data.result === 'bad'){
@@ -80,12 +85,55 @@ $(document).ready(function () {
         });
     })
 
+    $('#signup_btn').click(function () {
+        $('#loginModal').modal('hide');
+        $('#signupModal').modal('show');
+    })
+
+    $('#signupUser').click(function () {
+
+        if($('#signupUserName').val() === ''){
+            $('#signup_err_text').html('Please type your username.');
+        }else if($('#signupUserPass').val() === ''){
+            $('#signup_err_text').html('Please type your password.');
+        }else if($('#signupUserEmail').val() === ''){
+            $('#signup_err_text').html('Please type your email.');
+        }else if($('#signupUserPass').val() !== $('#signupConfirmUserPass').val()){
+            $('#signup_err_text').html('Password are not same, please check your password.');
+        }else {
+
+            $.ajax({
+                type: 'POST',
+                url: "appphp/index_backend.php",
+                data: {op: 'signup', user:$('#signupUserName').val(), password:$('#signupUserPass').val(), email:$('#signupUserEmail').val()},
+                dataType: "json",
+                success: function (data) {
+                    if(data.result === 'good'){
+                        $('#signupModal').modal('hide');
+                        location.reload();
+                    }else if(data.result === 'bad'){
+                        $('#signup_err_text').html(data.msg);
+                    }
+                },
+                error: function (requestObject, error, errorThrown) {
+                    $('#loader').css('display', 'none');
+                    $('#ajax_err').css('display', 'block');
+                }
+            });
+
+        }
+    })
+
     $('#loginModal').on('hidden.bs.modal', function (e) {
         $('#login_err_text').html('');
     })
 
     $('#profileModal').on('hidden.bs.modal', function (e) {
         $('#profile_err_text').html('');
+    })
+
+    $('#signupModal').on('hidden.bs.modal', function (e) {
+        $('#signup_err_text').html('');
     })
 
 })

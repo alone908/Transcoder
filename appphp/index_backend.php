@@ -42,7 +42,7 @@ switch ($_POST['op']) {
 
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
-            echo json_encode(array('result' => 'good','user'=>$row['user_name'], 'password'=>$row['user_password'], 'email'=>$row['user_email'], 'auth'=>$row['user_auth'], 'enrollment_start'=>$row['enrollment_start'], 'enrollment_end'=>$row['enrollment_end']));
+            echo json_encode(array('result' => 'good','user'=>$row['user_name'], 'password'=>$row['user_password'], 'email'=>$row['user_email'], 'auth'=>$row['user_auth'], 'enrollment_start'=>($row['enrollment_start'] === null) ? '' : $row['enrollment_start'], 'enrollment_end'=>($row['enrollment_end'] === null) ? '' : $row['enrollment_end']));
         } else {
             echo json_encode(array('result' => 'bad'));
         }
@@ -58,6 +58,7 @@ switch ($_POST['op']) {
             $row = $result->fetch_assoc();
             if($row['id'] !== $_POST['userid']){
                 echo json_encode(array('result' => 'bad', 'msg'=>'This username has already been taken.'));
+                break;
             }
         }
 
@@ -68,6 +69,7 @@ switch ($_POST['op']) {
             $row = $result->fetch_assoc();
             if($row['id'] !== $_POST['userid']){
                 echo json_encode(array('result' => 'bad', 'msg'=>'This email has already been taken.'));
+                break;
             }
         }
 
@@ -76,6 +78,31 @@ switch ($_POST['op']) {
         $_SESSION['login_user'] = $_POST['user'];
 
         echo json_encode(array('result' => 'good', 'userid'=>$_POST['userid'], 'user'=>$_POST['user']));
+
+        break;
+
+    case 'signup':
+
+        //check user name is taken or not.
+        $query = "SELECT * FROM users WHERE user_name='" . $_POST['user'] . "';";
+        $result = $conn->query($query);
+        if ($result->num_rows >= 1) {
+            echo json_encode(array('result' => 'bad', 'msg'=>'This username has already been taken.'));
+            break;
+        }
+
+        //check user email is taken or not.
+        $query = "SELECT * FROM users WHERE user_email='" . $_POST['email'] . "';";
+        $result = $conn->query($query);
+        if ($result->num_rows >= 1) {
+            echo json_encode(array('result' => 'bad', 'msg'=>'This email has already been taken.'));
+            break;
+        }
+
+        $query = "INSERT INTO users(user_name,user_password,user_email,user_auth) VALUES ('" . $_POST['user'] . "','" . $_POST['password'] . "','" . $_POST['email'] . "','user')";
+        $conn->query($query);
+
+        echo json_encode(array('result' => 'good', 'user'=>$_POST['user']));
 
         break;
 }
