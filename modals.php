@@ -1,87 +1,90 @@
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 ?>
 <!-- Import Modal -->
 
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="" style="font-weight:bold;">Import DAT File</h4>
-      </div>
-      <div class="modal-body">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="" style="font-weight:bold;">Import DAT File</h4>
+            </div>
+            <div class="modal-body">
 
-        <font style="font-size:14px;font-weight:bold;">Select Local File:&nbsp;&nbsp;</font>
-        <span class='btn btn-black fileinput-button' style="vertical-align:-2px;">
+                <font style="font-size:14px;font-weight:bold;">Select Local File:&nbsp;&nbsp;</font>
+                <span class='btn btn-black fileinput-button' style="vertical-align:-2px;">
           <i class='glyphicon glyphicon-save'></i>
           <span>Select</span>
           <input id='localfile' type='file' name='files[]' style='display:block;width:100%;height:100%;cursor:pointer;'>
         </span>
-        <br>
+                <br>
 
-        <hr style="margin:5px 0px;">
+                <hr style="margin:5px 0px;">
 
-        <font style="font-size:14px;font-weight:bold;">Upload File to Server:&nbsp;&nbsp;</font>
-        <span class='btn btn-black fileinput-button' style="vertical-align:-2px;">
+                <font style="font-size:14px;font-weight:bold;">Upload File to Server:&nbsp;&nbsp;</font>
+                <span class='btn btn-black fileinput-button' style="vertical-align:-2px;">
           <i class='glyphicon glyphicon-floppy-open'></i>
           <span>Upload</span>
-          <input id='fileupload' type='file' name='files[]' style='display:block;width:100%;height:100%;cursor:pointer;'>
+          <input id='fileupload' type='file' name='files[]'
+                 style='display:block;width:100%;height:100%;cursor:pointer;'>
         </span>
-        <br>
-        <!-- The global progress bar -->
-        <div id='progress' class='progress' style="display:none;">
-          <div class='progress-bar progress-bar-success'></div>
+                <br>
+                <!-- The global progress bar -->
+                <div id='progress' class='progress' style="display:none;">
+                    <div class='progress-bar progress-bar-success'></div>
+                </div>
+                <!-- The container for the uploaded files -->
+                <div id='files' class='files'></div>
+
+                <hr style="margin:5px 0px;">
+
+                <font style="font-size:14px;font-weight:bold;">Select File on Server:</font>
+                <div id="serverfilelist" style="border:1px solid #dadada;padding:5px;">
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <!-- The container for the uploaded files -->
-        <div id='files' class='files'></div>
-
-        <hr style="margin:5px 0px;">
-
-        <font style="font-size:14px;font-weight:bold;">Select File on Server:</font>
-        <div id="serverfilelist" style="border:1px solid #dadada;padding:5px;">
-        </div>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
 </div>
 
 
 <!-- Record Modal -->
 <div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span class="modal-title" id="myModalLabel" style="font-size:18px;">Records</span>
-        <span class="modal-title" style="color:red;font-size:12px;">&nbsp;(maxmum 50 records)</span>
-      </div>
-      <div class="modal-body">
-        <div class="records-container">
-          <table class="table table-hover record-table">
-            <tbody>
-            <tr>
-              <th>#</th>
-              <th>SourceData</th>
-              <th>TimeStamp</th>
-              <th>LOAD</th>
-            <tr>
-            </tbody>
-          </table>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <span class="modal-title" id="myModalLabel" style="font-size:18px;">Records</span>
+                <span class="modal-title" style="color:red;font-size:12px;">&nbsp;(maxmum 50 records)</span>
+            </div>
+            <div class="modal-body">
+                <div class="records-container">
+                    <table class="table table-hover record-table">
+                        <tbody>
+                        <tr>
+                            <th>#</th>
+                            <th>SourceData</th>
+                            <th>TimeStamp</th>
+                            <th>LOAD</th>
+                        <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Calculator Modal -->
@@ -105,7 +108,8 @@ if(!isset($_SESSION)){
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Total</label>
                         <div class="col-sm-6">
-                            <span id="line-total" class="" style="display: inline-block;width: 269px; height: 26px; border-bottom: 1px solid black;"></span>
+                            <span id="line-total" class=""
+                                  style="display: inline-block;width: 269px; height: 26px; border-bottom: 1px solid black;"></span>
                         </div>
                     </div>
                 </form>
@@ -122,200 +126,215 @@ if(!isset($_SESSION)){
 
 <!-- Add Rule Modal -->
 <div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Add Rule</span>
-      </div>
-      <div class="modal-body">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Add Rule</span>
+            </div>
+            <div class="modal-body">
 
-        <div class="form-group">
-          <label class="col-sm-5" style="padding:0px 6px;">Rule Name:</label>
-          <input id="name_of_rule" type="text" class="form-control" placeholder="Rule Name" style="width:300px">
+                <div class="form-group">
+                    <label class="col-sm-5" style="padding:0px 6px;">Rule Name:</label>
+                    <input id="name_of_rule" type="text" class="form-control" placeholder="Rule Name"
+                           style="width:300px">
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-5" style="padding:0px 6px;">Rule Type:</label>
+                    <input type="radio" name="ruletype" value="MainRule" checked><span id="mainrule_radio_text"
+                                                                                       class="radio_text">Main Rule</span>
+                    <input type="radio" name="ruletype" value="SubRule"><span id="subrule_radio_text"
+                                                                              class="radio_text">Sub Rule</span>
+                </div>
+
+                <div id="mainrule_op" class="form-group">
+                    <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule head:</label>
+                    <input id="lines_in_head" type="text" class="form-control" placeholder="0" style="width:100px">
+                    <br>
+                    <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule body:</label>
+                    <input id="lines_in_body" type="text" class="form-control" placeholder="0" style="width:100px">
+                </div>
+
+                <div id="subrule_op" class="form-group" style="display:none;">
+                    <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule:</label>
+                    <input id="lines_in_rule" type="text" class="form-control" placeholder="0" style="width:100px">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_rule" type="button" class="btn btn-lg-black">Add</button>
+            </div>
         </div>
-
-        <div class="form-group">
-        <label class="col-sm-5" style="padding:0px 6px;">Rule Type:</label>
-          <input type="radio" name="ruletype" value="MainRule" checked><span id="mainrule_radio_text" class="radio_text">Main Rule</span>
-          <input type="radio" name="ruletype" value="SubRule" ><span id="subrule_radio_text" class="radio_text" >Sub Rule</span>
-        </div>
-
-        <div id="mainrule_op" class="form-group">
-          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule head:</label>
-          <input id="lines_in_head" type="text" class="form-control" placeholder="0" style="width:100px">
-          <br>
-          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule body:</label>
-          <input id="lines_in_body" type="text" class="form-control" placeholder="0" style="width:100px">
-        </div>
-
-        <div id="subrule_op" class="form-group" style="display:none;">
-          <label class="col-sm-5" style="padding:0px 6px;">How many lines in rule:</label>
-          <input id="lines_in_rule" type="text" class="form-control" placeholder="0" style="width:100px">
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="add_rule" type="button" class="btn btn-lg-black">Add</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Delete Rule Modal -->
 <div class="modal fade" id="delRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Rule</span>
-      </div>
-      <div class="modal-body">
-        <span style="font-size:14px;color:red;">Are you sure you want to delete this rule ?</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="del_rule" type="button" class="btn btn-lg-black">Delete</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Rule</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:14px;color:red;">Are you sure you want to delete this rule ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="del_rule" type="button" class="btn btn-lg-black">Delete</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Clone Rule Modal -->
 <div class="modal fade" id="cloneRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Clone Rule</span>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="">New Rule Name:</label>
-          <input id="new_rule_name" type="text" class="form-control" placeholder="Rule Name">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Clone Rule</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">New Rule Name:</label>
+                    <input id="new_rule_name" type="text" class="form-control" placeholder="Rule Name">
+                </div>
+                <span id="clone_err_text" style="font-size:10px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="clone_rule" type="button" class="btn btn-lg-black">Clone</button>
+            </div>
         </div>
-        <span id="clone_err_text" style="font-size:10px;color:red;"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="clone_rule" type="button" class="btn btn-lg-black">Clone</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Edit Rule Name Modal -->
 <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Edit Rule Name</span>
-      </div>
-      <div class="modal-body">
-        <div class="form-group" style="margin-bottom:5px;">
-          <label for="">New Rule Name:</label>
-          <input id="rule_name" type="text" class="form-control" placeholder="Rule Name">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Edit Rule Name</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label for="">New Rule Name:</label>
+                    <input id="rule_name" type="text" class="form-control" placeholder="Rule Name">
+                </div>
+                <span id="edit_name_err" style="font-size:14px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="save_rule_name" type="button" class="btn btn-lg-black">Save</button>
+            </div>
         </div>
-        <span id="edit_name_err" style="font-size:14px;color:red;"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="save_rule_name" type="button" class="btn btn-lg-black">Save</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Insert Rule Row Modal -->
 <div class="modal fade" id="insertRowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Insert Row</span>
-      </div>
-      <div class="modal-body">
-        <div class="form-group" style="height:50px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Insert Row</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="height:50px;">
+                    <label class="col-sm-2" style="margin-top: 5px">Type:</label>
+                    <select id="row_type_selector" class="form-control" style="width: 120px;cursor: pointer">
+                        <option value="head">Head Title</option>
+                        <option value="body">Body Title</option>
+                        <option value="tail">Tail Title</option>
+                        <option value="regular">Regular Line</option>
+                        <option value="blank">Blank Line</option>
+                    </select>
+                    <!--          <input type="radio" id="inlineCheckbox1" name="type" value="regular"><span id="regular_radio_text" class="radio_text">Regular Line</span>-->
+                    <!--          <input type="radio" id="inlineCheckbox1" name="type" value="blank"><span id="blank_radio_text" class="radio_text">Blank Line</span>-->
+                    <br>
+                    <label class="col-sm-2">Position:</label>
+                    <input type="radio" id="inlineCheckbox1" name="position" value="before"><span id="before_radio_text"
+                                                                                                  class="radio_text">Before</span>
+                    <input type="radio" id="inlineCheckbox1" name="position" value="after"><span id="after_radio_text"
+                                                                                                 class="radio_text">After</span>
 
-          <label class="col-sm-2">Type:</label>
-          <input type="radio" id="inlineCheckbox1" name="type" value="regular"><span id="regular_radio_text" class="radio_text">Regular Line</span>
-          <input type="radio" id="inlineCheckbox1" name="type" value="blank"><span id="blank_radio_text" class="radio_text">Blank Line</span>
-          <br><br>
-          <label class="col-sm-2">Position:</label>
-          <input type="radio" id="inlineCheckbox1" name="position" value="before"><span id="before_radio_text" class="radio_text">Before</span>
-          <input type="radio" id="inlineCheckbox1" name="position" value="after"><span id="after_radio_text" class="radio_text">After</span>
-
+                </div>
+                <span id="insert_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="insert" type="button" class="btn btn-lg-black">Insert</button>
+            </div>
         </div>
-        <span id="insert_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="insert" type="button" class="btn btn-lg-black">Insert</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Delete Rule Row Modal -->
 <div class="modal fade" id="delRowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Row</span>
-      </div>
-      <div class="modal-body">
-        <span style="font-size:14px;color:red;">Are you sure you want to delete this row ?</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="del_row" type="button" class="btn btn-lg-black">Delete</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Row</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:14px;color:red;">Are you sure you want to delete this row ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="del_row" type="button" class="btn btn-lg-black">Delete</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Add Branch Modal -->
 <div class="modal fade" id="addBranchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Add Branch</span>
-      </div>
-      <div class="modal-body">
-        <div class="form-group" style="height:70px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Add Branch</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="height:70px;">
 
-          <label class="col-sm-3">Branch :</label>
-          <select id="add_branch_select" class="form-control" style="display:inline-block;width:250px;cursor:pointer">
-          </select>
-          <br><br>
-          <label class="col-sm-3">Branch Type:</label>
-          <input type="radio" name="branchtype" value="nocondi" checked><span id="nocondi_radio_text" class="radio_text">No Condition</span>
-          <input type="radio" name="branchtype" value="withcondi" style="display:none;"><span id="withcondi_radio_text" class="radio_text" style="display:none;">With Condition</span>
+                    <label class="col-sm-3">Branch :</label>
+                    <select id="add_branch_select" class="form-control"
+                            style="display:inline-block;width:250px;cursor:pointer">
+                    </select>
+                    <br><br>
+                    <label class="col-sm-3">Branch Type:</label>
+                    <input type="radio" name="branchtype" value="nocondi" checked><span id="nocondi_radio_text"
+                                                                                        class="radio_text">No Condition</span>
+                    <input type="radio" name="branchtype" value="withcondi" style="display:none;"><span
+                            id="withcondi_radio_text" class="radio_text" style="display:none;">With Condition</span>
 
+                </div>
+                <span id="add_branch_err"
+                      style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_branch" type="button" class="btn btn-lg-black">Add</button>
+            </div>
         </div>
-        <span id="add_branch_err" style="display:inline-block;margin-left:15px;font-size:14px;color:red;"></span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="add_branch" type="button" class="btn btn-lg-black">Add</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Delete Branch Modal -->
 <div class="modal fade" id="delBranchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Branch</span>
-      </div>
-      <div class="modal-body">
-        <span style="font-size:14px;color:red;">Are you sure you want to delete this branch ?</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="del_branch" type="button" class="btn btn-lg-black">Delete</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Delete Branch</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:14px;color:red;">Are you sure you want to delete this branch ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="del_branch" type="button" class="btn btn-lg-black">Delete</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Log In Modal -->
@@ -334,7 +353,8 @@ if(!isset($_SESSION)){
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label" style="margin-top: 5px;">Password</label>
+                        <label for="inputPassword" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                         </div>
@@ -374,7 +394,10 @@ if(!isset($_SESSION)){
             </div>
             <div class="modal-body">
                 <span style="vertical-align: bottom">Buy Transcoder $500NT/month</span>&nbsp;&nbsp;&nbsp;
-                <a class="buyTranscoder" href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg" target="_blank"><img border="0" src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
+                <a class="buyTranscoder"
+                   href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg"
+                   target="_blank"><img border="0"
+                                        src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
             </div>
             <div class="modal-footer">
             </div>
@@ -387,7 +410,8 @@ if(!isset($_SESSION)){
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="profileTitle"></h4>
             </div>
             <div class="modal-body">
@@ -411,25 +435,32 @@ if(!isset($_SESSION)){
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="confirmUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Confirm</label>
+                        <label for="confirmUserPass" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Confirm</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="confirmUserPass" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="userEnrollment" class="col-sm-2 col-form-label" style="margin-top: 5px;">Enrollment</label>
+                        <label for="userEnrollment" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Enrollment</label>
                         <div class="col-sm-10">
                             <span class="form-control" id="userEnrollment" style="border: 0px; box-shadow: none;">06-15-2018 ~ 07-15-2018</span>
                         </div>
                     </div>
                 </form>
                 <span style="vertical-align: bottom">Buy Transcoder $500NT/month</span>&nbsp;&nbsp;&nbsp;
-                <a class="buyTranscoder" href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg" target="_blank"><img border="0" src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
+                <a class="buyTranscoder"
+                   href="https://www.yapee.tw/mvc/onlinePay/webLink?key=_HRKgfabZsh92X3uUedo595W_cvurwGAkHa3FRuZrbg"
+                   target="_blank"><img border="0"
+                                        src="https://www.yapee.tw/mvc/file/publicFile?pathType=data/linkLogo/B0S0F0002585.jpg"></img></a>
                 <span id="profile_err_text" style="font-size:10px;color:red;"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="saveUserProfile" class="btn btn-lg-black" data-userid="<?php echo $_SESSION['login_userid'] ?>">Save</button>
+                <button type="button" id="saveUserProfile" class="btn btn-lg-black"
+                        data-userid="<?php echo $_SESSION['login_userid'] ?>">Save
+                </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -440,25 +471,29 @@ if(!isset($_SESSION)){
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="profileTitle">Sign Up</h4>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="signupUserName" class="col-sm-2 col-form-label" style="margin-top: 5px;">Username</label>
+                        <label for="signupUserName" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Username</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="signupUserName" placeholder="User Name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="signupUserEmail" class="col-sm-2 col-form-label" style="margin-top: 5px;">Email</label>
+                        <label for="signupUserEmail" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Email</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="signupUserEmail" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="signupUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Password</label>
+                        <label for="signupUserPass" class="col-sm-2 col-form-label"
+                               style="margin-top: 5px;">Password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" id="signupUserPass" placeholder="Password">
                         </div>
@@ -466,7 +501,8 @@ if(!isset($_SESSION)){
                     <div class="form-group row">
                         <label for="signupConfirmUserPass" class="col-sm-2 col-form-label" style="margin-top: 5px;">Confirm</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="signupConfirmUserPass" placeholder="Password">
+                            <input type="password" class="form-control" id="signupConfirmUserPass"
+                                   placeholder="Password">
                         </div>
                     </div>
                 </form>

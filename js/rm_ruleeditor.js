@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('#rule_row_container').css('height', ($('#editor').height() - 35).toString() + 'px');
 
     $('#rule_selector').ruleSelector({
-        SelectedCallback:function(rulelist,selectedRuleID){
+        SelectedCallback: function (rulelist, selectedRuleID) {
             currentRulesetID = selectedRuleID;
             window.location = 'rm_ruleeditor.php?rulesetid=' + selectedRuleID;
         }
@@ -53,12 +53,12 @@ $(document).ready(function () {
     })
 
     $('#insert').on('click', function (e) {
-        if ($('input[name=type]:checked').length === 0 || $('input[name=position]:checked').length === 0) {
-            $('#insert_err').html('Please select type and position.');
+        if ($('input[name=position]:checked').length === 0) {
+            $('#insert_err').html('Please select position.');
         } else {
             $('#insertRowModal').modal('hide');
             $('#insert_err').html('');
-            insert_row($(this).data('id'), $(this).data('linenumber'), $('input[name=type]:checked').val(), $('input[name=position]:checked').val());
+            insert_row($(this).data('id'), $(this).data('linenumber'), $('#row_type_selector').val(), $('input[name=position]:checked').val());
         }
     })
 
@@ -124,74 +124,47 @@ function insert_row(id, linenumber, type, position) {
 
     tempID++;
 
-    if (position === 'before') {
-        if (type === 'blank') {
-            $('\
-      <div id="temp_' + tempID + '" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
-        <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
-          <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="Length editor_line_span" style="width:10%;">0</span>\
-          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
-          <span class="LSB editor_line_span" style="width:5%;"></span>\
-          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
-          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-          <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
-        </span>\
-      </div>').insertBefore('#' + id);
-        } else if (type === 'regular') {
-            $('\
-      <div id="temp_' + tempID + '" class="rule_row" data-subject="RuleSet_' + currentRulesetID + '_' + linenumber + '">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
-        <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
-        <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
-        <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
-        <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
-        </span>').insertBefore('#' + id);
-        }
+    linenumber = (position === 'before') ? linenumber : linenumber + 1;
 
-    } else if (position === 'after') {
-        linenumber++;
-        if (type === 'blank') {
-            $('\
-      <div id="temp_' + tempID + '" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
-        <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
-          <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
-          <span class="Length editor_line_span" style="width:10%;">0</span>\
-          <span class="DataCoding editor_line_span" style="width:10%;"></span>\
-          <span class="LSB editor_line_span" style="width:5%;"></span>\
-          <span class="UnixTime editor_line_span" style="width:10%;"></span>\
-          <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-          <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
-        </span>\
-      </div>').insertAfter('#' + id);
-        } else if (type === 'regular') {
-            $('\
-      <div id="temp_' + tempID + '" class="rule_row" data-subject="RuleSet_' + currentRulesetID + '_' + linenumber + '">\
-        <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
-        <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
-        <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
-        <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
-        <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
-        <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
-        <span class="editor_line_span">\
-          <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
-          <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
-        </span>').insertAfter('#' + id);
-        }
+    if(type === 'blank'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">=====</span>\
+            <span class="Length editor_line_span" style="width:10%;">0</span>\
+            <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+            <span class="LSB editor_line_span" style="width:5%;"></span>\
+            <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+            <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>\
+        </div>')
+    }
+
+    if(type === 'regular'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" data-subject="RuleSet_' + currentRulesetID + '_' + linenumber + '">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
+            <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
+            <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
+            <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
+            <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
+            <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>')
+    }
+
+    if(position === 'before'){
+        insertRow.insertBefore('#' + id);
+    }else if(position === 'after'){
+        insertRow.insertAfter('#' + id);
     }
 
     sort_linenumber(null, null);

@@ -70,12 +70,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-
-                                <?php if($row['Subject'] === 'Blank'){ ?>
-                                    <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
-                                <?php }else { ?>
-                                    <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
-                                <?php } ?>
+                                <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
                                 <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
                                 <span class="DataCoding editor_line_span" style="width:10%;"></span>
                                 <span class="LSB editor_line_span" style="width:5%;"></span>
@@ -85,16 +80,16 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 					                <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                                     <?php if($row['Subject'] === 'Blank'){ ?>
                                     <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </span>
 
                             </div>
 
-                            <?php
-                        }else {
-                            ?>
+                        <?php
+                        } else {
+                        ?>
 
                             <div id="<?php echo $row['id'];?>" class="rule_row" data-subject="<?php echo $row['Subject']?>">
 
