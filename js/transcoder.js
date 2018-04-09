@@ -1,6 +1,4 @@
-var new_rule, ruleList;
-var defaultRuleSetID = 1;
-var currentRulesetID= 1;
+var new_rule, ruleList, ruleTplType={}, defaultRuleSetID = 1, currentRulesetID= 1;
 
 get_rule_list();
 
@@ -90,8 +88,8 @@ $(document).ready(function () {
         clearRecordsTable();
     })
 
-    $('.checkContent').on('click', function (e) {
-        if ($('.checkContent').prop('checked')) {
+    $('.checkExp').on('click', function (e) {
+        if ($('.checkExp').prop('checked')) {
             $('.description').css('display', 'inline-block');
         }
         else {
@@ -260,11 +258,27 @@ function get_rule_obj(RuleSetID, RuleVar) {
                 var script = 'new_rule = ' + RuleVar + ';';
                 eval(script);
             }
+            check_rule_tpl_type(RuleSetID.toString(),data.new_rule);
         },
         error: function (requestObject, error, errorThrown) {
             $('#ajax_err').css('display', 'block');
         }
     });
+}
+
+function check_rule_tpl_type(ruleSetID,ruleObj){
+    var tplType = 'unknown', hasHead = false, hasBody = false, hasTail = false;
+    for (var index in ruleObj) {
+        var subject = ruleObj[index]['Subject'];
+        if (subject === 'HeadTitle') {hasHead = true;}
+        if (subject === 'BodyTitle') {hasBody = true;}
+        if (subject === 'TailTitle') {hasTail = true;}
+    }
+    if(!hasHead && !hasBody && !hasTail){ tplType = 'A' }
+    if(hasHead && hasBody && !hasTail){ tplType = 'B' }
+    if(hasHead && hasBody && hasTail){ tplType = 'C' }
+
+    ruleTplType[ruleSetID] = tplType;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -316,48 +330,135 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
 
 function split_origin_data(originalDATA) {
 
-    var linesArray = [];
-    var startPOS = 0;
-    var dataLength = originalDATA.length;
+    switch (ruleTplType[currentRulesetID]) {
+        case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
-    var headStartIndex = 0;
-    for (var index in new_rule) {
-        var subject = new_rule[index]['Subject'];
-        if (subject === 'BodyTitle') {
-            var headEndIndex = index - 1;
-            var bodyStartIndex = index;
+            return [];
+
+            break;
+
+        case 'B':   //has HeadTitle, has BodyTitle, no TailTitle
+
+        var linesArray = [];
+        var startPOS = 0;
+        var bodyCount = 0;
+        var dataLength = originalDATA.length;
+
+        var headStartIndex = 0;
+        for (var index in new_rule) {
+            var subject = new_rule[index]['Subject'];
+            if (subject === 'BodyTitle') {
+                var headEndIndex = index - 1;
+                var bodyStartIndex = index;
+            }
         }
-    }
-    var bodyEndIndex = new_rule.length - 1;
+        var bodyEndIndex = new_rule.length - 1;
 
-    for (var i = 0; i <= headEndIndex; i++) {
-
-        var subject = new_rule[i]['Subject'];
-        var length = new_rule[i]['Length'];
-        var exp = new_rule[i]['Exp'];
-        var obj = new_rule[i];
-
-        obj.Data = originalDATA.substring(startPOS, startPOS + length);
-        linesArray.push(obj);
-        startPOS += length;
-
-    }
-
-    while (startPOS < dataLength) {
-
-        for (var i = bodyStartIndex; i <= bodyEndIndex; i++) {
+        for (var i = 0; i <= headEndIndex; i++) {
 
             var subject = new_rule[i]['Subject'];
             var length = new_rule[i]['Length'];
-            var obj = {};
-            for (var key in new_rule[i]) {
-                obj[key] = new_rule[i][key];
-            }
+            var exp = new_rule[i]['Exp'];
+            var obj = new_rule[i];
+
             obj.Data = originalDATA.substring(startPOS, startPOS + length);
             linesArray.push(obj);
             startPOS += length;
 
         }
+
+        while (startPOS < dataLength) {
+            bodyCount ++;
+            for (var i = bodyStartIndex; i <= bodyEndIndex; i++) {
+
+                var subject = new_rule[i]['Subject'];
+                var length = new_rule[i]['Length'];
+                var obj = {};
+                for (var key in new_rule[i]) {
+                    obj[key] = new_rule[i][key];
+                }
+                obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                linesArray.push(obj);
+                startPOS += length;
+
+            }
+
+        }
+
+            break;
+
+        case 'C':   //has HeadTitle, has BodyTitle, has TailTitle
+
+        var linesArray = [];
+        var startPOS = 0;
+        var dataLength = originalDATA.length;
+        var bodyCount = 0;
+        var bodyLength = 0;
+
+        var headStartIndex = 0;
+        for (var index in new_rule) {
+            var subject = new_rule[index]['Subject'];
+            if (subject === 'BodyTitle') {
+                var headEndIndex = index - 1;
+                var bodyStartIndex = index;
+            }
+            if (subject === 'TailTitle') {
+                var bodyEndIndex = index - 1;
+                var tailStartIndex = index;
+            }
+        }
+        var tailEndIndex = new_rule.length - 1;
+
+        for (var i = 0; i <= headEndIndex; i++) {
+
+            var subject = new_rule[i]['Subject'];
+            var length = new_rule[i]['Length'];
+            var exp = new_rule[i]['Exp'];
+            var obj = new_rule[i];
+
+            obj.Data = originalDATA.substring(startPOS, startPOS + length);
+            linesArray.push(obj);
+            startPOS += length;
+
+        }
+
+        while (startPOS < dataLength && dataLength-startPOS > bodyLength) {
+            bodyCount ++;
+            for (var i = bodyStartIndex; i <= bodyEndIndex; i++) {
+
+                var subject = new_rule[i]['Subject'];
+                var length = new_rule[i]['Length'];
+                if(bodyCount === 1) bodyLength += length;
+                var obj = {};
+                for (var key in new_rule[i]) {
+                    obj[key] = new_rule[i][key];
+                }
+                obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                linesArray.push(obj);
+                startPOS += length;
+
+            }
+
+        }
+
+        for (var i = tailStartIndex; i <= tailEndIndex; i++) {
+
+            var subject = new_rule[i]['Subject'];
+            var length = new_rule[i]['Length'];
+            var exp = new_rule[i]['Exp'];
+            var obj = new_rule[i];
+
+            obj.Data = originalDATA.substring(startPOS, startPOS + length);
+            linesArray.push(obj);
+            startPOS += length;
+
+        }
+
+            break;
+
+        default:
+
+            return [];
 
     }
 
@@ -455,7 +556,7 @@ function build_tpl(linesArray) {
         lineHtml += '<span class="lineNumber">' + lineNumText + '</span>';
 
         //************************line content span ********************************
-        if ($('.checkContent').prop('checked')) {
+        if ($('.checkExp').prop('checked')) {
 
             if (childRule !== null && childRule !== '') {
                 lineHtml += '<span class="description" style="display:inline-block;">\

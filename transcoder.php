@@ -94,7 +94,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 
                     <div id="form-title-div">
                         <div class="checkbox">
-                            <label><input class="checkContent" type="checkbox" value="" checked>Content</label>
+                            <label><input class="checkExp" type="checkbox" value="" checked>Expression</label>
                             <label><input class="checktransCode" type="checkbox" value="" checked>Transcode</label>
                             <label><input class="checktranscodeRule" type="checkbox" value="">Rule</label>
                         </div>
