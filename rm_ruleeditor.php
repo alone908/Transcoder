@@ -64,7 +64,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                 if($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
 
-                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle'){ ?>
+                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle' || $row['Subject'] === 'TailTitle'){ ?>
 
                             <div id="<?php echo $row['id'];?>" class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
@@ -78,11 +78,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                 <span class="TranscodeRule editor_line_span" style="width:20%;"></span>
                                 <span class="editor_line_span">
 					                <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
-                                    <?php if($row['Subject'] === 'Blank'){ ?>
                                     <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
-                                    <?php
-                                    }
-                                    ?>
                                 </span>
 
                             </div>

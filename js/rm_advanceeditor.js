@@ -27,9 +27,9 @@ $(document).ready(function(){
     $( "#rule_row_container" ).disableSelection();
 
     $('.rule_row').hover(function(){
-        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#e6e6e6');
+        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color','#e6e6e6');
     },function(){
-        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#fff');
+        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color','#fff');
     })
 
     $('.detail_btn').on('click',function(e){ detail_btn_event(e,$(this)); })
@@ -71,7 +71,7 @@ function end_sorting_color(event,ui){
     var subject = ui.item[0].dataset.subject;
     if(subject === 'Blank'){
         $(ui.item).css('background-color','#d9edf7');
-    }else if (subject === 'HeadTitle' || subject === 'BodyTitle') {
+    }else if (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle') {
         $(ui.item).css('background-color','#B2E0F7');
     }else {
         $(ui.item).css('background-color','#fff');
@@ -186,9 +186,9 @@ function insert_row(id,linenumber,type,position){
     $('.del_btn').off('click').on('click',function(e){ del_btn_event(e,$(this)); })
 
     $('.rule_row').hover(function(){
-        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#e6e6e6');
+        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color','#e6e6e6');
     },function(){
-        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color','#fff');
+        if($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color','#fff');
     })
 
 }

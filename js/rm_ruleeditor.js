@@ -39,9 +39,9 @@ $(document).ready(function () {
     $("#rule_row_container").disableSelection();
 
     $('.rule_row').hover(function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color', '#e6e6e6');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#e6e6e6');
     }, function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color', '#fff');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#fff');
     })
 
     $('.detail_btn').on('click', function (e) {
@@ -89,7 +89,7 @@ function end_sorting_color(event, ui) {
     var subject = ui.item[0].dataset.subject;
     if (subject === 'Blank') {
         $(ui.item).css('background-color', '#d9edf7');
-    } else if (subject === 'HeadTitle' || subject === 'BodyTitle') {
+    } else if (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle') {
         $(ui.item).css('background-color', '#B2E0F7');
     } else {
         $(ui.item).css('background-color', '#fff');
@@ -125,6 +125,60 @@ function insert_row(id, linenumber, type, position) {
     tempID++;
 
     linenumber = (position === 'before') ? linenumber : linenumber + 1;
+
+    if(type === 'head'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="HeadTitle">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表頭==</span>\
+            <span class="Length editor_line_span" style="width:10%;">0</span>\
+            <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+            <span class="LSB editor_line_span" style="width:5%;"></span>\
+            <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+            <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>\
+        </div>')
+    }
+
+    if(type === 'body'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="BodyTitle">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表身==</span>\
+            <span class="Length editor_line_span" style="width:10%;">0</span>\
+            <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+            <span class="LSB editor_line_span" style="width:5%;"></span>\
+            <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+            <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>\
+        </div>')
+    }
+
+    if(type === 'tail'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="TailTitle">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表尾==</span>\
+            <span class="Length editor_line_span" style="width:10%;">0</span>\
+            <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+            <span class="LSB editor_line_span" style="width:5%;"></span>\
+            <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+            <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>\
+        </div>')
+    }
 
     if(type === 'blank'){
         var insertRow = $('\
@@ -178,9 +232,9 @@ function insert_row(id, linenumber, type, position) {
     })
 
     $('.rule_row').hover(function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color', '#e6e6e6');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#e6e6e6');
     }, function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle') $(this).css('background-color', '#fff');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#fff');
     })
 
 }

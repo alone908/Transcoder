@@ -63,7 +63,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                 if($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
 
-                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle'){ ?>
+                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle' || $row['Subject'] === 'TailTitle'){ ?>
 
                             <div id="<?php echo $row['id'];?>" class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
