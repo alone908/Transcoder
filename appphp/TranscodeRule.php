@@ -36,7 +36,7 @@ switch ($_POST['op']) {
 
                 $LSB = ($row['LSB'] === 'true') ? true : false;
                 $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
-                $TranscodeRule = explode(',', $row['TranscodeRule']);
+                $TranscodeRule = ($row['TranscodeRule'] !== null && $row['TranscodeRule'] !== '') ? explode(',', $row['TranscodeRule']) : [];
                 $OnlyShowInBody = ($row['OnlyShowInBody'] !== null && $row['OnlyShowInBody'] !== '') ? explode(',', $row['OnlyShowInBody']) : [];
 
                 $JumpRuleCondition = [];
@@ -44,7 +44,7 @@ switch ($_POST['op']) {
                     $Conditions = explode(';',$row['JumpRuleCondition']);
                     foreach ($Conditions as $key => $condi){
                         $factor = explode('-',$condi);
-                        $JumpRuleCondition[] = ['KeyValue'=>$factor[0],'StartLine'=>$factor[1],'JumpToRule'=>$factor[2]];
+                        $JumpRuleCondition[] = ['KeyLine'=>$factor[0],'KeyValue'=>$factor[1],'JumpToRule'=>$factor[2]];
                     }
                 }
 

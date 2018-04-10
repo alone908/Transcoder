@@ -1,4 +1,4 @@
-var new_rule, ruleList, ruleTplType={}, defaultRuleSetID = 1, currentRulesetID= 1;
+var new_rule, ruleList, jump_rule, ruleTplType={}, defaultRuleSetID = 1, currentRulesetID= 1;
 
 get_rule_list();
 
@@ -26,6 +26,7 @@ $(document).ready(function () {
             $('#rule-title-li').text('Transcoder - ' + ruleList[selectedRuleID]['RuleName']);
             var script = 'new_rule = ' + ruleList[selectedRuleID]['RuleVar'];
             eval(script);
+            console.log(new_rule);
         }
     });
 
@@ -271,11 +272,12 @@ function check_rule_tpl_type(ruleSetID,ruleObj){
     var tplType = 'unknown', tpl = [];
     for (var index in ruleObj) {
         var subject = ruleObj[index]['Subject'];
-        if (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle') {tpl.push(subject)}
+        if (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle'  || subject === 'JumpToRule') {tpl.push(subject)}
     }
     if(tpl.length === 0){ tplType = 'A' }
     else if(tpl.length === 2 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle'){ tplType = 'B' }
-    else if(tpl.length === 3 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle'  && tpl[2] === 'TailTitle'){ tplType = 'C' }
+    else if(tpl.length === 3 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle' && tpl[2] === 'TailTitle'){ tplType = 'C' }
+    else if(tpl.length === 4 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle' && tpl[2] === 'JumpToRule' && tpl[3] === 'TailTitle'){ tplType = 'D' }
 
     ruleTplType[ruleSetID] = tplType;
 }
@@ -329,7 +331,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
 }
 
 function split_origin_data(originalDATA) {
-    
+    console.log(ruleTplType[currentRulesetID]);
     switch (ruleTplType[currentRulesetID]) {
         case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
@@ -363,7 +365,7 @@ function split_origin_data(originalDATA) {
         var startPOS = 0;
         var bodyCount = 0;
         var dataLength = originalDATA.length;
-        
+
         var headStartIndex = 0;
         for (var index in new_rule) {
             var subject = new_rule[index]['Subject'];
@@ -482,6 +484,109 @@ function split_origin_data(originalDATA) {
 
             break;
 
+        case 'D':
+
+        var linesArray = [];
+        var startPOS = 0;
+        var dataLength = originalDATA.length;
+        var bodyCount = 0;
+        var bodyLength = 0;
+        var markedValue = {};
+
+        var headStartIndex = 0;
+        for (var index in new_rule) {
+            var subject = new_rule[index]['Subject'];
+            if (subject === 'BodyTitle') {
+                var headEndIndex = index - 1;
+                var bodyStartIndex = index;
+            }
+            if (subject === 'JumpToRule') {
+                var jumpRuleCondition = new_rule[index]['JumpRuleCondition'];
+                if(jumpRuleCondition.length !== 0){
+                    markedValue[jumpRuleCondition[0]['KeyLine']] = -1
+                }
+            }
+            if (subject === 'TailTitle') {
+                var bodyEndIndex = index - 1;
+                var tailStartIndex = index;
+            }
+        }
+        var tailEndIndex = new_rule.length - 1;
+
+        for (var i = 0; i <= headEndIndex; i++) {
+
+            var subject = new_rule[i]['Subject'];
+            var length = new_rule[i]['Length'];
+            var exp = new_rule[i]['Exp'];
+            var obj = new_rule[i];
+
+            obj.Data = originalDATA.substring(startPOS, startPOS + length);
+            linesArray.push(obj);
+            startPOS += length;
+
+        }
+
+        while (startPOS < dataLength && dataLength-startPOS > bodyLength) {
+            bodyCount ++;
+            var totalLineNumberAdust = 0;
+            for (var i = bodyStartIndex; i <= bodyEndIndex; i++) {
+
+                var subject = new_rule[i]['Subject'];
+                var length = new_rule[i]['Length'];
+                if(bodyCount === 1) bodyLength += length;
+                var obj = {};
+
+                if(subject === 'JumpToRule'){
+                    var jumpRuleCondition = new_rule[i]['JumpRuleCondition'];
+                    var jumpToRule;
+                    for(var k = 0; k < jumpRuleCondition.length; k++){
+                        var keyLine = jumpRuleCondition[k]['KeyLine'];
+                        var keyValue = jumpRuleCondition[k]['KeyValue'];
+                        if(markedValue[keyLine] === keyValue){
+                            jumpToRule = jumpRuleCondition[k]['JumpToRule'];
+                            break;
+                        }
+                    }
+                    var returnData = apply_jump_rule(originalDATA,jumpToRule,linesArray,startPOS,bodyCount,new_rule[i]['LineNumber']);
+                    linesArray = returnData.linesArray;
+                    startPOS = returnData.startPOS;
+                    totalLineNumberAdust += returnData.lineNumberAdust;
+                    continue;
+                }
+
+                if(new_rule[i]['OnlyShowInBody'].indexOf(bodyCount.toString()) !== -1 || new_rule[i]['OnlyShowInBody'].length === 0){
+                    for (var key in new_rule[i]) {
+                        obj[key] = new_rule[i][key];
+                    }
+                    obj.LineNumber = (parseInt(obj.LineNumber)+totalLineNumberAdust).toString();
+                    obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                    linesArray.push(obj);
+                    startPOS += length;
+                    if(typeof markedValue[i+1] !== 'undefined'){
+                        markedValue[i+1] = transcode_single_data(obj.Data,obj.TranscodeRule);
+                    }
+                }
+
+            }
+
+        }
+        console.log(markedValue);
+        console.log(linesArray);
+        for (var i = tailStartIndex; i <= tailEndIndex; i++) {
+
+            var subject = new_rule[i]['Subject'];
+            var length = new_rule[i]['Length'];
+            var exp = new_rule[i]['Exp'];
+            var obj = new_rule[i];
+
+            obj.Data = originalDATA.substring(startPOS, startPOS + length);
+            linesArray.push(obj);
+            startPOS += length;
+
+        }
+
+            break;
+
         default:
 
             return [];
@@ -490,6 +595,39 @@ function split_origin_data(originalDATA) {
 
     return linesArray;
 
+}
+
+function apply_jump_rule(originalDATA,ruleSetID,linesArray,startPOS,bodyCount,startLineNumber){
+    var script = 'jump_rule = ' + ruleList[ruleSetID]['RuleVar'];
+    eval(script);
+
+    for (var i = 0; i < jump_rule.length; i++) {
+
+        var obj = {};
+        var length = jump_rule[i]['Length'];
+
+        if(jump_rule[i]['OnlyShowInBody'].indexOf(bodyCount.toString()) !== -1 || jump_rule[i]['OnlyShowInBody'].length === 0){
+            for (var key in jump_rule[i]) {
+                obj[key] = jump_rule[i][key];
+            }
+            obj.LineNumber = (parseInt(startLineNumber)+i).toString();
+            obj.Data = originalDATA.substring(startPOS, startPOS + length);
+            linesArray.push(obj);
+            startPOS += length;
+
+        }
+
+    }
+
+    return {linesArray:linesArray,startPOS:startPOS,lineNumberAdust:jump_rule.length-1}
+}
+
+function transcode_single_data(data,transcodeRule){
+    if(transcodeRule.length === 0){return data}
+    transcodeRule.forEach(function (rule, index) {
+        data = transcode_basedon_rule(rule, data);
+    })
+    return data
 }
 
 function build_tpl(linesArray) {
@@ -609,21 +747,25 @@ function build_tpl(linesArray) {
 
         //************************line transCode span ******************************
         if ($('.checktransCode').prop('checked')) {
-            if (transCode === null) {
-                if(subject === 'BodyTitle'){
+            if (transCode === '') {
+                if(subject === 'HeadTitle' || subject === 'TailTitle' || subject === 'JumpToRule'){
+                    lineHtml += '<span class="blankspan" style="display:inline;">' + exp + '</span>';
+                }else if (subject === 'BodyTitle') {
                     lineHtml += '<span class="blankspan" style="display:inline;">==表身 (no. ' + bodyCount + ' )==</span>';
                 }else {
-                    lineHtml += '<span class="blankspan" style="display:inline;">' + exp + '</span>';
+                    lineHtml += '<span class="transCode" style="display:inline;">' + sourceData + '</span>';
                 }
             } else {
                 lineHtml += '<span class="transCode" style="display:inline;">' + transCode + '</span>';
             }
         } else {
-            if (transCode === null) {
-                if(subject === 'BodyTitle'){
+            if (transCode === '') {
+                if(subject === 'HeadTitle' || subject === 'TailTitle' || subject === 'JumpToRule'){
+                    lineHtml += '<span class="blankspan" style="display:inline;">' + exp + '</span>';
+                }else if (subject === 'BodyTitle') {
                     lineHtml += '<span class="blankspan" style="display:inline;">==表身 (no. ' + bodyCount + ' )==</span>';
                 }else {
-                    lineHtml += '<span class="blankspan" style="display:none;">' + exp + '</span>';
+                    lineHtml += '<span class="transCode" style="display:none;">' + sourceData + '</span>';
                 }
             } else {
                 lineHtml += '<span class="transCode" style="display:none;">' + transCode + '</span>';
