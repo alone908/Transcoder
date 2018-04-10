@@ -39,6 +39,15 @@ switch ($_POST['op']) {
                 $TranscodeRule = explode(',', $row['TranscodeRule']);
                 $OnlyShowInBody = ($row['OnlyShowInBody'] !== null && $row['OnlyShowInBody'] !== '') ? explode(',', $row['OnlyShowInBody']) : [];
 
+                $JumpRuleCondition = [];
+                if($row['JumpRuleCondition'] !== null && $row['JumpRuleCondition'] !== ''){
+                    $Conditions = explode(';',$row['JumpRuleCondition']);
+                    foreach ($Conditions as $key => $condi){
+                        $factor = explode('-',$condi);
+                        $JumpRuleCondition[] = ['KeyValue'=>$factor[0],'StartLine'=>$factor[1],'JumpToRule'=>$factor[2]];
+                    }
+                }
+
                 $new_rule[] = ['Subject' => $row['Subject'],
                     'LineNumber' => $row['LineNumber'],
                     'Content' => $row['Content'],
@@ -52,7 +61,8 @@ switch ($_POST['op']) {
                     'PreConditionLine' => $row['PreConditionLine'],
                     'ChildRule' => $row['ChildRule'],
                     'Condition' => $row['Condition'],
-                    'OnlyShowInBody' => $OnlyShowInBody];
+                    'OnlyShowInBody' => $OnlyShowInBody,
+                    'JumpRuleCondition'=> $JumpRuleCondition];
             }
         } else {
 

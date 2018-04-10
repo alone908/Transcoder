@@ -257,6 +257,7 @@ function get_rule_obj(RuleSetID, RuleVar) {
             if (Number(RuleSetID) === defaultRuleSetID) {
                 var script = 'new_rule = ' + RuleVar + ';';
                 eval(script);
+                console.log(new_rule);
             }
             check_rule_tpl_type(RuleSetID.toString(),data.new_rule);
         },
@@ -267,16 +268,14 @@ function get_rule_obj(RuleSetID, RuleVar) {
 }
 
 function check_rule_tpl_type(ruleSetID,ruleObj){
-    var tplType = 'unknown', hasHead = false, hasBody = false, hasTail = false;
+    var tplType = 'unknown', tpl = [];
     for (var index in ruleObj) {
         var subject = ruleObj[index]['Subject'];
-        if (subject === 'HeadTitle') {hasHead = true;}
-        if (subject === 'BodyTitle') {hasBody = true;}
-        if (subject === 'TailTitle') {hasTail = true;}
+        if (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle') {tpl.push(subject)}
     }
-    if(!hasHead && !hasBody && !hasTail){ tplType = 'A' }
-    if(hasHead && hasBody && !hasTail){ tplType = 'B' }
-    if(hasHead && hasBody && hasTail){ tplType = 'C' }
+    if(tpl.length === 0){ tplType = 'A' }
+    else if(tpl.length === 2 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle'){ tplType = 'B' }
+    else if(tpl.length === 3 && tpl[0] === 'HeadTitle' && tpl[1] === 'BodyTitle'  && tpl[2] === 'TailTitle'){ tplType = 'C' }
 
     ruleTplType[ruleSetID] = tplType;
 }
@@ -330,7 +329,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
 }
 
 function split_origin_data(originalDATA) {
-
+    
     switch (ruleTplType[currentRulesetID]) {
         case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
