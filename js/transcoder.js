@@ -364,7 +364,7 @@ function split_origin_data(originalDATA) {
         var startPOS = 0;
         var bodyCount = 0;
         var dataLength = originalDATA.length;
-
+        
         var headStartIndex = 0;
         for (var index in new_rule) {
             var subject = new_rule[index]['Subject'];

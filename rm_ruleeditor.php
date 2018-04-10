@@ -76,6 +76,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                 <span class="LSB editor_line_span" style="width:5%;"></span>
                                 <span class="UnixTime editor_line_span" style="width:10%;"></span>
                                 <span class="TranscodeRule editor_line_span" style="width:20%;"></span>
+                                <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>
                                 <span class="editor_line_span">
 					                <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                                     <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
@@ -97,10 +98,12 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                 <input class="LSB editor_line_input" type="text" style="width:5%;" value="<?php echo $row['LSB'];?>"></input>
                                 <input class="UnixTime editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
                                 <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
+                                <input class="OnlyShowInBody editor_line_input" type="hidden" style="width:20%;" value="<?php echo $row['OnlyShowInBody'];?>"></input>
                                 <span class="editor_line_span">
 				                    <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
 				                    <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
-				                    <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
+				                    <button class="btn btn-sm-black set_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#setRowModal">&nbsp;<i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;</button>
+                                    <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
 				                </span>
                                 <br>
                                 <div id="detail_<?php echo $row['id'];?>" style="display:none;height:225px;padding-left:75px;background-color:#f5f5f5;">

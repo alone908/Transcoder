@@ -37,7 +37,7 @@ switch ($_POST['op']) {
                 $LSB = ($row['LSB'] === 'true') ? true : false;
                 $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
                 $TranscodeRule = explode(',', $row['TranscodeRule']);
-                $OnlyShowInBody = ($row['OnlyShowInBody'] !== null) ? explode(',', $row['OnlyShowInBody']) : [];
+                $OnlyShowInBody = ($row['OnlyShowInBody'] !== null && $row['OnlyShowInBody'] !== '') ? explode(',', $row['OnlyShowInBody']) : [];
 
                 $new_rule[] = ['Subject' => $row['Subject'],
                     'LineNumber' => $row['LineNumber'],

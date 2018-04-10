@@ -52,6 +52,15 @@ $(document).ready(function () {
         insert_btn_event(e, $(this));
     })
 
+    $('.set_btn').on('click', function (e) {
+        set_btn_event(e, $(this));
+    })
+
+    $('#setrow_btn').on('click', function (e) {
+        $('#setRowModal').modal('hide');
+        $('#' + $(this).data('id') + ' .OnlyShowInBody').val($('#OnlyShowInBody').val())
+    })
+
     $('#insert').on('click', function (e) {
         if ($('input[name=position]:checked').length === 0) {
             $('#insert_err').html('Please select position.');
@@ -102,6 +111,7 @@ function sort_linenumber(event, ui) {
         $('#' + $(this).attr('id') + ' .LineNumber').html(index + 1);
         $('#' + $(this).attr('id') + ' .insert_btn').attr('data-linenumber', index + 1);
         $('#' + $(this).attr('id') + ' .del_btn').attr('data-linenumber', index + 1);
+        $('#' + $(this).attr('id') + ' .set_btn').attr('data-linenumber', index + 1);
         // $('#detail_'+$(this).attr('id')+' .detail_linenumber').html('LineNumber : '+(index+1).toString());
     })
 }
@@ -118,6 +128,11 @@ function insert_btn_event(e, ele) {
 function del_btn_event(e, ele) {
     $('#del_row').data('id', ele.data('id'));
     $('#del_row').data('linenumber', ele.data('linenumber'));
+}
+
+function set_btn_event(e, ele) {
+    $('#setrow_btn').data('id', ele.data('id'));
+    $('#OnlyShowInBody').val($('#' + ele.data('id') + ' .OnlyShowInBody').val());
 }
 
 function insert_row(id, linenumber, type, position) {
@@ -137,6 +152,7 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -155,6 +171,7 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -173,6 +190,7 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -191,6 +209,7 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -209,9 +228,11 @@ function insert_row(id, linenumber, type, position) {
             <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
             <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
             <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" style="width:20%;" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black set_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#setRowModal"> <i class="fa fa-cogs" aria-hidden="true"></i> </button>\
             </span>')
     }
 
@@ -225,6 +246,10 @@ function insert_row(id, linenumber, type, position) {
 
     $('.insert_btn').off('click').on('click', function (e) {
         insert_btn_event(e, $(this));
+    })
+
+    $('.set_btn').on('click', function (e) {
+        set_btn_event(e, $(this));
     })
 
     $('.del_btn').off('click').on('click', function (e) {
@@ -319,6 +344,12 @@ function get_row_value(id, del) {
         var TranscodeRule = $('#' + id + ' .TranscodeRule').val();
     }
 
+    if ($('#' + id + ' .OnlyShowInBody').prop('tagName') === 'SPAN') {
+        var OnlyShowInBody = $('#' + id + ' .OnlyShowInBody').html();
+    } else if ($('#' + id + ' .OnlyShowInBody').prop('tagName') === 'INPUT') {
+        var OnlyShowInBody = $('#' + id + ' .OnlyShowInBody').val();
+    }
+
     return {
         op: op,
         id: id,
@@ -329,7 +360,8 @@ function get_row_value(id, del) {
         DataCoding: DataCoding,
         LSB: LSB,
         UnixTime: UnixTime,
-        TranscodeRule: TranscodeRule
+        TranscodeRule: TranscodeRule,
+        OnlyShowInBody: OnlyShowInBody
     }
 
 }

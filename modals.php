@@ -266,6 +266,31 @@ if (!isset($_SESSION)) {
     </div>
 </div>
 
+<!-- Set Row Modal -->
+<div class="modal fade bs-example-modal-lg" id="setRowModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">More Settings</span>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="OnlyShowInBody" class="col-sm-2 col-form-label" style="margin-top: 5px; width: 180px;">Only Show In Body:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="OnlyShowInBody" placeholder="Body number: 1,2,3">
+                        </div>
+                    </div>
+                </form>
+                <span id="setrow_err_text" style="font-size:10px;color:red;"></span>
+            </div>
+            <div class="modal-footer">
+                <button id="setrow_btn" type="button" class="btn btn-lg-black" data-id="">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Delete Rule Row Modal -->
 <div class="modal fade" id="delRowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">

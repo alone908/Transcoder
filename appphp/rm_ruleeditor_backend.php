@@ -25,10 +25,9 @@ switch ($_POST['op']) {
                     $content = $rule_row['Exp'];
 
                     $query = "INSERT INTO
-                    transcoderule(RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked)
+                    transcoderule(RuleSetID,RuleName,RuleType,RuleVar,LineNumber,Subject,Content,Exp,Length,DataCoding,LSB,UnixTime,TranscodeRule,CreateTime,Marked,OnlyShowInBody)
                     VALUES (" . $_POST['rulesetid'] . ",'" . $rule_name . "','" . $rule_type . "','" . $rule_var . "'," . $rule_row['LineNumber'] . ",
-                    '" . $rule_row['Subject'] . "','" . $content . "','" . $rule_row['Exp'] . "'," . $rule_row['Length'] . ",'" . $rule_row['DataCoding'] . "','" . $rule_row['LSB'] . "','" . $rule_row['UnixTime'] . "','" . $rule_row['TranscodeRule'] . "','" . $localTime . "',
-                    'false')";
+                    '" . $rule_row['Subject'] . "','" . $content . "','" . $rule_row['Exp'] . "'," . $rule_row['Length'] . ",'" . $rule_row['DataCoding'] . "','" . $rule_row['LSB'] . "','" . $rule_row['UnixTime'] . "','" . $rule_row['TranscodeRule'] . "','" . $localTime . "','false','" . $rule_row['OnlyShowInBody'] . "')";
 
                     $conn->query('SET NAMES UTF8');
                     $conn->query($query);
@@ -38,7 +37,7 @@ switch ($_POST['op']) {
                 case 'update':
 
                     $query = "UPDATE transcoderule SET LineNumber=" . $rule_row['LineNumber'] . ",Exp='" . $rule_row['Exp'] . "',Length=" . $rule_row['Length'] . ",DataCoding='" . $rule_row['DataCoding'] . "',
-                    LSB='" . $rule_row['LSB'] . "',UnixTime='" . $rule_row['UnixTime'] . "',TranscodeRule='" . $rule_row['TranscodeRule'] . "',CreateTime='" . $localTime . "' WHERE id=" . $rule_row['id'];
+                    LSB='" . $rule_row['LSB'] . "',UnixTime='" . $rule_row['UnixTime'] . "',TranscodeRule='" . $rule_row['TranscodeRule'] . "',CreateTime='" . $localTime . "',OnlyShowInBody='" . $rule_row['OnlyShowInBody'] . "' WHERE id=" . $rule_row['id'];
 
                     $conn->query('SET NAMES UTF8');
                     $conn->query($query);
