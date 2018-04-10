@@ -334,7 +334,27 @@ function split_origin_data(originalDATA) {
     switch (ruleTplType[currentRulesetID]) {
         case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
-            return [];
+        var linesArray = [];
+        var startPOS = 0;
+        var dataLength = originalDATA.length;
+
+        while (startPOS < dataLength) {
+
+            for (var i = 0; i < new_rule.length; i++) {
+
+                var subject = new_rule[i]['Subject'];
+                var length = new_rule[i]['Length'];
+                var obj = {};
+                for (var key in new_rule[i]) {
+                    obj[key] = new_rule[i][key];
+                }
+                obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                linesArray.push(obj);
+                startPOS += length;
+
+            }
+
+        }
 
             break;
 
@@ -878,7 +898,7 @@ function listRecords() {
         dataType: "json",
         success: function (data) {
             data.Records.forEach(function (record, index) {
-                var num = index + 1;                
+                var num = index + 1;
                 var ruleName = (record.RuleSetID !== '-1') ? ruleList[record.RuleSetID]['RuleName'] : '';
                 $('.record-table tbody').append('<tr>\
                                     <td>' + num + '</td>\
