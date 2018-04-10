@@ -83,7 +83,7 @@ function get_rule_list() {
 function select_rule(e, ele) {
 
     var RuleSetID = ele.data('rulesetid');
-    currentRulesetID = RuleSetID;
+    currentRuleSetID = RuleSetID;
 
     $('#rule-list-table-main > tbody > tr').removeClass('info');
     $('#rule-list-table-sub > tbody > tr').removeClass('info');
@@ -190,7 +190,7 @@ function edit_rule_name(rulesetid) {
             data: {op: 'edit_rule_name', rulesetid: rulesetid, rulename: $('#rule_name').val()},
             dataType: "json",
             success: function (data) {
-                window.location = 'rm_rulelist.php?rulesetid=' + currentRulesetID;
+                window.location = 'rm_rulelist.php?rulesetid=' + currentRuleSetID;
             },
             error: function (requestObject, error, errorThrown) {
                 $('#loader').css('display', 'none');

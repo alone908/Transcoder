@@ -17,7 +17,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- load the d3.js library -->
 <script src="appjs/d3.min.js"></script>
-<script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
+<script>var currentRuleSetID=<?php echo $current_ruleset_id; ?></script>
 
 <style>
 

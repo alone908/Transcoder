@@ -21,7 +21,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
-<script>var currentRulesetID=<?php echo $current_ruleset_id; ?></script>
+<script>var currentRuleSetID=<?php echo $current_ruleset_id; ?></script>
 <script src="js/rm_brancheditor.js"></script>
 
 <div id="wrapper">

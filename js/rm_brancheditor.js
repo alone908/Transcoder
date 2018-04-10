@@ -8,7 +8,7 @@ $(document).ready(function(){
 
     $('#rule_selector').ruleSelector({
         SelectedCallback: function (rulelist, selectedRuleID) {
-            currentRulesetID = selectedRuleID;
+            currentRuleSetID = selectedRuleID;
             window.location = 'rm_brancheditor.php?rulesetid=' + selectedRuleID;
         }
     });
@@ -58,7 +58,7 @@ $(document).ready(function(){
     $.ajax({
         type: 'POST',
         url: "appphp/rm_brancheditor_backend.php",
-        data: {op:'get_branch',rulesetid:currentRulesetID},
+        data: {op:'get_branch',rulesetid:currentRuleSetID},
         dataType: "json",
         success: function (data) {
 
@@ -185,7 +185,7 @@ function save_branch(){
     $.ajax({
         type: 'POST',
         url: "appphp/rm_brancheditor_backend.php",
-        data: {op:'save_branch',branch:branch,rulesetid:currentRulesetID},
+        data: {op:'save_branch',branch:branch,rulesetid:currentRuleSetID},
         dataType: "json",
         success: function (data) {
             location.reload();

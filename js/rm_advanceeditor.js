@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     $('#rule_selector').ruleSelector({
         SelectedCallback:function(rulelist,selectedRuleID){
-            currentRulesetID = selectedRuleID;
+            currentRuleSetID = selectedRuleID;
             window.location = 'rm_advanceeditor.php?rulesetid=' + selectedRuleID;
         }
     });
@@ -126,7 +126,7 @@ function insert_row(id,linenumber,type,position){
       </div>').insertBefore('#'+id);
         }else if (type === 'regular') {
             $('\
-      <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRulesetID+'_'+linenumber+'">\
+      <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRuleSetID+'_'+linenumber+'">\
         <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
         <input class="Subject editor_line_input" type="text" style="width:15%;" value=""></input>\
@@ -161,7 +161,7 @@ function insert_row(id,linenumber,type,position){
       </div>').insertAfter('#'+id);
         }else if (type === 'regular') {
             $('\
-      <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRulesetID+'_'+linenumber+'">\
+      <div id="temp_'+tempID+'" class="rule_row" data-subject="RuleSet_'+currentRuleSetID+'_'+linenumber+'">\
         <!-- <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span> -->\
         <span class="LineNumber editor_line_span" style="width:50px;">'+linenumber+'</span>\
         <input class="Subject editor_line_input" type="text" style="width:15%;" value=""></input>\
@@ -209,7 +209,7 @@ function save_rule_table(){
     $.ajax({
         type: 'POST',
         url: "appphp/rm_advanceeditor_backend.php",
-        data: {op:'save_rule_table',rulesetid:currentRulesetID,ruleTable:ruleTable},
+        data: {op:'save_rule_table',rulesetid:currentRuleSetID,ruleTable:ruleTable},
         dataType: "json",
         success: function (data) {
             location.reload();

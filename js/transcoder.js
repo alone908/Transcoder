@@ -1,4 +1,4 @@
-var new_rule, ruleList, jump_rule, ruleTplType={}, defaultRuleSetID = 1, currentRulesetID= 1;
+var new_rule, ruleList, jump_rule, ruleTplType={}, defaultRuleSetID = 1, currentRuleSetID= 1;
 
 get_rule_list();
 
@@ -10,19 +10,8 @@ $(document).ready(function () {
     $('#rule_selector').ruleSelector({
         RuleType:'MainRule',
         SelectedCallback:function(rulelist,selectedRuleID){
-            currentRulesetID = selectedRuleID;
-
-            $('#rule-list-table > tbody > tr').removeClass('info');
-            $('#rule-list-table > tbody > tr').each(function(index,tr){
-                if($(this).data('rulesetid').toString() === selectedRuleID ){
-                    $(this).addClass('info');
-                }
-            })
-
-            $('#rule-info').html('');
-            for (var key in ruleList[selectedRuleID]) {
-                $('#rule-info').append('<span style="font-size:18px">' + key + ' : ' + ruleList[selectedRuleID][key] + '</span><br>');
-            }
+            currentRuleSetID = parseInt(selectedRuleID);
+            update_rule_tab(selectedRuleID);
             $('#rule-title-li').text('Transcoder - ' + ruleList[selectedRuleID]['RuleName']);
             var script = 'new_rule = ' + ruleList[selectedRuleID]['RuleVar'];
             eval(script);
@@ -209,6 +198,20 @@ $(document).ready(function () {
 
 })
 
+function update_rule_tab(selectedRuleID){
+    $('#rule-list-table > tbody > tr').removeClass('info');
+    $('#rule-list-table > tbody > tr').each(function(index,tr){
+        if($(this).data('rulesetid').toString() == selectedRuleID ){
+            $(this).addClass('info');
+        }
+    })
+
+    $('#rule-info').html('');
+    for (var key in ruleList[selectedRuleID]) {
+        $('#rule-info').append('<span style="font-size:18px">' + key + ' : ' + ruleList[selectedRuleID][key] + '</span><br>');
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 function select_rule(e, ele) {
     $('#rule-list-table > tbody > tr').removeClass('info');
@@ -314,7 +317,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
             op: 'insert_record',
             sourceData: originalDATA,
             transCodeLog: data.lineLog,
-            ruleSetID: currentRulesetID
+            ruleSetID: currentRuleSetID
         }
 
         $.ajax({
@@ -331,8 +334,8 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
 }
 
 function split_origin_data(originalDATA) {
-    console.log(ruleTplType[currentRulesetID]);
-    switch (ruleTplType[currentRulesetID]) {
+    console.log(ruleTplType[currentRuleSetID]);
+    switch (ruleTplType[currentRuleSetID]) {
         case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
         var linesArray = [];
@@ -570,8 +573,7 @@ function split_origin_data(originalDATA) {
             }
 
         }
-        console.log(markedValue);
-        console.log(linesArray);
+
         for (var i = tailStartIndex; i <= tailEndIndex; i++) {
 
             var subject = new_rule[i]['Subject'];
@@ -1081,6 +1083,16 @@ function getSingleRecord(recordid) {
         data: {op: 'get_single_record', recordid: recordid},
         dataType: "json",
         success: function (data) {
+            currentRuleSetID = parseInt(data.Record.RuleSetID)
+            var script = 'new_rule = ' + ruleList[data.Record.RuleSetID]['RuleVar'];
+            eval(script);
+            $.each( $('#rule_selector > select > option'), function( key, option ) {
+                if( parseInt($(option).val()) === currentRuleSetID ){
+                    $(this).attr('selected',true)
+                }
+            });
+            update_rule_tab(currentRuleSetID);
+            $('#rule-title-li').text('Transcoder - ' + ruleList[currentRuleSetID]['RuleName']);
             parse_new_data(data.Record.SourceData, true, false);
         },
         error: function (requestObject, error, errorThrown) {

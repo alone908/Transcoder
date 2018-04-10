@@ -28,7 +28,7 @@ $.fn.ruleSelector = function (options) {
 
         for (var RuleSetID in rulelist) {
             if(options.RuleType === rulelist[RuleSetID]['RuleType'] || options.RuleType === 'all'){
-                if(parseInt(RuleSetID) === currentRulesetID){
+                if(parseInt(RuleSetID) === currentRuleSetID){
                     $('#'+selector+' > select').append('<option value="'+RuleSetID+'" selected>'+rulelist[RuleSetID]['RuleName']+'</option>')
                 }else {
                     $('#'+selector+' > select').append('<option value="'+RuleSetID+'">'+rulelist[RuleSetID]['RuleName']+'</option>')
@@ -40,6 +40,10 @@ $.fn.ruleSelector = function (options) {
             options.SelectedCallback(rulelist,$('#'+selector+' > select').val());
         })
 
+    }
+
+    function updateSelector(){
+        $('#'+selector+' > select > option').removeAtrr('selected');
     }
 
 };

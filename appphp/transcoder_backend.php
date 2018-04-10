@@ -102,7 +102,7 @@ switch ($_POST['op']) {
 
   if($result->num_rows === 1) {
     while($row = $result->fetch_assoc()) {
-      $record = array('id'=>$row['id'],'SourceData'=>$row['SourceData']);
+      $record = array('id'=>$row['id'],'SourceData'=>$row['SourceData'],'RuleSetID'=>$row['RuleSetID']);
     }
   }else {
 

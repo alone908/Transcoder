@@ -18,7 +18,7 @@
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
 <script src="js/rm_rulelist.js"></script>
-<script>var currentRulesetID =<?php echo $current_ruleset_id; ?></script>
+<script>var currentRuleSetID =<?php echo $current_ruleset_id; ?></script>
 
 <div id="wrapper">
 

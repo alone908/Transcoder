@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     $('#rule_selector').ruleSelector({
         SelectedCallback: function (rulelist, selectedRuleID) {
-            currentRulesetID = selectedRuleID;
+            currentRuleSetID = selectedRuleID;
             window.location = 'rm_rulebranch.php?rulesetid=' + selectedRuleID;
         }
     });
@@ -14,7 +14,7 @@ $(document).ready(function(){
 $.ajax({
     type: 'POST',
     url: "appphp/rm_rulebranch_backend.php",
-    data: {op:'save_rule_table',rulesetid:currentRulesetID},
+    data: {op:'save_rule_table',rulesetid:currentRuleSetID},
     dataType: "json",
     success: function (data) {
         buildBranch(data.treeData);
