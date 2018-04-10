@@ -313,6 +313,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
             op: 'insert_record',
             sourceData: originalDATA,
             transCodeLog: data.lineLog,
+            ruleSetID: currentRulesetID
         }
 
         $.ajax({
@@ -877,10 +878,11 @@ function listRecords() {
         dataType: "json",
         success: function (data) {
             data.Records.forEach(function (record, index) {
-                var num = index + 1;
+                var num = index + 1;                
+                var ruleName = (record.RuleSetID !== '-1') ? ruleList[record.RuleSetID]['RuleName'] : '';
                 $('.record-table tbody').append('<tr>\
                                     <td>' + num + '</td>\
-                                    <td>' + record.SourceData + '</td>\
+                                    <td>' + ruleName + '</td>\
                                     <td>' + record.TimeStamp + '</td>\
                                     <td><button type="button" class="btn btn-black record" data-recordid="' + record.id + '">LOAD</button></td>\
                                   <tr>')

@@ -72,7 +72,7 @@ if (!isset($_SESSION)) {
                         <tbody>
                         <tr>
                             <th>#</th>
-                            <th>SourceData</th>
+                            <th>Rule</th>
                             <th>TimeStamp</th>
                             <th>LOAD</th>
                         <tr>
@@ -248,8 +248,6 @@ if (!isset($_SESSION)) {
                         <option value="regular">Regular Line</option>
                         <option value="blank">Blank Line</option>
                     </select>
-                    <!--          <input type="radio" id="inlineCheckbox1" name="type" value="regular"><span id="regular_radio_text" class="radio_text">Regular Line</span>-->
-                    <!--          <input type="radio" id="inlineCheckbox1" name="type" value="blank"><span id="blank_radio_text" class="radio_text">Blank Line</span>-->
                     <br>
                     <label class="col-sm-2">Position:</label>
                     <input type="radio" id="inlineCheckbox1" name="position" value="before"><span id="before_radio_text"

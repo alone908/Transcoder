@@ -3,16 +3,18 @@
 require_once 'sqldb.php';
 
 switch ($_POST['op']) {
+
   case 'insert_record':
 
   $sourceData = $_POST['sourceData'];
   $transCodeLog = $_POST['transCodeLog'];
 
   date_default_timezone_set("Asia/Taipei");
-  $localTime = str_replace(',','',(string) date(DATE_RFC850));
+  $localTime = date('m-d-Y H:i:s (l)');
+  $ruleSetID = $_POST['ruleSetID'];
 
-  $sql = "INSERT INTO datarecord(SourceData,transCodeLog,TaiwanTime)
-          VALUES ('".$sourceData."','".$transCodeLog."','".$localTime."')";
+  $sql = "INSERT INTO datarecord(RuleSetID,SourceData,transCodeLog,TaiwanTime)
+          VALUES (".$ruleSetID.",'".$sourceData."','".$transCodeLog."','".$localTime."')";
 
   $conn->query('SET NAMES UTF8');
   $conn->query($sql);
@@ -82,7 +84,7 @@ switch ($_POST['op']) {
   if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sourceData = substr($row['SourceData'],0,15).'.....';
-      $records[] = array('id'=>$row['id'],'SourceData'=>$sourceData,'TimeStamp'=>$row['TaiwanTime']);
+      $records[] = array('id'=>$row['id'],'RuleSetID'=>($row['RuleSetID'] !== null) ? $row['RuleSetID'] : '-1','SourceData'=>$sourceData,'TimeStamp'=>$row['TaiwanTime']);
     }
   }else {
 
