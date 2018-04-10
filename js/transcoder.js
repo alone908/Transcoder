@@ -543,9 +543,7 @@ function split_origin_data(originalDATA) {
                     var jumpRuleCondition = new_rule[i]['JumpRuleCondition'];
                     var jumpToRule;
                     for(var k = 0; k < jumpRuleCondition.length; k++){
-                        var keyLine = jumpRuleCondition[k]['KeyLine'];
-                        var keyValue = jumpRuleCondition[k]['KeyValue'];
-                        if(markedValue[keyLine] === keyValue){
+                        if(markedValue[jumpRuleCondition[k]['KeyLine']] === jumpRuleCondition[k]['KeyValue']){
                             jumpToRule = jumpRuleCondition[k]['JumpToRule'];
                             break;
                         }
