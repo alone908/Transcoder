@@ -3,64 +3,66 @@
 require_once 'sqldb.php';
 
 switch ($_POST['op']) {
-  case 'get_rule_list':
+    case 'get_rule_list':
 
-    $rule_list = array();
+        $rule_list = array();
 
-    $sql = "SELECT * FROM rulelist";
-    $conn->query('SET NAMES UTF8');
-    $result = $conn->query($sql);
+        $sql = "SELECT * FROM rulelist";
+        $conn->query('SET NAMES UTF8');
+        $result = $conn->query($sql);
 
-    if($result->num_rows > 0){
-      while($row = $result->fetch_assoc()){
-        foreach ($row as $key => $value) {
-          $rule_list[$row['RuleSetID']][$key] = $value;
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                foreach ($row as $key => $value) {
+                    $rule_list[$row['RuleSetID']][$key] = $value;
+                }
+            }
         }
-      }
-    }
 
-    echo json_encode(array('ruleList'=>$rule_list));
+        echo json_encode(array('ruleList' => $rule_list));
 
-    break;
+        break;
 
-  case 'get_rule_obj':
+    case 'get_rule_obj':
 
-  $sql = "select * from transcoderule where RuleSetID='".$_POST['RuleSetID']."' order by LineNumber";
-  $conn->query('SET NAMES UTF8');
-  $result = $conn->query($sql);
+        $sql = "select * from transcoderule where RuleSetID='" . $_POST['RuleSetID'] . "' order by LineNumber";
+        $conn->query('SET NAMES UTF8');
+        $result = $conn->query($sql);
 
-  $new_rule = array();
+        $new_rule = array();
 
-  if($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
 
-      $LSB = ($row['LSB'] === 'true') ? true : false;
-      $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
-      $TranscodeRule = explode(',',$row['TranscodeRule']);
+                $LSB = ($row['LSB'] === 'true') ? true : false;
+                $UnixTime = ($row['UnixTime'] === 'true') ? true : false;
+                $TranscodeRule = explode(',', $row['TranscodeRule']);
+                $OnlyShowInBody = ($row['OnlyShowInBody'] !== null) ? explode(',', $row['OnlyShowInBody']) : [];
 
-      $new_rule[] = ['Subject'=>$row['Subject'],
-                     'LineNumber'=>$row['LineNumber'],
-                     'Content'=>$row['Content'],
-                     'Exp'=>$row['Exp'],
-                     'Length'=> (float) $row['Length'],
-                     'DataCoding'=> $row['DataCoding'],
-                     'LSB'=> $LSB,
-                     'UnixTime'=>$UnixTime,
-                     'TranscodeRule'=>$TranscodeRule,
-                     'Marked'=>$row['Marked'],
-                     'PreConditionLine'=>$row['PreConditionLine'],
-                     'ChildRule'=>$row['ChildRule'],
-                     'Condition'=>$row['Condition']];
-    }
-  }else {
+                $new_rule[] = ['Subject' => $row['Subject'],
+                    'LineNumber' => $row['LineNumber'],
+                    'Content' => $row['Content'],
+                    'Exp' => $row['Exp'],
+                    'Length' => (float)$row['Length'],
+                    'DataCoding' => $row['DataCoding'],
+                    'LSB' => $LSB,
+                    'UnixTime' => $UnixTime,
+                    'TranscodeRule' => $TranscodeRule,
+                    'Marked' => $row['Marked'],
+                    'PreConditionLine' => $row['PreConditionLine'],
+                    'ChildRule' => $row['ChildRule'],
+                    'Condition' => $row['Condition'],
+                    'OnlyShowInBody' => $OnlyShowInBody];
+            }
+        } else {
 
-  }
+        }
 
-  echo json_encode(array('RuleSetID'=>$_POST['RuleSetID'],'new_rule'=>$new_rule));
+        echo json_encode(array('RuleSetID' => $_POST['RuleSetID'], 'new_rule' => $new_rule));
 
-    break;
+        break;
 
-  default:
-    # code...
-    break;
+    default:
+        # code...
+        break;
 }

@@ -395,12 +395,15 @@ function split_origin_data(originalDATA) {
                 var subject = new_rule[i]['Subject'];
                 var length = new_rule[i]['Length'];
                 var obj = {};
-                for (var key in new_rule[i]) {
-                    obj[key] = new_rule[i][key];
+
+                if(new_rule[i]['OnlyShowInBody'].indexOf(bodyCount.toString()) !== -1 || new_rule[i]['OnlyShowInBody'].length === 0){
+                    for (var key in new_rule[i]) {
+                        obj[key] = new_rule[i][key];
+                    }
+                    obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                    linesArray.push(obj);
+                    startPOS += length;
                 }
-                obj.Data = originalDATA.substring(startPOS, startPOS + length);
-                linesArray.push(obj);
-                startPOS += length;
 
             }
 
@@ -451,12 +454,15 @@ function split_origin_data(originalDATA) {
                 var length = new_rule[i]['Length'];
                 if(bodyCount === 1) bodyLength += length;
                 var obj = {};
-                for (var key in new_rule[i]) {
-                    obj[key] = new_rule[i][key];
+
+                if(new_rule[i]['OnlyShowInBody'].indexOf(bodyCount.toString()) !== -1 || new_rule[i]['OnlyShowInBody'].length === 0){
+                    for (var key in new_rule[i]) {
+                        obj[key] = new_rule[i][key];
+                    }
+                    obj.Data = originalDATA.substring(startPOS, startPOS + length);
+                    linesArray.push(obj);
+                    startPOS += length;
                 }
-                obj.Data = originalDATA.substring(startPOS, startPOS + length);
-                linesArray.push(obj);
-                startPOS += length;
 
             }
 
