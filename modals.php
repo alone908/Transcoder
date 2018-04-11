@@ -412,7 +412,7 @@ if (!isset($_SESSION)) {
                 <span class="modal-title" style="font-size:18px;font-weight:bold;">Sorry!</span>
             </div>
             <div class="modal-body">
-                <span style="font-size:10px;color:red;">You need to login as admin to use this feature.</span>
+                <span style="font-size:12px;color:red;">You need to login as admin to use this feature.</span>
             </div>
             <div class="modal-footer">
             </div>
@@ -550,3 +550,21 @@ if (!isset($_SESSION)) {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Unknown Rule Type Modal -->
+<div class="modal fade" id="unknownRuleTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Unknown Rule Structure!</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:12px;color:red;">Transcoder can not recognize the structure of this rule, this rule may not work. Are you sure ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="saveRuleAnyway" class="btn btn-lg-black">Save Anyway</button>
+            </div>
+        </div>
+    </div>
+</div>

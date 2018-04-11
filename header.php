@@ -30,6 +30,7 @@ if(!isset($_SESSION)){
 
     <!-- Custom JS -->
     <script src="js/ruleSelector.js"></script>
+    <script src="js/global_func_of_proj.js"></script>
     <script src="js/header.js"></script>
 
     <!-- Bootstrap Core CSS -->

@@ -124,6 +124,10 @@ $(document).ready(function () {
         })
     })
 
+    $('#saveRuleAnyway').click(function () {
+        save_rule_anyway_event();
+    })
+
 })
 
 function start_sorting_color(event, ui) {
@@ -396,23 +400,40 @@ function insert_row(id, linenumber, type, position) {
 
 }
 
+var editor_rule_table;
 function save_rule_table() {
 
-    var ruleTable = [];
+    editor_rule_table = [];
 
     $('.rule_row').each(function (index, row) {
-        ruleTable.push(get_row_value($(this).attr('id'), false));
+        editor_rule_table.push(get_row_value($(this).attr('id'), false));
     })
 
     $('.rule_row_deleted').each(function (index, row) {
-        ruleTable.push(get_row_value($(this).attr('id'), true));
+        editor_rule_table.push(get_row_value($(this).attr('id'), true));
     })
 
+    var tpl = [];
+    editor_rule_table.forEach(function (row, number) {
+        var subject = row['Subject'];
+        var op = row['op'];
+        if (op !== 'delete' && (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle'  || subject === 'JumpToRule')) {tpl.push(subject)}
+    })
+    var ruleType = rule_tpl_definition(tpl);
+
+    if(ruleType !== 'unknown'){
+        $('#saveRuleAnyway').trigger('click');
+    }else if(ruleType === 'unknown'){
+        $('#unknownRuleTypeModal').modal('show');
+    }
+}
+
+function save_rule_anyway_event(){
     $('#loader').css('display', 'block');
     $.ajax({
         type: 'POST',
         url: "appphp/rm_ruleeditor_backend.php",
-        data: {op: 'save_rule_table', rulesetid: currentRuleSetID, ruleTable: ruleTable},
+        data: {op: 'save_rule_table', rulesetid: currentRuleSetID, ruleTable: editor_rule_table},
         dataType: "json",
         success: function (data) {
             location.reload();
