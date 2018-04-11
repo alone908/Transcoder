@@ -64,22 +64,34 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                 if($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
 
-                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle' || $row['Subject'] === 'TailTitle'){ ?>
+                        if($row['Subject'] === 'Blank' || $row['Subject'] === 'HeadTitle' || $row['Subject'] === 'BodyTitle' || $row['Subject'] === 'TailTitle' || $row['Subject'] === 'JumpToRule'){ ?>
 
                             <div id="<?php echo $row['id'];?>" class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-                                <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
+
+                                <?php if($row['Subject'] === 'Blank'){ ?>
+                                    <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
+                                <?php }else {?>
+                                    <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
+                                <?php }?>
+
                                 <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
                                 <span class="DataCoding editor_line_span" style="width:10%;"></span>
                                 <span class="LSB editor_line_span" style="width:5%;"></span>
                                 <span class="UnixTime editor_line_span" style="width:10%;"></span>
                                 <span class="TranscodeRule editor_line_span" style="width:20%;"></span>
-                                <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>
+                                <input class="OnlyShowInBody editor_line_input" type="hidden" value="<?php echo $row['OnlyShowInBody'];?>"></input>
+                                <input class="JumpRuleCondition editor_line_input" type="hidden" value="<?php echo $row['JumpRuleCondition'];?>"></input>
                                 <span class="editor_line_span">
 					                <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                                     <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
+
+                                    <?php if($row['Subject'] === 'JumpToRule'){ ?>
+                                        <button class="btn btn-sm-black set_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#setRowModal">&nbsp;<i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;</button>
+                                    <?php }?>
+
                                 </span>
 
                             </div>
@@ -98,7 +110,8 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                 <input class="LSB editor_line_input" type="text" style="width:5%;" value="<?php echo $row['LSB'];?>"></input>
                                 <input class="UnixTime editor_line_input" type="text" style="width:10%;" value="<?php echo $row['UnixTime'];?>"></input>
                                 <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value="<?php echo $row['TranscodeRule'];?>"></input>
-                                <input class="OnlyShowInBody editor_line_input" type="hidden" style="width:20%;" value="<?php echo $row['OnlyShowInBody'];?>"></input>
+                                <input class="OnlyShowInBody editor_line_input" type="hidden" value="<?php echo $row['OnlyShowInBody'];?>"></input>
+                                <input class="JumpRuleCondition editor_line_input" type="hidden" value="<?php echo $row['JumpRuleCondition'];?>"></input>
                                 <span class="editor_line_span">
 				                    <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
 				                    <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>

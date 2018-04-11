@@ -1,6 +1,19 @@
-var tempID = 0;
+var ruleList,tempID = 0;
 
 $(document).ready(function () {
+
+    $.ajax({
+        type: 'POST',
+        url: "appphp/TranscodeRule.php",
+        data: {op:'get_rule_list'},
+        dataType: "json",
+        success: function (data) {
+            ruleList = data.ruleList;
+        },
+        error: function(requestObject, error, errorThrown) {
+            $('#ajax_err').css('display','block');
+        }
+    });
 
     $('#page-wrapper').css('width', ($(document).width() - 350).toString() + 'px');
     $('#editor').css('height', ($('#page-wrapper').height() - 135).toString() + 'px');
@@ -39,9 +52,13 @@ $(document).ready(function () {
     $("#rule_row_container").disableSelection();
 
     $('.rule_row').hover(function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#e6e6e6');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle' && $(this).data('subject') !== 'JumpToRule'){
+                $(this).css('background-color', '#e6e6e6');
+        }
     }, function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#fff');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle' && $(this).data('subject') !== 'JumpToRule'){
+                $(this).css('background-color', '#fff');
+        }
     })
 
     $('.detail_btn').on('click', function (e) {
@@ -84,6 +101,13 @@ $(document).ready(function () {
 
     $('#save_btn').on('click', function (e) {
         save_rule_table(e, $(this));
+    })
+
+    $('#add_jump_condi').on('click', function (e) {
+        add_jump_condi_event(e, $(this));
+        $('.del_jump_condi').off('click').click(function(e){
+            del_jump_condi_event(e,$(this));
+        })
     })
 
 })
@@ -133,6 +157,70 @@ function del_btn_event(e, ele) {
 function set_btn_event(e, ele) {
     $('#setrow_btn').data('id', ele.data('id'));
     $('#OnlyShowInBody').val($('#' + ele.data('id') + ' .OnlyShowInBody').val());
+
+    var jumpRuleConditionText = $('#' + ele.data('id') + ' .JumpRuleCondition').val();
+
+    var jumpRuleCondition = (jumpRuleConditionText !== '') ?
+    jumpRuleConditionText.split(';').map(function(condi,i){
+        var factor = condi.split('-');
+        return [factor[0],factor[1],factor[2]];
+    }) : []
+
+    var jump_condi_tpl = build_jump_condi_tpl(jumpRuleCondition)
+    $('#jump_condi_container').html(jump_condi_tpl);
+
+    $('.del_jump_condi').off('click').click(function(e){
+        del_jump_condi_event(e,$(this));
+    })
+
+}
+
+function del_jump_condi_event(e, ele){
+    ele.parent().remove();
+}
+
+function add_jump_condi_event(e, ele){
+    $('#jump_condi_container').append(build_jump_condi_tpl([['','','']]))
+}
+
+function build_jump_condi_tpl(jumpRuleCondition,keyLine,keyValue,jumpRuleID){
+
+    var tpl = '';
+    jumpRuleCondition.forEach(function(condi,i){
+        var keyLine = condi[0], keyValue = condi[1], jumpRuleID = condi[2]
+        var ruleOptionsTpl = rule_option_tpl(jumpRuleID);
+        tpl += "\
+        <div class='jump_condi' style='display:inline-block;width:95%;padding:5px 15px;margin:5px 15px 0px;border-radius:5px;background-color: #D5D5D6;'>\
+            <div class='form-group' style='display:inline;'>\
+              <label style='margin-bottom:0px;'>Key Line</label>\
+              <input class='form-control' value='" + keyLine + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
+            </div>\
+            <div class='form-group' style='display:inline;'>\
+              <label style='margin-bottom:0px;'>Key Value</label>\
+              <input type='text' class='form-control' value='" + keyValue + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
+            </div>\
+            <div class='form-group' style='display:inline;'>\
+              <label style='margin-bottom:0px;'>Jump to Rule</label>\
+              <select class='form-control' style='display:inline;width:200px;cursor:pointer;vertical-align:text-bottom;padding:3px 6px;height:25px;'>" + ruleOptionsTpl + "</select>\
+            </div>\
+            <button class='btn btn-sm-black del_jump_condi' type='button' style='vertical-align:text-bottom;'><i class='fa fa-minus' aria-hidden='true'></i></button>\
+        </div>"
+    })
+
+    return tpl;
+}
+
+function rule_option_tpl(selectedID){
+    var tpl = '';
+    for(var rulesetid in ruleList) {
+        if(rulesetid === selectedID){
+            tpl += '<option value="'+rulesetid+'" selected>'+ruleList[rulesetid]['RuleName']+'</option>';
+        }else {
+            tpl += '<option value="'+rulesetid+'">'+ruleList[rulesetid]['RuleName']+'</option>';
+        }
+
+    }
+    return tpl;
 }
 
 function insert_row(id, linenumber, type, position) {
@@ -203,7 +291,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
-            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">=====</span>\
+            <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
             <span class="LSB editor_line_span" style="width:5%;"></span>\
@@ -213,6 +301,26 @@ function insert_row(id, linenumber, type, position) {
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+            </span>\
+        </div>')
+    }
+
+    if(type === 'jumptorule'){
+        var insertRow = $('\
+        <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="JumpToRule">\
+            <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
+            <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==JumpToRule==</span>\
+            <span class="Length editor_line_span" style="width:10%;">0</span>\
+            <span class="DataCoding editor_line_span" style="width:10%;"></span>\
+            <span class="LSB editor_line_span" style="width:5%;"></span>\
+            <span class="UnixTime editor_line_span" style="width:10%;"></span>\
+            <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
+            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <span class="editor_line_span">\
+                <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
+                <button class="btn btn-sm-black set_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#setRowModal"> <i class="fa fa-cogs" aria-hidden="true"></i> </button>\
             </span>\
         </div>')
     }
@@ -257,9 +365,13 @@ function insert_row(id, linenumber, type, position) {
     })
 
     $('.rule_row').hover(function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#e6e6e6');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle' && $(this).data('subject') !== 'JumpToRule'){
+                $(this).css('background-color', '#e6e6e6');
+        }
     }, function () {
-        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle') $(this).css('background-color', '#fff');
+        if ($(this).data('subject') !== 'Blank' && $(this).data('subject') !== 'HeadTitle' && $(this).data('subject') !== 'BodyTitle' && $(this).data('subject') !== 'TailTitle' && $(this).data('subject') !== 'JumpToRule'){
+                $(this).css('background-color', '#fff');
+        }
     })
 
 }
