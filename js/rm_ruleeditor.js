@@ -1,6 +1,8 @@
-var ruleList,tempID = 0,editor_rule_table;
+var ruleList,tempID = 0,editor_rule_table,editor_rule_type = 'unknown',editor_rule_head_line = '-1',editor_rule_body_line = '-1',editor_rule_tail_line = '-1';
 
 $(document).ready(function () {
+
+    update_editor_rule_table();
 
     $.ajax({
         type: 'POST',
@@ -47,6 +49,7 @@ $(document).ready(function () {
         stop: function (event, ui) {
             end_sorting_color(event, ui);
             sort_linenumber(event, ui);
+            update_editor_rule_table();
         }
     });
     $("#rule_row_container").disableSelection();
@@ -99,6 +102,7 @@ $(document).ready(function () {
             $('#insertRowModal').modal('hide');
             $('#insert_err').html('');
             insert_row($(this).data('id'), $(this).data('linenumber'), $('#row_type_selector').val(), $('input[name=position]:checked').val());
+            update_editor_rule_table();
         }
     })
 
@@ -111,6 +115,7 @@ $(document).ready(function () {
         $('#' + $(this).data('id')).removeClass('rule_row').addClass('rule_row_deleted');
         sort_linenumber(null, null);
         $('#delRowModal').modal('hide');
+        update_editor_rule_table();
     })
 
     $('#save_btn').on('click', function (e) {
@@ -126,6 +131,11 @@ $(document).ready(function () {
 
     $('#saveRuleAnyway').click(function () {
         save_rule_anyway_event();
+    })
+
+    $('#setRowModal').on('hidden.bs.modal', function (e) {
+        $('#OnlyShowInBodyCover').show()
+        $('#JumpRuleCover').show()
     })
 
 })
@@ -173,6 +183,7 @@ function del_btn_event(e, ele) {
 }
 
 function set_btn_event(e, ele) {
+
     $('#setrow_btn').data('id', ele.data('id'));
     $('#OnlyShowInBody').val($('#' + ele.data('id') + ' .OnlyShowInBody').val());
 
@@ -191,6 +202,20 @@ function set_btn_event(e, ele) {
         del_jump_condi_event(e,$(this));
     })
 
+    //check available for OnlyShowInBody
+    var LineNumber = $('#' + ele.data('id') + ' .LineNumber').html();
+    var subject = $('#' + ele.data('id')).data('subject');
+    if( (subject !== 'JumpToRule' && editor_rule_type === 'B' &&  Number(LineNumber) > Number(editor_rule_body_line) ) ||
+    ( subject !== 'JumpToRule' && editor_rule_type === 'C' && Number(LineNumber) > Number(editor_rule_body_line) && Number(LineNumber) < Number(editor_rule_tail_line) ) ||
+    ( subject !== 'JumpToRule' && editor_rule_type === 'D' && Number(LineNumber) > Number(editor_rule_body_line) && Number(LineNumber) < Number(editor_rule_tail_line) ) ){
+        $('#OnlyShowInBodyCover').hide()
+    }
+
+    //check available for JumpLineCondition
+    if( $('#' + ele.data('id')).data('subject') === 'JumpToRule'){
+        $('#JumpRuleCover').hide()
+    }
+    
 }
 
 function del_jump_condi_event(e, ele){
@@ -402,7 +427,17 @@ function insert_row(id, linenumber, type, position) {
 
 function save_rule_table() {
 
-    editor_rule_table = [];
+    update_editor_rule_table();
+
+    if(editor_rule_type !== 'unknown'){
+        $('#saveRuleAnyway').trigger('click');
+    }else if(editor_rule_type === 'unknown'){
+        $('#unknownRuleTypeModal').modal('show');
+    }
+}
+
+function update_editor_rule_table(){
+    editor_rule_table = [],editor_rule_head_line = '-1',editor_rule_body_line = '-1',editor_rule_tail_line = '-1';
 
     $('.rule_row').each(function (index, row) {
         editor_rule_table.push(get_row_value($(this).attr('id'), false));
@@ -416,15 +451,14 @@ function save_rule_table() {
     editor_rule_table.forEach(function (row, number) {
         var subject = row['Subject'];
         var op = row['op'];
-        if (op !== 'delete' && (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle'  || subject === 'JumpToRule')) {tpl.push(subject)}
+        if (op !== 'delete' && (subject === 'HeadTitle' || subject === 'BodyTitle' || subject === 'TailTitle'  || subject === 'JumpToRule')) {
+            tpl.push(subject)
+            if(subject === 'HeadTitle'){ editor_rule_head_line = row['LineNumber'] }
+            if(subject === 'BodyTitle'){ editor_rule_body_line = row['LineNumber'] }
+            if(subject === 'TailTitle'){ editor_rule_tail_line = row['LineNumber'] }
+        }
     })
-    var ruleType = rule_tpl_definition(tpl);
-
-    if(ruleType !== 'unknown'){
-        $('#saveRuleAnyway').trigger('click');
-    }else if(ruleType === 'unknown'){
-        $('#unknownRuleTypeModal').modal('show');
-    }
+    editor_rule_type = rule_tpl_definition(tpl);
 }
 
 function save_rule_anyway_event(){

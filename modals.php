@@ -276,13 +276,14 @@ if (!isset($_SESSION)) {
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group row">
+                    <div class="form-group row" style="position:relative;">
                         <label for="OnlyShowInBody" class="col-sm-2 col-form-label" style="margin-top: 5px; width: 180px;">Only Show in Body:</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="OnlyShowInBody" placeholder="Body number: 1,2,3">
                         </div>
+                        <div id="OnlyShowInBodyCover" style="position:absolute;top:0px;z-index:50;height:34px;width:99%;background-color:rgba(0,0,0,0.7);color:white;text-align:center;font-size:20px;font-weight:bold;line-height:34px;margin:0px 5px;border-radius:5px;"><span>Not Available</span></div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" style="position:relative;">
                         <label for="JumpToRule" class="col-sm-2 col-form-label" style="margin-top: 5px; width: 180px;">Jump to Rule:</label>
                         <br>
 
@@ -291,7 +292,7 @@ if (!isset($_SESSION)) {
                         <div style='display:inline-block;width:95%;margin:5px 15px 0px;text-align:right;border-top:1px black solid;padding-top:5px;'>
                             <button id="add_jump_condi" class="btn btn-sm-black" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
-
+                        <div id="JumpRuleCover" style="position:absolute;top:0px;z-index:50;height:65px;width:99%;background-color:rgba(0,0,0,0.7);color:white;text-align:center;font-size:20px;font-weight:bold;line-height:65px;margin:0px 5px;border-radius:5px;"><span>Not Available</span></div>
                     </div>
                 </form>
                 <span id="setrow_err_text" style="font-size:10px;color:red;"></span>
