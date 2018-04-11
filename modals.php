@@ -286,30 +286,7 @@ if (!isset($_SESSION)) {
                         <label for="JumpToRule" class="col-sm-2 col-form-label" style="margin-top: 5px; width: 180px;">Jump to Rule:</label>
                         <br>
 
-                        <div id="jump_condi_container">
-
-                            <div class='jump_condi' style='display:inline-block;width:95%;padding:5px 15px;margin:5px 15px 0px;border-radius:5px;background-color: #D5D5D6;'>
-
-                                <div class='form-group' style='display:inline;'>
-                                  <label style='margin-bottom:0px;'>Key Line</label>
-                                  <input class='form-control' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>
-                                </div>
-
-                                <div class='form-group' style='display:inline;'>
-                                  <label style='margin-bottom:0px;'>Key Value</label>
-                                  <input type='text' class='form-control' placeholder='' value='' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>
-                                </div>
-
-                                <div class='form-group' style='display:inline;'>
-                                  <label style='margin-bottom:0px;'>Jump to Rule</label>
-                                  <select class='form-control' style='display:inline;width:200px;cursor:pointer;vertical-align:text-bottom;padding:3px 6px;height:25px;'></select>
-                                </div>
-
-                                <button class="btn btn-sm-black" style="vertical-align:text-bottom;"><i class="fa fa-minus" aria-hidden="true"></i></button>
-
-                            </div>
-
-                        </div>
+                        <div id="jump_condi_container"></div>
 
                         <div style='display:inline-block;width:95%;margin:5px 15px 0px;text-align:right;border-top:1px black solid;padding-top:5px;'>
                             <button id="add_jump_condi" class="btn btn-sm-black" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>

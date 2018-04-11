@@ -548,10 +548,12 @@ function split_origin_data(originalDATA) {
                             break;
                         }
                     }
-                    var returnData = apply_jump_rule(originalDATA,jumpToRule,linesArray,startPOS,bodyCount,new_rule[i]['LineNumber']);
-                    linesArray = returnData.linesArray;
-                    startPOS = returnData.startPOS;
-                    totalLineNumberAdust += returnData.lineNumberAdust;
+                    if(typeof ruleList[jumpToRule] !== 'undefined'){
+                        var returnData = apply_jump_rule(originalDATA,jumpToRule,linesArray,startPOS,bodyCount,new_rule[i]['LineNumber']);
+                        linesArray = returnData.linesArray;
+                        startPOS = returnData.startPOS;
+                        totalLineNumberAdust += returnData.lineNumberAdust;
+                    }
                     continue;
                 }
 

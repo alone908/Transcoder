@@ -76,6 +76,20 @@ $(document).ready(function () {
     $('#setrow_btn').on('click', function (e) {
         $('#setRowModal').modal('hide');
         $('#' + $(this).data('id') + ' .OnlyShowInBody').val($('#OnlyShowInBody').val())
+
+        var jumpRuleCondition = '';
+        var conditions = $('.jump_condi');
+        for(var i=0; i<conditions.length; i++){
+            var keyLine = $(conditions[i]).find('input[name=jump_condi_keyline]').val();
+            var keyValue = $(conditions[i]).find('input[name=jump_condi_keyvalue]').val();
+            var jumpRuleID = $(conditions[i]).find('select').val();
+            if(keyLine !== '' && keyValue !== '' && jumpRuleID !== ''){
+                jumpRuleCondition += keyLine + '-' + keyValue + '-' + jumpRuleID + ';'
+            }
+        }
+        jumpRuleCondition = jumpRuleCondition.substr(0,jumpRuleCondition.length-1);
+        $('#' + $(this).data('id') + ' .JumpRuleCondition').val(jumpRuleCondition);
+
     })
 
     $('#insert').on('click', function (e) {
@@ -193,11 +207,11 @@ function build_jump_condi_tpl(jumpRuleCondition,keyLine,keyValue,jumpRuleID){
         <div class='jump_condi' style='display:inline-block;width:95%;padding:5px 15px;margin:5px 15px 0px;border-radius:5px;background-color: #D5D5D6;'>\
             <div class='form-group' style='display:inline;'>\
               <label style='margin-bottom:0px;'>Key Line</label>\
-              <input class='form-control' value='" + keyLine + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
+              <input class='form-control' name='jump_condi_keyline' value='" + keyLine + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
             </div>\
             <div class='form-group' style='display:inline;'>\
               <label style='margin-bottom:0px;'>Key Value</label>\
-              <input type='text' class='form-control' value='" + keyValue + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
+              <input type='text' class='form-control' name='jump_condi_keyvalue' value='" + keyValue + "' style='display:inline;width:100px;vertical-align:text-bottom;padding:3px 6px;height:25px;'></input>\
             </div>\
             <div class='form-group' style='display:inline;'>\
               <label style='margin-bottom:0px;'>Jump to Rule</label>\
@@ -240,7 +254,8 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -259,7 +274,8 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -278,7 +294,8 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -297,7 +314,8 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -316,7 +334,8 @@ function insert_row(id, linenumber, type, position) {
             <span class="LSB editor_line_span" style="width:5%;"></span>\
             <span class="UnixTime editor_line_span" style="width:10%;"></span>\
             <span class="TranscodeRule editor_line_span" style="width:20%;"></span>\
-            <span class="OnlyShowInBody editor_line_span" style="width:0%; display: none;"></span>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -336,7 +355,8 @@ function insert_row(id, linenumber, type, position) {
             <input class="LSB editor_line_input" type="text" style="width:5%;" value=""></input>\
             <input class="UnixTime editor_line_input" type="text" style="width:10%;" value=""></input>\
             <input class="TranscodeRule editor_line_input" type="text" style="width:20%;" value=""></input>\
-            <input class="OnlyShowInBody editor_line_input" type="hidden" style="width:20%;" value=""></input>\
+            <input class="OnlyShowInBody editor_line_input" type="hidden" value=""></input>\
+            <input class="JumpRuleCondition editor_line_input" type="hidden" value=""></input>\
             <span class="editor_line_span">\
                 <button class="btn btn-sm-black insert_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>\
                 <button class="btn btn-sm-black del_btn" data-id="temp_' + tempID + '" data-linenumber="' + linenumber + '" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>\
@@ -462,6 +482,12 @@ function get_row_value(id, del) {
         var OnlyShowInBody = $('#' + id + ' .OnlyShowInBody').val();
     }
 
+    if ($('#' + id + ' .JumpRuleCondition').prop('tagName') === 'SPAN') {
+        var JumpRuleCondition = $('#' + id + ' .JumpRuleCondition').html();
+    } else if ($('#' + id + ' .JumpRuleCondition').prop('tagName') === 'INPUT') {
+        var JumpRuleCondition = $('#' + id + ' .JumpRuleCondition').val();
+    }
+
     return {
         op: op,
         id: id,
@@ -473,7 +499,8 @@ function get_row_value(id, del) {
         LSB: LSB,
         UnixTime: UnixTime,
         TranscodeRule: TranscodeRule,
-        OnlyShowInBody: OnlyShowInBody
+        OnlyShowInBody: OnlyShowInBody,
+        JumpRuleCondition: JumpRuleCondition
     }
 
 }

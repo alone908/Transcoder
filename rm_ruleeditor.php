@@ -70,13 +70,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
-
-                                <?php if($row['Subject'] === 'Blank'){ ?>
-                                    <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
-                                <?php }else {?>
-                                    <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;"><?php echo $row['Exp'];?></span>
-                                <?php }?>
-
+                                <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                                 <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
                                 <span class="DataCoding editor_line_span" style="width:10%;"></span>
                                 <span class="LSB editor_line_span" style="width:5%;"></span>
