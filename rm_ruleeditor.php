@@ -43,6 +43,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
             <div id="editor_title" style="height:30px;background-color:#222;color:#9d9d9d;">
                 <span style="display:inline-block;padding:5px;width:25px;"></span>
                 <span style="display:inline-block;padding:5px;width:50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">#</span>
+                <span style="display:inline-block;padding:5px;width:26px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
                 <span style="display:inline-block;padding:5px;width:20%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Exp</span>
                 <span style="display:inline-block;padding:5px;width:10%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Length</span>
                 <span style="display:inline-block;padding:5px;width:10%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">DataCoding</span>
@@ -70,6 +71,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                                <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="<?php echo $row['Subject']?>"></i></span>
                                 <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                                 <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
                                 <span class="DataCoding editor_line_span" style="width:10%;"></span>
@@ -98,6 +100,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
                                 <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                                <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;"></span>
                                 <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                                 <input class="Length editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Length'];?>"></input>
                                 <input class="DataCoding editor_line_input" type="text" style="width:10%;" value="<?php echo $row['DataCoding'];?>"></input>

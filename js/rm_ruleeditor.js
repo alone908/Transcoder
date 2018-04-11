@@ -4,6 +4,8 @@ $(document).ready(function () {
 
     update_editor_rule_table();
 
+    $('[data-toggle="tooltip"]').tooltip()
+
     $.ajax({
         type: 'POST',
         url: "appphp/TranscodeRule.php",
@@ -215,7 +217,7 @@ function set_btn_event(e, ele) {
     if( $('#' + ele.data('id')).data('subject') === 'JumpToRule'){
         $('#JumpRuleCover').hide()
     }
-    
+
 }
 
 function del_jump_condi_event(e, ele){
@@ -277,6 +279,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="HeadTitle">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="HeadTitle"></i></span>\
             <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表頭==</span>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
@@ -297,6 +300,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="BodyTitle">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="BodyTitle"></i></span>\
             <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表身==</span>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
@@ -317,6 +321,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="TailTitle">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="TailTitle"></i></span>\
             <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==表尾==</span>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
@@ -337,6 +342,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#d9edf7;" data-subject="Blank">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Blank"></i></span>\
             <input class="Exp editor_line_input" type="text" style="width:20%;" value="====="></input>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
@@ -357,6 +363,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" style="background-color:#B2E0F7;" data-subject="JumpToRule">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="JumpToRule"></i></span>\
             <span class="Exp editor_line_span" style="width:20%;border-bottom:1px solid black;">==JumpToRule==</span>\
             <span class="Length editor_line_span" style="width:10%;">0</span>\
             <span class="DataCoding editor_line_span" style="width:10%;"></span>\
@@ -378,6 +385,7 @@ function insert_row(id, linenumber, type, position) {
         <div id="temp_' + tempID + '" class="rule_row" data-subject="RuleSet_' + currentRuleSetID + '_' + linenumber + '">\
             <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>\
             <span class="LineNumber editor_line_span" style="width:50px;">' + linenumber + '</span>\
+            <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;"></span>\
             <input class="Exp editor_line_input" type="text" style="width:20%;" value=""></input>\
             <input class="Length editor_line_input" type="text" style="width:10%;" value="0"></input>\
             <input class="DataCoding editor_line_input" type="text" style="width:10%;" value=""></input>\
@@ -400,6 +408,8 @@ function insert_row(id, linenumber, type, position) {
     }
 
     sort_linenumber(null, null);
+
+    $('[data-toggle="tooltip"]').tooltip();
 
     $('.insert_btn').off('click').on('click', function (e) {
         insert_btn_event(e, $(this));
