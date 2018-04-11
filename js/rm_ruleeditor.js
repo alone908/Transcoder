@@ -1,4 +1,4 @@
-var ruleList,tempID = 0;
+var ruleList,tempID = 0,editor_rule_table;
 
 $(document).ready(function () {
 
@@ -400,7 +400,6 @@ function insert_row(id, linenumber, type, position) {
 
 }
 
-var editor_rule_table;
 function save_rule_table() {
 
     editor_rule_table = [];
