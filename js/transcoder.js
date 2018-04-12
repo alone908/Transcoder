@@ -561,7 +561,7 @@ function split_origin_data(originalDATA) {
                     linesArray.push(obj);
                     startPOS += length;
                     if(typeof markedValue[i+1] !== 'undefined'){
-                        markedValue[i+1] = transcode_single_data(obj.Data,obj.TranscodeRule);
+                        markedValue[i+1] = transcode_single_data(obj.Data,obj.TranscodeRule).toString();
                     }
                 }
 
