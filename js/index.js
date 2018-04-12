@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    if(hasPaid){
+        $('#thankyouPaidModal').modal('show');
+    }
+
     $('#rule_manager, #advance').click(function () {
         if(login_user === null){
             $('#loginModal').modal('show');

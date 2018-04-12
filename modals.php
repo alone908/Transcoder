@@ -569,3 +569,19 @@ if (!isset($_SESSION)) {
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="thankyouPaidModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" style="font-size:18px;font-weight:bold;">Thank you!</span>
+            </div>
+            <div class="modal-body">
+                <span style="font-size:12px;">Thank you for buying Transcoder, your enrollment has been extended.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

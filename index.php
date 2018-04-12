@@ -1,6 +1,11 @@
 <!-- Header -->
 <?php include_once 'header.php';?>
 <?php include_once 'modals.php';?>
+<?php if(isset($_GET['hasPaid'])){?>
+<script>var hasPaid=<?php echo $_GET['hasPaid']; ?></script>
+<?php }else{ ?>
+<script>var hasPaid=null</script>
+<?php } ?>
 
 <!-- Custom JS -->
 <script src="js/index.js"></script>
