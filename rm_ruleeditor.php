@@ -42,7 +42,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
         <div id="editor" style="height:85%;">
             <div id="editor_title" style="height:30px;background-color:#222;color:#9d9d9d;">
                 <span style="display:inline-block;padding:5px;width:25px;"></span>
-                <span style="display:inline-block;padding:5px;width:50px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">#</span>
+                <span style="display:inline-block;padding:5px;width:35px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">#</span>
                 <span style="display:inline-block;padding:5px;width:26px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;"></span>
                 <span style="display:inline-block;padding:5px;width:20%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Exp</span>
                 <span style="display:inline-block;padding:5px;width:10%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:top;">Length</span>
@@ -70,7 +70,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                             <div id="<?php echo $row['id'];?>" class="rule_row" style="background-color:<?php if($row['Subject'] === 'Blank'){echo '#d9edf7';}else{echo '#B2E0F7';}?>;" data-subject="<?php echo $row['Subject']?>">
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
-                                <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                                <span class="LineNumber editor_line_span" style="width:35px;"><?php echo $row['LineNumber'];?></span>
                                 <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;cursor:pointer;"><i class="fa fa-info-circle" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="<?php echo $row['Subject']?>"></i></span>
                                 <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                                 <span class="Length editor_line_span" style="width:10%;"><?php echo $row['Length']?></span>
@@ -83,11 +83,10 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                 <span class="editor_line_span">
 					                <button class="btn btn-sm-black insert_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#insertRowModal"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;</button>
                                     <button class="btn btn-sm-black del_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#delRowModal">&nbsp;<i class="fa fa-times" aria-hidden="true"></i>&nbsp;</button>
-
                                     <?php if($row['Subject'] === 'JumpToRule'){ ?>
                                         <button class="btn btn-sm-black set_btn" data-id="<?php echo $row['id'];?>" data-linenumber="<?php echo $row['LineNumber'];?>" data-toggle="modal" data-target="#setRowModal">&nbsp;<i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;</button>
                                     <?php }?>
-
+                                    <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
                                 </span>
 
                             </div>
@@ -99,7 +98,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                             <div id="<?php echo $row['id'];?>" class="rule_row" data-subject="<?php echo $row['Subject']?>">
 
                                 <span class="handle arrange_span"><i class="fa fa-exchange arrange_icon" aria-hidden="true"></i></span>
-                                <span class="LineNumber editor_line_span" style="width:50px;"><?php echo $row['LineNumber'];?></span>
+                                <span class="LineNumber editor_line_span" style="width:35px;"><?php echo $row['LineNumber'];?></span>
                                 <span class="Info editor_line_span" style="width:26px;font-size:18px;color:#C3000E;"></span>
                                 <input class="Exp editor_line_input" type="text" style="width:20%;" value="<?php echo $row['Exp'];?>"></input>
                                 <input class="Length editor_line_input" type="text" style="width:10%;" value="<?php echo $row['Length'];?>"></input>
@@ -116,41 +115,48 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                                     <button class="btn btn-sm-black detail_btn" data-id="<?php echo $row['id'];?>">&nbsp;<i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;</button>
 				                </span>
                                 <br>
-                                <div id="detail_<?php echo $row['id'];?>" style="display:none;height:225px;padding-left:75px;background-color:#f5f5f5;">
-
-                                    <div style="display:inline-block;width:50%;float:left;padding:10px;">
-                                        <span><?php echo 'id : '.$row['id']; ?></span><br>
-                                        <span><?php echo 'RuleSetID : '.$row['RuleSetID']; ?></span><br>
-                                        <span><?php echo 'RuleName : '.$row['RuleName']; ?></span><br>
-                                        <span><?php echo 'RuleType : '.$row['RuleType']; ?></span><br>
-                                        <span><?php echo 'RuleVar : '.$row['RuleVar']; ?></span><br>
-                                        <span class="detail_linenumber"><?php echo 'LineNumber : '.$row['LineNumber']; ?></span><br>
-                                        <span><?php echo 'Subject : '.$row['Subject']; ?></span><br>
-                                        <span><?php echo 'Content : '.$row['Content']; ?></span><br>
-                                        <span><?php echo 'Exp : '.$row['Exp']; ?></span><br>
-                                        <span><?php echo 'Length : '.$row['Length']; ?></span><br>
-                                    </div>
-
-                                    <div style="display:inline-block;width:50%;float:right;padding:10px;">
-
-                                        <span><?php echo 'DataCoding : '.$row['DataCoding']; ?></span><br>
-                                        <span><?php echo 'LSB : '.$row['LSB']; ?></span><br>
-                                        <span><?php echo 'UnixTime : '.$row['UnixTime']; ?></span><br>
-                                        <span><?php echo 'TranscodeRule : '.$row['TranscodeRule']; ?></span><br>
-                                        <span><?php echo 'CreateTime : '.$row['CreateTime']; ?></span><br>
-                                        <span><?php echo 'Marked : '.$row['Marked']; ?></span><br>
-                                        <span><?php echo 'PreConditionLine : '.$row['PreConditionLine']; ?></span><br>
-                                        <span><?php echo 'ChildRule : '.$row['ChildRule']; ?></span><br>
-                                        <span><?php echo 'Condition : '.$row['Condition']; ?></span><br>
-
-                                    </div>
-
-                                </div>
 
                             </div>
 
-                            <?php
+                        <?php
                         }
+                        ?>
+
+                        <div id="detail_<?php echo $row['id'];?>" style="display:none;height:225px;padding-left:75px;background-color:#f5f5f5;">
+
+                            <div style="display:inline-block;width:30%;padding:10px;vertical-align:top;">
+                                <span><?php echo 'id : '.$row['id']; ?></span><br>
+                                <span><?php echo 'RuleSetID : '.$row['RuleSetID']; ?></span><br>
+                                <span><?php echo 'RuleName : '.$row['RuleName']; ?></span><br>
+                                <span><?php echo 'RuleType : '.$row['RuleType']; ?></span><br>
+                                <span><?php echo 'RuleVar : '.$row['RuleVar']; ?></span><br>
+                                <span class="detail_linenumber"><?php echo 'LineNumber : '.$row['LineNumber']; ?></span><br>
+                                <span><?php echo 'Subject : '.$row['Subject']; ?></span><br>
+                                <span><?php echo 'Content : '.$row['Content']; ?></span><br>
+                                <span><?php echo 'Exp : '.$row['Exp']; ?></span><br>
+                                <span><?php echo 'Length : '.$row['Length']; ?></span><br>
+                            </div>
+
+                            <div style="display:inline-block;width:30%;padding:10px;vertical-align:top;">
+                                <span><?php echo 'DataCoding : '.$row['DataCoding']; ?></span><br>
+                                <span><?php echo 'LSB : '.$row['LSB']; ?></span><br>
+                                <span><?php echo 'UnixTime : '.$row['UnixTime']; ?></span><br>
+                                <span><?php echo 'TranscodeRule : '.$row['TranscodeRule']; ?></span><br>
+                                <span><?php echo 'CreateTime : '.$row['CreateTime']; ?></span><br>
+                                <span><?php echo 'Marked : '.$row['Marked']; ?></span><br>
+                                <span><?php echo 'PreConditionLine : '.$row['PreConditionLine']; ?></span><br>
+                                <span><?php echo 'ChildRule : '.$row['ChildRule']; ?></span><br>
+                                <span><?php echo 'Condition : '.$row['Condition']; ?></span><br>
+                                <span><?php echo 'OnlyShowInBody : '.$row['OnlyShowInBody']; ?></span><br>
+                            </div>
+
+                            <div style="display:inline-block;width:30%;padding:10px;vertical-align:top;">
+                                <span><?php echo 'JumpRuleCondition : '.$row['JumpRuleCondition']; ?></span><br>
+                            </div>
+
+                        </div>
+
+                    <?php
                     }
                 }
                 ?>
