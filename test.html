@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Functional Lists</title>
+</head>
+<body>
+
+<script>
+
+
+    function List() { this.list = {} }
+
+    function EmptyList() { }
+
+    EmptyList.prototype = new List();
+
+    EmptyList.prototype.constructor = EmptyList;
+
+    EmptyList.prototype.toString = function() {
+        var leftList = this.list,string = '(';
+        while (typeof leftList.value !== 'undefined'){
+            string += leftList.value + ' ';
+            leftList = leftList.next;
+        }
+        return string.replace(/\s$/,'') + ')';
+    };
+
+    EmptyList.prototype.isEmpty = function() { return (typeof this.list.value !== 'undefined') ? false : true ; };
+
+    EmptyList.prototype.length = function() {
+        var leftList = this.list,length = 0;
+        while (typeof leftList.value !== 'undefined'){
+            length ++;
+            leftList = leftList.next;
+        }
+        return length;
+    };
+
+    EmptyList.prototype.push = function(x) {
+
+        this.list = {value:x,next:this.list};
+        return this;
+
+        var newList = {value:x,next:this.list}
+        return {list:newList,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    };
+
+    EmptyList.prototype.remove = function(x) {
+        var newList = new ListNode(),re = new RegExp(x,'g'),string = this.toString().replace(/\s/g,'').replace(/\(/g,'').replace(/\)/g,'').replace(re,'');
+        string.split('').reverse().forEach(function (s, n) {
+            newList = newList.push(s);
+        })
+        return {list:newList.list,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    };
+
+    EmptyList.prototype.append = function(xs) {
+        var newList = new ListNode(),string = (this.toString() + xs.toString()).replace(/\s/g,'').replace(/\(/g,'').replace(/\)/g,'');
+        string.split('').reverse().forEach(function (s, n) {
+            newList = newList.push(s);
+        })
+
+
+        this.list = newList.list;
+        return this;
+
+
+
+        return {list:newList.list,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    };
+
+    EmptyList.prototype.tail = function() {
+
+        this.list = this.list.next;
+        return this;
+
+
+        var newList = this.list.next;
+        return {list:newList,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    }
+
+    EmptyList.prototype.head = function() {
+        return this.list.value;
+    }
+
+
+
+    function ListNode(value, next) { /* implement this */ }
+    ListNode.prototype = new List();
+    ListNode.prototype.constructor = ListNode;
+    ListNode.prototype.isEmpty = function() { /* implement this */ };
+
+    ListNode.prototype.toString = function() { /* implement this */ };
+
+    ListNode.prototype.head = function() {
+        return this.list.value;
+    };
+    ListNode.prototype.tail = function() {
+        var newList = this.list.next;
+        return {list:newList,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    };
+    ListNode.prototype.length = function() { /* implement this */ };
+    ListNode.prototype.push = function(x) {
+        var newList = {value:x,next:this.list}
+        return {list:newList,toString:this.toString,push:this.push,isEmpty:this.isEmpty,length:this.length,remove:this.remove,append:this.append,tail:this.tail,head:this.head};
+    };
+    ListNode.prototype.remove = function(x) { /* implement this */ };
+    ListNode.prototype.append = function(xs) { /* implement this */ };
+
+    mt = new EmptyList();
+    l1 = mt.push('c').push('b').push('a')
+    l2 = l1.append(l1);
+    l3 = l1.remove('b');
+    l4 = l2.remove('b');
+
+
+    if( mt.isEmpty() ) console.log('enpty list is empty');
+    if( !l1.isEmpty() ) console.log('Non-empty list is not empty');
+    if( mt.toString() === "()") console.log("()");
+    if( l3.toString() === "(a c)") console.log("(a c)");
+    if(mt.length() === 0) console.log("Empty list has length zero");
+    if(l1.length() === 3) console.log("(a b c) length 3");
+
+    if(l2.tail().tail().tail() === l1) console.log("(a b c a b c) shares");
+    if(l2 !== l1) console.log("(a b c a b c) doesn't share too much");
+    if(l3.tail() === l1.tail().tail()) console.log("(a b c) remove b shares c");
+
+
+</script>
+
+</body>
+</html>
