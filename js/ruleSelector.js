@@ -27,7 +27,7 @@ $.fn.ruleSelector = function (options) {
         $('#'+selector).append('<select class="btn-black" style="height: 28px;"></select>')
 
         for (var objKey in rulelist) {
-            if(rulelist[objKey]['InRuleSelector'].indexOf(options.RuleSelectorType) !== -1){
+            if(rulelist[objKey]['RuleSelectorType'].indexOf(options.RuleSelectorType) !== -1){
                 if(parseInt(rulelist[objKey]['RuleSetID']) === currentRuleSetID){
                     $('#'+selector+' > select').append('<option value="'+rulelist[objKey]['RuleSetID']+'" selected>'+rulelist[objKey]['RuleName']+'</option>')
                 }else {

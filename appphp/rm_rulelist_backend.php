@@ -17,8 +17,8 @@ switch ($_POST['op']) {
   date_default_timezone_set("Asia/Taipei");
   $localTime = str_replace(',','',(string) date(DATE_RFC850));
 
-  $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime)
-  VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."','Add Rule','".$localTime."')";
+  $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime, RuleSelectorType)
+  VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."','Add Rule','".$localTime."','InTranscoder,InRuleEditor,InAdvanceEditor,InRuleBranch,InBranchEditor,')";
 
   $conn->query('SET NAMES UTF8');
   $conn->query($query);

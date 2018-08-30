@@ -39,9 +39,11 @@ if ($result->num_rows > 0) {
 
 <div id="wrapper">
 
+    <?php include_once 'loader_err.php'; ?>
+
     <?php include_once 'rm_sidebar.php'; ?>
 
-    <div id="page-wrapper" style="position:absolute;width:100%;min-height:100%;overflow: auto; margin-bottom: 36px;">
+    <div id="page-wrapper" style="position:absolute; width:100%; min-height:100%; overflow: auto; margin-bottom: 36px;">
 
         <div style="margin-top:10px;">
             <ol class="breadcrumb" style="margin-bottom:10px;">
@@ -63,25 +65,40 @@ if ($result->num_rows > 0) {
 
         foreach ($rule_selector_types as $type_key => $type){
 
-            $title = preg_replace('/(?<!\ )[A-Z]/', ' $0', $type)
+            $all_rule_has = true;
+            if($type === 'InTranscoder'){
+                $title = 'in Transcoder';
+            } elseif ($type === 'InRuleEditor'){
+                $title = 'in RuleEditor';
+            } elseif ($type === 'InAdvanceEditor'){
+                $title = 'in AdvanceEditor';
+            } elseif ($type === 'InRuleBranch'){
+                $title = 'in RuleBranch';
+            } elseif ($type === 'InBranchEditor'){
+                $title = 'in BranchEditor';
+            }
 
         ?>
 
             <div style="clear: both; margin-bottom: 10px; overflow: auto;">
 
                 <div style="float: left; width: 25%;">
-                    <span>Rule Selector<?php echo $title; ?></span>
+                    <span>Rule Selector <?php echo $title;?></span>
                 </div>
                 <div style="float: right; width: 75%; max-height: 150px; overflow: auto;">
                     <?php
 
                     foreach ($rule_list as $key => $rule) {
 
+                        if(!strpos($rule['RuleSelectorType'], $type) && strpos($rule['RuleSelectorType'], $type) !== 0){
+                            $all_rule_has = false;
+                        }
+
                         ?>
 
                         <div class="checkbox" style="display: inline-block; width: auto;">
                             <label>
-                                <input type="checkbox" value="<?php echo $rule['RuleSetID']; ?>" name="<?php echo $type; ?>" <?php if(strpos($rule['InRuleSelector'], $type) || strpos($rule['InRuleSelector'], $type) === 0) echo 'checked'; ?>>
+                                <input type="checkbox" value="<?php echo $rule['RuleSetID']; ?>" name="<?php echo $type; ?>" <?php if(strpos($rule['RuleSelectorType'], $type) || strpos($rule['RuleSelectorType'], $type) === 0) echo 'checked'; ?>>
                                 <?php echo $rule['RuleName']; ?>
                             </label>
                         </div>
@@ -93,7 +110,7 @@ if ($result->num_rows > 0) {
 
                     <div class="checkbox" style="display: inline-block; width: auto;">
                         <label>
-                            <input class="selectAll" type="checkbox" value="All" data-ruleselectortype="<?php echo $type; ?>">
+                            <input class="selectAll" type="checkbox" value="All" data-ruleselectortype="<?php echo $type; ?>" <?php if($all_rule_has) echo 'checked' ?>>
                             Select All
                         </label>
                     </div>
@@ -107,6 +124,8 @@ if ($result->num_rows > 0) {
         }
 
         ?>
+
+        <span id="save_preference" class="btn btn-black"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;SAVE</span>
 
     </div>
 
