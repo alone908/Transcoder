@@ -14,8 +14,7 @@ $(document).ready(function () {
             update_rule_tab(selectedRuleID);
             $('#rule-title-li').text('Transcoder - ' + ruleList[selectedRuleID]['RuleName']);
             var script = 'new_rule = ' + ruleList[selectedRuleID]['RuleVar'];
-            eval(script);
-            console.log(new_rule);
+            eval(script);            
         }
     });
 
@@ -260,8 +259,7 @@ function get_rule_obj(RuleSetID, RuleVar) {
             eval(script);
             if (Number(RuleSetID) === defaultRuleSetID) {
                 var script = 'new_rule = ' + RuleVar + ';';
-                eval(script);
-                console.log(new_rule);
+                eval(script);                
             }
             check_rule_tpl_type(RuleSetID.toString(),data.new_rule);
         },
@@ -303,7 +301,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
     $('.datalog').val(data.lineLog);
 
     $('.childdata').on('click', function () {
-        parse_child_rule($(this).data('childruleset'), $(this).data('childdata'));
+        parse_child_rule($(this).data('childruleset').toString(), $(this).data('childdata').toString());
         $('#subrule_title').html('Sub Rule : ' + ruleList[$(this).data('childruleset')]['RuleName']);
     })
 
@@ -329,7 +327,7 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
 }
 
 function split_origin_data(originalDATA) {
-    console.log(ruleTplType[currentRuleSetID]);
+    
     switch (ruleTplType[currentRuleSetID]) {
         case 'A':   //no HeadTitle, no BodyTitle, no TailTitle
 
@@ -597,7 +595,6 @@ function split_origin_data(originalDATA) {
 function apply_jump_rule(originalDATA,ruleSetID,linesArray,startPOS,bodyCount,startLineNumber){
     var script = 'jump_rule = ' + ruleList[ruleSetID]['RuleVar'];
     eval(script);
-
     for (var i = 0; i < jump_rule.length; i++) {
 
         var obj = {};
@@ -606,6 +603,12 @@ function apply_jump_rule(originalDATA,ruleSetID,linesArray,startPOS,bodyCount,st
         if(jump_rule[i]['OnlyShowInBody'].indexOf(bodyCount.toString()) !== -1 || jump_rule[i]['OnlyShowInBody'].length === 0){
             for (var key in jump_rule[i]) {
                 obj[key] = jump_rule[i][key];
+                if(key === 'Condition' && jump_rule[i][key] !== '' && jump_rule[i][key] !== null && typeof jump_rule[i][key] !== 'undefined'){ // need to prevent data type is null or empty
+                	if(jump_rule[i][key].indexOf('if') !== -1){
+						var newPreConditionLine = (parseInt(jump_rule[i][key].match(/\[\"(.*?)\"\]/g)[0].replace('[','').replace(']','').replace(/"/g,'')) + parseInt(startLineNumber) - 1).toString()
+                		obj[key] = jump_rule[i][key].replace(/\[\"(.*?)\"\]/g,'["'+newPreConditionLine+'"]');
+                	}
+                }
             }
             obj.LineNumber = (parseInt(startLineNumber)+i).toString();
             obj.Data = originalDATA.substring(startPOS, startPOS + length);
@@ -696,11 +699,11 @@ function build_tpl(linesArray) {
 
         //Mark precondition line value *********************************************
         if (marked === 'true') {
-            markedValue[lineNumber] = transCode;
+            markedValue[lineNumber] = transCode.toString();
         }
 
         if (condition !== null && condition !== '') {
-            eval(condition);
+            eval(condition);            
         }
 
         //**************************************************************************
@@ -901,7 +904,7 @@ function eachTwoNum(sourceData) {
 }
 
 function parse_child_rule(childRuleSet, data) {
-
+	
     $('.mefForm').html('');
     var html = '';
     var splitStart = 0;
