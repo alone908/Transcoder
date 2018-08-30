@@ -7,6 +7,7 @@ $(document).ready(function(){
     $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
 
     $('#rule_selector').ruleSelector({
+        RuleSelectorType: 'InBranchEditor',
         SelectedCallback: function (rulelist, selectedRuleID) {
             currentRuleSetID = selectedRuleID;
             window.location = 'rm_brancheditor.php?rulesetid=' + selectedRuleID;

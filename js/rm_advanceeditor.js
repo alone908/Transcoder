@@ -5,6 +5,7 @@ $(document).ready(function(){
     $('#rule_row_container').css('height', ($('#editor').height()-35).toString()+'px' );
 
     $('#rule_selector').ruleSelector({
+        RuleSelectorType: 'InAdvanceEditor',
         SelectedCallback:function(rulelist,selectedRuleID){
             currentRuleSetID = selectedRuleID;
             window.location = 'rm_advanceeditor.php?rulesetid=' + selectedRuleID;

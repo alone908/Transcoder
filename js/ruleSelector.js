@@ -2,8 +2,8 @@ $.fn.ruleSelector = function (options) {
 
     // default configuration properties
     var defaults = {
-        RuleType:'all',
-        SelectedCallback:function(rulelist,value){}
+        SelectedCallback:function(rulelist,value){},
+        RuleSelectorType:''
     };
 
     var options = $.extend(defaults, options);
@@ -12,7 +12,7 @@ $.fn.ruleSelector = function (options) {
     $.ajax({
         type: 'POST',
         url: "appphp/TranscodeRule.php",
-        data: {op: 'get_rule_list'},
+        data: {op: 'get_rule_list_for_ruleSelector'},
         dataType: "json",
         success: function (data) {
             buildSelector(data.ruleList);
@@ -26,12 +26,12 @@ $.fn.ruleSelector = function (options) {
 
         $('#'+selector).append('<select class="btn-black" style="height: 28px;"></select>')
 
-        for (var RuleSetID in rulelist) {
-            if(options.RuleType === rulelist[RuleSetID]['RuleType'] || options.RuleType === 'all'){
-                if(parseInt(RuleSetID) === currentRuleSetID){
-                    $('#'+selector+' > select').append('<option value="'+RuleSetID+'" selected>'+rulelist[RuleSetID]['RuleName']+'</option>')
+        for (var objKey in rulelist) {
+            if(rulelist[objKey]['InRuleSelector'].indexOf(options.RuleSelectorType) !== -1){
+                if(parseInt(rulelist[objKey]['RuleSetID']) === currentRuleSetID){
+                    $('#'+selector+' > select').append('<option value="'+rulelist[objKey]['RuleSetID']+'" selected>'+rulelist[objKey]['RuleName']+'</option>')
                 }else {
-                    $('#'+selector+' > select').append('<option value="'+RuleSetID+'">'+rulelist[RuleSetID]['RuleName']+'</option>')
+                    $('#'+selector+' > select').append('<option value="'+rulelist[objKey]['RuleSetID']+'">'+rulelist[objKey]['RuleName']+'</option>')
                 }
             }
         }

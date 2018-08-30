@@ -24,6 +24,7 @@ $(document).ready(function () {
     $('#rule_row_container').css('height', ($('#editor').height() - 35).toString() + 'px');
 
     $('#rule_selector').ruleSelector({
+        RuleSelectorType: 'InRuleEditor',
         SelectedCallback: function (rulelist, selectedRuleID) {
             currentRuleSetID = selectedRuleID;
             window.location = 'rm_ruleeditor.php?rulesetid=' + selectedRuleID;

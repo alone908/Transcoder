@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('#wrapper').css('height', wrapperHeight.toString() + 'px');
 
     $('#rule_selector').ruleSelector({
-        RuleType:'MainRule',
+        RuleSelectorType: 'InTranscoder',
         SelectedCallback:function(rulelist,selectedRuleID){
             currentRuleSetID = parseInt(selectedRuleID);
             update_rule_tab(selectedRuleID);

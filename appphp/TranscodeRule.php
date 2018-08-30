@@ -23,6 +23,27 @@ switch ($_POST['op']) {
 
         break;
 
+    case 'get_rule_list_for_ruleSelector':
+
+        $rule_list = array();
+
+        $sql = "SELECT * FROM rulelist ORDER BY RuleName";
+        $conn->query('SET NAMES UTF8');
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $rule_list[] = [];
+                foreach ($row as $key => $value) {
+                    $rule_list[count($rule_list)-1][$key] = $value;
+                }
+            }
+        }
+
+        echo json_encode(array('ruleList' => $rule_list));
+
+        break;
+
     case 'get_rule_obj':
 
         $sql = "select * from transcoderule where RuleSetID='" . $_POST['RuleSetID'] . "' order by LineNumber";

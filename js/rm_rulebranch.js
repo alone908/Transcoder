@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('#page-wrapper').css('width', ($(document).width()-350).toString()+'px' );
 
     $('#rule_selector').ruleSelector({
+        RuleSelectorType: 'InRuleBranch',
         SelectedCallback: function (rulelist, selectedRuleID) {
             currentRuleSetID = selectedRuleID;
             window.location = 'rm_rulebranch.php?rulesetid=' + selectedRuleID;
