@@ -73,7 +73,7 @@ foreach ($rule_group as $group => $rules){
 
             <?php
 
-            foreach ($rule_group as $group => $rule_list){
+            foreach ($rule_group as $group => $rules){
             ?>
 
                 <table id="rule-list-table-main" class="table table-hover" style="margin-bottom: 0px;">
@@ -82,8 +82,8 @@ foreach ($rule_group as $group => $rules){
                     </thead>
                     <tbody>
                     <?php
-                    foreach ($rule_list as $rule_set_id => $rule) {
-                        if ($rule_list[$rule_set_id]['RuleType'] === 'MainRule') {
+                    foreach ($rules as $rule_set_id => $rule) {
+
                             $class = ($rule_set_id === (integer)$current_ruleset_id) ? 'info' : '';
                             echo '<tr style="cursor:pointer;" class="' . $class . '" data-rulesetid="' . $rule_set_id . '" data-rulevar="' . $rule['RuleVar'] . '">
                       <td style="padding:8px 2px;">' . $rule['RuleName'] . '</td>
@@ -92,7 +92,7 @@ foreach ($rule_group as $group => $rules){
                       <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
                       <button class="btn btn-sm-black del_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
                       </td></tr>';
-                        }
+
                     }
                     ?>
                     </tbody>
