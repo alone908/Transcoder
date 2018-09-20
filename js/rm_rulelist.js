@@ -31,6 +31,7 @@ $(document).ready(function () {
 
     $('.edit_rule_btn').on('click', function (e) {
         $('#rule_name').val(ruleList[$(this).data('rulesetid')].RuleName);
+        $('#rule_group').val(ruleList[$(this).data('rulesetid')].RuleGroup);
         $('#save_rule_name').data('rulesetid', $(this).data('rulesetid'));
     })
     $('#save_rule_name').on('click', function (e) {
@@ -187,7 +188,7 @@ function edit_rule_name(rulesetid) {
         $.ajax({
             type: 'POST',
             url: "appphp/rm_rulelist_backend.php",
-            data: {op: 'edit_rule_name', rulesetid: rulesetid, rulename: $('#rule_name').val()},
+            data: {op: 'edit_rule_name', rulesetid: rulesetid, rulename: $('#rule_name').val(), rulegroup: $('#rule_group').val()},
             dataType: "json",
             success: function (data) {
                 window.location = 'rm_rulelist.php?rulesetid=' + currentRuleSetID;

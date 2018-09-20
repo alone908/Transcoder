@@ -221,6 +221,10 @@ if (!isset($_SESSION)) {
                     <label for="">New Rule Name:</label>
                     <input id="rule_name" type="text" class="form-control" placeholder="Rule Name">
                 </div>
+                <div class="form-group" style="margin-bottom:5px;">
+                    <label for="">New Rule Group:</label>
+                    <input id="rule_group" type="text" class="form-control" placeholder="Rule Group">
+                </div>
                 <span id="edit_name_err" style="font-size:14px;color:red;"></span>
             </div>
             <div class="modal-footer">

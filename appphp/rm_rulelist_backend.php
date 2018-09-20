@@ -17,8 +17,8 @@ switch ($_POST['op']) {
   date_default_timezone_set("Asia/Taipei");
   $localTime = str_replace(',','',(string) date(DATE_RFC850));
 
-  $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime, RuleSelectorType)
-  VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."','Add Rule','".$localTime."','InTranscoder,InRuleEditor,InAdvanceEditor,InRuleBranch,InBranchEditor,')";
+  $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime, RuleSelectorType, RuleGroup)
+  VALUES (".$new_rule_set_id.",'".$_POST['rule_name']."','".$_POST['rule_type']."','".$rule_var."','Add Rule','".$localTime."','InTranscoder,InRuleEditor,InAdvanceEditor,InRuleBranch,InBranchEditor,','Default')";
 
   $conn->query('SET NAMES UTF8');
   $conn->query($query);
@@ -157,8 +157,8 @@ switch ($_POST['op']) {
     date_default_timezone_set("Asia/Taipei");
     $localTime = str_replace(',','',(string) date(DATE_RFC850));
 
-    $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime,RuleSelectorType)
-    VALUES (".$new_rule_set_id.",'".$_POST['rulename']."','".$origin_rule['RuleType']."','".$rule_var."','".$created_by."','".$localTime."','".$origin_rule['RuleSelectorType']."')";
+    $query = "INSERT INTO rulelist (RuleSetID,RuleName,RuleType,RuleVar,CreatedBy,CreateTime,RuleSelectorType,RuleGroup)
+    VALUES (".$new_rule_set_id.",'".$_POST['rulename']."','".$origin_rule['RuleType']."','".$rule_var."','".$created_by."','".$localTime."','".$origin_rule['RuleSelectorType']."','".$origin_rule['RuleGroup']."')";
 
     $conn->query('SET NAMES UTF8');
     $conn->query($query);
@@ -193,7 +193,7 @@ switch ($_POST['op']) {
 
   $rule_set_id = (integer) $_POST['rulesetid'];
 
-  $query = "UPDATE rulelist SET RuleName='".$_POST['rulename']."' WHERE RuleSetID=".$rule_set_id;
+  $query = "UPDATE rulelist SET RuleName='".$_POST['rulename']."', RuleGroup='".$_POST['rulegroup']."' WHERE RuleSetID=".$rule_set_id;
   $conn->query('SET NAMES UTF8');
   $conn->query($query);
 

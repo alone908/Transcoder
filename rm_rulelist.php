@@ -14,6 +14,32 @@
 <?php $defaultRuleSetID = 1 ?>
 <?php $current_ruleset_id = (isset($_GET['rulesetid'])) ? $_GET['rulesetid'] : $defaultRuleSetID ?>
 
+<?php
+
+$sql = "SELECT RuleGroup FROM rulelist GROUP BY RuleGroup ORDER BY RuleGroup ASC";
+$conn->query('SET NAMES UTF8');
+$result = $conn->query($sql);
+$rule_group = ['Default'=>[]];
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        if($row['RuleGroup'] !== 'Default') $rule_group[$row['RuleGroup']] = [];
+    }
+}
+
+foreach ($rule_group as $group => $rules){
+    $sql = "SELECT * FROM rulelist WHERE RuleGroup='".$group."' ORDER BY RuleName ASC";
+    $conn->query('SET NAMES UTF8');
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            foreach ($row as $key => $value) {
+                $rule_group[$group][$row['RuleSetID']][$key] = $value;
+            }
+        }
+    }
+}
+
+?>
 <!-- Custom CSS -->
 <link href="css/sb-admin.css" rel="stylesheet">
 <!-- Custom JS -->
@@ -44,49 +70,38 @@
         <br>
 
         <div id="rule-list-div">
-            <table id="rule-list-table-main" class="table table-hover">
-                <thead>
-                    <tr><th colspan="2" style="padding-left: 0px;">Main Rule:</th></tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($rule_list as $rule_set_id => $rule) {
-                    if ($rule_list[$rule_set_id]['RuleType'] === 'MainRule') {
-                        $class = ($rule_set_id === (integer)$current_ruleset_id) ? 'info' : '';
-                        echo '<tr style="cursor:pointer;" class="' . $class . '" data-rulesetid="' . $rule_set_id . '" data-rulevar="' . $rule['RuleVar'] . '">
+
+            <?php
+
+            foreach ($rule_group as $group => $rule_list){
+            ?>
+
+                <table id="rule-list-table-main" class="table table-hover" style="margin-bottom: 0px;">
+                    <thead>
+                    <tr><th colspan="2" style="padding-left: 0px;"><?php echo $group ?>:</th></tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($rule_list as $rule_set_id => $rule) {
+                        if ($rule_list[$rule_set_id]['RuleType'] === 'MainRule') {
+                            $class = ($rule_set_id === (integer)$current_ruleset_id) ? 'info' : '';
+                            echo '<tr style="cursor:pointer;" class="' . $class . '" data-rulesetid="' . $rule_set_id . '" data-rulevar="' . $rule['RuleVar'] . '">
                       <td style="padding:8px 2px;">' . $rule['RuleName'] . '</td>
                       <td style="padding:8px 2px;width:75px;">
                       <button class="btn btn-sm-black edit_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#editRuleModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                       <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
                       <button class="btn btn-sm-black del_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
                       </td></tr>';
+                        }
                     }
-                }
-                ?>
-                </tbody>
-            </table>
-            <br>
-            <table id="rule-list-table-sub" class="table table-hover">
-                <thead>
-                    <tr><th colspan="2" style="padding-left: 0px;">Sub Rule:</th></tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($rule_list as $rule_set_id => $rule) {
-                    if ($rule_list[$rule_set_id]['RuleType'] === 'SubRule') {
-                        $class = ($rule_set_id === (integer)$current_ruleset_id) ? 'info' : '';
-                        echo '<tr style="cursor:pointer;" class="' . $class . '" data-rulesetid="' . $rule_set_id . '" data-rulevar="' . $rule['RuleVar'] . '">
-                      <td style="padding:8px 2px;">' . $rule['RuleName'] . '</td>
-                      <td style="padding:8px 2px;width:75px;">
-                      <button class="btn btn-sm-black edit_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#editRuleModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                      <button class="btn btn-sm-black clone_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#cloneRuleModal"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                      <button class="btn btn-sm-black del_rule_btn" data-rulesetid="' . $rule_set_id . '" data-toggle="modal" data-target="#delRuleModal"><i class="fa fa-minus-square-o" aria-hidden="true"></i></button>
-                      </td></tr>';
-                    }
-                }
-                ?>
-                </tbody>
-            </table>
+                    ?>
+                    </tbody>
+                </table>
+
+            <?php
+            }
+            ?>
+
         </div>
         <div id="rule-info">
             <?php
