@@ -120,6 +120,8 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                             <select id="diff-data-two" class="form-control" style="width: 120px;cursor: pointer"></select>
                         </div>
                         <button type="button" id="diff_btn" class="btn btn-default" style="background-color: black; color: #9d9d9d;">Compare</button>
+                        <br>
+                        <div id="diff-Table" style="margin-top: 10px;"></div>
                     </form>
                     <br>
 

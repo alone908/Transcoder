@@ -1235,24 +1235,29 @@ function createDataDiffOption(totalBodyCount) {
 
 function diffBtnClick(e){
 
-    $.ajax({
-        type: 'POST',
-        url: "appphp/transcoder_backend.php",
-        data: {
-            op: 'diff_data',
-            dataLineOne: createDataForDiff($('#diff-data-one').val()),
-            dataLineTwo: createDataForDiff($('#diff-data-two').val())
-        },
-        dataType: "json",
-        success: function (data) {
+    $('#diff-Table').html('');
 
-            $('#diff-data-container').append(data.tpl);
+    var dataLineOne = createDataForDiff($('#diff-data-one').val());
+    var dataLineTwo = createDataForDiff($('#diff-data-two').val());
+    var totalLines = dataLineOne.length;
 
-        },
-        error: function(requestObject, error, errorThrown) {
-
+    var hasDiff = false;
+    var tpl = '<div>';
+    for(var i=0; i<totalLines; i++){
+        if(dataLineOne[i] !== dataLineTwo[i]){
+            hasDiff = true;
+            tpl += '<div style="background-color: #eed6d6"><span>'+dataLineOne[i]+'</span></div>';
+            tpl += '<div style="background-color: #d6e8cf"><span>'+dataLineTwo[i]+'</span></div>';
+            tpl += '<div style="height: 10px;"></div>';
         }
-    });
+    }
+    tpl += '</div>';
+
+    if(hasDiff){
+        $('#diff-Table').html(tpl);
+    }else{
+        $('#diff-Table').html('No difference.');
+    }
 
 }
 
@@ -1263,19 +1268,12 @@ function createDataForDiff(dataSelect) {
 
     $('.belongToBody'+dataSelect).each(function (n, line) {
 
-        var startWithLine = parseInt($(line).find('.lineNumber')[0].textContent);
-        if(n===0 && startWithLine > 1){
-            for(var i=1; i<=startWithLine-1; i++){
-                lines.push(['','','','']);
-            }
-        }
-
         var transCodeText = ($(line).find('.transCode').length === 1) ? $(line).find('.transCode')[0].textContent : '';
 
         lines.push(
-            parseInt($(line).find('.lineNumber')[0].textContent)+' '+
-            $(line).find('.description')[0].textContent+' '+
-            $(line).find('.lineData')[0].textContent+' '+transCodeText
+            parseInt($(line).find('.lineNumber')[0].textContent)+'&nbsp;&nbsp;&nbsp;'+
+            $(line).find('.description')[0].textContent+'&nbsp;&nbsp;&nbsp;'+
+            transCodeText
         )
 
     })

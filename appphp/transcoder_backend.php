@@ -118,27 +118,6 @@ switch ($_POST['op']) {
 
         break;
 
-    case 'diff_data':
-
-        $tpl = '<div>';
-        $dataLineOne = $_POST['dataLineOne'];
-        $dataLineTwo = $_POST['dataLineTwo'];
-        $totalLines = count($dataLineOne);
-
-        for($i=0; $i<$totalLines; $i++){
-            if($dataLineOne[$i] !== $dataLineTwo[$i]){
-                $tpl .= '<div style="background-color: #eed6d6"><span>'.$dataLineOne[$i].'</span></div>';
-                $tpl .= '<div style="background-color: #d6e8cf"><span>'.$dataLineTwo[$i].'</span></div>';
-                $tpl .= '<div style="height: 10px;"></div>';
-            }
-        }
-
-        $tpl .= '</div>';
-
-        echo json_encode(array('tpl'=>$tpl));
-
-        break;
-
 }
 
 ?>
