@@ -127,6 +127,9 @@ $(document).ready(function () {
     $('#form-tab').on('click', function (e) {
         showFormDataContainer(e, true)
     });
+    $('#diff-tab').on('click', function (e) {
+        showDiffDataContainer(e, true)
+    });
     $('#source-tab').on('click', function (e) {
         showSourceDataContainer(e,true)
     });
@@ -139,6 +142,10 @@ $(document).ready(function () {
     $('#rule-tab').on('click', function (e) {
         showRuleTabContainer(e, true)
     });
+
+    $('#diff_btn').on('click', function (e) {
+        diffBtnClick(e)
+    })
 
     //***** Upload Course ZIP file **********************
     $('#fileupload').fileupload({
@@ -304,6 +311,8 @@ function parse_new_data(originalDATA, replaceOriginalDATA, insertRecord) {
         parse_child_rule($(this).data('childruleset').toString(), $(this).data('childdata').toString());
         $('#subrule_title').html('Sub Rule : ' + ruleList[$(this).data('childruleset')]['RuleName']);
     })
+
+    createDataDiffOption(data.bodyCount);
 
     if (insertRecord) {
         var datapost = {
@@ -714,7 +723,7 @@ function build_tpl(linesArray) {
         //**************************************************************************
 
         //Write lineHtml ***********************************************************
-        lineHtml += '<div class="lineDiv ' + parseInt(lineNumText) + '" >';
+        lineHtml += '<div class="lineDiv' + parseInt(lineNumText) + ' belongToBody' + bodyCount + '" >';
 
         //************************line number span *********************************
         lineHtml += '<span class="lineNumber">' + lineNumText + '</span>';
@@ -786,7 +795,7 @@ function build_tpl(linesArray) {
         lineLog += "\n";
     })
 
-    return {lineHtml: lineHtml, lineText: lineText, lineLog: lineLog};
+    return {lineHtml: lineHtml, lineText: lineText, lineLog: lineLog, bodyCount: bodyCount};
 
 }
 
@@ -1109,12 +1118,32 @@ function toggleMenu(e) {
 
 function showFormDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'block');
+    $('#diff-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
     $('#log-data-container').css('display', 'none');
     $('#rule-tab-container').css('display', 'none');
 
     $('#form-tab > a').addClass('a-active');
+    $('#diff-tab > a').removeClass('a-active');
+    $('#source-tab > a').removeClass('a-active');
+    $('#text-tab > a').removeClass('a-active');
+    $('#log-tab > a').removeClass('a-active');
+    $('#rule-tab > a').removeClass('a-active');
+
+    if (toggle) toggleMenu(e);
+}
+
+function showDiffDataContainer(e, toggle) {
+    $('#form-data-container').css('display', 'none');
+    $('#diff-data-container').css('display', 'block');
+    $('#source-data-container').css('display', 'none');
+    $('#text-data-container').css('display', 'none');
+    $('#log-data-container').css('display', 'none');
+    $('#rule-tab-container').css('display', 'none');
+
+    $('#form-tab > a').removeClass('a-active');
+    $('#diff-tab > a').addClass('a-active');
     $('#source-tab > a').removeClass('a-active');
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').removeClass('a-active');
@@ -1125,12 +1154,14 @@ function showFormDataContainer(e, toggle) {
 
 function showSourceDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
+    $('#diff-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'block');
     $('#text-data-container').css('display', 'none');
     $('#log-data-container').css('display', 'none');
     $('#rule-tab-container').css('display', 'none');
 
     $('#form-tab > a').removeClass('a-active');
+    $('#diff-tab > a').removeClass('a-active');
     $('#source-tab > a').addClass('a-active');
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').removeClass('a-active');
@@ -1141,12 +1172,14 @@ function showSourceDataContainer(e, toggle) {
 
 function showTextDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
+    $('#diff-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'block');
     $('#log-data-container').css('display', 'none');
     $('#rule-tab-container').css('display', 'none');
 
     $('#form-tab > a').removeClass('a-active');
+    $('#diff-tab > a').removeClass('a-active');
     $('#source-tab > a').removeClass('a-active');
     $('#text-tab > a').addClass('a-active');
     $('#log-tab > a').removeClass('a-active');
@@ -1157,12 +1190,14 @@ function showTextDataContainer(e, toggle) {
 
 function showLogDataContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
+    $('#diff-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
     $('#log-data-container').css('display', 'block');
     $('#rule-tab-container').css('display', 'none');
 
     $('#form-tab > a').removeClass('a-active');
+    $('#diff-tab > a').removeClass('a-active');
     $('#source-tab > a').removeClass('a-active');
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').addClass('a-active');
@@ -1173,12 +1208,14 @@ function showLogDataContainer(e, toggle) {
 
 function showRuleTabContainer(e, toggle) {
     $('#form-data-container').css('display', 'none');
+    $('#diff-data-container').css('display', 'none');
     $('#source-data-container').css('display', 'none');
     $('#text-data-container').css('display', 'none');
     $('#log-data-container').css('display', 'none');
     $('#rule-tab-container').css('display', 'block');
 
     $('#form-tab > a').removeClass('a-active');
+    $('#diff-tab > a').removeClass('a-active');
     $('#source-tab > a').removeClass('a-active');
     $('#text-tab > a').removeClass('a-active');
     $('#log-tab > a').removeClass('a-active');
@@ -1187,3 +1224,62 @@ function showRuleTabContainer(e, toggle) {
     if (toggle) toggleMenu(e);
 }
 ////////////////////////////////////////////////////////////////////////////////
+
+function createDataDiffOption(totalBodyCount) {
+    var optionHtml = '';
+    for(var i=1; i<=totalBodyCount; i++){
+        optionHtml += '<option value="'+i+'">表身 '+i+'</option>'
+    }
+    $('#diff-data-one, #diff-data-two').html(optionHtml);
+}
+
+function diffBtnClick(e){
+
+    $.ajax({
+        type: 'POST',
+        url: "appphp/transcoder_backend.php",
+        data: {
+            op: 'diff_data',
+            dataLineOne: createDataForDiff($('#diff-data-one').val()),
+            dataLineTwo: createDataForDiff($('#diff-data-two').val())
+        },
+        dataType: "json",
+        success: function (data) {
+
+            $('#diff-data-container').append(data.tpl);
+
+        },
+        error: function(requestObject, error, errorThrown) {
+
+        }
+    });
+
+}
+
+function createDataForDiff(dataSelect) {
+    var lines = [];
+
+    if($('.belongToBody'+dataSelect).length < 1) return lines;
+
+    $('.belongToBody'+dataSelect).each(function (n, line) {
+
+        var startWithLine = parseInt($(line).find('.lineNumber')[0].textContent);
+        if(n===0 && startWithLine > 1){
+            for(var i=1; i<=startWithLine-1; i++){
+                lines.push(['','','','']);
+            }
+        }
+
+        var transCodeText = ($(line).find('.transCode').length === 1) ? $(line).find('.transCode')[0].textContent : '';
+
+        lines.push(
+            parseInt($(line).find('.lineNumber')[0].textContent)+' '+
+            $(line).find('.description')[0].textContent+' '+
+            $(line).find('.lineData')[0].textContent+' '+transCodeText
+        )
+
+    })
+
+    return lines;
+
+}

@@ -52,6 +52,7 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                 <li id="rule-tab"><a href="#">RULE</a></li>
                 <li id="source-tab"><a href="#">SOURCE</a></li>
                 <li id="form-tab"><a href="#" class="a-active">FORM</a></li>
+                <li id="diff-tab"><a href="#">DIFF</a></li>
                 <li id="text-tab"><a href="#">TEXT</a></li>
                 <li id="log-tab"><a href="#">LOG</a></li>
             </ul>
@@ -104,6 +105,23 @@ if(!isset($_SESSION['login_user']) || !isset($_SESSION['user_auth']) || $_SESSIO
                     </div>
                     <div id="form-data" class="dataForm"></div>
                     <div id="mef-form" class="mefForm"></div>
+
+                </div>
+
+                <div id="diff-data-container">
+                    <span>Data Difference</span><br>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label>First Data:&nbsp;</label>
+                            <select id="diff-data-one" class="form-control" style="width: 120px;cursor: pointer"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Second Data:&nbsp;</label>
+                            <select id="diff-data-two" class="form-control" style="width: 120px;cursor: pointer"></select>
+                        </div>
+                        <button type="button" id="diff_btn" class="btn btn-default" style="background-color: black; color: #9d9d9d;">Compare</button>
+                    </form>
+                    <br>
 
                 </div>
 

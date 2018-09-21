@@ -119,6 +119,13 @@ p.copyright {
   overflow-y: auto;
 }
 
+#diff-data-container {
+  height: 100%;
+  padding: 5px;
+  display: none;
+  overflow-y: auto;
+}
+
 #text-data-container {
   height: 100%;
   padding: 5px;
