@@ -6,7 +6,8 @@
  * Time: 15:48
  */
 
-include_once 'UploadHandler.php';
+require_once 'sqldb.php';
+require_once 'UploadHandler.php';
 
 switch ($_POST['op']) {
 
@@ -148,6 +149,48 @@ switch ($_POST['op']) {
 		closedir($src_fs);
 
 		echo json_encode(array('done' => true));
+
+		break;
+
+	case 'translate_address':
+
+		$address = $_POST['address'];
+		$new_address = '';
+
+		// Find City.
+		$sql = "select * from city_translation";
+		$conn->query('SET NAMES UTF8');
+		$result = $conn->query($sql);
+
+		while ($row = $result->fetch_assoc()) {
+			$mail_code = $row['mail_code'];
+			$city_chinese = trim($row['city_chinese']);
+			$city_english = trim($row['city_english']);
+			if (strpos($address, $city_chinese) !== false) {
+				$address = str_replace($city_chinese, '', $address);
+				$new_address .= $city_english . ', ' . $mail_code;
+				break;
+			}
+		}
+
+
+		// Find City.
+		$sql = "select * from street_translation";
+		$conn->query('SET NAMES UTF8');
+		$result = $conn->query($sql);
+
+		while ($row = $result->fetch_assoc()) {
+
+			$street_chinese = trim($row['street_chinese']);
+			$street_english = trim($row['street_english']);
+			if (strpos($address, $street_chinese) !== false) {
+				$address = str_replace($street_chinese, '', $address);
+				$new_address = $street_english . ', ' . $new_address;
+				break;
+			}
+		}
+
+		echo json_encode(array('new_address' => $new_address, 'address' => $address));
 
 		break;
 

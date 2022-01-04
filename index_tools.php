@@ -64,7 +64,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand topnav" href="index_tools.php">Linda - Separate PDF</a>
+			<a class="navbar-brand topnav" href="index_tools.php">Linda - Tools</a>
 		</div>
 	</div>
 	<!-- /.container -->
@@ -80,7 +80,7 @@
 		<ol class="breadcrumb" style="margin-bottom:10px;">
 			<li><a href="#">Home</a></li>
 			<span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal">
-				<i class='glyphicon glyphicon-floppy-open'></i>&nbsp;&nbsp;UPLOAD
+				<i class='glyphicon glyphicon-floppy-open'></i>&nbsp;&nbsp;上傳分割 PDF 檔
 			</span>
 		</ol>
 	</div>
@@ -92,7 +92,17 @@
 		<h3 class="downloadInfo" style="display: none;"><a href="uploadPDF/pdf.zip" target="_blank">下載PDF</a></h3>
 	</div>
 
-	<!-- /#wrapper -->
+	<div id="addressTranslation">
+		<form style="width: 50%;">
+			<div class="form-group">
+				<label for="chineseAddress">翻譯中文地址</label>
+				<input type="text" class="form-control" id="chineseAddress" placeholder="">
+			</div>
+			<button id="addressSubmitBtn" type="button" class="btn btn-default">翻譯</button>
+		</form>
+		<br>
+		<span id="addressResult" class="text-primary" style="font-size: 16px;"></span>
+	</div>
 
 </div>
 
@@ -209,6 +219,21 @@
 			.parent().addClass($.support.fileInput ? undefined : 'disabled');
 
 		//****************************************************************************
+
+		$('#addressSubmitBtn').on('click', function(e){
+			$.ajax({
+				type: 'POST',
+				url: "appphp/separate_pdf_backend.php",
+				data: {op: 'translate_address', address: $('#chineseAddress').val()},
+				dataType: "json",
+				beforeSend: function(){
+
+				},
+				success: function (data) {
+					$('#addressResult').html(data.new_address);
+				}
+			});
+		});
 
 	})
 
