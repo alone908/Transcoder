@@ -18,7 +18,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Linda - Separate PDF</title>
+		<title>Linda - Tools</title>
 
 		<!-- jQuery -->
 		<script src="appjs/jquery-3.2.1.min.js"></script>
@@ -95,13 +95,18 @@
 	<div id="addressTranslation">
 		<form style="width: 50%;">
 			<div class="form-group">
-				<label for="chineseAddress">翻譯中文地址</label>
+				<label for="chineseAddress" style="font-size: 16px; font-weight: bold;">翻譯中文地址</label>
 				<input type="text" class="form-control" id="chineseAddress" placeholder="">
+        <span class="help-block">1. 地址前<span style="color: red;">不要加郵遞區號</span>。例如: <span style="color: red;">260</span>宜蘭縣宜蘭市健康路三段</span>
+        <span class="help-block">2. 若是有<span style="color: red;">沒翻譯的路段</span>，表示可能資料庫中無資料。</span>
+        <span class="help-block">3. <span style="color: red;">免責聲明: </span>翻譯結果僅供參考，東西寄丟不負責。</span>
 			</div>
 			<button id="addressSubmitBtn" type="button" class="btn btn-default">翻譯</button>
 		</form>
 		<br>
 		<span id="addressResult" class="text-primary" style="font-size: 16px;"></span>
+    <br>
+    <span id="unTranslate" class="text-primary" style="font-size: 16px;"></span>
 	</div>
 
 </div>
@@ -227,10 +232,12 @@
 				data: {op: 'translate_address', address: $('#chineseAddress').val()},
 				dataType: "json",
 				beforeSend: function(){
-
+          $('#addressResult').html('');
+          $('#unTranslate').html('');
 				},
 				success: function (data) {
 					$('#addressResult').html(data.new_address);
+          $('#unTranslate').html('<span class="text-danger">未翻譯的部分:</span> ' + data.address);
 				}
 			});
 		});

@@ -14,7 +14,7 @@ switch ($_POST['op']) {
 	case 'upload_pdf':
 
 		$pdfDir = __DIR__ . '/../uploadPDF/';
-		deldir($pdfDir);
+    if(is_dir($pdfDir)) deldir($pdfDir);
 		if(!is_dir($pdfDir)) mkdir($pdfDir, 0777);
 
 		$_FILES['files']['name'][0] = 'pdf.pdf';
@@ -154,8 +154,8 @@ switch ($_POST['op']) {
 
 	case 'translate_address':
 
-		$address = $_POST['address'];
-		$new_address = '';
+		$address = convertNumberToHalf(trim($_POST['address']));
+    $new_address = '';
 
 		// Find City.
 		$sql = "select * from city_translation order by city_english desc";
@@ -181,13 +181,15 @@ switch ($_POST['op']) {
 
 		while ($row = $result->fetch_assoc()) {
 
-			$street_chinese = trim($row['street_chinese']);
+			$street_chinese = convertNumberToHalf(trim($row['street_chinese']));
 			$street_english = trim($row['street_english']);
+
 			if (strpos($address, $street_chinese) !== false) {
 				$address = str_replace($street_chinese, '', $address);
 				$new_address = $street_english . ', ' . $new_address;
 				break;
 			}
+
 		}
 
 		// Find 幾號.
@@ -224,6 +226,11 @@ switch ($_POST['op']) {
 
 }
 
+function convertNumberToHalf($string){
+  // 將數字轉換為半形英數字
+  return str_replace(array('０', '１', '２', '３', '４', '５', '６', '７', '８', '９', '零', '一', '二', '三', '四', '五', '六', '七', '八', '九'), array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), $string);
+
+}
 
 function deldir($dir)
 {
