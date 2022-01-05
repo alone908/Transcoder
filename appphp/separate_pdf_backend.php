@@ -158,7 +158,7 @@ switch ($_POST['op']) {
 		$new_address = '';
 
 		// Find City.
-		$sql = "select * from city_translation";
+		$sql = "select * from city_translation order by city_english desc";
 		$conn->query('SET NAMES UTF8');
 		$result = $conn->query($sql);
 
@@ -175,7 +175,7 @@ switch ($_POST['op']) {
 
 
 		// Find City.
-		$sql = "select * from street_translation";
+		$sql = "select * from street_translation order by street_english desc;";
 		$conn->query('SET NAMES UTF8');
 		$result = $conn->query($sql);
 
@@ -189,6 +189,34 @@ switch ($_POST['op']) {
 				break;
 			}
 		}
+
+		// Find 幾號.
+		$re = '/([0-9]*?)號/m';
+		preg_match_all($re, $address, $matches, PREG_SET_ORDER, 0);
+		if(count($matches) > 0){
+			$address =  preg_replace('/[0-9]*?號/m', '', $address);
+			$new_address = 'No. ' . $matches[0][1] . ', ' .$new_address;
+		}
+
+
+		// Find 幾樓之幾 first.
+		$re = '/([0-9]*?)樓之([0-9]*)/m';
+		preg_match_all($re, $address, $matches, PREG_SET_ORDER, 0);
+		if(count($matches) > 0){
+			$address =  preg_replace('/[0-9]*?樓之[0-9]*/m', '', $address);
+			$new_address = $matches[0][1] . 'F-' . $matches[0][2] . ', ' .$new_address;
+		}
+
+
+		// Find 幾樓.
+		$re = '/([0-9]*?)樓/m';
+		preg_match_all($re, $address, $matches, PREG_SET_ORDER, 0);
+		if(count($matches) > 0){
+			$address =  str_replace('/[0-9]*?樓/m', '', $address);
+			$new_address = $matches[0][1] . 'F, ' .$new_address;
+		}
+
+		$address = trim($address);
 
 		echo json_encode(array('new_address' => $new_address, 'address' => $address));
 
