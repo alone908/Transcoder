@@ -171,7 +171,7 @@
 
 		//***** Upload Course ZIP file **********************
 		$('#fileupload').fileupload({
-			url: 'appphp/separate_pdf_backend.php',
+			url: 'appphp/index_tools_backend.php',
 			dataType: 'json',
 			formData: {op: 'upload_pdf'},
 			autoUpload: true,
@@ -228,7 +228,7 @@
 		$('#addressSubmitBtn').on('click', function(e){
 			$.ajax({
 				type: 'POST',
-				url: "appphp/separate_pdf_backend.php",
+				url: "appphp/index_tools_backend.php",
 				data: {op: 'translate_address', address: $('#chineseAddress').val()},
 				dataType: "json",
 				beforeSend: function(){
@@ -247,7 +247,7 @@
 	function splitPDF() {
 		$.ajax({
 			type: 'POST',
-			url: "appphp/separate_pdf_backend.php",
+			url: "appphp/index_tools_backend.php",
 			data: {op: 'split_pdf'},
 			dataType: "json",
 			beforeSend: function(){
@@ -264,7 +264,7 @@
 	function parsePDF() {
 		$.ajax({
 			type: 'POST',
-			url: "appphp/separate_pdf_backend.php",
+			url: "appphp/index_tools_backend.php",
 			data: {op: 'parse_pdf'},
 			dataType: "json",
 			beforeSend: function(){
@@ -281,7 +281,7 @@
 	function zipPDF() {
 		$.ajax({
 			type: 'POST',
-			url: "appphp/separate_pdf_backend.php",
+			url: "appphp/index_tools_backend.php",
 			data: {op: 'zip_pdf'},
 			dataType: "json",
 			beforeSend: function(){

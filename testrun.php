@@ -24,7 +24,7 @@ while(!feof($file_fs) )
 
 	echo $lineN . ': ' . $chinese . ' ::: ' . $english . '<br>';
 
-	$query = "INSERT INTO `street_translation` (street_chinese,street_english) VALUES ('".mysqli_escape_string($conn, $chinese)."','".mysqli_escape_string($conn, $english)."')";
+	$query = "INSERT INTO `street_translation` (street_chinese, street_chinese_half,street_english) VALUES ('".mysqli_escape_string($conn, $chinese)."','".mysqli_escape_string($conn, convertNumberToHalf($chinese))."','".mysqli_escape_string($conn, $english)."')";
 
 	$conn->query('SET NAMES UTF8');
 	$conn->query($query);
@@ -36,6 +36,10 @@ while(!feof($file_fs) )
 	ob_flush();
 	flush();
 
-//	break;
+}
+
+function convertNumberToHalf($string){
+	// 將數字轉換為半形英數字
+	return str_replace(array('０', '１', '２', '３', '４', '５', '６', '７', '８', '９', '零', '一', '二', '三', '四', '五', '六', '七', '八', '九'), array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), $string);
 
 }
