@@ -93,8 +93,8 @@
 	</div>
 
 	<div id="addressTranslation">
-		<form style="width: 50%;">
-			<div class="form-group">
+
+			<div class="form-group" style="width: 50%;">
 				<label for="chineseAddress" style="font-size: 16px; font-weight: bold;">翻譯中文地址</label>
 				<input type="text" class="form-control" id="chineseAddress" placeholder="">
         <span class="help-block">1. 地址前<span style="color: red;">不要加郵遞區號</span>。例如: <span style="color: red;">260</span>宜蘭縣宜蘭市健康路三段</span>
@@ -102,7 +102,7 @@
         <span class="help-block">3. <span style="color: red;">免責聲明: </span>翻譯結果僅供參考，東西寄丟不負責。</span>
 			</div>
 			<button id="addressSubmitBtn" type="button" class="btn btn-default">翻譯</button>
-		</form>
+
 		<br>
 		<span id="addressResult" class="text-primary" style="font-size: 16px;"></span>
     <br>
@@ -226,23 +226,33 @@
 		//****************************************************************************
 
 		$('#addressSubmitBtn').on('click', function(e){
-			$.ajax({
-				type: 'POST',
-				url: "appphp/index_tools_backend.php",
-				data: {op: 'translate_address', address: $('#chineseAddress').val()},
-				dataType: "json",
-				beforeSend: function(){
-          $('#addressResult').html('');
-          $('#unTranslate').html('');
-				},
-				success: function (data) {
-					$('#addressResult').html(data.new_address);
-          $('#unTranslate').html('<span class="text-danger">未翻譯的部分:</span> ' + data.address);
-				}
-			});
+			translateAddress();
 		});
 
+		$('#chineseAddress').on('keyup', function(e){
+			if(e.keyCode === 13){
+				translateAddress();
+			}
+		})
+
 	})
+
+	function translateAddress() {
+		$.ajax({
+			type: 'POST',
+			url: "appphp/index_tools_backend.php",
+			data: {op: 'translate_address', address: $('#chineseAddress').val()},
+			dataType: "json",
+			beforeSend: function(){
+				$('#addressResult').html('');
+				$('#unTranslate').html('');
+			},
+			success: function (data) {
+				$('#addressResult').html(data.new_address);
+				$('#unTranslate').html('<span class="text-danger">未翻譯的部分:</span> ' + data.address);
+			}
+		});
+	}
 
 	function splitPDF() {
 		$.ajax({

@@ -210,7 +210,15 @@ switch ($_POST['op']) {
 		}
 
 
-		// Find 幾號之幾 first.
+		// Find 幾之幾號 first.
+		$re = '/([0-9]*?)之([0-9]*?)號/m';
+		preg_match_all($re, $address, $matches, PREG_SET_ORDER, 0);
+		if(count($matches) > 0){
+			$address =  preg_replace('/[0-9]*?之[0-9]*?號/m', '', $address);
+			$new_address = 'No. ' . $matches[0][1] . '-' . $matches[0][2] . ', ' .$new_address;
+		}
+
+		// Find 幾號之幾 second.
 		$re = '/([0-9]*?)號之([0-9]*)/m';
 		preg_match_all($re, $address, $matches, PREG_SET_ORDER, 0);
 		if(count($matches) > 0){
