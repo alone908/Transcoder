@@ -7,48 +7,48 @@
  */
 ?>
 
-	<!DOCTYPE html>
-	<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		<title>Linda - Tools</title>
+	<title>Linda - Tools</title>
 
-		<!-- jQuery -->
-		<script src="appjs/jquery-3.2.1.min.js"></script>
-		<script src="appjs/jquery.ui.widget.js"></script>
-		<script src="appjs/jquery-ui.min.js"></script>
-		<script src="appjs/jquery.fileupload.js"></script>
-		<script src="appjs/jquery.fileupload-process.js"></script>
-		<script src="appjs/jquery.fileupload-validate.js"></script>
+	<!-- jQuery -->
+	<script src="appjs/jquery-3.2.1.min.js"></script>
+	<script src="appjs/jquery.ui.widget.js"></script>
+	<script src="appjs/jquery-ui.min.js"></script>
+	<script src="appjs/jquery.fileupload.js"></script>
+	<script src="appjs/jquery.fileupload-process.js"></script>
+	<script src="appjs/jquery.fileupload-validate.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="appjs/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="appjs/bootstrap.min.js"></script>
 
-		<!-- Custom JS -->
-		<script src="js/ruleSelector.js"></script>
-		<script src="js/global_func_of_proj.js"></script>
-		<script src="js/header.js"></script>
+	<!-- Custom JS -->
+	<script src="js/ruleSelector.js"></script>
+	<script src="js/global_func_of_proj.js"></script>
+	<script src="js/header.js"></script>
 
-		<!-- Bootstrap Core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-		<!-- Custom CSS -->
-		<link href="css/jquery.fileupload.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/jquery.fileupload.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 
-		<!-- Custom Fonts -->
-		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-		      type="text/css">
+	<!-- Custom Fonts -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+	      type="text/css">
 
-	</head>
+</head>
 
 <body>
 
@@ -79,36 +79,105 @@
 	<div style="margin-top:60px;">
 		<ol class="breadcrumb" style="margin-bottom:10px;">
 			<li><a href="#">Home</a></li>
-			<span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal">
-				<i class='glyphicon glyphicon-floppy-open'></i>&nbsp;&nbsp;上傳分割 PDF 檔
+			<!--			<span id="import-btn" class="btn btn-black import" data-toggle="modal" data-target="#importModal">-->
+			<!--				<i class='glyphicon glyphicon-floppy-open'></i>&nbsp;&nbsp;上傳分割 PDF 檔-->
+			<!--			</span>-->
+			<span id="import-btn2" class="btn btn-black import" data-toggle="modal" data-target="#importModal2">
+				<i class='glyphicon glyphicon-floppy-open'></i>&nbsp;&nbsp;分割 PDF 檔案
 			</span>
 		</ol>
 	</div>
 
-	<div id="splitPDF">
-		<h3 class="splitInfo" style="display: none;">1. 開始分割PDF頁面到獨立的檔案。 <i class="fa fa-spinner fa-spin"></i></h3>
-		<h3 class="parseInfo" style="display: none;">2. 開始解析PDF頁面內容。 <i class="fa fa-spinner fa-spin"></i></h3>
-		<h3 class="zipInfo" style="display: none;">3. 開始壓縮PDF檔案。 <i class="fa fa-spinner fa-spin"></i></h3>
-		<h3 class="downloadInfo" style="display: none;"><a href="uploadPDF/pdf.zip" target="_blank">下載PDF</a></h3>
-	</div>
+	<div class="row">
 
-	<div id="addressTranslation">
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
 
-			<div class="form-group" style="width: 50%;">
-				<label for="chineseAddress" style="font-size: 16px; font-weight: bold;">翻譯中文地址</label>
-				<input type="text" class="form-control" id="chineseAddress" placeholder="">
-        <span class="help-block">1. 地址前<span style="color: red;">不要加郵遞區號</span>。例如: <span style="color: red;">260</span>宜蘭縣宜蘭市健康路三段</span>
-        <span class="help-block">2. 若是有<span style="color: red;">沒翻譯的路段</span>，表示可能資料庫中無資料。</span>
-        <span class="help-block">3. <span style="color: red;">免責聲明: </span>翻譯結果僅供參考，東西寄丟不負責。</span>
+			<div id="addressTranslation">
+				<div class="form-group">
+					<label for="chineseAddress" style="font-size: 16px; font-weight: bold;">翻譯中文地址</label>
+					<input type="text" class="form-control" id="chineseAddress" placeholder="">
+					<span class="help-block">1. 地址前<span style="color: red;">不要加郵遞區號</span>。例如: <span
+							style="color: red;">260</span>宜蘭縣宜蘭市健康路三段</span>
+					<span class="help-block">2. 若是有<span style="color: red;">沒翻譯的路段</span>，表示可能資料庫中無資料。</span>
+					<span class="help-block">3. <span style="color: red;">免責聲明: </span>翻譯結果僅供參考，東西寄丟不負責。</span>
+				</div>
+				<button id="addressSubmitBtn" type="button" class="btn btn-default">翻譯</button>
+
+				<br>
+				<span id="addressResult" class="text-primary" style="font-size: 16px;"></span>
+				<br>
+				<span id="unTranslate" class="text-primary" style="font-size: 16px;"></span>
 			</div>
-			<button id="addressSubmitBtn" type="button" class="btn btn-default">翻譯</button>
 
-		<br>
-		<span id="addressResult" class="text-primary" style="font-size: 16px;"></span>
-    <br>
-    <span id="unTranslate" class="text-primary" style="font-size: 16px;"></span>
+		</div>
+
+		<div class="col-6 col-sm-6 col-md-6 col-lg-6">
+
+			<div id="splitPDF">
+				<h3 class="splitInfo" style="display: none;">1. 開始分割PDF。 <i class="fa fa-spinner fa-spin"></i></h3>
+				<h3 class="parseInfo" style="display: none;">2. 開始分析PDF內容並且命名檔案。 <i class="fa fa-spinner fa-spin"></i></h3>
+				<h3 class="zipInfo" style="display: none;">3. 開始壓縮PDF檔案。 <i class="fa fa-spinner fa-spin"></i></h3>
+				<h3 class="downloadInfo" style="display: none;"><a href="uploadPDF/pdf.zip" target="_blank">下載PDF</a></h3>
+			</div>
+
+		</div>
 	</div>
+</div>
 
+
+<!-- Import Modal -->
+<div class="modal fade" id="importModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="" style="font-weight:bold;">分割PDF檔案</h4>
+			</div>
+			<div class="modal-body">
+				<span style="font-size:14px;font-weight:bold;">上傳檔案:&nbsp;&nbsp;</span>
+
+				<span id="pdf-upload-btn" class='btn btn-black fileinput-button' style="vertical-align:-2px;">
+          <i class='glyphicon glyphicon-floppy-open'></i>
+          <span>上傳PDF</span>
+          <input class='fileupload' type='file' name='files[]' accept=".pdf"
+                 style='display:block;width:100%;height:100%;cursor:pointer;'>
+        </span>
+				<span id="txt-upload-btn" class='btn btn-black fileinput-button' style="vertical-align:-2px;">
+          <i class='glyphicon glyphicon-floppy-open'></i>
+          <span>上傳TXT</span>
+					<input class='fileupload' type='file' name='files[]' accept=".txt"
+					       style='display:block;width:100%;height:100%;cursor:pointer;'>
+        </span>
+
+				<br><br>
+
+				<!-- The container for the uploaded files -->
+				<div id="pdf-file">
+					<span class="file"></span><br>
+					<div class="progress" style="display:none;">
+						<div class="progress-bar progress-bar-success"></div>
+					</div>
+				</div>
+
+				<br>
+
+				<!-- The container for the uploaded files -->
+				<div id="txt-file">
+					<span class="file"></span><br>
+					<div class="progress" style="display:none;">
+						<div class="progress-bar progress-bar-success"></div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button id="start-upload" type="button" class="btn btn-default">開始上傳</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -128,7 +197,7 @@
           <i class='glyphicon glyphicon-floppy-open'></i>
           <span>Upload</span>
           <input id='fileupload' type='file' name='files[]'
-								 style='display:block;width:100%;height:100%;cursor:pointer;'>
+                 style='display:block;width:100%;height:100%;cursor:pointer;'>
         </span>
 				<br>
 				<!-- The global progress bar -->
@@ -152,7 +221,23 @@
 <script>
 	$(document).ready(function () {
 
-		$('#import-btn').on('click', function(e){
+		$('#import-btn').on('click', function (e) {
+			$('.splitInfo').hide();
+			$('.splitInfo .fa').show();
+			$('.parseInfo').hide();
+			$('.parseInfo .fa').show();
+			$('.zipInfo').hide();
+			$('.zipInfo .fa').show();
+			$('.downloadInfo').hide();
+		});
+
+		$('#importModal').on('hidden.bs.modal', function (e) {
+			$('.progress').css('display', 'none');
+			$('#progress .progress-bar').css('width', '0%');
+			$('#files').html('');
+		});
+
+		$('#import-btn2').on('click', function (e) {
 			$('.splitInfo').hide();
 			$('.splitInfo .fa').show();
 			$('.parseInfo').hide();
@@ -162,15 +247,121 @@
 			$('.downloadInfo').hide();
 		})
 
-		$('#importModal').on('hidden.bs.modal', function (e) {
-			$('.progress').css('display', 'none');
-			$('#progress .progress-bar').css('width', '0%');
-			$('#files').html('');
+		$('#importModal2').on('hidden.bs.modal', function (e) {
+			$('#importModal2 .progress').css('display', 'none');
+			$('#importModal2 .progress .progress-bar').css('width', '0%');
+			$('#pdf-file .file').html('');
+			$('#txt-file .file').html('');
 		})
 
 
-		//***** Upload Course ZIP file **********************
-		$('#fileupload').fileupload({
+		//***** Upload PDF file **********************
+		var uploadDone = {pdf: false, txt: false};
+		var uploadTimer = null;
+		var pdfUpload = null;
+		var txtUpload = null;
+
+		$('#start-upload').click(function (e) {
+			if (pdfUpload !== null && txtUpload !== null) {
+				setUploadTimer();
+				pdfUpload.submit();
+				txtUpload.submit();
+			}
+		});
+
+		function setUploadTimer() {
+			uploadTimer = window.setInterval(function () {
+				if (uploadDone.pdf && uploadDone.txt) {
+					$('#importModal2').modal('hide');
+					$('#importModal2 .progress').css('display', 'none');
+					$('#importModal2 .progress .progress-bar').css('width', '0%');
+					$('#importModal2 .file').html('');
+					clearInterval(uploadTimer);
+					uploadDone = {pdf: false, txt: false};
+					uploadTimer = null;
+					pdfUpload = null;
+					txtUpload = null;
+					splitPDF();
+				}
+			}, 500);
+		}
+
+		$('#pdf-upload-btn').fileupload({
+			url: 'appphp/index_tools_backend.php',
+			dataType: 'json',
+			formData: {op: 'upload_pdf'},
+			autoUpload: false,
+			acceptFileTypes: /(\.|\/)(pdf)$/i,
+			disableImageResize: false,
+			previewMaxWidth: 100,
+			previewMaxHeight: 100,
+			previewCrop: true
+		}).on('fileuploadadd', function (e, data) {
+
+			$('#pdf-file .progress').css('display', 'block');
+			$.each(data.files, function (index, file) {
+				$('#pdf-file .file').html(file.name);
+			});
+
+			pdfUpload = data;
+
+		}).on('fileuploadprocessalways', function (e, data) {
+
+		}).on('fileuploadprogressall', function (e, data) {
+
+			var progress = parseInt(data.loaded / data.total * 100, 10);
+			$('#pdf-file .progress .progress-bar').css('width', progress + '%');
+
+		}).on('fileuploaddone', function (e, data) {
+
+			uploadDone.pdf = true;
+
+		}).on('fileuploadfail', function (e, data) {
+
+		}).prop('disabled', !$.support.fileInput)
+			.parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+		$('#txt-upload-btn').fileupload({
+			url: 'appphp/index_tools_backend.php',
+			dataType: 'json',
+			formData: {op: 'upload_txt'},
+			autoUpload: false,
+			acceptFileTypes: /(\.|\/)(txt)$/i,
+			disableImageResize: false,
+			previewMaxWidth: 100,
+			previewMaxHeight: 100,
+			previewCrop: true
+		}).on('fileuploadadd', function (e, data) {
+
+			$('#txt-file .progress').css('display', 'block');
+			$.each(data.files, function (index, file) {
+				$('#txt-file .file').html(file.name);
+			});
+
+			txtUpload = data;
+
+		}).on('fileuploadprocessalways', function (e, data) {
+
+		}).on('fileuploadprogressall', function (e, data) {
+
+			var progress = parseInt(data.loaded / data.total * 100, 10);
+			$('#txt-file .progress .progress-bar').css('width', progress + '%');
+
+		}).on('fileuploaddone', function (e, data) {
+
+			uploadDone.txt = true;
+
+		}).on('fileuploadfail', function (e, data) {
+
+		}).prop('disabled', !$.support.fileInput)
+			.parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+		//****************************************************************************
+
+
+		//***** Upload PDF file **********************
+		$('#importModal #fileupload').fileupload({
 			url: 'appphp/index_tools_backend.php',
 			dataType: 'json',
 			formData: {op: 'upload_pdf'},
@@ -182,39 +373,22 @@
 			previewCrop: true
 		}).on('fileuploadadd', function (e, data) {
 
-			$('.progress').css('display', 'block');
-			data.context = $('<div id="filelist"/>').appendTo('#files');
-			$.each(data.files, function (index, file) {
-				var node = $('<p/>').append($('<span/>').text('uploading... ' + file.name));
-				if (!index) {
-					node.append('<br>');
-				}
-				node.appendTo(data.context);
-			});
+			$('#importModal .progress').css('display', 'block');
 
 		}).on('fileuploadprocessalways', function (e, data) {
-
-			var index = data.index,
-				file = data.files[index],
-				node = $(data.context.children()[index]);
-
-			if (file.error) {
-				node.append('<br>')
-					.append($('<span class="text-danger"/>').text(file.error));
-			}
 
 		}).on('fileuploadprogressall', function (e, data) {
 
 			var progress = parseInt(data.loaded / data.total * 100, 10);
-			$('#progress .progress-bar').css('width', progress + '%');
+			$('#importModal #progress .progress-bar').css('width', progress + '%');
 
 		}).on('fileuploaddone', function (e, data) {
 
 			setTimeout(function () {
 				$('#importModal').modal('hide');
-				$('.progress').css('display', 'none');
-				$('#progress .progress-bar').css('width', '0%');
-				$('#files').html('');
+				$('#importModal .progress').css('display', 'none');
+				$('#importModal #progress .progress-bar').css('width', '0%');
+				$('#importModal #files').html('');
 				splitPDF();
 			}, 500);
 
@@ -225,12 +399,12 @@
 
 		//****************************************************************************
 
-		$('#addressSubmitBtn').on('click', function(e){
+		$('#addressSubmitBtn').on('click', function (e) {
 			translateAddress();
 		});
 
-		$('#chineseAddress').on('keyup', function(e){
-			if(e.keyCode === 13){
+		$('#chineseAddress').on('keyup', function (e) {
+			if (e.keyCode === 13) {
 				translateAddress();
 			}
 		})
@@ -243,7 +417,7 @@
 			url: "appphp/index_tools_backend.php",
 			data: {op: 'translate_address', address: $('#chineseAddress').val()},
 			dataType: "json",
-			beforeSend: function(){
+			beforeSend: function () {
 				$('#addressResult').html('');
 				$('#unTranslate').html('');
 			},
@@ -260,7 +434,7 @@
 			url: "appphp/index_tools_backend.php",
 			data: {op: 'split_pdf'},
 			dataType: "json",
-			beforeSend: function(){
+			beforeSend: function () {
 				$('.splitInfo').show();
 				$('.splitInfo .fa').show();
 			},
@@ -277,7 +451,7 @@
 			url: "appphp/index_tools_backend.php",
 			data: {op: 'parse_pdf'},
 			dataType: "json",
-			beforeSend: function(){
+			beforeSend: function () {
 				$('.parseInfo').show();
 				$('.parseInfo .fa').show();
 			},
@@ -294,7 +468,7 @@
 			url: "appphp/index_tools_backend.php",
 			data: {op: 'zip_pdf'},
 			dataType: "json",
-			beforeSend: function(){
+			beforeSend: function () {
 				$('.zipInfo').show();
 				$('.zipInfo .fa').show();
 			},
