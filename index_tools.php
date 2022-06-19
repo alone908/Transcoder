@@ -219,6 +219,9 @@
 <?php include_once 'footer.php'; ?>
 
 <script>
+
+	var task = '';
+
 	$(document).ready(function () {
 
 		$('#import-btn').on('click', function (e) {
@@ -264,14 +267,19 @@
 		$('#start-upload').click(function (e) {
 			if (pdfUpload !== null && txtUpload !== null) {
 				setUploadTimer();
+				task = 'linda-split';
 				pdfUpload.submit();
 				txtUpload.submit();
+			} else if (pdfUpload !== null && txtUpload === null) {
+				setUploadTimer();
+				task = 'max-split';
+				pdfUpload.submit();
 			}
 		});
 
 		function setUploadTimer() {
 			uploadTimer = window.setInterval(function () {
-				if (uploadDone.pdf && uploadDone.txt) {
+				if ((task === 'linda-split' && uploadDone.pdf && uploadDone.txt) || (task === 'max-split' && uploadDone.pdf)) {
 					$('#importModal2').modal('hide');
 					$('#importModal2 .progress').css('display', 'none');
 					$('#importModal2 .progress .progress-bar').css('width', '0%');
@@ -440,7 +448,11 @@
 			},
 			success: function (data) {
 				$('.splitInfo .fa').hide();
-				parsePDF();
+				if (task === 'linda-split') {
+					parsePDF();
+				} else if (task === 'max-split') {
+					zipPDF();
+				}
 			}
 		});
 	}

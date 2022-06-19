@@ -37,7 +37,7 @@ switch ($_POST['op']) {
 		$_FILES['files']['name'][0] = 'pdf.txt';
 		$upload_handler = new UploadHandler(array('upload_dir' => '../uploadPDF/'));
 
-		file_put_contents($txtDir . '/pdf.txt', str_replace("\r", "\n", file_get_contents($txtDir . '/pdf.txt')));
+		file_put_contents($txtDir . '/pdf.txt', str_replace("\r\n", "\n", file_get_contents($txtDir . '/pdf.txt')));
 
 		echo json_encode($upload_handler->response);
 
