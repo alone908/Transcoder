@@ -57,12 +57,62 @@ switch ($_POST['op']) {
 		$pdf_folder = __DIR__ . '/../uploadPDF';
 
 		// Pare pdf content text file and rename pdf files. ------------------------------
+
+		$file = $pdf_folder . '/pdf.txt';
+
+		$contents = file_get_contents($file);
+		$contents = explode('電子發票證明聯', $contents);
+		$contents = array_filter($contents, function ($line) {
+			return trim($line) !== '';
+		});
+
+		foreach ($contents as $page => $content) {
+
+			// Get company number
+			if (strpos($content, '統一編號') !== false) {
+				preg_match_all('/([0-9]*?)第/m', $content, $matches, PREG_SET_ORDER, 0);
+				$company_n = $matches[0][1];
+			}
+
+			// Get Date and Product.
+			if (strpos($content, '品名數量單價金額備註') !== false) {
+
+				preg_match_all('/品名數量單價金額備註(.*?處理費.*?)[0-9]/m', $content, $matches, PREG_SET_ORDER, 0);
+
+				$part = $matches[0][1];
+
+				$date = substr($part, 0, 7) . '01';
+				$date = new DateTime($date);
+				$month = $date->format('m');
+
+				$product_name = preg_replace('/[0-9]|,/', '', $part);
+				$product_name = trim($product_name);
+				$product_name = trim($product_name, '-');
+				$product_name = preg_replace('/\s/', '-', $product_name);
+
+				if (strpos($product_name, '行銷費用') !== false) {
+					$new_file_name = $month . '月份_累點發票_' . $company_n;
+				} else if (strpos($product_name, '行銷獎勵回饋') !== false) {
+					$new_file_name = $month . '月份_兌點手續費發票_' . $company_n;
+				} else {
+					$new_file_name = $product_name . '_' . $page;
+				}
+
+			}
+
+			if (is_file($pdf_folder . '/pdf-' . $page . '.pdf')) {
+				rename($pdf_folder . '/pdf-' . $page . '.pdf', $pdf_folder . '/' . $new_file_name . '.pdf');
+			}
+
+		}
+
+		/*
 		$page = 0;
 		$company_n = '';
 		$new_file_name = '';
 
-		$file = $pdf_folder . '/pdf.txt';
 		$file_fs = fopen($file, "r");
+
 		while (!feof($file_fs)) {
 
 			$line = fgets($file_fs);
@@ -112,7 +162,7 @@ switch ($_POST['op']) {
 			}
 
 		}
-		fclose($file_fs);
+		fclose($file_fs);*/
 
 		unlink($pdf_folder . '/pdf.pdf');
 		unlink($pdf_folder . '/pdf.txt');
