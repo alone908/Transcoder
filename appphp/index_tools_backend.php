@@ -68,6 +68,8 @@ switch ($_POST['op']) {
 
 		foreach ($contents as $page => $content) {
 
+			$content = preg_replace('/\n/m', '', $content);
+
 			// Get company number
 			if (strpos($content, '統一編號') !== false) {
 				preg_match_all('/([0-9]*?)第/m', $content, $matches, PREG_SET_ORDER, 0);
@@ -77,11 +79,11 @@ switch ($_POST['op']) {
 			// Get Date and Product.
 			if (strpos($content, '品名數量單價金額備註') !== false) {
 
-				preg_match_all('/品名數量單價金額備註(.*?處理費.*?)[0-9]/m', $content, $matches, PREG_SET_ORDER, 0);
+				preg_match_all('/品名數量單價金額備註.*?([0-9]*?處理費.*?)[0-9]/m', $content, $matches, PREG_SET_ORDER, 0);
 
 				$part = $matches[0][1];
 
-				$date = substr($part, 0, 7) . '01';
+				$date = substr($part, 0, 6) . '01';
 				$date = new DateTime($date);
 				$month = $date->format('m');
 
